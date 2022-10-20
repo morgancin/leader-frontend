@@ -1,0 +1,179 @@
+{
+    "add_user": {
+        "add_user": "Agregar Usuario",
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "password_confirmation": "Confirmación de Contraseña",
+        "btn_prev": "Anterior",
+        "btn_cancel": "Cancelar",
+        "btn_save": "Guardar",
+        "registration_success": "¡Registro exitoso!",
+        "check_success": "¡El usuario fue creado exitosamente!",
+        "registration_failed": "¡Registro fallido!",
+        "check_failed": "Por favor revise el formulario."
+    },
+    "add-prospect": {
+        "prospect": "Prospecto",
+        "prospect-details": "Detalles del Prospecto",
+        "prospect-address": "Dirección del Prospecto",
+        "activity": "Actividad del Prospecto"
+    },
+    "add_prospect_details": {
+        "profile": "Perfil",
+        "first_name": "Nombre",
+        "last_name": "Apellido Paterno",
+        "second_last_name": "Apellido Materno",
+        "place_of_birth": "Lugar de nacimiento",
+        "birth_date": "Fecha de nacimiento",
+        "age": "Edad",
+        "gender": "Género",
+        "female": "Femenino",
+        "male": "Masculino",
+        "email": "Correo Electrónico",
+        "mobile_phone": "Teléfono Celular",
+        "home_phone": "Teléfono de Casa",
+        "office_phone": "Teléfono de Oficina",
+        "extension_phone": "Extensión",
+        "service_priority": "Prioridad del Servicio",
+
+        "origin": "Origen",
+        "medium": "Medio",
+
+        "btn_prev": "Siguiente"
+    },
+    "add_prospect_address": {
+        "address": "Dirección",
+        "zip_code": "Código Postal",
+        "street": "Calle",
+        "outdoor": "Número Exterior",
+        "indoor": "Número Interior",
+        "suburb": "Colonia",
+        "town": "Municipio - Alcaldía",
+        "city": "Ciudad",
+        "state": "Estado",
+        "country": "País",
+
+        "btn-prev": "Anterior",
+        "btn-next": "Siguiente"
+    },
+    "add_prospect_activity": {
+        "activity": "Tipo de Actividad",
+        "subject": "Tema",
+        "start_date_activity": "Día que Inicia la Actividad",
+        "start_time": "Hora de Inicio",
+        "end_date_activity": "Día que Finaliza la Actividad",
+        "end_time": "Hora Final",
+        "comments": "Comentarios",
+        "btn_prev": "Anterior",
+        "btn_cancel": "Cancelar",
+        "btn_save": "Guardar"
+    },
+    "catalogs_activities":{
+        "list_activities": "Lista de Actividades",
+        "btn_add_new_activities": "Crear Nueva Actividad"
+    },
+    "add_catalog_activity":{
+        "activity_type": "Tipo de Actividad",
+        "btn_prev": "Anterior",
+        "btn_cancel": "Cancelar",
+        "btn_save": "Guardar",
+        "registration_success": "¡Registro exitoso!",
+        "check_success": "¡El usuario fue creado exitosamente!",
+        "registration_failed": "¡Registro fallido!",
+        "check_failed": "Por favor revise el formulario."
+    },
+
+    "catalogs_subjects":{
+        "list_subjects": "Lista Asignatura",
+        "btn_add_new_subjects": "Crear Nueva Asignatura"
+    },
+    "add_catalog_subject":{
+        "subject_type": "Tipo de Asignatura",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar"
+    },
+
+    "catalogs_origins":{
+        "list_origins": "Lista de Origen",
+        "btn_add_new_origins": "Crear Nuevo Origen"
+    },
+    "add_catalog_origin":{
+        "origin_type": "Tipo de Origen",
+        "btn_save": "Guardar"
+    },
+
+    "companies": {
+        "companies": "Compañías",
+        "btn-add-new-companies": "Crear Nueva Compañía"
+    },
+    "add_companies": {
+        "add_company": "Agregar Compañía",
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "password_confirmation": "Confirmación de Contraseña",
+        "zip_code": "Código Postal",
+        "state": "Estado",
+        "city": "Ciudad",
+        "select_option": "Seleccione una Opcion",
+        "btn_prev": "Regresar",
+        "btn_cancel": "Cancelar",
+        "btn_save": "Guardar",
+        "registration_success": "¡Registro exitoso!",
+        "check_success": "¡La compañía fue creado exitosamente!",
+        "registration_failed": "¡Registro fallido!",
+        "check_failed": "Por favor revise el formulario."
+    },
+    "company-users": {
+        "users": "Usuarios de Compañía",
+        "btn-add-new-company-user": "Crear Nuevo Usuario de Compañía"
+    },
+    "add_company_user": {
+        "add_company_user": "Agregar Usuario de Compañía",
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "password_confirmation": "Confirmación de Contraseña",
+        "btn_prev": "Regresar",
+        "btn_cancel": "Cancelar",
+        "btn_save": "Guardar",
+        "registration_success": "¡Registro exitoso!",
+        "check_success": "¡El usuario de la compañía fue creado exitosamente!",
+        "registration_failed": "¡Registro fallido!",
+        "check_failed": "Por favor revise el formulario."
+    },
+    "login":{
+        "title": "Iniciar Sesión",
+        "placeholderEmail": "Correo electrónico",
+        "placeholderPassword": "Contraseña",
+        "remember": "Recordar",
+        "forgot": "¿Olvidaste tu contraseña?",
+        "login":"Acceso"
+    },
+    "settings":{
+        "language": "Selecciona Lenguaje"
+    },
+    "side-menu":{
+        "users": "Usuarios",
+        "prospects": "Prospectos",
+        "companies": "Compañías",
+        "company-users": "Usuarios de Compañias",
+        "settings": "Configuración",
+        "settings-languages": "Lenguajes",
+        "settings-catalogs": "Catálogos",
+        "settings-catalogs-activity": "Actividades",
+        "settings-catalogs-subjects": "Asuntos",
+        "settings-catalogs-origin": "Orígenes",
+        "settings-catalogs-medium": "Medios",
+        "settings-catalogs-tags": "Etiquetas"
+    },
+    "prospects": {
+        "prospects": "Prospectos",
+        "btn-add-new-prospect": "Crear Nuevo Prospecto"
+    },
+    "users": {
+        "users": "Usuarios",
+        "btn-add-new-user": "Crear Nuevo Usuario"
+    }
+}

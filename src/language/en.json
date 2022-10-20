@@ -1,0 +1,178 @@
+{
+    "add_user": {
+        "add_user": "Add User",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "password_confirmation": "Password Confirmation",
+        "btn_prev": "Previous",
+        "btn_cancel": "Cancel",
+        "btn_save": "Save",
+        "registration_success": "Registration success!",
+        "check_success": "The user was created successfully!",
+        "registration_failed": "Registration failed!",
+        "check_failed": "Please check the fileld form."
+    },
+    "add-prospect": {
+        "prospect": "Prospect",
+        "prospect-details": "Prospect Details",
+        "prospect-address": "Prospect Address",
+        "activity": "Prospect Activity"
+    },
+    "add_prospect_details": {
+        "profile": "Profile",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "second_last_name": "Second Last Name",
+        "place_of_birth": "Place of Birth",
+        "birth_date": "Birth Date",
+        "age": "Age",
+        "gender": "Gender",
+        "female": "Female",
+        "male": "Male",
+        "email": "Email",
+        "mobile_phone": "Mobile Phone",
+        "home_phone": "Home Phone",
+        "office_phone": "Office Phone",
+        "extension_phone": "Extension Phone",
+        "service_priority": "Service Priority",
+
+        "origin": "Origin",
+        "medium": "Medium",
+
+        "btn_prev": "Next"
+    },
+    "add_prospect_address": {
+        "address": "Address",
+        "zip_code": "Zip Code",
+        "street": "Street",
+        "outdoor": "Outdoor",
+        "indoor": "Indoor",
+        "suburb": "Suburb",
+        "town": "Town",
+        "city": "City",
+        "state": "State",
+        "country": "Country",
+
+        "btn-prev": "Previous",
+        "btn-next": "Next"
+    },
+    "add_prospect_activity": {
+        "activity": "Activity",
+        "subject": "Subject",
+        "start_date_activity": "Start Date Activity",
+        "start_time": "Start Time",
+        "end_date_activity": "End Date Activity",
+        "end_time": "End Time",
+        "comments": "Comments",
+        "btn_prev": "Previous",
+        "btn_save": "Save"
+    },
+    "catalogs_activities":{
+        "list_activities": "List Activities",
+        "btn_add_new_activities": "Create New Activity"
+    },
+    "add_catalog_activity":{
+        "activity_type": "Activity Type",
+        "btn_prev": "Previous",
+        "btn_cancel": "Cancel",
+        "btn_save": "Save",
+        "registration_success": "Registration success!",
+        "check_success": "The user was created successfully!",
+        "registration_failed": "Registration failed!",
+        "check_failed": "Please check the fileld form."
+    },
+
+    "catalogs_subjects":{
+        "list_subjects": "List Subjects",
+        "btn_add_new_subjects": "Create New Subject"
+    },
+    "add_catalog_subject":{
+        "subject_type": "Subject Type",
+        "btn_prev": "Previous",
+        "btn_save": "Save"
+    },
+
+    "catalogs_origins":{
+        "list_origins": "List Origin",
+        "btn_add_new_origins": "Create New Origin"
+    },
+    "add_catalog_origin":{
+        "origin_type": "Origin Type",
+        "btn_save": "Save"
+    },
+
+    "companies": {
+        "companies": "Companies",
+        "btn-add-new-companies": "Create New Company"
+    },
+    "add_companies": {
+        "add_company": "Add Company",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "password_confirmation": "Password Confirmation",
+        "zip_code": "Zip Code",
+        "state": "State",
+        "city": "City",
+        "select_option": "Select Options",
+        "btn_prev": "Previous",
+        "btn_cancel": "Cancel",
+        "btn_save": "Save",
+        "registration_success": "Registration success!",
+        "check_success": "The company was created successfully!",
+        "registration_failed": "Registration failed!",
+        "check_failed": "Please check the fileld form."
+    },
+    "company-users": {
+        "users": "Company User",
+        "btn-add-new-company-user": "Create New Company User"
+    },
+    "add_company_user": {
+        "add_company_user": "Add Company User",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "password_confirmation": "Password Confirmation",
+        "btn_prev": "Previous",
+        "btn_cancel": "Cancel",
+        "btn_save": "Save",
+        "registration_success": "Registration success!",
+        "check_success": "The company user was created successfully!",
+        "registration_failed": "Registration failed!",
+        "check_failed": "Please check the fileld form."
+    },
+    "login":{
+        "title": "Sign In",
+        "placeholderEmail": "Email",
+        "placeholderPassword": "Password",
+        "remember": "Remember me",
+        "forgot": "Forgot Password?",
+        "login":"Login"
+    },
+    "settings":{
+        "language": "Languages Select"
+    },
+    "side-menu":{
+        "users": "Users",
+        "prospects": "Prospects",
+        "companies": "Companies",
+        "company-users": "Company Users",
+        "settings": "Settings",
+        "settings-languages": "Languages",
+        "settings-catalogs": "Catalogs",
+        "settings-catalogs-activity": "Activity",
+        "settings-catalogs-subjects": "Subjects",
+        "settings-catalogs-origin": "Origin",
+        "settings-catalogs-medium": "Medium",
+        "settings-catalogs-tags": "Tags"
+    },
+    "prospects": {
+        "prospects": "Prospects",
+        "btn-add-new-prospect": "Create New Prospect"
+    },
+    "users": {
+        "users": "Users",
+        "btn-add-new-user": "Create New User"
+    }
+}
