@@ -13,7 +13,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             second_last_name:null,
             client_origin:null,         //Se recupera con base a client_medium_origin_id
             client_medium_origin_id:null,
-
+            
             age:null,
             rfc:null,
             curp:null,
@@ -57,7 +57,15 @@ export const useProspectsStore = defineStore("ProspectsStore", {
                 this.message = error.message;
             })
         },
-
+        async fetchProspect(id) {
+            axiosClient.get(`/clients/client/${id}`)
+            .then (({data}) => {
+                this.prospect = data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
         async fetchOrigins() {
             let result = [];
 

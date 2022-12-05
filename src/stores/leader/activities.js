@@ -6,11 +6,14 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
         step : 1,
         message: null,
         activities: [],
+        activity_information: {
+            client: null,
+            type: null,
+            subject: null,
+        },
         activity: {
             comments: '',
-            user_id: null,
-            //client_id: null,
-            activity_type_id: null,
+            client_id: null,
             activity_subject_id: null,
 
             end_date: new Date().toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' }),
@@ -27,6 +30,21 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
         },
     }),
     actions: {
+        async createActivity() {
+            this.activity.end_time = this.activity.end_time.hours + ':' + this.activity.end_time.minutes;
+            this.activity.start_time = this.activity.start_time.hours + ':' + this.activity.start_time.minutes;
+            this.activity.end_date = new Date(this.activity.end_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
+            this.activity.start_date = new Date(this.activity.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
+            this.activity.activity_date = new Date(this.activity.activity_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
+
+            axiosClient.post('/activities/create', this.activity)
+            .then (({data}) => {
+                return data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
         async fetchActivitiesTypes() {
             let result = [];
             
@@ -41,6 +59,18 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             })
 
             return result;
+        },
+        async fetchActivity(id) {
+            axiosClient.get(`/activities/activity/${id}`)
+            .then (({data}) => {
+                this.activity = data.data;
+                this.activity_information.client = data.data.client.full_name;
+                this.activity_information.subject = data.data.activity_subject.name;
+                this.activity_information.type = data.data.activity_subject.activity_type.name;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
         },
         async fetchActivitiesSubjects() {
             let result = [];

@@ -17,8 +17,8 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
                 this.message = error.message;
             })
         },
+        /*
         async fetchActivitySubject() {
-            //EL 1 SE SUSTITUYE POR id_activity_type
             axiosClient.get('/activities/subjects/list')
             .then (({data}) => {
                 //return data;
@@ -27,7 +27,38 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
             .catch(function (error) {
                 this.message = error.message;
             })
-        }
+        },
+        */
+        async fetchActivitiesSubjects() {
+            axiosClient.get('/activities/subjects/list')
+            .then (({data}) => {
+                //return data;
+                this.subject = data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async fetchActivitySubject(id) {
+            axiosClient.get(`/activities/subjects/activity-subject/${id}`)
+            .then (({data}) => {
+                //return data;
+                this.subject = data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async updateActivitySubject() {
+            axiosClient.patch(`/activities/subjects/update/${this.subject.id}`, this.subject)
+            .then (({data}) => {
+                //this.activity_type = data.result;
+                this.message = data.message;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
     }
 
 })

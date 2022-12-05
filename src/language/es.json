@@ -19,6 +19,9 @@
         "prospect-address": "Dirección del Prospecto",
         "activity": "Actividad del Prospecto"
     },
+    "add-activity": {
+        "activity": "Reprogramar"
+    },
     "add_prospect_details": {
         "profile": "Perfil",
         "first_name": "Nombre",
@@ -59,7 +62,7 @@
     },
     "add_prospect_activity": {
         "activity": "Tipo de Actividad",
-        "subject": "Tema",
+        "subject": "Asunto",
         "start_date_activity": "Día que Inicia la Actividad",
         "start_time": "Hora de Inicio",
         "end_date_activity": "Día que Finaliza la Actividad",
@@ -74,7 +77,9 @@
         "btn_add_new_activities": "Crear Nueva Actividad"
     },
     "add_catalog_activity":{
+        "activity": "Actividades",
         "activity_type": "Tipo de Actividad",
+        "activity_name": "Nombre",
         "btn_prev": "Anterior",
         "btn_cancel": "Cancelar",
         "btn_save": "Guardar",
@@ -83,29 +88,124 @@
         "registration_failed": "¡Registro fallido!",
         "check_failed": "Por favor revise el formulario."
     },
-
     "catalogs_subjects":{
         "list_subjects": "Lista Asignatura",
         "btn_add_new_subjects": "Crear Nueva Asignatura"
     },
     "add_catalog_subject":{
-        "subject_type": "Tipo de Asignatura",
+        "subject": "Asuntos",
+        "subject_type": "Tipo de asunto",
+        "subject_name": "Nombre",
         "btn_prev": "Anterior",
         "btn_save": "Guardar"
     },
-
+    "add_tags":{
+        "tags": "Etiquetas",
+        "tag_type": "Tipo etiqueta",
+        "tag_name": "Nombre",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_tags": "Nueva Etiqueta"
+    },
+    "add_prices":{
+        "prices": "Precios",
+        "price_price": "Precio",
+        "price_currency": "Divisa",
+        "price_product": "Producto",
+        "price_price_list": "Lista de precios",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_price": "Nueva Etiqueta"
+    },
+    "add_activities":{
+        "activities": "Actividades",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_activity": "Nueva actividad"
+    },
+    "add_catalog_activity_result":{
+        "activity_result": "Resultados de actividades",
+        "activity_result_type": "Tipo",
+        "activity_result_name": "Nombre",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_activity_result": "Nuevo resultado de actividad"
+    },
+    "add_origin_medium":{
+        "origin_medium": "Medios de orígenes",
+        "origin_medium_name": "Nombre medio",
+        "origin_medium_origin": "Origen",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar"
+    },
+    "add_currencies":{
+        "currencies": "Divisas",
+        "currency_name": "Nombre",
+        "currency_code": "Código",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_currency": "Nueva Divisa"
+    },
+    "add_products":{
+        "products": "Productos",
+        "product_name": "Nombre",
+        "product_sku": "Sku",
+        "product_quantity": "Cantidad",
+        "product_category": "Categoría",
+        "product_description": "Descripción",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_product": "Nuevo producto"
+    },
+    "add_categories":{
+        "categories": "Categorías",
+        "category_name": "Nombre",
+        "category_list": "Categorías",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_category": "Nueva categoría"
+    },
+    "add_price_lists":{
+        "price_lists": "Lista de precios",
+        "price_lists_name": "Nombre",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_price_list": "Nueva lista de precio"
+    },
+    "add_activity_finalize":{
+        "activity_finalize": "Finalizar actividad",
+        "activity_finalize_activity_result": "Resultado de la actividad",
+        "label_type": "Tipo",
+        "label_date": "Fecha",
+        "label_subject": "Asunto",
+        "label_prospect": "Prospecto",
+        "observations": "Observaciones",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar"
+    },
     "catalogs_origins":{
         "list_origins": "Lista de Origen",
-        "btn_add_new_origins": "Crear Nuevo Origen"
+        "btn_add_new_origins": "Nuevo Origen"
     },
     "add_catalog_origin":{
-        "origin_type": "Tipo de Origen",
-        "btn_save": "Guardar"
+        "origins": "Orígenes",
+        "origin_name": "Nombre",
+        "btn_save": "Guardar",
+        "btn_prev": "Anterior"
     },
-
     "companies": {
         "companies": "Compañías",
-        "btn-add-new-companies": "Crear Nueva Compañía"
+        "btn-add-new-companies": "Nueva Compañía"
     },
     "add_companies": {
         "add_company": "Agregar Compañía",
@@ -156,17 +256,24 @@
     },
     "side-menu":{
         "users": "Usuarios",
-        "prospects": "Prospectos",
+        "prices": "Precios",
+        "categories": "Categorías",
+        "products": "Products",
+        "currencies": "Divisas",
         "companies": "Compañías",
-        "company-users": "Usuarios de Compañias",
+        "prospects": "Prospectos",
+        "activities": "Actividades",
         "settings": "Configuración",
-        "settings-languages": "Lenguajes",
         "settings-catalogs": "Catálogos",
+        "settings-languages": "Lenguajes",
+        "company-users": "Usuarios de Compañias",
+        "settings-price-lists": "Lista de precios",
         "settings-catalogs-activity": "Actividades",
         "settings-catalogs-subjects": "Asuntos",
         "settings-catalogs-origin": "Orígenes",
         "settings-catalogs-medium": "Medios",
-        "settings-catalogs-tags": "Etiquetas"
+        "settings-catalogs-tags": "Etiquetas",
+        "settings-activities-results": "Resultados actividades"
     },
     "prospects": {
         "prospects": "Prospectos",

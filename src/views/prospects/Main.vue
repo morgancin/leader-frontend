@@ -1,11 +1,12 @@
 <template>
-  <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">{{ $t('prospects.prospects') }}</h2>
-    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <router-link class="btn btn-primary shadow-md mr-2" :to="`/add-prospect`">{{ $t('prospects.btn-add-new-prospect') }}</router-link>
+  <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
+    <h2 class="mr-auto text-lg font-medium">{{ $t('prospects.prospects') }}</h2>
+    
+    <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-prospect`">{{ $t('prospects.btn-add-new-prospect') }}</router-link>
       <Dropdown class="ml-auto sm:ml-0">
-        <DropdownToggle class="btn px-2 box">
-          <span class="w-5 h-5 flex items-center justify-center">
+        <DropdownToggle class="px-2 btn box">
+          <span class="flex items-center justify-center w-5 h-5">
             <PlusIcon class="w-4 h-4" />
           </span>
         </DropdownToggle>
@@ -22,59 +23,55 @@
       </Dropdown>
     </div>
   </div>
+
   <!-- BEGIN: HTML Table Data -->
-  <div class="intro-y box p-5 mt-5">
+  <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
-        <div class="sm:flex items-center sm:mr-4">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-            >Field</label
-          >
+        <div class="items-center sm:flex sm:mr-4">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Field</label>
+          
           <select
-            id="tabulator-html-filter-field"
-            v-model="filter.field"
-            class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto"
-          >
-            <option value="name">Name</option>
-            <option value="category">Category</option>
-            <option value="remaining_stock">Remaining Stock</option>
+              v-model="filter.field"
+              id="tabulator-html-filter-field"
+              class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto">
+                <option value="name">Name</option>
+                <option value="category">Category</option>
+                <option value="remaining_stock">Remaining Stock</option>
           </select>
         </div>
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-            >Type</label
-          >
+
+        <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Type</label>
           <select
-            id="tabulator-html-filter-type"
             v-model="filter.type"
-            class="form-select w-full mt-2 sm:mt-0 sm:w-auto"
-          >
-            <option value="like" selected>like</option>
-            <option value="=">=</option>
-            <option value="<">&lt;</option>
-            <option value="<=">&lt;=</option>
-            <option value=">">></option>
-            <option value=">=">>=</option>
-            <option value="!=">!=</option>
+            id="tabulator-html-filter-type"
+            class="w-full mt-2 form-select sm:mt-0 sm:w-auto">
+              <option value="like" selected>like</option>
+              <option value="=">=</option>
+              <option value="<">&lt;</option>
+              <option value="<=">&lt;=</option>
+              <option value=">">></option>
+              <option value=">=">>=</option>
+              <option value="!=">!=</option>
           </select>
         </div>
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-            >Value</label
-          >
+        
+        <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Value</label>
           <input
-            id="tabulator-html-filter-value"
-            v-model="filter.value"
             type="text"
-            class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0"
-            placeholder="Search..."
-          />
+            v-model="filter.value"
+            id="tabulator-html-filter-value"
+            class="mt-2 form-control sm:w-40 2xl:w-full sm:mt-0"
+            placeholder="Search..."/>
         </div>
+        
         <div class="mt-2 xl:mt-0">
           <button
             id="tabulator-html-filter-go"
             type="button"
-            class="btn btn-primary w-full sm:w-16"
+            class="w-full btn btn-primary sm:w-16"
             @click="onFilter"
           >
             Go
@@ -82,7 +79,7 @@
           <button
             id="tabulator-html-filter-reset"
             type="button"
-            class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1"
+            class="w-full mt-2 btn btn-secondary sm:w-16 sm:mt-0 sm:ml-1"
             @click="onResetFilter"
           >
             Reset
@@ -92,13 +89,13 @@
       <div class="flex mt-5 sm:mt-0">
         <button
           id="tabulator-print"
-          class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"
+          class="w-1/2 mr-2 btn btn-outline-secondary sm:w-auto"
           @click="onPrint"
         >
           <PrinterIcon class="w-4 h-4 mr-2" /> Print
         </button>
         <Dropdown class="w-1/2 sm:w-auto">
-          <DropdownToggle class="btn btn-outline-secondary w-full sm:w-auto">
+          <DropdownToggle class="w-full btn btn-outline-secondary sm:w-auto">
             <FileTextIcon class="w-4 h-4 mr-2" /> Export
             <ChevronDownIcon class="w-4 h-4 ml-auto sm:ml-2" />
           </DropdownToggle>
@@ -133,465 +130,126 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-// import xlsx from "xlsx";
-import { createIcons, icons } from "lucide";
-import Tabulator from "tabulator-tables";
-import dom from "@left4code/tw-starter/dist/js/dom";
+  // import xlsx from "xlsx";
+  //import Tabulator from "tabulator-tables";
+  //import {Tabulator} from 'tabulator-tables';
+  import { ref, reactive, onMounted } from "vue";
+  import {TabulatorFull as Tabulator} from 'tabulator-tables';
+  import { createIcons, icons } from "lucide";
+  import dom from "@left4code/tw-starter/dist/js/dom";
 
-const tableRef = ref();
-const tabulator = ref();
-const filter = reactive({
-  field: "name",
-  type: "like",
-  value: "",
-});
-
-const imageAssets = import.meta.globEager(
-  `/src/assets/images/*.{jpg,jpeg,png,svg}`
-);
-const initTabulator = () => {
-  tabulator.value = new Tabulator(tableRef.value, {
-    // ajaxURL: "https://dummy-data.left4code.com",
-    ajaxURL: "https://api.leader.arkanmedia.com/api/clients/list",
-    ajaxConfig:{
-      method:"GET",
-      headers: {
-        "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
-      },
-    },
-    ajaxFiltering: true,
-    ajaxSorting: true,
-    printAsHtml: true,
-    printStyled: true,
-    // pagination: "remote",
-    // paginationSize: 10,
-    // paginationSizeSelector: [10, 20, 30, 40],
-    layout: "fitColumns",
-    responsiveLayout: "collapse",
-    placeholder: "No matching records found",
-    columns: [
-      {
-        formatter: "responsiveCollapse",
-        width: 40,
-        minWidth: 30,
-        hozAlign: "center",
-        resizable: false,
-        headerSort: false,
-      },
-
-      // For HTML table
-      {
-        title: "FIRST NAME",
-        minWidth: 200,
-        responsive: 0,
-        field: "firstname",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-       {
-        title: "LAST NAME",
-        minWidth: 200,
-        // responsive: 0,
-        field: "lastname",
-        hozAlign: "center",
-        vertAlign: "middle",
-        print: true,
-        download: true,
-      },
-      {
-        title: "EMAIL",
-        minWidth: 200,
-        // responsive: 0,
-        field: "email",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "GENDER",
-        minWidth: 200,
-        // responsive: 0,
-        field: "gender",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "AGE",
-        minWidth: 200,
-        // responsive: 0,
-        field: "age",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "STATE",
-        minWidth: 200,
-        // responsive: 0,
-        field: "state",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "CITY",
-        minWidth: 200,
-        // responsive: 0,
-        field: "city",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      
-      {
-        title: "PROFESSION",
-        minWidth: 200,
-        // responsive: 0,
-        field: "profession",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "OFFICE PHONE",
-        minWidth: 200,
-        // responsive: 0,
-        field: "officephone",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "RFC",
-        minWidth: 200,
-        // responsive: 0,
-        field: "rfc",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "CURP",
-        minWidth: 200,
-        // responsive: 0,
-        field: "curp",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "SERVICE PRIORITY",
-        minWidth: 200,
-        // responsive: 0,
-        field: "servicepriority",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      {
-        title: "PROSPECT ORIGIN",
-        minWidth: 200,
-        // responsive: 0,
-        field: "prospectingorigin",
-        hozAlign: "center",
-        vertAlign: "middle",
-         print: true,
-        download: true,
-      },
-      
-
-
-      // {
-      //   title: "PRODUCT NAME",
-      //   minWidth: 200,
-      //   responsive: 0,
-      //   field: "name",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter(cell) {
-      //     return `<div>
-      //           <div class="font-medium whitespace-nowrap">${
-      //             cell.getData().name
-      //           }</div>
-      //           <div class="text-slate-500 text-xs whitespace-nowrap">${
-      //             cell.getData().category
-      //           }</div>
-      //         </div>`;
-      //   },
-      // },
-      // {
-      //   title: "IMAGES",
-      //   minWidth: 200,
-      //   field: "images",
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter(cell) {
-      //     return `<div class="flex lg:justify-center">
-      //             <div class="intro-x w-10 h-10 image-fit">
-      //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-      //                 imageAssets[
-      //                   "/src/assets/images/" + cell.getData().images[0]
-      //                 ].default
-      //               }">
-      //             </div>
-      //             <div class="intro-x w-10 h-10 image-fit -ml-5">
-      //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-      //                 imageAssets[
-      //                   "/src/assets/images/" + cell.getData().images[1]
-      //                 ].default
-      //               }">
-      //             </div>
-      //             <div class="intro-x w-10 h-10 image-fit -ml-5">
-      //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-      //                 imageAssets[
-      //                   "/src/assets/images/" + cell.getData().images[2]
-      //                 ].default
-      //               }">
-      //             </div>
-      //         </div>`;
-      //   },
-      // },
-      // {
-      //   title: "REMAINING STOCK",
-      //   minWidth: 200,
-      //   field: "remaining_stock",
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      // },
-      // {
-      //   title: "STATUS",
-      //   minWidth: 200,
-      //   field: "status",
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter(cell) {
-      //     return `<div class="flex items-center lg:justify-center ${
-      //       cell.getData().status ? "text-success" : "text-danger"
-      //     }">
-      //           <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
-      //             cell.getData().status ? "Active" : "Inactive"
-      //           }
-      //         </div>`;
-      //   },
-      // },
-      // {
-      //   title: "ACTIONS",
-      //   minWidth: 200,
-      //   field: "actions",
-      //   responsive: 1,
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter() {
-      //     const a = dom(`<div class="flex lg:justify-center items-center">
-      //           <a class="flex items-center mr-3" href="javascript:;">
-      //             <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
-      //           </a>
-      //           <a class="flex items-center text-danger" href="javascript:;">
-      //             <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete
-      //           </a>
-      //         </div>`);
-      //     dom(a).on("click", function () {
-      //       // On click actions
-      //     });
-
-      //     return a[0];
-      //   },
-      // },
-
-      // For print format
-      // {
-      //   title: "FIRST NAME",
-      //    minWidth: 200,
-      //   field: "firstname",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "LAST NAME",
-      //    minWidth: 200,
-      //   field: "lastname",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "EMAIL",
-      //   field: "email",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-
-      // {
-      //   title: "OFFICE PHONE",
-      //   field: "officephone",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "PROFESSION",
-      //   field: "profession",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "RFC",
-      //   field: "rfc",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "CURP",
-      //   field: "curp",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "SERVICE PRIORITY",
-      //   field: "servicepriority",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "PROSPECT ORIGIN",
-      //   field: "prospectingorigin",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "AGE",
-      //   field: "age",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "GENDER",
-      //   field: "gender",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "STATE",
-      //   field: "state",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "CITY",
-      //   field: "city",
-      //   // visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      
-
-
-      
-      
-
-      // {
-      //   title: "PRODUCT NAME",
-      //   field: "name",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "CATEGORY",
-      //   field: "category",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "REMAINING STOCK",
-      //   field: "remaining_stock",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "STATUS",
-      //   field: "status",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue() ? "Active" : "Inactive";
-      //   },
-      // },
-      // {
-      //   title: "IMAGE 1",
-      //   field: "images",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue()[0];
-      //   },
-      // },
-      // {
-      //   title: "IMAGE 2",
-      //   field: "images",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue()[1];
-      //   },
-      // },
-      // {
-      //   title: "IMAGE 3",
-      //   field: "images",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue()[2];
-      //   },
-      // },
-    ],
-    renderComplete() {
-      createIcons({
-        icons,
-        "stroke-width": 1.5,
-        nameAttr: "data-lucide",
-      });
-    },
+  const tableRef = ref();
+  const tabulator = ref();
+  const filter = reactive({
+    field: "name",
+    type: "like",
+    value: "",
   });
+
+  const imageAssets = import.meta.globEager(
+    `/src/assets/images/*.{jpg,jpeg,png,svg}`
+  );
+
+const initTabulator = () => {
+    tabulator.value = new Tabulator(tableRef.value, {
+        ajaxURL:"https://api.leader.arkanmedia.com/api/clients/list", //ajax URL
+        ajaxConfig:{
+          method:"GET",
+          headers: {
+              "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
+          },
+        },
+
+        pagination:true, //enable pagination
+        paginationSize:20, //optional parameter to request a certain number of rows per page
+        paginationInitialPage:1, //optional parameter to set the initial page to load
+        resizableColumnFit:true,
+        //paginationMode:"remote", //enable remote pagination
+        placeholder: "No matching records found",
+        
+        columns: [
+          // For HTML table
+          {
+            title: "NAME",
+            minWidth: 200,
+            field: "first_name",
+            vertAlign: "middle",
+            print: true,
+            download: true,
+            // responsive: 0,
+            // hozAlign: "center",
+          },
+          {
+            title: "LAST NAME",
+            minWidth: 200,
+            field: "last_name",
+            vertAlign: "middle",
+            print: true,
+            download: true,
+          },
+          {
+            title: "SECOND LAST NAME",
+            minWidth: 200,
+            field: "second_last_name",
+            vertAlign: "middle",
+            print: true,
+            download: true,
+          },
+          {
+            title: "EMAIL",
+            minWidth: 200,
+            field: "email",
+            vertAlign: "middle",
+            print: true,
+            download: true,
+          },
+          {
+            title: "PHONE MOBILE",
+            minWidth: 200,
+            field: "phone_mobile",
+            vertAlign: "middle",
+            print: true,
+            download: true,
+          },
+          {
+            title: "ACTIONS",
+            minWidth: 200,
+            field: "actions",
+            vertAlign: "middle",
+            print: false,
+            download: false,
+
+            formatter(cell) {
+              const a = dom(` <div class="flex items-center lg:justify-center">
+                                <a class="flex items-center mr-3" href="/prospect/edit/${cell.getData().id}">
+                                  <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
+                                </a>
+                                <a class="flex items-center mr-3" href="/lead/create/${cell.getData().id}">
+                                  <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Reschedule
+                                </a>
+                                <a class="flex items-center text-danger" @click="deleteUser(${cell.getData().id})">
+                                  <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete 
+                                </a>
+                              </div>`);
+
+              dom(a).on("click", function () {
+                // On click actions
+              });
+              
+              return a[0];
+            },
+          },
+        ]
+        /*
+        renderComplete() {
+          createIcons({
+            icons,
+            "stroke-width": 1.5,
+            nameAttr: "data-lucide",
+          });
+        },
+      */
+    });
 };
 
 // Redraw table onresize

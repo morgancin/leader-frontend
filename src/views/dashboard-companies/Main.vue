@@ -1,26 +1,26 @@
 <template>
-  <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Dashboard</h2>
-    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <!-- <button class="btn btn-primary shadow-md mr-2" :to="`/add-product`">Add New Product</button> -->
-      <!-- <router-link class="btn btn-primary shadow-md mr-2" :to="`/add-user`">Add User</router-link> -->
+  <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
+    <h2 class="mr-auto text-lg font-medium">Dashboard</h2>
+    <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
+      <!-- <button class="mr-2 shadow-md btn btn-primary" :to="`/add-product`">Add New Product</button> -->
+      <!-- <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-user`">Add User</router-link> -->
       <!-- BEGIN: Modal Toggle -->
       <div class="text-center">
-        <a href="javascript:;" @click="headerFooterModalPreview = true" class="btn btn-primary shadow-md mr-2">Add
+        <a href="javascript:;" @click="headerFooterModalPreview = true" class="mr-2 shadow-md btn btn-primary">Add
           Company</a>
       </div>
       <!-- END: Modal Toggle -->
       <!-- BEGIN: Modal Content -->
       <Modal :show="headerFooterModalPreview" @hidden="headerFooterModalPreview = false">
         <ModalHeader>
-          <h2 class="font-medium text-base mr-auto">
+          <h2 class="mr-auto text-base font-medium">
             Add Company
           </h2>
-          <!-- <button class="btn btn-outline-secondary hidden sm:flex">
+          <!-- <button class="hidden btn btn-outline-secondary sm:flex">
                   <FileIcon class="w-4 h-4 mr-2" /> Download Docs
               </button> -->
           <Dropdown class="sm:hidden">
-            <DropdownToggle class="w-5 h-5 block" href="javascript:;">
+            <DropdownToggle class="block w-5 h-5" href="javascript:;">
               <MoreHorizontalIcon class="w-5 h-5 text-slate-500" />
             </DropdownToggle>
             <DropdownMenu class="w-40">
@@ -36,7 +36,7 @@
         <ModalBody>
           <form @submit.prevent="addCompany" autocomplete="on">
             <div
-              class="mt-5 grid auto-rows-auto grid-flow-dense gap-4 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-2  sm:grid-cols-1">
+              class="grid gap-4 mt-5 auto-rows-auto grid-flow-dense xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
               <div class="mt-3">
                 <label class="form-label">Company</label>
                 <input v-model="name" type="text" class="form-control" placeholder="Company" />
@@ -70,11 +70,11 @@
                 <input v-model="city" type="text" class="form-control" placeholder="City" />
               </div>
              
-              <button type="submit" class="btn btn-primary w-20 mt-5">
+              <button type="submit" class="w-20 mt-5 btn btn-primary">
                 Send
               </button>
               <button type="button" @click="headerFooterModalPreview = false"
-                class="btn btn-outline-secondary w-20 mr-1">
+                class="w-20 mr-1 btn btn-outline-secondary">
                 Cancel
               </button>
             </div>
@@ -86,8 +86,8 @@
         </ModalFooter>
       </Modal>
       <Dropdown class="ml-auto sm:ml-0">
-        <DropdownToggle class="btn px-2 box">
-          <span class="w-5 h-5 flex items-center justify-center">
+        <DropdownToggle class="px-2 btn box">
+          <span class="flex items-center justify-center w-5 h-5">
             <PlusIcon class="w-4 h-4" />
           </span>
         </DropdownToggle>
@@ -105,24 +105,24 @@
     </div>
   </div>
   <!-- BEGIN: HTML Table Data -->
-  <div class="intro-y box p-5 mt-5" id="content">
+  <div class="p-5 mt-5 intro-y box" id="content">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
-        <div class="sm:flex items-center sm:mr-4">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Field</label>
+        <div class="items-center sm:flex sm:mr-4">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Field</label>
           <select id="tabulator-html-filter-field" v-model="filter.field"
-            class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
+            class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto">
             <option value="name">Name</option>
             <option value="last_name">Last Name</option>
             <option value="email">email</option>
           </select>
         </div>
-        <!-- <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Type</label>
+        <!-- <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Type</label>
           <select
             id="tabulator-html-filter-type"
             v-model="filter.type"
-            class="form-select w-full mt-2 sm:mt-0 sm:w-auto">
+            class="w-full mt-2 form-select sm:mt-0 sm:w-auto">
             <option value="like" selected>like</option>
             <option value="=">=</option>
             <option value="<">&lt;</option>
@@ -132,27 +132,27 @@
             <option value="!=">!=</option>
           </select>
         </div> -->
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Value</label>
+        <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Value</label>
           <input id="tabulator-html-filter-value" v-model="filter.value" type="text"
-            class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Search..." />
+            class="mt-2 form-control sm:w-40 2xl:w-full sm:mt-0" placeholder="Search..." />
         </div>
         <div class="mt-2 xl:mt-0">
-          <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16" @click="onFilter">
+          <button id="tabulator-html-filter-go" type="button" class="w-full btn btn-primary sm:w-16" @click="onFilter">
             Go
           </button>
           <button id="tabulator-html-filter-reset" type="button"
-            class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1" @click="onResetFilter">
+            class="w-full mt-2 btn btn-secondary sm:w-16 sm:mt-0 sm:ml-1" @click="onResetFilter">
             Reset
           </button>
         </div>
       </form>
       <div class="flex mt-5 sm:mt-0">
-        <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2" @click="onPrint">
+        <button id="tabulator-print" class="w-1/2 mr-2 btn btn-outline-secondary sm:w-auto" @click="onPrint">
           <PrinterIcon class="w-4 h-4 mr-2" /> Print
         </button>
         <Dropdown class="w-1/2 sm:w-auto">
-          <DropdownToggle class="btn btn-outline-secondary w-full sm:w-auto">
+          <DropdownToggle class="w-full btn btn-outline-secondary sm:w-auto">
             <FileTextIcon class="w-4 h-4 mr-2" /> Export
             <ChevronDownIcon class="w-4 h-4 ml-auto sm:ml-2" />
           </DropdownToggle>
@@ -188,7 +188,8 @@
 import { ref, reactive, onMounted } from "vue";
 //import xlsx from "xlsx";
 import { createIcons, icons } from "lucide";
-import Tabulator from "tabulator-tables";
+//import Tabulator from "tabulator-tables";
+import {Tabulator} from 'tabulator-tables';
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 import axios from "axios"
@@ -288,7 +289,7 @@ const initTabulator = () => {
         //         <div class="font-medium whitespace-nowrap">${
         //           cell.getData().name
         //         }</div>
-        //         <div class="text-slate-500 text-xs whitespace-nowrap">${
+        //         <div class="text-xs text-slate-500 whitespace-nowrap">${
         //           cell.getData().username
         //         }</div>
         //       </div>`;
@@ -367,7 +368,7 @@ const initTabulator = () => {
       //   print: false,
       //   download: false,
       //   formatter() {
-      //     const a = dom(`<div class="flex lg:justify-center items-center">
+      //     const a = dom(`<div class="flex items-center lg:justify-center">
       //         <!--                 
       //           // <a class="flex items-center mr-3" href="javascript:;" @click="basicModalPreview = true">
       //           //   <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit

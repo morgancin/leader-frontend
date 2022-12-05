@@ -5,20 +5,20 @@
 </script>
 
 <script setup>
-  import { reactive, toRefs, ref, watch, computed, onMounted } from "vue";
   import {
+    email,
     required,
     minLength,
     // maxLength,
-    email,
     // helpers,
     // sameAs
     // url,
     // integer,
   } from "@vuelidate/validators";
-  import { useVuelidate } from "@vuelidate/core";
   import Toastify from "toastify-js";
+  import { useVuelidate } from "@vuelidate/core";
   import dom from "@left4code/tw-starter/dist/js/dom";
+  import { reactive, toRefs, ref, watch, computed, onMounted } from "vue";
 
   const props = defineProps({
     user: {
@@ -81,8 +81,8 @@
   // };
 
   const v$ = useVuelidate(rules, toRefs(props.user));
+  
   const submitForm = async () => {
-
     v$.value.$touch();
     if (v$.value.$invalid) {
         Toastify({
@@ -96,23 +96,23 @@
           position: "right",
           stopOnFocus: true,
         }).showToast();
-      } else {
-        Toastify({
-          node: dom("#success-notification-content")
+    } else {
+      Toastify({
+        node: dom("#success-notification-content")
             .clone()
             .removeClass("hidden")[0],
-          duration: 3000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          stopOnFocus: true,
-        }).showToast();
-      }
-
-  const result = await v$.value.$validate()
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+      }).showToast();
+    }
+    
+    const result = await v$.value.$validate()
     if(result) {
-        emit('submit')  
+      emit('submit')  
     } 
   } 
 
@@ -126,7 +126,7 @@
   
 <template>
   <div class="grid grid-cols-12 gap-6 mt-5">
-    <div class="intro-y col-span-12 ">
+    <div class="col-span-12 intro-y ">
       <!-- BEGIN: Form Validation -->
       <PreviewComponent class="intro-y box" >
         <div class="p-5">
@@ -138,9 +138,9 @@
               <div class="input-form">
                 <label
                   for="validation-form-1"
-                  class="form-label w-full flex flex-col sm:flex-row">
+                  class="flex flex-col w-full form-label sm:flex-row">
                   {{ $t('add_user.name') }}
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                  <span class="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                     Required, at least 2 characters
                   </span>
                 </label>
@@ -157,17 +157,17 @@
                   <div
                     v-for="(error, index) in v$.name.$errors"
                     :key="index"
-                    class="text-danger mt-2">
+                    class="mt-2 text-danger">
                     {{ error.$message }}
                   </div>
                 </template>
               </div>
-              <div class="input-form mt-3">
+              <div class="mt-3 input-form">
                 <label
                   for="validation-form-2"
-                  class="form-label w-full flex flex-col sm:flex-row">
+                  class="flex flex-col w-full form-label sm:flex-row">
                   {{ $t('add_user.email') }}
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                  <span class="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                     Required, email address format
                   </span>
                 </label>
@@ -184,17 +184,17 @@
                   <div
                     v-for="(error, index) in v$.email.$errors"
                     :key="index"
-                    class="text-danger mt-2">
+                    class="mt-2 text-danger">
                     {{ error.$message }}
                   </div>
                 </template>
               </div>
-              <div class="input-form mt-3">
+              <div class="mt-3 input-form">
                 <label
                   for="validation-form-3"
-                  class="form-label w-full flex flex-col sm:flex-row">
+                  class="flex flex-col w-full form-label sm:flex-row">
                   {{ $t('add_user.password') }}
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                  <span class="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                     Required, at least 6 characters
                   </span>
                 </label>
@@ -211,17 +211,17 @@
                   <div
                     v-for="(error, index) in v$.password.$errors"
                     :key="index"
-                    class="text-danger mt-2">
+                    class="mt-2 text-danger">
                     {{ error.$message }}
                   </div>
                 </template>
               </div>
-              <div class="input-form mt-3">
+              <div class="mt-3 input-form">
                 <label
                   for="validation-form-4"
-                  class="form-label w-full flex flex-col sm:flex-row">
+                  class="flex flex-col w-full form-label sm:flex-row">
                   {{ $t('add_user.password_confirmation') }}
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
+                  <span class="mt-1 text-xs sm:ml-auto sm:mt-0 text-slate-500">
                     Required, at least 6 characters
                   </span>
                 </label>
@@ -238,12 +238,12 @@
                   <div
                     v-for="(error, index) in v$.password_confirmation.$errors"
                     :key="index"
-                    class="text-danger mt-2">
+                    class="mt-2 text-danger">
                     {{ error.$message }}
                   </div>
                 </template>
               </div>
-              <button type="submit" class="btn btn-primary mt-5" @click="update">
+              <button type="submit" class="mt-5 btn btn-primary" @click="update">
                 {{ $t('add_user.btn_save') }}
               </button>
             </form>
@@ -257,11 +257,11 @@
             <!-- BEGIN: Success Notification Content -->
             <div
               id="success-notification-content"
-              class="toastify-content hidden flex">
+              class="flex hidden toastify-content">
               <CheckCircleIcon class="text-success" />
               <div class="ml-4 mr-4">
                 <div class="font-medium">{{ $t('add_user.registration_success') }}</div>
-                <div class="text-slate-500 mt-1">
+                <div class="mt-1 text-slate-500">
                   {{ $t('add_user.check_success') }}
                 </div>
               </div>
@@ -270,11 +270,11 @@
             <!-- BEGIN: Failed Notification Content -->
             <div
               id="failed-notification-content"
-              class="toastify-content hidden flex">
+              class="flex hidden toastify-content">
               <XCircleIcon class="text-danger" />
               <div class="ml-4 mr-4">
                 <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>
-                <div class="text-slate-500 mt-1">
+                <div class="mt-1 text-slate-500">
                   {{ $t('add_user.check_failed') }}
                 </div>
               </div>

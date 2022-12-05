@@ -30,6 +30,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "side-menu-prospects",
         title: 'side-menu.prospects',
       },
+      {
+        icon: "UserCheckIcon",
+        pageName: "side-menu-activities",
+        title: 'side-menu.activities',
+      },
       // "devider",
       {
         icon: "TruckIcon",
@@ -46,23 +51,6 @@ export const useSideMenuStore = defineStore("sideMenu", {
             pageName: "side-menu-company-users",
             title: "side-menu.company-users",
           },
-          // {
-          //   icon: "GlobeIcon",
-          //   pageName: "side-menu-company-catalogues",
-          //   title: "Catalogues",
-          //   subMenu: [
-          //     {
-          //       icon: "GlobeIcon",
-          //       pageName: "side-menu-add-origins",
-          //       title: "Origins",
-          //     },
-          //     {
-          //       icon: "GlobeIcon",
-          //       pageName: "side-menu-dashboard-activities",
-          //       title: "Activities",
-          //     },
-          //   ],
-          // },
         ],
       },
       "devider",
@@ -78,13 +66,43 @@ export const useSideMenuStore = defineStore("sideMenu", {
           },
           {
             icon: "GlobeIcon",
+            pageName: "side-menu-currencies",
+            title: 'side-menu.currencies',
+          },
+          {
+            icon: "GlobeIcon",
+            pageName: "side-menu-products",
+            title: 'side-menu.products',
+          },
+          {
+            icon: "GlobeIcon",
+            pageName: "side-menu-prices",
+            title: 'side-menu.prices',
+          },
+          {
+            icon: "GlobeIcon",
+            pageName: "side-menu-price-lists",
+            title: 'side-menu.settings-price-lists',
+          },
+          {
+            icon: "GlobeIcon",
+            pageName: "side-menu-categories",
+            title: 'side-menu.categories',
+          },
+          {
+            icon: "GlobeIcon",
             pageName: "side-menu-company-catalogs",
             title: 'side-menu.settings-catalogs',
             subMenu: [
               {
                 icon: "GlobeIcon",
-                pageName: "side-menu-activity",
+                pageName: "side-menu-activity-type", //"side-menu-activity",
                 title: 'side-menu.settings-catalogs-activity',
+              },
+              {
+                icon: "GlobeIcon",
+                pageName: "side-menu-activities-results",
+                title: 'side-menu.settings-activities-results',
               },
               {
                 icon: "GlobeIcon",
@@ -106,20 +124,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
                 pageName: "side-menu-tags",
                 title: 'side-menu.settings-catalogs-tags',
               },
-              // {
-              //   icon: "GlobeIcon",
-              //   pageName: "side-menu-subjects",
-              //   title: "Subjects",
-              // },
             ],
-            // },
-            // {
-            //   icon: "GlobeIcon",
-            //   pageName: "side-menu-dashboard-origin",
-            //   title: "Origins",
-            // },
-
-            // ],
           },
           
         ],

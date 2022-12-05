@@ -1,11 +1,11 @@
 <template>
-  <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">{{ $t('companies.companies') }}</h2>
-    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <router-link class="btn btn-primary shadow-md mr-2" :to="`/add-company`">{{ $t('companies.btn-add-new-companies') }}</router-link>
+  <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
+    <h2 class="mr-auto text-lg font-medium">{{ $t('companies.companies') }}</h2>
+    <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-company`">{{ $t('companies.btn-add-new-companies') }}</router-link>
       <Dropdown class="ml-auto sm:ml-0">
-        <DropdownToggle class="btn px-2 box">
-          <span class="w-5 h-5 flex items-center justify-center">
+        <DropdownToggle class="px-2 btn box">
+          <span class="flex items-center justify-center w-5 h-5">
             <PlusIcon class="w-4 h-4" />
           </span>
         </DropdownToggle>
@@ -23,31 +23,31 @@
     </div>
   </div>
   <!-- BEGIN: HTML Table Data -->
-  <div class="intro-y box p-5 mt-5">
+  <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
-        <div class="sm:flex items-center sm:mr-4">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+        <div class="items-center sm:flex sm:mr-4">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial"
             >Field</label
           >
           <select
             id="tabulator-html-filter-field"
             v-model="filter.field"
-            class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto"
+            class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto"
           >
             <option value="name">Name</option>
             <option value="category">Category</option>
             <option value="remaining_stock">Remaining Stock</option>
           </select>
         </div>
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+        <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial"
             >Type</label
           >
           <select
             id="tabulator-html-filter-type"
             v-model="filter.type"
-            class="form-select w-full mt-2 sm:mt-0 sm:w-auto"
+            class="w-full mt-2 form-select sm:mt-0 sm:w-auto"
           >
             <option value="like" selected>like</option>
             <option value="=">=</option>
@@ -58,15 +58,15 @@
             <option value="!=">!=</option>
           </select>
         </div>
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+        <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
+          <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial"
             >Value</label
           >
           <input
             id="tabulator-html-filter-value"
             v-model="filter.value"
             type="text"
-            class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0"
+            class="mt-2 form-control sm:w-40 2xl:w-full sm:mt-0"
             placeholder="Search..."
           />
         </div>
@@ -74,7 +74,7 @@
           <button
             id="tabulator-html-filter-go"
             type="button"
-            class="btn btn-primary w-full sm:w-16"
+            class="w-full btn btn-primary sm:w-16"
             @click="onFilter"
           >
             Go
@@ -82,7 +82,7 @@
           <button
             id="tabulator-html-filter-reset"
             type="button"
-            class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1"
+            class="w-full mt-2 btn btn-secondary sm:w-16 sm:mt-0 sm:ml-1"
             @click="onResetFilter"
           >
             Reset
@@ -92,13 +92,13 @@
       <div class="flex mt-5 sm:mt-0">
         <button
           id="tabulator-print"
-          class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"
+          class="w-1/2 mr-2 btn btn-outline-secondary sm:w-auto"
           @click="onPrint"
         >
           <PrinterIcon class="w-4 h-4 mr-2" /> Print
         </button>
         <Dropdown class="w-1/2 sm:w-auto">
-          <DropdownToggle class="btn btn-outline-secondary w-full sm:w-auto">
+          <DropdownToggle class="w-full btn btn-outline-secondary sm:w-auto">
             <FileTextIcon class="w-4 h-4 mr-2" /> Export
             <ChevronDownIcon class="w-4 h-4 ml-auto sm:ml-2" />
           </DropdownToggle>
@@ -138,7 +138,8 @@
 import { ref, reactive, onMounted } from "vue";
 //import xlsx from "xlsx";
 import { createIcons, icons } from "lucide";
-import Tabulator from "tabulator-tables";
+//import Tabulator from "tabulator-tables";
+import {Tabulator} from 'tabulator-tables';
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 import axios from "axios"
@@ -232,7 +233,7 @@ const initTabulator = () => {
       //           <div class="font-medium whitespace-nowrap">${
       //             cell.getData().name
       //           }</div>
-      //           <div class="text-slate-500 text-xs whitespace-nowrap">${
+      //           <div class="text-xs text-slate-500 whitespace-nowrap">${
       //             cell.getData().category
       //           }</div>
       //         </div>`;
@@ -248,21 +249,21 @@ const initTabulator = () => {
       //   download: false,
       //   formatter(cell) {
       //     return `<div class="flex lg:justify-center">
-      //             <div class="intro-x w-10 h-10 image-fit">
+      //             <div class="w-10 h-10 intro-x image-fit">
       //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
       //                 imageAssets[
       //                   "/src/assets/images/" + cell.getData().images[0]
       //                 ].default
       //               }">
       //             </div>
-      //             <div class="intro-x w-10 h-10 image-fit -ml-5">
+      //             <div class="w-10 h-10 -ml-5 intro-x image-fit">
       //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
       //                 imageAssets[
       //                   "/src/assets/images/" + cell.getData().images[1]
       //                 ].default
       //               }">
       //             </div>
-      //             <div class="intro-x w-10 h-10 image-fit -ml-5">
+      //             <div class="w-10 h-10 -ml-5 intro-x image-fit">
       //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
       //                 imageAssets[
       //                   "/src/assets/images/" + cell.getData().images[2]
@@ -311,7 +312,7 @@ const initTabulator = () => {
           print: false,
           download: false,
           formatter(cell) {
-            const a = dom(`<div class="flex lg:justify-center items-center">
+            const a = dom(`<div class="flex items-center lg:justify-center">
                  <a class="flex items-center mr-3" href="/company/edit/${cell.getData().id_user}">
                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
                  </a>

@@ -72,7 +72,7 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
-import Prospects from "../views/prospects/Main.vue";
+//import Prospects from "../views/prospects/Main.vue";
 import NoInteresados from "../views/no-interesados/Main.vue";
 import Reasignados from "../views/reasignados/Main.vue";
 import Clientes from "../views/clientes/Main.vue";
@@ -105,13 +105,6 @@ const routes = [
     path: "/",
     component: SideMenu,
     children: [
-      /*
-      {
-        path: "/",
-        name: "side-menu-dashboard-overview-1",
-        component: DashboardOverview1,
-      },
-      */
       {
         path: "dashboard-overview-2",
         name: "side-menu-dashboard-overview-2",
@@ -283,24 +276,78 @@ const routes = [
 
       //PROSPECTS
       {
-        path: 'add-prospect',
-        name: 'side-menu-add-prospect',
-        component: () => import('../views/leader/prospects/Create.vue'),
+        path: "prospects",
+        name: "side-menu-prospects",
+        component: () => import('../views/leader/prospects/DashboardProspects.vue'),
         beforeEnter: requireAuth
       },
-      //PROSPECTS CATALOGUE ACTIVITIES
       {
-        path: 'activity',
-        name: 'side-menu-activity',
+        path: '/prospect/edit/:id',
+        name: 'side-menu-edit-prospect',
+        component: () => import('../views/leader/prospects/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+      
+      //ACTIVITIES
+      {
+        path: "activities",
+        name: "side-menu-activities",
         component: () => import('../views/leader/activities/DashboardActivities.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: 'add-activities',
-        name: 'side-menu-add-activities',
+        path: 'add-activity',
+        name: 'side-menu-add-activity',
         component: () => import('../views/leader/activities/Create.vue'),
+        //component: () => import('../views/leader/prospects/Create.vue'),
         beforeEnter: requireAuth
       },
+      {
+        path: '/activities/reschedule/:id',         //'/activities/create/:id', '/lead/create/:id'
+        name: 'side-menu-add-activity-reschedule',  //'side-menu-add-lead'
+        component: () => import('../views/leader/activities/Create_reschedule.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //PROSPECTS CATALOGUE ACTIVITIES
+      {
+        path: 'activity',
+        name: 'side-menu-activity-type',  //name: 'side-menu-activity',
+        component: () => import('../views/leader/activities_types/DashboardActivities.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-activities',
+        name: 'side-menu-add-activities-types', //name: 'side-menu-add-activities',
+        component: () => import('../views/leader/activities_types/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/activities/edit/:id',
+        name: 'side-menu-edit-activities-types',
+        component: () => import('../views/leader/activities_types/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
+      {
+        path: 'activity-results',
+        name: 'side-menu-activities-results',
+        component: () => import('../views/leader/activities_results/DashboardActivitiesResults.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-activity-result',
+        name: 'side-menu-add-activities-results',
+        component: () => import('../views/leader/activities_results/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/activities-results/edit/:id',
+        name: 'side-menu-edit-activities-results',
+        component: () => import('../views/leader/activities_results/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
       {
         path: 'subjects',
         name: 'side-menu-subjects',
@@ -313,6 +360,13 @@ const routes = [
         component: () => import('../views/leader/subjects/Create.vue'),
         beforeEnter: requireAuth
       },
+      {
+        path: '/subjects/edit/:id',
+        name: 'side-menu-edit-subjects',
+        component: () => import('../views/leader/subjects/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+      
       //PROSPECTS CATALOGUE ORIGINS
       {
         path: 'origin',
@@ -326,6 +380,113 @@ const routes = [
         component: () => import('../views/leader/origins/Create.vue'),
         beforeEnter: requireAuth
       },
+      {
+        path: '/origin/edit/:id',
+        name: 'side-menu-edit-origin',
+        component: () => import('../views/leader/origins/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //CURRENCIES
+      {
+        path: 'currencies',
+        name: 'side-menu-currencies',
+        component: () => import('../views/leader/currencies/DashboardCurrencies.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-currency',
+        name: 'side-menu-add-currency',
+        component: () => import('../views/leader/currencies/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/currencies/edit/:id',
+        name: 'side-menu-edit-currency',
+        component: () => import('../views/leader/currencies/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //PRODUCTS
+      {
+        path: 'products',
+        name: 'side-menu-products',
+        component: () => import('../views/leader/products/DashboardProducts.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-product',
+        name: 'side-menu-add-product',
+        component: () => import('../views/leader/products/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/products/edit/:id',
+        name: 'side-menu-edit-product',
+        component: () => import('../views/leader/products/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //PRICES
+      {
+        path: 'prices',
+        name: 'side-menu-prices',
+        component: () => import('../views/leader/prices/DashboardPrices.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-price',
+        name: 'side-menu-add-price',
+        component: () => import('../views/leader/prices/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/prices/edit/:id',
+        name: 'side-menu-edit-price',
+        component: () => import('../views/leader/prices/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //CATEGORIES
+      {
+        path: 'categories',
+        name: 'side-menu-categories',
+        component: () => import('../views/leader/categories/DashboardCategories.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-category',
+        name: 'side-menu-add-category',
+        component: () => import('../views/leader/categories/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/categories/edit/:id',
+        name: 'side-menu-edit-category',
+        component: () => import('../views/leader/categories/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //PRICE LISTS
+      {
+        path: 'price-lists',
+        name: 'side-menu-price-lists',
+        component: () => import('../views/leader/priceLists/DashboardPriceLists.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-price-list',
+        name: 'side-menu-add-price-list',
+        component: () => import('../views/leader/priceLists/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/price-lists/edit/:id',
+        name: 'side-menu-edit-price-list',
+        component: () => import('../views/leader/priceLists/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
       //PROSPECTS CATALOGUE MEDIUMS
       {
         path: 'medium',
@@ -339,6 +500,13 @@ const routes = [
         component: () => import('../views/leader/mediums/Create.vue'),
         beforeEnter: requireAuth
       },
+      {
+        path: '/medium/edit/:id',
+        name: 'side-menu-edit-medium',
+        component: () => import('../views/leader/mediums/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
        //PROSPECTS CATALOGUE TAGS
        {
         path: 'tags',
@@ -354,25 +522,27 @@ const routes = [
       ////
       //////////////////////////////
       },
-      /*
       {
-        path: "add-prospect",
-        name: "side-menu-add-prospect",
-        component: AddProspect,
+        path: '/tags/edit/:id',
+        name: 'side-menu-edit-tag',
+        component: () => import('../views/leader/tags/Edit.vue'),
+        beforeEnter: requireAuth
       },
-      */
+      
       {
         path: "company-users",
         name: "side-menu-company-users",
         component: CompanyUsers,
         beforeEnter: requireAuth
       },
+      /*
       {
         path: "prospects",
         name: "side-menu-prospects",
         component: Prospects,
         beforeEnter: requireAuth
       },
+      */
       {
         path: "companies",
         name: "side-menu-companies",

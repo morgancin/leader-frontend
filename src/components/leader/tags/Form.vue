@@ -5,44 +5,63 @@
 </script>
 
 <script setup>
+    import vSelect from 'vue-select';
+    import 'vue-select/dist/vue-select.css';
+    
     defineProps({
       tag: {
             type: Object,
             required: true,
         },
-        // textButton: {
-        //     type: String,
-        //     default: "Save",
-        // },
     })
 
     defineEmits(["submit"]);
+    
+    const aTypes = [
+        { key:'tag', value: 'TAG' },
+        { key:'list', value: 'LIST' },
+    ];
 </script>
 
 <template>
-  <div class="intro-y col-span-12 lg:col-span-6">
+  <div class="col-span-12 intro-y lg:col-span-6">
     <!-- BEGIN: Form Layout -->
     <form @submit.prevent="$emit('submit')" autocomplete="on">
-      <div class="intro-y box p-5">
+      <div class="p-5 intro-y box">
         <div class="mt-3">
-          <label class="form-label">Tag</label>
-          <input 
-          v-model="tag.name" 
-          placeholder="tag"
-          type="text" 
-          class="form-control w-full"/>
+          <label class="form-label">*{{ $t('add_tags.tag_type') }}</label>
+          <v-select
+            label="value"
+            class="form-control" 
+            :options="aTypes" 
+            :reduce="value => value.key"
+            v-model="tag.type">
+          </v-select>
+          <!--
+            :class="{ 'border-danger': validate.service_priority.$error }"
+          <template v-if="validate.client_origin.$error">
+            <div
+              v-for="(error, index) in validate.client_origin.$errors"
+              :key="index"
+              class="mt-2 text-danger">
+              {{ error.$message }}
+            </div>
+          </template>
+          -->
         </div>
-        <!-- <div class="mt-3">
-          <label class="form-label">Type</label>
-          <input 
-          v-model="tag.type" 
-          placeholder="tag type"
-          type="text" 
-          class="form-control w-full"/>
-        </div> -->
-        <div class="text-right mt-5">
-          <button type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-          <button type="submit" class="btn btn-primary w-24">save</button>
+
+        <div class="mt-3">
+          <label class="form-label">*{{ $t('add_tags.tag_name') }}</label>
+          <input
+              type="text"
+              class="w-full form-control"
+              :placeholder="$t('add_tags.tag_name')"
+              v-model="tag.name" />
+        </div>
+        
+        <div class="mt-5 text-right">
+          <button type="button" class="w-24 mr-1 btn btn-outline-secondary">{{ $t('add_tags.btn_cancel') }}</button>
+          <button type="submit" class="w-24 btn btn-primary">{{ $t('add_tags.btn_save') }}</button>
         </div>
       </div>
     </form>

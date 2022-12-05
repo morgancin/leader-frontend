@@ -19,6 +19,9 @@
         "prospect-address": "Prospect Address",
         "activity": "Prospect Activity"
     },
+    "add-activity": {
+        "activity": "Reschedule"
+    },
     "add_prospect_details": {
         "profile": "Profile",
         "first_name": "First Name",
@@ -53,7 +56,6 @@
         "city": "City",
         "state": "State",
         "country": "Country",
-
         "btn-prev": "Previous",
         "btn-next": "Next"
     },
@@ -73,7 +75,9 @@
         "btn_add_new_activities": "Create New Activity"
     },
     "add_catalog_activity":{
-        "activity_type": "Activity Type",
+        "activity": "Activities",
+        "activity_type": "Activity type",
+        "activity_name": "Name",
         "btn_prev": "Previous",
         "btn_cancel": "Cancel",
         "btn_save": "Save",
@@ -82,26 +86,122 @@
         "registration_failed": "Registration failed!",
         "check_failed": "Please check the fileld form."
     },
-
     "catalogs_subjects":{
         "list_subjects": "List Subjects",
         "btn_add_new_subjects": "Create New Subject"
     },
     "add_catalog_subject":{
+        "subject": "Subjects",
         "subject_type": "Subject Type",
+        "subject_name": "Name",
         "btn_prev": "Previous",
         "btn_save": "Save"
     },
-
+    "add_tags":{
+        "tags": "Tags",
+        "tag_type": "Tag Type",
+        "tag_name": "Name",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_tags": "Create New Tag"
+    },
+    "add_prices":{
+        "prices": "Prices",
+        "price_price": "Price",
+        "price_currency": "Currency",
+        "price_product": "Product",
+        "price_price_list": "Price list",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_price": "Create New Price"
+    },
+    "add_activities":{
+        "activities": "Activities",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_activity": "Create New Activity"
+    },
+    "add_catalog_activity_result":{
+        "activity_result": "Activities Results",
+        "activity_result_type": "Type",
+        "activity_result_name": "Name",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_activity_result": "Create New Activity Result"
+    },
+    "add_origin_medium":{
+        "origin_medium": "Medium Origins",
+        "origin_medium_name": "Medium Name",
+        "origin_medium_origin": "Origin",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_origin_medium": "Create New Origin Medium"
+    },
+    "add_currencies":{
+        "currencies": "Currencies",
+        "currency_name": "Name",
+        "currency_code": "Code",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_currency": "Create New Currency"
+    },
+    "add_products":{
+        "products": "Products",
+        "product_name": "Name",
+        "product_sku": "Sku",
+        "product_quantity": "Quantity",
+        "product_category": "Category",
+        "product_description": "Description",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_product": "Create New Product"
+    },
+    "add_categories":{
+        "categories": "Categories",
+        "category_name": "Name",
+        "category_list": "Categories",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_category": "Create New Category"
+    },
+    "add_price_lists":{
+        "price_lists": "Price Lists",
+        "price_lists_name": "Name",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_price_list": "Create New Price list"
+    },
+    "add_activity_finalize":{
+        "activity_finalize": "Finish activity",
+        "activity_finalize_activity_result": "Activity result",
+        "label_type": "Type",
+        "label_date": "Date",
+        "label_subject": "Subject",
+        "label_prospect": "Prospect",
+        "observations": "Observations",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel"
+    },
     "catalogs_origins":{
         "list_origins": "List Origin",
         "btn_add_new_origins": "Create New Origin"
     },
     "add_catalog_origin":{
-        "origin_type": "Origin Type",
-        "btn_save": "Save"
+        "origins": "Origins",
+        "origin_name": "Name",
+        "btn_save": "Save",
+        "btn_prev": "Previous"
     },
-
     "companies": {
         "companies": "Companies",
         "btn-add-new-companies": "Create New Company"
@@ -155,17 +255,24 @@
     },
     "side-menu":{
         "users": "Users",
+        "prices": "Prices",
+        "products": "Products",
         "prospects": "Prospects",
         "companies": "Companies",
+        "currencies": "Currencies",
+        "categories": "Categories",
+        "activities": "Activities",
         "company-users": "Company Users",
         "settings": "Settings",
         "settings-languages": "Languages",
         "settings-catalogs": "Catalogs",
-        "settings-catalogs-activity": "Activity",
+        "settings-price-lists": "Price Lists",
+        "settings-catalogs-activity": "Activities",
         "settings-catalogs-subjects": "Subjects",
-        "settings-catalogs-origin": "Origin",
-        "settings-catalogs-medium": "Medium",
-        "settings-catalogs-tags": "Tags"
+        "settings-catalogs-origin": "Origins",
+        "settings-catalogs-medium": "Mediums",
+        "settings-catalogs-tags": "Tags",
+        "settings-activities-results": "Activities Results"
     },
     "prospects": {
         "prospects": "Prospects",

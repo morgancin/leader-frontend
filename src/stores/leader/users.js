@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
@@ -50,20 +51,12 @@ export const useUsersStore = defineStore("UsersStore", {
             })
 
             /*
-            this.error = null;
-            this.loading = true;
-            try {
-                await fetch(`${API_URL}/${course.id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(course),
-                });
-            } catch (e) {
-                this.error = e;
-            } finally {
-                this.loading = false;
+            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
+            .catch(error){
+                hasError.value=true;
+                if(axios.isAxiosError(error)){
+                    return errorMessage.value = error.message;
+                }
             }
             */
         },

@@ -4,8 +4,8 @@ import axiosClient from "../../axios";
 // export const useActivitiesTypeStore = defineStore("ActivitiesType", {
 export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
     state: () => ({
-        activity: {},
-        activities: [],
+        activity_type: {},
+        activities_types: [],
         message: null,
     }),
     actions: {
@@ -18,6 +18,27 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
                 this.message = error.message;
             })
         },
+        async updateActivityType() {
+            axiosClient.patch(`/activities/types/update/${this.activity_type.id}`, this.activity_type)
+            .then (({data}) => {
+                //this.activity_type = data.result;
+                this.message = data.message;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+
+            /*
+            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
+            .catch(error){
+                hasError.value=true;
+                if(axios.isAxiosError(error)){
+                    return errorMessage.value = error.message;
+                }
+            }
+            */
+        },
+        /*
         async fetchActivity() {
             axiosClient.get('/activities/types/list')
             .then (({data}) => {
@@ -27,17 +48,27 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
             .catch(function (error) {
                 this.message = error.message;
             })
-            /*
-            this.error = null;
-            this.loading = true;
-            try {
-                this.course = await fetch(`${API_URL}/${id}`).then(res => res.json());
-            } catch (e) {
-                this.error = e;
-            } finally {
-                this.loading = false;
-            }
-            */
+        },
+        */
+        async fetchActivitiesTypes() {
+            axiosClient.get('/activities/types/list')
+            .then (({data}) => {
+                //return data;
+                this.activities_types = data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async fetchActivityType(id) {
+            axiosClient.get(`/activities/types/activity-type/${id}`)
+            .then (({data}) => {
+                //return data;
+                this.activity_type = data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
         },
     }
 });

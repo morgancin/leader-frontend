@@ -17,7 +17,26 @@ export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore",
                 this.message = error.message;
             })
         },
-        async fetchClientOriginMedium() {
+        async updateClientOriginMedium() {
+            axiosClient.patch(`/clients/origins/mediums/update/${this.medium.id}`, this.medium)
+            .then (({data}) => {
+                this.message = data.message;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async fetchClientOriginMedium(id) {
+            axiosClient.get(`/clients/origins/mediums/client-origin-medium/${id}`)
+            .then (({data}) => {
+                //return data;
+                this.medium = data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async fetchClientsOriginsMedium() {
             axiosClient.get('/clients/origins/mediums/list')
             .then (({data}) => {
                 //return data;
@@ -27,6 +46,5 @@ export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore",
                 this.message = error.message;
             })
         },
-       
     }
 });
