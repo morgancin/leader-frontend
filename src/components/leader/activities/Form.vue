@@ -1,4 +1,4 @@
-<script>
+ <script>
     export default {
         name: "ActivityForm",
     }
@@ -117,60 +117,36 @@ const submitStep = async () => {
 </script>
 
 <template>
-    <form @submit.prevent="submitForm()" autocomplete="on">
-        <div class="grid grid-cols-12 gap-4 mt-5 gap-y-5">
-            <!-- <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4"> -->
-            <!-- <div class="col-span-12 intro-y sm:col-span-6">
-                <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
-                <v-select
-                    id="cmbActivityType"
-                    class="form-control"
-                    :options="dataActivitiesTypes"
-                    :reduce="name => name.id"
-                    label="name"
-                    :placeholder="$t('add_prospect_activity.activity')"
-                    v-model="activity.activity_type_id">
-                </v-select>
-            </div> -->
-
-            <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
-                <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
-                <v-select  
-                    id="cmbActivityType"
-                    class="form-control"
-                    :options="dataActivitiesTypes"
-                    :reduce="name => name.id"
-                    label="name"
-                    
-                    v-model="validate.activity_type_id.$model"
-                    :class="{ 'border-danger': validate.activity_type_id.$error }"
-                    >
-                    <!-- v-model="activity.activity_type_id"
-                    
-                    v-model.trim="validate.activity_type_id.$model" -->
-                </v-select >
-                <template v-if="validate.activity_type_id.$error">
-                    <div
-                        v-for="(error, index) in validate.activity_type_id.$errors"
-                        :key="index"
-                        class="mt-2 text-danger">
-                        {{ error.$message }}
+<!-- Inicio de arreglo LVT-->
+<div class="relative  place-content-start content-center">
+        <div class=" content-center  absolute  ">
+            <form @submit.prevent="submitForm()" autocomplete="on">
+                <div class="grid grid-cols-12 gap-12 mt-5 gap-y-5">
+                    <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
+                        <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
+                        <v-select  
+                            id="cmbActivityType"
+                            class="form-control"
+                            :options="dataActivitiesTypes"
+                            :reduce="name => name.id"
+                            label="name"
+                            
+                            v-model="validate.activity_type_id.$model"
+                            :class="{ 'border-danger': validate.activity_type_id.$error }"
+                            >
+                            <!-- v-model="activity.activity_type_id"
+                            
+                            v-model.trim="validate.activity_type_id.$model" -->
+                        </v-select >
+                        <template v-if="validate.activity_type_id.$error">
+                            <div
+                                v-for="(error, index) in validate.activity_type_id.$errors"
+                                :key="index"
+                                class="mt-2 text-danger">
+                                {{ error.$message }}
+                            </div>
+                        </template>
                     </div>
-                </template>
-            </div>
-            
-            <!-- <div class="col-span-12 intro-y sm:col-span-6">
-                <label for="cmbActivitySubject" class="form-label">*{{ $t('add_prospect_activity.subject') }}</label>
-                <v-select
-                    id="cmbActivitySubject"
-                    class="form-control"
-                    :options="dataActivitiesSubjects"
-                    :reduce="name => name.id"
-                    label="name"
-                    :placeholder="$t('add_prospect_activity.subject')"
-                    v-model="activity.activity_subject_id">
-                </v-select>
-            </div> -->
 
             <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
                 <label for="cmbActivitySubject" class="form-label">*{{ $t('add_prospect_activity.subject') }}</label>
@@ -324,6 +300,43 @@ const submitStep = async () => {
             </div>
         </div>
     </form>
+                 
+        </div>
+    </div>
+     <!-- Inicio de la linea del tiempo Prospecto -->
+     <div>
+        <div  class="grid justify-items-end">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Actividades Programadas para el dia 01/01/2023</h3>
+            </div>
+            <p>&nbsp</p>
+            <p>&nbsp</p>
+
+            <ol class="relative border-l border-sky-800 dark:border-sky-800">                  
+                <li class="mb-10 ml-4">
+                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ricardo Martinez Prieto</h3>
+                    <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Seguimineto a Prospecto</p>
+                    
+                </li>
+                <li class="mb-10 ml-4">
+                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ricardo Martinez Prieto</h3>
+                    <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Seguimineto a Prospecto</p>
+                    
+                </li>
+                <li class="mb-10 ml-4">
+                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ricardo Martinez Prieto</h3>
+                    <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Seguimineto a Prospecto</p>
+                    
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- Fin de la linea del tiempo Prospecto -->
+<!-- Inicio de arreglo LVT-->
+    
      <!-- BEGIN: Success Notification Content -->
      <div
               id="success-notification-content"
@@ -350,6 +363,23 @@ const submitStep = async () => {
               </div>
             </div>
             <!-- END: Failed Notification Content -->
+            <div>
+                <div>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+                    <p>&nbsp</p>
+
+  
+                </div>
+            </div>
 </template>
 
 <style>
