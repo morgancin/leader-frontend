@@ -137,6 +137,8 @@
       </div>
     </div>
     <!-- END: Item List -->
+
+    
     <!-- BEGIN: Ticket -->
     <TabGroup class="col-span-12 lg:col-span-4">
       <div class="intro-y pr-1">
@@ -246,6 +248,8 @@
     </TabGroup>
     <!-- END: Ticket -->
   </div>
+
+
   <!-- BEGIN: New Order Modal -->
   <Modal :show="newOrderModal" @hidden="newOrderModal = false">
     <ModalHeader>
@@ -348,8 +352,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+  import { ref } from "vue";
 
-const newOrderModal = ref(false);
-const addItemModal = ref(false);
+  const newOrderModal = ref(false);
+  const addItemModal = ref(false);
 </script>

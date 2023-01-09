@@ -3,8 +3,8 @@ import axiosClient from "../../axios";
 
 export function useGetDataProducts()
 {
-    const error = ref(null);
-    const results = ref(null);
+    const products_errors = ref(null);
+    const results = ref([]);
 
     const fetchProducts = async (cType) => {
         results.value = [];
@@ -14,25 +14,27 @@ export function useGetDataProducts()
             results.value = data;
         })
         .catch(function (err) {
-            error.value = err;
+            products_errors.value = err;
         })
     };
 
-    /*
-    const makeRequest = async (API_URL) => {
-        try{
-            const request = await (await fetch(API_URL)).json();
-            results.value = request;
-
-        } catch (err){
-            console.log(err);
-            error.value = err;
-        }
+    const fetchProductsCategory = async (category) => {
+        results.value = [];
+        
+        await axiosClient.get(`/products/list/category/${category.id}`)
+        .then (({data}) => {
+            results.value = data.data;
+        })
+        .catch(function (err) {
+            products_errors.value = err;
+        })
     };
-    */
+
     return{
         fetchProducts,
+        fetchProductsCategory,
         products: readonly(results),
-        error,
+        //error,
+        products_errors,
     };
 }

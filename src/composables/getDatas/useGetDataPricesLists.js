@@ -1,27 +1,27 @@
 import { ref, readonly } from 'vue';
 import axiosClient from "../../axios";
 
-export function useGetDataCategories()
+export function useGetDataPricesLists()
 {
-    const error = ref(null);
+    const error_prices_lists = ref(null);
     const results = ref([]);
 
-    const fetchCategories = async (cType) => {
+    const fetchPricesLists = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/categories/list`)
+        await axiosClient.get(`/prices/lists/list`)
         .then (({data}) => {
              //results.value = data;
             results.value = data.data;
         })
         .catch(function (err) {
-            error.value = err;
+            error_prices_lists.value = err;
         })
     };
     
     return{
-        fetchCategories,
-        results_categories: readonly(results),
-        error,
+        fetchPricesLists,
+        results_prices_lists: readonly(results),
+        error_prices_lists,
     };
 }

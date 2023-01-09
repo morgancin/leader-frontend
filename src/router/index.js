@@ -366,6 +366,14 @@ const routes = [
         component: () => import('../views/leader/subjects/Edit.vue'),
         beforeEnter: requireAuth
       },
+
+      //QUOTES
+      {
+        path: '/quotes/create/:id',
+        name: 'side-menu-add-quote',
+        component: () => import('../views/leader/quotes/Create.vue'),
+        beforeEnter: requireAuth
+      },
       
       //PROSPECTS CATALOGUE ORIGINS
       {
@@ -862,11 +870,13 @@ const routes = [
         name: "simple-menu-dashboard-overview-4",
         component: DashboardOverview4,
       },
+      /*
       {
         path: "categories",
         name: "simple-menu-categories",
         component: Categories,
       },
+      */
       {
         path: "add-product",
         name: "simple-menu-add-product",
@@ -1198,11 +1208,13 @@ const routes = [
         name: "top-menu-dashboard-overview-4",
         component: DashboardOverview4,
       },
+      /*
       {
         path: "categories",
         name: "top-menu-categories",
         component: Categories,
       },
+      */
       {
         path: "add-product",
         name: "top-menu-add-product",

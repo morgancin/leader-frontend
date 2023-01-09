@@ -29,6 +29,11 @@
         await fetchActivityTypes();
         dataActivityTypes.value = results.value;
     });
+
+    const aTrackingTypes = [
+        { key:'activity', value: 'ACTIVITY' },
+        { key:'quote', value: 'QUOTE' },
+    ];
 </script>
 
 <template>
@@ -59,21 +64,23 @@
         </div>
 
         <div class="mt-3">
-          <label class="form-label">*{{ $t('add_catalog_activity_result.activity_result_name') }}</label>
-          <input
-            type="text"
-            :placeholder="$t('add_catalog_activity_result.activity_result_name')" 
-            class="w-full form-control"
-            v-model="activity_result.name" />
+          <label class="form-label">*{{ $t('add_catalog_activity_result.activity_result_tracking_type') }}</label>
+          <v-select
+            label="value"
+            class="form-control" 
+            :options="aTrackingTypes" 
+            :reduce="value => value.key"
+            v-model="activity_result.tracking_type">
+          </v-select>
         </div>
-        
+
         <div class="mt-3">
           <label class="form-label">*{{ $t('add_catalog_activity_result.activity_result_name') }}</label>
           <input
             type="text"
             :placeholder="$t('add_catalog_activity_result.activity_result_name')" 
             class="w-full form-control"
-            v-model="activity_result.tracking" />
+            v-model="activity_result.name" />
         </div>
 
         <div class="mt-5 text-right">

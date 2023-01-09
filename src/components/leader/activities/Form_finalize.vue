@@ -5,153 +5,68 @@
 </script>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+    import { onMounted, ref, watch } from 'vue';
 
-import useVuelidate from '@vuelidate/core';
-import { required, minLength, maxLength } from '@vuelidate/validators';
+    import useVuelidate from '@vuelidate/core';
+    import { required, minLength, maxLength } from '@vuelidate/validators';
 
-import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
+    import vSelect from 'vue-select';
+    import 'vue-select/dist/vue-select.css';
 
-import { useGetDataActivityResults } from '../../../composables/getDatas/useGetDataActivityResults';
-const { fetchActivitiesResults, results, error } = useGetDataActivityResults();
+    import { useGetDataActivityResults } from '../../../composables/getDatas/useGetDataActivityResults';
+    const { fetchActivitiesResults, results, error } = useGetDataActivityResults();
 
-//import Datepicker from '@vuepic/vue-datepicker';
-//import '@vuepic/vue-datepicker/dist/main.css';
+    const editorConfig = {
+      toolbar: {
+        items: [],
+      },
+    };
 
-//import Toastify from "toastify-js";
-//import dom from "@left4code/tw-starter/dist/js/dom";
+    const props = defineProps({
+        activity_reschedule: {
+            type: Object,
+            required: true,
+        },
+        activity_information: {
+            type: Object,
+            required: true,
+        }, 
+    });
 
-//import { useActivitiesStore } from "../../../stores/leader/activities";
-//const { fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore(); //ACTIONS
-const editorConfig = {
-  toolbar: {
-    items: [],
-  },
-};
+    const emit = defineEmits(["submit", "view_activity_form"]);
 
-const props = defineProps({
-    activity: {
-        type: Object,
-        required: true,
-    },
-    activity_information: {
-        type: Object,
-        required: true,
-    }, 
-});
-
-const emit = defineEmits(["submit", "view_activity_form"]);
-
-const dataActivitiesResults = ref([]);
+    const bButtonsShow = ref(true);
+    const dataActivitiesResults = ref([]);
     
-onMounted(async() => {
-    await fetchActivitiesResults();
-    dataActivitiesResults.value = results.value;
-});
+    onMounted(async() => {
+        await fetchActivitiesResults();
+        dataActivitiesResults.value = results.value;
+    });
 
-watch(
-    () => props.activity.activity_result_id,
-    async () => {
-      let [result_activities_results] = dataActivitiesResults.value.filter((p) => p.id == props.activity.activity_result_id);
+    watch(
+        () => props.activity_reschedule.activity_result_id,
+        async () => {
+          let [result_activities_results] = dataActivitiesResults.value.filter((p) => p.id == props.activity_reschedule.activity_result_id);
 
-      if(typeof result_activities_results !== 'undefined')
-        emit('view_activity_form', result_activities_results.tracking);
-      else
-        emit('view_activity_form', 0);
+          if(typeof result_activities_results !== 'undefined') {
+
+              if(result_activities_results.tracking_type !== null)
+                  bButtonsShow.value = false;
+              else
+                  bButtonsShow.value = true;
+
+              emit('view_activity_form', result_activities_results.tracking_type);
+              
+          }else {
+              emit('view_activity_form', null);
+          }
+
+        }
+    );
+    
+    const submitForm = async () => {
+      emit('submit')
     }
-);
-////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
-/*
-const dataActivitiesTypes = ref([]);
-const dataActivitiesSubjects = ref([]);
-onMounted(async() => {
-    dataActivitiesTypes.value = await fetchActivitiesTypes();
-});
-watch(
-    () => props.activity.activity_type_id,
-    async () => {
-        dataActivitiesSubjects.value = await fetchActivitiesSubjects();
-    }
-);
-*/
-////////////////
-
-////////RULES
-/*
-const rules = {
-        activity_type_id: { required },
-        activity_subject_id: { required },
-    }
-const validate = useVuelidate(rules, props.activity);
-const submitForm = async () => {
-    validate.value.$touch();
-    if (validate.value.$invalid) {
-        Toastify({
-          node: dom("#failed-notification-content")
-            .clone()
-            .removeClass("hidden")[0],
-          duration: 3000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          stopOnFocus: true,
-        }).showToast();
-      } else {
-        Toastify({
-          node: dom("#success-notification-content")
-            .clone()
-            .removeClass("hidden")[0],
-          duration: 3000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          stopOnFocus: true,
-        }).showToast();
-      }
-    const result = await validate.value.$validate();
-
-    if(result){
-        emit('submit')
-    }
-}
-*/
-////////////////
-
-
-// const categories = ref([1, 3]);
-//const categories = ref([]);
-//const editorData = ref("<p>Comments</p>");
-// const date = ref();
-// const startDate = new Date();
-// const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
-// date.value = new Date();
-// Date start - end
-// const start_date = ref();
-// const flow = ref([ 'calendar' ]);
-// const end_date = ref();
-// const flows = ref([ 'month', 'year' ]);
-// Date
-/*
-const start_date = ref(new Date());
-const end_date = ref(new Date());
-const start_time = ref({ 
-            hours: new Date().getHours(),
-            minutes: new Date().getMinutes()
-        });
-const end_time = ref({ 
-            hours: new Date().getHours(),
-            minutes: new Date().getMinutes()
-        });
-*/
-
-/*
-const submitStep = async () => {
-    step.value = (step.value == 3) ? -1 : 2;
-}
-*/
 </script>
 
 <template>
@@ -162,7 +77,7 @@ const submitStep = async () => {
                 <b>{{ $t('add_activity_finalize.label_prospect') }}:</b> {{ activity_information.client }}<br />
                 <b>{{ $t('add_activity_finalize.label_type') }}:</b> {{ activity_information.type }}<br />
                 <b>{{ $t('add_activity_finalize.label_subject') }}:</b> {{ activity_information.subject }}<br />
-                <b>{{ $t('add_activity_finalize.label_date') }}:</b>{{ activity.activity_date_format }}
+                <b>{{ $t('add_activity_finalize.label_date') }}:</b>{{ activity_information.activity_date }}
             </div>
             
             <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
@@ -173,7 +88,7 @@ const submitStep = async () => {
                     class="form-control"
                     :options="dataActivitiesResults"
                     :reduce="name => name.id"
-                    v-model="activity.activity_result_id">
+                    v-model="activity_reschedule.activity_result_id">
                 </v-select>
                 <!--
                 <v-select  
@@ -194,16 +109,14 @@ const submitStep = async () => {
                     <ClassicEditor
                         :config="editorConfig" 
                         :placeholder="$t('add_activity_finalize.observations')"
-                        v-model="activity.observations" />
+                        v-model="activity_reschedule.observations" />
                 </div>
             </div>
-
-            <!--
-            <div class="flex items-center justify-center col-span-12 mt-5 intro-y sm:justify-end">
+            
+            <div class="flex items-center justify-center col-span-12 mt-5 intro-y sm:justify-end" v-if="bButtonsShow">
                 <button class="w-24 btn btn-secondary" @click="submitStep">Previous</button>
                 <button class="w-24 ml-2 btn btn-primary">{{ $t('add_activity_finalize.btn_save') }}</button>
             </div>
-            -->
         </div>
     </form>
     

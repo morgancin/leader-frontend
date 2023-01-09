@@ -64,7 +64,7 @@
         :prospect="form" />
 
       <ProspectStep2Form
-      v-if="(step == 2)"
+        v-if="(step == 2)"
         @submit="submitStep"
         :prospect="form" />
         

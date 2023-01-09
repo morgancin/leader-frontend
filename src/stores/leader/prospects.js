@@ -42,11 +42,11 @@ export const useProspectsStore = defineStore("ProspectsStore", {
     }),
     actions: {
         async createProspectActivity(data) {
-            data.end_time = data.end_time.hours + ':' + data.end_time.minutes;
+            //data.end_time = data.end_time.hours + ':' + data.end_time.minutes;
+            //data.end_date = new Date(data.end_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
+            //data.activity_date = new Date(data.activity_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
             data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
-            data.end_date = new Date(data.end_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
             data.start_date = new Date(data.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
-            data.activity_date = new Date(data.activity_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
             
             axiosClient.post('/clients/activity/register', data)
             .then (({data}) => {
@@ -72,7 +72,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             await axiosClient.get(`/clients/origins/list`)
             .then (({data}) => {
                 //this.message = data.message;
-                result = data;
+                result = data.data;
             })
             .catch(function (error) {
                 this.message = error.message;
@@ -87,7 +87,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
                 await axiosClient.get(`/clients/origins/mediums/list/${this.prospect.client_origin}`)
                 .then (({data}) => {
                     //this.message = data.message;
-                    result = data;
+                    result = data.data;
                 })
                 .catch(function (error) {
                     this.message = error.message;

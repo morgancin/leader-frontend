@@ -11,6 +11,7 @@ export function useGetDatasTags()
         
         await axiosClient.get(`/tags/list/${cType}`)
         .then (({data}) => {
+            //results.value = data.data;
             results.value = data;
         })
         .catch(function (err) {

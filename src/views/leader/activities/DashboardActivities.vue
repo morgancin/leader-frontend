@@ -76,6 +76,14 @@
           download: true,
         },
         {
+          title: "ACTIVITY RESULT",
+          minWidth: 200,
+          field: "activity_result.name",
+          vertAlign: "middle",
+          print: true,
+          download: true,
+        },
+        {
           title: "ACTIONS",
           minWidth: 200,
           field: "actions",
@@ -87,6 +95,9 @@
             const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3" href="/activities/reschedule/${cell.getData().id}">
                                   <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Finalize
+                                </a>
+                                <a class="flex items-center mr-3" href="/quotes/create/${cell.getData().id}">
+                                  <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Quote
                                 </a>
                             </div>`);
 

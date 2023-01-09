@@ -124,10 +124,19 @@
         "btn_cancel": "Cancel",
         "btn_add_new_activity": "Create New Activity"
     },
+    "add_quotes":{
+        "quotes": "Quotes",
+        "quote_category": "Category",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_quote": "Create New Quote"
+    },
     "add_catalog_activity_result":{
         "activity_result": "Activities Results",
         "activity_result_type": "Type",
         "activity_result_name": "Name",
+        "activity_result_tracking_type": "Tracking type",
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",

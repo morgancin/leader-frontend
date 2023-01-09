@@ -126,10 +126,19 @@
         "btn_cancel": "Cancelar",
         "btn_add_new_activity": "Nueva actividad"
     },
+    "add_quotes":{
+        "quotes": "Cotizaciones",
+        "quote_category": "Categoría",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_quote": "Nueva cotización"
+    },
     "add_catalog_activity_result":{
         "activity_result": "Resultados de actividades",
         "activity_result_type": "Tipo",
         "activity_result_name": "Nombre",
+        "activity_result_tracking_type": "Tipo seguimiento",
         "btn_prev": "Anterior",
         "btn_save": "Guardar",
         "btn_cancel": "Cancelar",

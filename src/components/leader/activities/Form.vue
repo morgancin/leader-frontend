@@ -19,6 +19,7 @@ import Toastify from "toastify-js";
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 import { useActivitiesStore } from "../../../stores/leader/activities";
+
 const { fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore(); //ACTIONS
 const editorConfig = {
   toolbar: {
@@ -32,24 +33,29 @@ const props = defineProps({
     },
 });
 const emit = defineEmits(["submit"]);
+
 ////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
 const dataActivitiesTypes = ref([]);
 const dataActivitiesSubjects = ref([]);
+
 onMounted(async() => {
     dataActivitiesTypes.value = await fetchActivitiesTypes();
 });
+
 watch(
     () => props.activity.activity_type_id,
     async () => {
-        dataActivitiesSubjects.value = await fetchActivitiesSubjects();
+        dataActivitiesSubjects.value = await fetchActivitiesSubjects(props.activity.activity_type_id);
     }
 );
 ////////////////
+
 ////////RULES
 const rules = {
         activity_type_id: { required },
         activity_subject_id: { required },
     }
+    
 const validate = useVuelidate(rules, props.activity);
 const submitForm = async () => {
     validate.value.$touch();
@@ -117,6 +123,7 @@ const submitStep = async () => {
 </script>
 
 <template>
+<<<<<<< HEAD
 <!-- Inicio de arreglo LVT-->
 <div class="relative  place-content-start content-center">
         <div class=" content-center  absolute  ">
@@ -146,22 +153,56 @@ const submitStep = async () => {
                                 {{ error.$message }}
                             </div>
                         </template>
+=======
+    <form @submit.prevent="submitForm()" autocomplete="on">
+        <div class="grid grid-cols-12 gap-4 mt-5 gap-y-5">
+            <!-- <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4"> -->
+            <!-- <div class="col-span-12 intro-y sm:col-span-6">
+                <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
+                <v-select
+                    id="cmbActivityType"
+                    class="form-control"
+                    :options="dataActivitiesTypes"
+                    :reduce="name => name.id"
+                    label="name"
+                    :placeholder="$t('add_prospect_activity.activity')"
+                    v-model="activity.activity_type_id">
+                </v-select>
+            </div> -->
+
+            <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
+                <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
+                <v-select
+                    label="name"
+                    id="cmbActivityType"
+                    class="form-control"
+                    :options="dataActivitiesTypes"
+                    :reduce="name => name.id"
+                    v-model="validate.activity_type_id.$model"
+                    :class="{ 'border-danger': validate.activity_type_id.$error }">
+                    <!-- v-model="activity.activity_type_id"
+                    v-model.trim="validate.activity_type_id.$model" -->
+                </v-select >
+                <template v-if="validate.activity_type_id.$error">
+                    <div
+                        v-for="(error, index) in validate.activity_type_id.$errors"
+                        :key="index"
+                        class="mt-2 text-danger">
+                        {{ error.$message }}
+>>>>>>> 7a2699ac (monday upgrade)
                     </div>
 
             <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
                 <label for="cmbActivitySubject" class="form-label">*{{ $t('add_prospect_activity.subject') }}</label>
-                <v-select  
+                <v-select
+                    label="name"
                     id="cmbActivitySubject"
                     class="form-control"
                     :options="dataActivitiesSubjects"
                     :reduce="name => name.id"
-                    label="name"
-                    
                     v-model="validate.activity_subject_id.$model"
-                    :class="{ 'border-danger': validate.activity_subject_id.$error }"
-                    >
+                    :class="{ 'border-danger': validate.activity_subject_id.$error }">
                     <!-- v-model="validate.activity_subject_id.$model"
-                    
                     v-model.trim="validate.activity_subject_id.$model" -->
                 </v-select >
                 <template v-if="validate.activity_subject_id.$error">
