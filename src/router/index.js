@@ -120,11 +120,13 @@ const routes = [
         name: "side-menu-dashboard-overview-4",
         component: DashboardOverview4,
       },
+      /*
       {
         path: "categories",
         name: "side-menu-categories",
         component: Categories,
       },
+      */
       {
         path: "add-product",
         name: "side-menu-add-product",

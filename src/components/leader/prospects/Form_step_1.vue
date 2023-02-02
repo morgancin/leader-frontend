@@ -4,8 +4,7 @@
     }
 </script>
 
-<script setup>
-    
+<script setup>    
     import { onMounted, ref, watch, toRefs } from 'vue';
     import { storeToRefs } from "pinia";
 
@@ -20,7 +19,7 @@
     import { useProspectsStore } from "../../../stores/leader/prospects";
 
     /////
-    import { useGetDatasTags } from '../../../composables/getDatas/useGetDatasTags';
+    import { useGetDatasTags } from '../../../composables/getData/useGetDatasTags';
 
     // const selectMultiple = ref(["1", "3"]);
 	

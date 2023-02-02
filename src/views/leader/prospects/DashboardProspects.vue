@@ -139,6 +139,9 @@
   import {TabulatorFull as Tabulator} from 'tabulator-tables';
   import { createIcons, icons } from "lucide";
   import dom from "@left4code/tw-starter/dist/js/dom";
+  
+  import i18n from "../../../language/i18n";
+  const { t } = i18n.global;
 
   const tableRef = ref();
   const tabulator = ref();
@@ -172,7 +175,7 @@ const initTabulator = () => {
         columns: [
           // For HTML table
           {
-            title: "NAME",
+            title: t('list.prospects.column_1'),
             minWidth: 200,
             field: "first_name",
             vertAlign: "middle",
@@ -182,7 +185,7 @@ const initTabulator = () => {
             // hozAlign: "center",
           },
           {
-            title: "LAST NAME",
+            title: t('list.prospects.column_2'),
             minWidth: 200,
             field: "last_name",
             vertAlign: "middle",
@@ -190,7 +193,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: "SECOND LAST NAME",
+            title: t('list.prospects.column_3'),
             minWidth: 200,
             field: "second_last_name",
             vertAlign: "middle",
@@ -198,7 +201,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: "EMAIL",
+            title: t('list.prospects.column_4'),
             minWidth: 200,
             field: "email",
             vertAlign: "middle",
@@ -206,7 +209,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: "PHONE MOBILE",
+            title: t('list.prospects.column_5'),
             minWidth: 200,
             field: "phone_mobile",
             vertAlign: "middle",
@@ -214,13 +217,12 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: "ACTIONS",
+            title: t('list.prospects.column_6'),
             minWidth: 200,
             field: "actions",
             vertAlign: "middle",
             print: false,
             download: false,
-
             formatter(cell) {
               const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3" href="/prospect/edit/${cell.getData().id}">

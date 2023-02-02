@@ -6,6 +6,9 @@
   import {TabulatorFull as Tabulator} from 'tabulator-tables';
   import dom from "@left4code/tw-starter/dist/js/dom";
   
+  import i18n from "../../../language/i18n";
+  const { t } = i18n.global;
+  
   const tableRef = ref();
   const tabulator = ref();
   const filter = reactive({
@@ -44,7 +47,7 @@
       columns: [
         // For HTML table
         {
-          title: "ACTIVITY DATE",
+          title: t('list.activities.column_1'),
           minWidth: 200,
           field: "activity_date_format",
           vertAlign: "middle",
@@ -52,7 +55,7 @@
           download: true,
         },
         {
-          title: "NAME",
+          title: t('list.activities.column_2'),
           minWidth: 200,
           field: "client.full_name",
           vertAlign: "middle",
@@ -60,7 +63,7 @@
           download: true,
         },
         {
-          title: "ACTIVITY TYPE",
+          title: t('list.activities.column_3'),
           minWidth: 200,
           field: "activity_subject.activity_type.name",
           vertAlign: "middle",
@@ -68,7 +71,7 @@
           download: true,
         },
         {
-          title: "ACTIVITY SUBJECT",
+          title: t('list.activities.column_4'),
           minWidth: 200,
           field: "activity_subject.name",
           vertAlign: "middle",
@@ -76,7 +79,7 @@
           download: true,
         },
         {
-          title: "ACTIVITY RESULT",
+          title: t('list.activities.column_5'),
           minWidth: 200,
           field: "activity_result.name",
           vertAlign: "middle",
@@ -84,13 +87,12 @@
           download: true,
         },
         {
-          title: "ACTIONS",
+          title: t('list.activities.column_6'),
           minWidth: 200,
           field: "actions",
           vertAlign: "middle",
           print: false,
           download: false,
-
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3" href="/activities/reschedule/${cell.getData().id}">
@@ -398,6 +400,8 @@
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('add_activities.activities') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
+      {{ $t('list.activities.column_1') }}
+      {{ $t('list.activities.column_2') }}
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-activity`">{{ $t('add_activities.btn_add_new_activity') }}</router-link>
       <!-- <Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">

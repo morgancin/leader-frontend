@@ -3,5 +3,6 @@
         "src/language",
         "src/views/languages"
     ],
-    "i18n-ally.keystyle": "nested"
+    "i18n-ally.keystyle": "nested",
+    "git.ignoreLimitWarning": true
 }

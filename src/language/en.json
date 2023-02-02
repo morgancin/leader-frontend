@@ -1,4 +1,80 @@
 {
+    "list": {
+        "users": {
+            "column_1": "NAME",
+            "column_2": "EMAIL",
+            "column_3": "ACTIONS"
+        },
+        "prospects": {
+            "column_1": "NAME",
+            "column_2": "LAST NAME",
+            "column_3": "SECOND LAST NAME",
+            "column_4": "EMAIL",
+            "column_5": "PHONE MOBILE",
+            "column_6": "ACTIONS"
+        },
+        "activities": {
+            "column_1": "DATE",
+            "column_2": "NAME",
+            "column_3": "TYPE",
+            "column_4": "SUBJECT",
+            "column_5": "RESULT",
+            "column_6": "ACTIONS"
+        },
+        "currencies": {
+            "column_1": "CODE",
+            "column_2": "NAME",
+            "column_3": "ACTIONS"
+        },
+        "products": {
+            "column_1": "SKU",
+            "column_2": "NAME",
+            "column_3": "CATEGORY",
+            "column_4": "ACTIONS"
+        },
+        "prices": {
+            "column_1": "PRICE",
+            "column_2": "ACTIONS"
+        },
+        "price_lists": {
+            "column_1": "NAME",
+            "column_2": "ACTIONS"
+        },
+        "categories": {
+            "column_1": "NAME",
+            "column_2": "ACTIONS"
+        },
+        "catalogs_activities": {
+            "column_1": "NAME",
+            "column_2": "TYPE",
+            "column_3": "ACTIONS"
+        },
+        "catalogs_activities_results": {
+            "column_1": "NAME",
+            "column_2": "TYPE",
+            "column_3": "ACTIONS"
+        },
+        "catalogs_subjects": {
+            "column_1": "NAME",
+            "column_2": "ACTIVITY TYPE",
+            "column_3": "ACTIONS"
+        },
+        "catalogs_origins": {
+            "column_1": "ORIGIN",
+            "column_2": "ACTIONS"
+        },
+        "catalogs_mediums_origins": {
+            "column_1": "MEDIUM",
+            "column_2": "ORIGIN",
+            "column_3": "ACTIONS"
+        },
+        "catalogs_tags": {
+            "column_1": "TAG",
+            "column_2": "TYPE",
+            "column_3": "ACTIONS"
+        }
+    },
+
     "add_user": {
         "add_user": "Add User",
         "name": "Name",
@@ -127,6 +203,7 @@
     "add_quotes":{
         "quotes": "Quotes",
         "quote_category": "Category",
+        "quote_lists_prices": "Lists prices",
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",

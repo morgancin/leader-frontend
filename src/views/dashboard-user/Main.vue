@@ -132,6 +132,10 @@
   import dom from "@left4code/tw-starter/dist/js/dom";
   
   import { useUsersStore } from "@/stores/leader/users";
+
+  import i18n from "../../language/i18n";
+  const { t } = i18n.global;
+
   const { deleteUser } = useUsersStore();
   
   const tableRef = ref();
@@ -165,7 +169,7 @@
       columns: [
         // For HTML table
         {
-          title: "NAME",
+          title: t('list.users.column_1'),
           minWidth: 200,
           field: "name",
           vertAlign: "middle",
@@ -175,7 +179,7 @@
           // hozAlign: "center",
         },
         {
-          title: "EMAIL",
+          title: t('list.users.column_2'),
           minWidth: 200,
           field: "email",
           vertAlign: "middle",
@@ -183,13 +187,12 @@
           download: true,
         },
         {
-          title: "ACTIONS",
+          title: t('list.users.column_3'),
           minWidth: 200,
           field: "actions",
           vertAlign: "middle",
           print: false,
           download: false,
-
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/user/edit/${cell.getData().id}">

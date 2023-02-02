@@ -1,4 +1,80 @@
 {
+    "list": {
+        "users": {
+            "column_1": "NOMBRE",
+            "column_2": "CORREO ELECTRÓNICO",
+            "column_3": "ACCIONES"
+        },
+        "prospects": {
+            "column_1": "NOMBRE",
+            "column_2": "APELLIDO",
+            "column_3": "SEGUNDO APELLIDO",
+            "column_4": "CORREO ELECTRÓNICO",
+            "column_5": "TELÉFONO MÓVIL",
+            "column_6": "ACCIONES"
+        },
+        "activities": {
+            "column_1": "FECHA",
+            "column_2": "NOMBRE",
+            "column_3": "TIPO",
+            "column_4": "ASUNTO",
+            "column_5": "RESULTADO",
+            "column_6": "ACCIONES"
+        },
+        "currencies": {
+            "column_1": "CÓDIGO",
+            "column_2": "NOMBRE",
+            "column_3": "ACCIONES"
+        },
+        "products": {
+            "column_1": "CLAVE",
+            "column_2": "NOMBRE",
+            "column_3": "CATEGORÍA",
+            "column_4": "ACCIONES"
+        },
+        "prices": {
+            "column_1": "PRECIO",
+            "column_2": "ACCIONES"
+        },
+        "price_lists": {
+            "column_1": "NOMBRE",
+            "column_2": "ACCIONES"
+        },
+        "categories": {
+            "column_1": "NOMBRE",
+            "column_2": "ACCIONES"
+        },
+        "catalogs_activities": {
+            "column_1": "NOMBRE",
+            "column_2": "TIPO",
+            "column_3": "ACCIONES"
+        },
+        "catalogs_activities_results": {
+            "column_1": "NOMBRE",
+            "column_2": "TIPO",
+            "column_3": "ACCIONES"
+        },
+        "catalogs_subjects": {
+            "column_1": "NOMBRE",
+            "column_2": "TIPO ACTIVIDAD",
+            "column_3": "ACCIONES"
+        },
+        "catalogs_origins": {
+            "column_1": "ORIGEN",
+            "column_2": "ACCIONES"
+        },
+        "catalogs_mediums_origins": {
+            "column_1": "MEDIO",
+            "column_2": "ORIGEN",
+            "column_3": "ACCIONES"
+        },
+        "catalogs_tags": {
+            "column_1": "ETIQUETA",
+            "column_2": "TIPO",
+            "column_3": "ACCIONES"
+        }
+    },
+
     "add_user": {
         "add_user": "Agregar Usuario",
         "name": "Nombre",
@@ -129,6 +205,7 @@
     "add_quotes":{
         "quotes": "Cotizaciones",
         "quote_category": "Categoría",
+        "quote_lists_prices": "Listas de precios",
         "btn_prev": "Anterior",
         "btn_save": "Guardar",
         "btn_cancel": "Cancelar",

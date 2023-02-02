@@ -5,6 +5,9 @@
   import { createIcons, icons } from "lucide";
   import {TabulatorFull as Tabulator} from 'tabulator-tables';
   import dom from "@left4code/tw-starter/dist/js/dom";
+
+  import i18n from "../../../language/i18n";
+  const { t } = i18n.global;
   
   const tableRef = ref();
   const tabulator = ref();
@@ -39,7 +42,7 @@
       columns: [
         // For HTML table
         {
-          title: "NAME",
+          title: t('list.categories.column_1'),
           minWidth: 200,
           field: "name",
           vertAlign: "middle",
@@ -47,13 +50,12 @@
           download: true,
         },
         {
-          title: "ACTIONS",
+          title: t('list.categories.column_2'),
           minWidth: 200,
           field: "actions",
           vertAlign: "middle",
           print: false,
           download: false,
-
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/categories/edit/${cell.getData().id}">

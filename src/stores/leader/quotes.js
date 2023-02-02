@@ -8,9 +8,10 @@ export const useQuotesStore = defineStore("QuotesStore", {
         },
         quotes: [],
         message: null,
+        send_quote: {},
     }),
     actions: {
-        async createQuote(category) {
+        async createQuote(activity, cart) {
             axiosClient.post('/quotes/create', quote)
             .then (({data}) => {
                 return data;
@@ -54,6 +55,15 @@ export const useQuotesStore = defineStore("QuotesStore", {
             })
             .catch(function (error) {
                 this.message = error.message;
+            })
+        },
+        async fetchDocumentQuote() {
+            axiosClient.get(`/quotes/document/view`)
+            .then (({data}) => {
+                //this.quote = data;
+            })
+            .catch(function (error) {
+                //this.message = error.message;
             })
         },
     }
