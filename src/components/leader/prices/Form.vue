@@ -10,9 +10,9 @@
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
 
-    import { useGetDataProducts } from '../../../composables/getDatas/useGetDataProducts';
-    import { useGetDataCurrencies } from '../../../composables/getDatas/useGetDataCurrencies';
-    import { useGetDataPriceLists } from '../../../composables/getDatas/useGetDataPriceLists';
+    import { useGetDataProducts } from '../../../composables/getData/useGetDataProducts';
+    import { useGetDataCurrencies } from '../../../composables/getData/useGetDataCurrencies';
+    import { useGetDataPriceLists } from '../../../composables/getData/useGetDataPriceLists';
     
     defineProps({
       price: {

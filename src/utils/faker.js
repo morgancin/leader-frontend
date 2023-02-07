@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 const imageAssets = import.meta.globEager(
   `/src/assets/images/*.{jpg,jpeg,png,svg}`
 );
+
 const fakers = {
   fakeUsers() {
     const users = [

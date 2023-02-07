@@ -24,8 +24,18 @@ export const useAuthStore = defineStore("AuthStore", {
                 //this.company = data;
 
                 this.user.token = data.token;
+
+                //app.globalProperties.global_property_user = this.user.token;
+                //app.config.global_property_user = this.user.token;
+                 //this.global_property_user = this.user.token;
+                //globalThis.global_property_user = 'heyyyyy';
+                //this.global.global_property_user = 'heyyyyy';
+                //this.global_property_user = 'heyyyyy';
+                //this.$global_property_user = 'heyyyyy';
+                
                 sessionStorage.setItem("TOKEN", this.user.token);
                 sessionStorage.setItem("language", data.user.profile.language);
+                sessionStorage.setItem("session_storage_user", this.user.token);
 
                 i18n.global.locale.value = data.user.profile.language;
                 

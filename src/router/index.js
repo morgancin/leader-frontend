@@ -103,6 +103,7 @@ const requireAuth = async (to, from, next) => {
 const routes = [
   {
     path: "/",
+    name: "home",
     component: SideMenu,
     children: [
       {

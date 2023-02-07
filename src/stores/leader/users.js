@@ -15,17 +15,18 @@ export const useUsersStore = defineStore("UsersStore", {
                 return data;
                 //user: {}
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
         },
+
         async fetchUser(id) {
             axiosClient.get(`/users/user`)
             .then (({data}) => {
                 //return data;
                 this.user = data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
             /*
@@ -40,13 +41,14 @@ export const useUsersStore = defineStore("UsersStore", {
             }
             */
         },
+
         async updateUser(user) {
             axiosClient.patch(`/users/update`, user)
             .then (({data}) => {
                 this.user = data.result;
                 this.message = data.message;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
 
@@ -60,6 +62,7 @@ export const useUsersStore = defineStore("UsersStore", {
             }
             */
         },
+        
         async deleteUser(id) {
             this.message = 'heyyy';
             /*

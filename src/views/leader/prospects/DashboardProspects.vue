@@ -29,6 +29,8 @@
   <!-- BEGIN: HTML Table Data -->
   <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+
+      <!--
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
           <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Field</label>
@@ -74,26 +76,28 @@
             id="tabulator-html-filter-go"
             type="button"
             class="w-full btn btn-primary sm:w-16"
-            @click="onFilter"
-          >
-            Go
+            @click="onFilter">
+              Go
           </button>
           <button
             id="tabulator-html-filter-reset"
             type="button"
             class="w-full mt-2 btn btn-secondary sm:w-16 sm:mt-0 sm:ml-1"
-            @click="onResetFilter"
-          >
-            Reset
+            @click="onResetFilter">
+              Reset
           </button>
         </div>
       </form>
+      -->
+
+
+
+
       <div class="flex mt-5 sm:mt-0">
         <button
           id="tabulator-print"
           class="w-1/2 mr-2 btn btn-outline-secondary sm:w-auto"
-          @click="onPrint"
-        >
+          @click="onPrint">
           <PrinterIcon class="w-4 h-4 mr-2" /> Print
         </button>
         <Dropdown class="w-1/2 sm:w-auto">

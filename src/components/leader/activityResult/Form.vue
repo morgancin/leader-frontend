@@ -10,7 +10,7 @@
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
 
-    import { useGetDataActivityTypes } from '../../../composables/getDatas/useGetDataActivityTypes';
+    import { useGetDataActivityTypes } from '../../../composables/getData/useGetDataActivityTypes';
 
     defineProps({
         activity_result: {

@@ -10,7 +10,7 @@
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
 
-    import { useGetDataCategories } from '../../../composables/getDatas/useGetDataCategories';
+    import { useGetDataCategories } from '../../../composables/getData/useGetDataCategories';
 
     defineProps({
         quote: {

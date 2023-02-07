@@ -58,8 +58,8 @@
         email: { required, email },
         phone_mobile: { required },
         service_priority: { required },
-        client_origin: { required },
-        client_medium_origin_id: { required }
+        //client_origin: { required },
+        //client_medium_origin_id: { required }
     }
     const rulesCurp = {
         first_name: {
@@ -699,7 +699,7 @@
                         </v-select>
                     </div>
                     v-model="validate.client_origin.$model" -->
-
+                    <!--
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-3">
                         <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.origin') }}</label>
                         <v-select
@@ -719,6 +719,7 @@
                           </div>
                         </template>
                     </div>
+                    -->
 
                     <!-- <div class="col-span-12 intro-y sm:col-span-6 md:col-span-3">
                         <label class="form-label">{{ $t('add_prospect_details.medium') }}</label>
@@ -728,7 +729,7 @@
                         </v-select>
                     </div>
                     v-model="validate.client_medium_origin_id.$model" -->
-
+                    <!--
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-3">
                         <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.medium') }}</label>
                         <v-select 
@@ -749,6 +750,7 @@
                           </div>
                         </template>
                     </div>
+                -->
 
                     <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4">
                         <label class="form-label">Tags</label>

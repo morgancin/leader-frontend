@@ -2,19 +2,20 @@
   <!-- BEGIN: Top Bar -->
   <div class="top-bar">
     <!-- BEGIN: Breadcrumb -->
-    <nav aria-label="breadcrumb" class="-intro-x mr-auto hidden sm:flex">
+    <nav aria-label="breadcrumb" class="hidden mr-auto -intro-x sm:flex">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Application</a></li>
         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
       </ol>
     </nav>
     <!-- END: Breadcrumb -->
+    
     <!-- BEGIN: Search -->
-    <!-- <div class="intro-x relative mr-3 sm:mr-6">
-      <div class="search hidden sm:block">
+    <!-- <div class="relative mr-3 intro-x sm:mr-6">
+      <div class="hidden search sm:block">
         <input
           type="text"
-          class="search__input form-control border-transparent"
+          class="border-transparent search__input form-control"
           placeholder="Search..."
           @focus="showSearchDropdown"
           @blur="hideSearchDropdown"
@@ -30,7 +31,7 @@
           <div class="mb-5">
             <a href="" class="flex items-center">
               <div
-                class="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full"
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success"
               >
                 <InboxIcon class="w-4 h-4" />
               </div>
@@ -38,7 +39,7 @@
             </a>
             <a href="" class="flex items-center mt-2">
               <div
-                class="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full"
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending"
               >
                 <UsersIcon class="w-4 h-4" />
               </div>
@@ -46,7 +47,7 @@
             </a>
             <a href="" class="flex items-center mt-2">
               <div
-                class="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full"
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80"
               >
                 <CreditCardIcon class="w-4 h-4" />
               </div>
@@ -70,7 +71,7 @@
               </div>
               <div class="ml-3">{{ faker.users[0].name }}</div>
               <div
-                class="ml-auto w-48 truncate text-slate-500 text-xs text-right"
+                class="w-48 ml-auto text-xs text-right truncate text-slate-500"
               >
                 {{ faker.users[0].email }}
               </div>
@@ -92,7 +93,7 @@
             </div>
             <div class="ml-3">{{ faker.products[0].name }}</div>
             <div
-              class="ml-auto w-48 truncate text-slate-500 text-xs text-right"
+              class="w-48 ml-auto text-xs text-right truncate text-slate-500"
             >
               {{ faker.products[0].category }}
             </div>
@@ -102,7 +103,7 @@
     </div> -->
     <!-- END: Search -->
     <!-- BEGIN: Basic Select -->
-      <!-- <div class="intro-x relative mr-3 sm:mr-6 mt-2">
+      <!-- <div class="relative mt-2 mr-3 intro-x sm:mr-6">
         <label>Basic</label>
           <TomSelect v-model="select" :options="{
                         placeholder: 'Select your favorite actors',
@@ -113,40 +114,42 @@
           </TomSelect>
       </div> -->
     <!-- END: Basic Select -->
+
     <!-- BEGIN: Notifications -->
-    <Dropdown class="intro-x mr-auto sm:mr-6">
+    <!--
+    <Dropdown class="mr-auto intro-x sm:mr-6">
       <DropdownToggle
         tag="div"
         role="button"
-        class="notification notification--bullet cursor-pointer"
-      >
+        class="cursor-pointer notification notification--bullet">
         <BellIcon class="notification__icon dark:text-slate-500" />
       </DropdownToggle>
-      <DropdownMenu class="notification-content pt-2">
+      
+      <DropdownMenu class="pt-2 notification-content">
         <DropdownContent tag="div" class="notification-content__box">
           <div class="notification-content__title">Notifications</div>
           <div
             v-for="(faker, fakerKey) in $_.take($f(), 5)"
             :key="fakerKey"
-            class="cursor-pointer relative flex items-center"
+            class="relative flex items-center cursor-pointer"
             :class="{ 'mt-5': fakerKey }"
           >
-            <div class="w-12 h-12 flex-none image-fit mr-1">
+            <div class="flex-none w-12 h-12 mr-1 image-fit">
               <img
                 alt="Midone Tailwind HTML Admin Template"
                 class="rounded-full"
                 :src="faker.photos[0]"
               />
               <div
-                class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"
+                class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600"
               ></div>
             </div>
             <div class="ml-2 overflow-hidden">
               <div class="flex items-center">
-                <a href="javascript:;" class="font-medium truncate mr-5">{{
+                <a href="javascript:;" class="mr-5 font-medium truncate">{{
                   faker.users[0].name
                 }}</a>
-                <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">
+                <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">
                   {{ faker.times[0] }}
                 </div>
               </div>
@@ -158,43 +161,52 @@
         </DropdownContent>
       </DropdownMenu>
     </Dropdown>
+    -->
     <!-- END: Notifications -->
+    
     <!-- BEGIN: Account Menu -->
-    <Dropdown class="intro-x w-8 h-8">
+    <Dropdown class="w-8 h-8 intro-x">
       <DropdownToggle
         tag="div"
         role="button"
-        class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
-      >
-        <img
-          alt="Midone Tailwind HTML Admin Template"
-          :src="$f()[9].photos[0]"
-        />
+        class="w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in">
+          <img
+            alt="Midone Tailwind HTML Admin Template"
+            :src="$f()[9].photos[0]" />
       </DropdownToggle>
+
       <DropdownMenu class="w-56">
-        <DropdownContent class="bg-primary text-white">
+        <DropdownContent class="text-white bg-primary">
+          
           <DropdownHeader tag="div" class="!font-normal">
-            <div class="font-medium">{{ $f()[0].users[0].name }}</div>
+            <div class="font-medium">Admin</div>
+            <!--
             <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">
               {{ $f()[0].jobs[0] }}
             </div>
+            -->
           </DropdownHeader>
+          
+          <DropdownDivider class="border-white/[0.08]" />
+            <DropdownItem class="hover:bg-white/5">
+              <UserIcon class="w-4 h-4 mr-2" /> Profile
+            </DropdownItem>
+          
+            <!--
+            <DropdownItem class="hover:bg-white/5">
+              <EditIcon class="w-4 h-4 mr-2" /> Add Account
+            </DropdownItem>
+            <DropdownItem class="hover:bg-white/5">
+              <LockIcon class="w-4 h-4 mr-2" /> Reset Password
+            </DropdownItem>
+            <DropdownItem class="hover:bg-white/5">
+              <HelpCircleIcon class="w-4 h-4 mr-2" /> Help
+            </DropdownItem>
+            -->
+
           <DropdownDivider class="border-white/[0.08]" />
           <DropdownItem class="hover:bg-white/5">
-            <UserIcon class="w-4 h-4 mr-2" /> Profile
-          </DropdownItem>
-          <DropdownItem class="hover:bg-white/5">
-            <EditIcon class="w-4 h-4 mr-2" /> Add Account
-          </DropdownItem>
-          <DropdownItem class="hover:bg-white/5">
-            <LockIcon class="w-4 h-4 mr-2" /> Reset Password
-          </DropdownItem>
-          <DropdownItem class="hover:bg-white/5">
-            <HelpCircleIcon class="w-4 h-4 mr-2" /> Help
-          </DropdownItem>
-          <DropdownDivider class="border-white/[0.08]" />
-          <DropdownItem class="hover:bg-white/5">
-            <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout
+            <ToggleRightIcon class="w-4 h-4 mr-2" @click="logout" /> Logout
           </DropdownItem>
         </DropdownContent>
       </DropdownMenu>
@@ -205,13 +217,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+  import { ref } from "vue";
+  import router from "@/router";
 
-const searchDropdown = ref(false);
-const showSearchDropdown = () => {
-  searchDropdown.value = true;
-};
-const hideSearchDropdown = () => {
-  searchDropdown.value = false;
-};
+  const searchDropdown = ref(false);
+
+  const showSearchDropdown = () => {
+    searchDropdown.value = true;
+  };
+
+  const hideSearchDropdown = () => {
+    searchDropdown.value = false;
+  };
+
+  const logout = () => {
+    
+    localStorage.clear();
+
+    router.push({
+                    name: "home",
+                })
+    
+  }
 </script>

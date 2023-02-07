@@ -43,12 +43,13 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             .then (({data}) => {
                 return data;
             })
-            .catch(function (error) {
+
+            .catch((error) => {
                 this.message = error.message;
             })
         },
-        async createActivityReschedule(data, activities_results_tracking_type) {
 
+        async createActivityReschedule(data, activities_results_tracking_type) {
             if(activities_results_tracking_type == 'activity') {
                 //data.end_time = data.end_time.hours + ':' + data.end_time.minutes;
                 //data.end_date = new Date(data.end_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
@@ -61,10 +62,11 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             .then (({data}) => {
                 return data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
         },
+
         async fetchActivitiesTypes() {
             let result = [];
             
@@ -74,12 +76,13 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
                 //this.selects.dataActivitiesTypes = data;
                 result = data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
 
             return result;
         },
+
         async fetchActivity(id) {
             axiosClient.get(`/activities/activity/${id}`)
             .then (({data}) => {
@@ -89,10 +92,11 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
                 this.activity_information.activity_date = data.data.activity_date_format;
                 this.activity_information.type = data.data.activity_subject.activity_type.name;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
         },
+
         async fetchActivitiesSubjects(activity_type_id) {
             let result = [];
 
@@ -102,7 +106,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
                 //this.selects.dataActivitiesSubjects = data;
                 result = data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
 

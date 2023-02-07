@@ -91,4 +91,10 @@ export default (app) => {
   for (const [key, icon] of Object.entries(LucideIcons)) {
     app.component(key, icon);
   }
+
+  //////CUSTOMER
+  //app.config.globalProperties.global_property_user = '';
+  //app.config.globalProperties.f2 = 'checa';
+  //app.config.globalProperties.msg = 'hello';
+  //app.config.globalProperties.global_property_baseURL = 'https://api.leader.arkanmedia.com/api';
 };
