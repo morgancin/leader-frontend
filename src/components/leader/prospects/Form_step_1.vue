@@ -691,14 +691,18 @@
                         </PreviewComponent> -->
                         <!-- END: Multiple Select -->
 
-                    <!-- <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4">
+                    <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4">
                         <label class="form-label">{{ $t('add_prospect_details.origin') }}</label>
-                        <v-select class="form-control" :options="dataOrigins"
-                            :reduce="description => description.id" label="description"
-                            :placeholder="$t('add_prospect_details.origin')" v-model="prospect.client_origin">
+                        <v-select
+                            class="form-control"
+                            label="description"
+                            :options="dataOrigins"                            
+                            :reduce="description => description.id"
+                            v-model="prospect.client_origin">
                         </v-select>
                     </div>
-                    v-model="validate.client_origin.$model" -->
+                    <!-- :placeholder="$t('add_prospect_details.origin')"
+                        v-model="validate.client_origin.$model" -->
                     <!--
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-3">
                         <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.origin') }}</label>
@@ -710,6 +714,7 @@
                             v-model="prospect.client_origin"
                             :class="{ 'border-danger': validate.client_origin.$error }">
                         </v-select>
+                        
                         <template v-if="validate.client_origin.$error">
                           <div
                             v-for="(error, index) in validate.client_origin.$errors"
@@ -720,15 +725,18 @@
                         </template>
                     </div>
                     -->
-
-                    <!-- <div class="col-span-12 intro-y sm:col-span-6 md:col-span-3">
+                    <div class="col-span-12 intro-y sm:col-span-6 md:col-span-3">
                         <label class="form-label">{{ $t('add_prospect_details.medium') }}</label>
-                        <v-select class="form-control" :options="dataOriginsMediums"
-                            :reduce="description => description.id" label="description"
-                            :placeholder="$t('add_prospect_details.medium')" v-model="prospect.client_medium_origin_id">
+                        <v-select
+                            class="form-control"
+                            label="description"
+                            :options="dataOriginsMediums"
+                            :reduce="description => description.id"
+                            v-model="prospect.client_medium_origin_id">
                         </v-select>
                     </div>
-                    v-model="validate.client_medium_origin_id.$model" -->
+                    <!-- :placeholder="$t('add_prospect_details.medium')"
+                        v-model="validate.client_medium_origin_id.$model" -->
                     <!--
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-3">
                         <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.medium') }}</label>
