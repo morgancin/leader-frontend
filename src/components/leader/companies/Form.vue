@@ -110,199 +110,306 @@
 
 <template>
   <div class="intro-y col-span-12 lg:col-span-6">
-    <!-- BEGIN: Form Layout -->
-      <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
-    <form class="validate-form" @submit.prevent="submitForm">
-      <div class="intro-y box p-5 intro-y grid lg:grid-cols-4 sm:grid_cols-12 md:grid-cols-3 gap-3 mt-5">
-        <div class="input-form">
-          <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
-            {{ $t('add_companies.name') }}
-            <!-- <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
-              Required, at least 2 characters
-            </span> -->
-          </label>
-          <input 
-            id="validation-form-1" 
-            v-model.trim="v$.name.$model" 
-            v-model="company.name" 
-            type="text" 
-            name="name"
-            class="form-control" 
-            :class="{ 'border-danger': v$.name.$error }" 
-            :placeholder="$t('add_companies.name')" />
-          <template v-if="v$.name.$error">
-            <div 
-              v-for="(error, index) in v$.name.$errors" 
-              :key="index" 
-              class="text-danger mt-2">
-              {{ error.$message }}
-            </div>
-          </template>
-        </div>
-        <div class="input-form">
-          <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-            {{ $t('add_companies.email') }}
-            <!-- <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
-              Required, at least 2 characters
-            </span> -->
-          </label>
-          <input 
-            id="validation-form-2" 
-            v-model.trim="v$.email.$model" 
-            v-model="company.email" 
-            type="email" 
-            name="email"
-            class="form-control" 
-            :class="{ 'border-danger': v$.email.$error }" 
-            :placeholder="$t('add_companies.email')" />
-          <template v-if="v$.email.$error">
-            <div 
-              v-for="(error, index) in v$.email.$errors" 
-              :key="index" 
-              class="text-danger mt-2">
-              {{ error.$message }}
-            </div>
-          </template>
-        </div>
-        <div class="input-form">
-          <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
-            {{ $t('add_companies.password') }}
-            <!-- <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
-              Required, at least 2 characters
-            </span> -->
-          </label>
-          <input 
-            id="validation-form-3" 
-            v-model.trim="v$.password.$model" 
-            v-model="company.password" 
-            type="password"
-            name="password"
-            class="form-control" 
-            :class="{ 'border-danger': v$.password.$error }" 
-            :placeholder="$t('add_companies.password')" />
-          <template v-if="v$.password.$error">
-            <div 
-              v-for="(error, index) in v$.password.$errors" 
-              :key="index" 
-              class="text-danger mt-2">
-              {{ error.$message }}
-            </div>
-          </template>
-        </div>
-        <div class="input-form">
-          <label for="validation-form-4" class="form-label w-full flex flex-col sm:flex-row">
-            {{ $t('add_companies.password_confirmation') }}
-            <!-- <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
-              Required, at least 2 characters
-            </span> -->
-          </label>
-          <input 
-            id="validation-form-4" 
-            v-model.trim="v$.password_confirmation.$model" 
-            v-model="company.password_confirmation" 
-            type="password"
-            name="password_confirmation"
-            class="form-control" 
-            :class="{ 'border-danger': v$.password_confirmation.$error }" 
-            :placeholder="$t('add_companies.password_confirmation')" />
-          <template v-if="v$.password_confirmation.$error">
-            <div 
-              v-for="(error, index) in v$.password_confirmation.$errors" 
-              :key="index" 
-              class="text-danger mt-2">
-              {{ error.$message }}
-            </div>
-          </template>
-        </div>
-        <div class="mt-3">
-            <label class="form-label">{{ $t('add_companies.zip_code') }}</label>
-            <input 
-            v-model.number="company.postal_code" 
-            :placeholder="$t('add_companies.zip_code')"
-            type="text" class="form-control w-full"/>
+    
+    <div class="intro-y box p-5">
+  
+      <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+          <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+            <ChevronDownIcon class="w-4 h-4 mr-2" /> Datos de compañía
           </div>
-      <!--  <div class="input-form">
-          <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
-            {{ $t('add_companies.zip_code') }}
-             <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
-              Required, at least 2 characters
-            </span> 
-          </label>
-          <input 
-            id="validation-form-5" 
-            v-model.trim="v$.zip_code.$model" 
-            v-model="company.zip_code" 
-            type="number" 
-            name="zip_code"
-            class="form-control" 
-            :class="{ 'border-danger': v$.zip_code.$error }" 
-            :placeholder="$t('add_companies.zip_code')" />
-          <template v-if="v$.zip_code.$error">
-            <div 
-              v-for="(error, index) in v$.zip_code.$errors" 
-              :key="index" 
-              class="text-danger mt-2">
-              {{ error.$message }}
-            </div>
-          </template>
-        </div>-->
-        <div class="input-form">
-          <label class="form-label w-full flex flex-col sm:flex-row">{{ $t('add_companies.state') }}</label>
-          <TomSelect class="form-control" v-model.trim="select" v-model="company.state">
-            <option value="1">{{ $t('add_companies.select_option') }}</option>
-            <!-- <option disabled value="">{{ $t('add_companies.select_option') }}</option> -->
-            <option value="">{{ $t('add_companies.select_option') }}</option>
-            <option value="Aguacalientes">Aguacalientes</option>
-            <option value="Baja California">Baja California</option>
-            <option value="Baja California Sur">Baja California Sur</option>
-            <option value="Campeche">Campeche</option>
-            <option value="Chiapas">Chiapas</option>
-            <option value="Chihuahua">Chihuahua</option>
-            <option value="Ciudad de México">Ciudad de México</option>
-            <option value="Coahuila">Coahuila</option>
-            <option value="Colima">Colima</option>
-            <option value="Durango">Durango</option>
-            <option value="Estado de México">Estado de México</option>
-            <option value="Extranjero">Extranjero</option>
-            <option value="Guanajuato">Guanajuato</option>
-            <option value="Guerrero">Guerrero</option>
-            <option value="Hidalgo">Hidalgo</option>
-            <option value="Jalisco">Jalisco</option>
-            <option value="Michoacan">Michoacan</option>
-            <option value="Morelos">Morelos</option>
-            <option value="Nayarit">Nayarit</option>
-            <option value="Nuevo León">Nuevo León</option>
-            <option value="Oaxaca">Oaxaca</option>
-            <option value="Puebla">Puebla</option>
-            <option value="Querétaro">Querétaro</option>
-            <option value="Quintana Roo">Quintana Roo</option>
-            <option value="San Luis Potosi">San Luis Potosi</option>
-            <option value="Sinaloa">Sinaloa</option>
-            <option value="Sonora">Sonora</option>
-            <option value="Tabasco">Tabasco</option>
-            <option value="Tamaulipas">Tamaulipas</option>
-            <option value="Tlaxcala">Tlaxcala</option>
-            <option value="Veracruz">Veracruz</option>
-            <option value="Yucatan">Yucatan</option>
-            <option value="Zacatecas">Zacatecas</option>
-          </TomSelect>
-        </div>
-        <div class="mt-3">
-          <label class="form-label">{{ $t('add_companies.city') }}</label>
-          <TomSelect  class="form-control" :placeholder="$t('add_companies.city')" v-model.trim="select" v-model="company.city">
-            <option value="">{{ $t('add_companies.city') }}</option>
-            <option value="Cuauhtémoc">Cuauhtémoc</option>
-            <option value="VenustianoCarranza">Venustiano Carranza</option>
-            <option value="Miguel Hidalgo">Miguel Hidalgo</option>
-          </TomSelect >
-        </div>
-        <div class="text-center flex mt-10">
-          <button type="button" class="btn btn-outline-secondary w-24 mr-1">{{ $t('add_companies.btn_cancel') }}</button>
-          <button type="submit" class="btn btn-primary w-24">{{ $t('add_companies.btn_save') }}</button>
-        </div>
+          <div class="mt-5">  
+              <!-- BEGIN: Form Layout -->
+              <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
+              <form class="validate-form" @submit.prevent="submitForm">
+                
+                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.name') }}</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
+                          >
+                            Requerido
+                          </div>
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Nombre de la compañía, espacio para caracteres alfanúmericos.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <input 
+                        id="validation-form-1" 
+                        v-model.trim="v$.name.$model" 
+                        v-model="company.name" 
+                        type="text" 
+                        name="name"
+                        class="form-control" 
+                        :class="{ 'border-danger': v$.name.$error }" 
+                        :placeholder="$t('add_companies.name')" />
+                      <div class="form-help text-right">
+                        Deben ser al menos 2 caracteres.
+                      </div>
+                      <template v-if="v$.name.$error">
+                        <div 
+                          v-for="(error, index) in v$.name.$errors" 
+                          :key="index" 
+                          class="text-danger mt-2">
+                          {{ error.$message }}
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+
+                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.email') }}</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
+                          >
+                            Requerido
+                          </div>
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Email de la compañía, escribir en formato de correo, por ejemplo: usuario@dominio.com
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <input 
+                        id="validation-form-2" 
+                        v-model.trim="v$.email.$model" 
+                        v-model="company.email" 
+                        type="email" 
+                        name="email"
+                        class="form-control" 
+                        :class="{ 'border-danger': v$.email.$error }" 
+                        :placeholder="$t('add_companies.email')" />
+                      <div class="form-help text-right">
+                        En formato de correo electrónico.
+                      </div>
+                      <template v-if="v$.email.$error">
+                        <div 
+                          v-for="(error, index) in v$.email.$errors" 
+                          :key="index" 
+                          class="text-danger mt-2">
+                          {{ error.$message }}
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+
+
+                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.password') }}</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
+                          >
+                            Requerido
+                          </div>
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Contraseña para la compañía, con la que ingresará al sistema.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <input
+                        id="validation-form-3"
+                        v-model.trim="v$.password.$model"
+                        v-model="company.password"
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        :class="{ 'border-danger': v$.password.$error }"
+                        :placeholder="$t('add_companies.password')"/>
+                      <div class="form-help text-right">
+                          Deben ser al menos 6 caracteres.
+                      </div>
+                      <template v-if="v$.password.$error">
+                        <div
+                          v-for="(error, index) in v$.password.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                          {{ error.$message }}
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+
+
+                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.password_confirmation') }}</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
+                          >
+                            Requerido
+                          </div>
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Confirmación de contraseña para la compañía, debe coincidir con la contraseña de arriba.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <input
+                        id="validation-form-3"
+                        v-model.trim="v$.password_confirmation.$model"
+                        v-model="company.password_confirmation"
+                        type="password"
+                        name="password_confirmation"
+                        class="form-control"
+                        :class="{ 'border-danger': v$.password_confirmation.$error }"
+                        :placeholder="$t('add_companies.password_confirmation')"/>
+                      <div class="form-help text-right">
+                          Deben ser al menos 6 caracteres.
+                      </div>
+                      <template v-if="v$.password_confirmation.$error">
+                        <div
+                          v-for="(error, index) in v$.password_confirmation.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                          {{ error.$message }}
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+
+
+                  
+
+                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.zip_code') }}</div>                          
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Código postal de la compañía.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <input 
+                      v-model.number="company.postal_code" 
+                      :placeholder="$t('add_companies.zip_code')"
+                      type="text" class="form-control w-full"/>
+                      <div class="form-help text-right">
+                          Deben ser 5 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.state') }}</div>                          
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Estado de la compañía.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <TomSelect class="form-control" v-model.trim="select" v-model="company.state">
+                        <option value="1">{{ $t('add_companies.select_option') }}</option>
+                        <!-- <option disabled value="">{{ $t('add_companies.select_option') }}</option> -->
+                        <option value="">{{ $t('add_companies.select_option') }}</option>
+                        <option value="Aguacalientes">Aguacalientes</option>
+                        <option value="Baja California">Baja California</option>
+                        <option value="Baja California Sur">Baja California Sur</option>
+                        <option value="Campeche">Campeche</option>
+                        <option value="Chiapas">Chiapas</option>
+                        <option value="Chihuahua">Chihuahua</option>
+                        <option value="Ciudad de México">Ciudad de México</option>
+                        <option value="Coahuila">Coahuila</option>
+                        <option value="Colima">Colima</option>
+                        <option value="Durango">Durango</option>
+                        <option value="Estado de México">Estado de México</option>
+                        <option value="Extranjero">Extranjero</option>
+                        <option value="Guanajuato">Guanajuato</option>
+                        <option value="Guerrero">Guerrero</option>
+                        <option value="Hidalgo">Hidalgo</option>
+                        <option value="Jalisco">Jalisco</option>
+                        <option value="Michoacan">Michoacan</option>
+                        <option value="Morelos">Morelos</option>
+                        <option value="Nayarit">Nayarit</option>
+                        <option value="Nuevo León">Nuevo León</option>
+                        <option value="Oaxaca">Oaxaca</option>
+                        <option value="Puebla">Puebla</option>
+                        <option value="Querétaro">Querétaro</option>
+                        <option value="Quintana Roo">Quintana Roo</option>
+                        <option value="San Luis Potosi">San Luis Potosi</option>
+                        <option value="Sinaloa">Sinaloa</option>
+                        <option value="Sonora">Sonora</option>
+                        <option value="Tabasco">Tabasco</option>
+                        <option value="Tamaulipas">Tamaulipas</option>
+                        <option value="Tlaxcala">Tlaxcala</option>
+                        <option value="Veracruz">Veracruz</option>
+                        <option value="Yucatan">Yucatan</option>
+                        <option value="Zacatecas">Zacatecas</option>
+                      </TomSelect>
+                    </div>
+                  </div>
+
+                 <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_companies.city') }}</div>                          
+                        </div>
+                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          Ciudad de la compañía.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <TomSelect  class="form-control" :placeholder="$t('add_companies.city')" v-model.trim="select" v-model="company.city">
+                        <option value="1">{{ $t('add_companies.select_option') }}</option>
+                        <option value="">{{ $t('add_companies.city') }}</option>
+                        <option value="Cuauhtémoc">Cuauhtémoc</option>
+                        <option value="VenustianoCarranza">Venustiano Carranza</option>
+                        <option value="Miguel Hidalgo">Miguel Hidalgo</option>
+                      </TomSelect>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+                    <button
+                      type="button"
+                      class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
+                    >
+                      Cancelar
+                    </button>
+                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">
+                      {{ $t('add_companies.btn_save') }}
+                    </button>
+                  </div>
+
+                
+              </form>
+              <!-- END: Form Layout -->
+          </div>
       </div>
-    </form>
-      <!-- END: Form Layout -->
+
+    </div>
 
     <div>
       <p>Errors:</p>
@@ -336,5 +443,7 @@
       </div>
     </div>
     <!-- END: Failed Notification Content -->
+
   </div>
+
 </template>

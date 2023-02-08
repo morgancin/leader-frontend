@@ -142,7 +142,8 @@
       </div>
       <!-- END: Content -->
     </div>
-  </div>
+  </div>                            
+
 </template>
 
 <script setup>

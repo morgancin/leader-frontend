@@ -1,3 +1,37 @@
+<script setup>
+import { ref, reactive } from "vue";
+import { storeToRefs } from "pinia";
+import { useProspectsStore } from "@/stores/leader/prospects";
+import { useActivitiesStore } from "@/stores/leader/activities";
+import ProspectStepQuickForm from "@/components/leader/prospects/Form_step_quick.vue";
+
+const { prospect: form, step } = storeToRefs(useProspectsStore());
+const { activity: form_activity } = storeToRefs(useActivitiesStore());
+const submitStep = async () => {
+  step.value = 1;
+}
+const submit = async () => {
+  //const data_prospect_activity = {...form.value};
+  //await createProspectActivity(data_prospect_activity);
+}
+
+const searchDropdown = ref(false);
+const showSearchDropdown = () => {
+  searchDropdown.value = true;
+};
+const hideSearchDropdown = () => {
+  searchDropdown.value = false;
+};
+
+const addProspectModal = ref(false);
+const addProspectButton = () => {
+    addProspectModal.value = true;
+}
+
+
+
+</script>
+
 <template>
   <!-- BEGIN: Top Bar -->
   <div class="top-bar">
@@ -115,6 +149,32 @@
       </div> -->
     <!-- END: Basic Select -->
 
+<<<<<<< HEAD
+=======
+    <!-- BEGIN: Quick actions -->
+    <Dropdown class="intro-x mr-auto sm:mr-6">
+      <DropdownToggle
+        tag="div"
+        role="button"
+        class="notification cursor-pointer"
+      >
+        <PlusCircleIcon class="notification__icon dark:text-slate-500" />
+      </DropdownToggle>
+      <DropdownMenu class="quickaction-content pt-2">
+        <DropdownContent class="w-40">
+          <DropdownHeader>Quick Actions</DropdownHeader>
+          <DropdownDivider/>
+          <li>
+              <a href="javascript:;" @click="addProspectButton" class="dropdown-item cursor-pointer">
+              <UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}
+              </a>
+          </li>
+        </DropdownContent>
+      </DropdownMenu>
+    </Dropdown>
+    <!-- END: Basic Select -->
+
+>>>>>>> angel
     <!-- BEGIN: Notifications -->
     <!--
     <Dropdown class="mr-auto intro-x sm:mr-6">
@@ -127,7 +187,7 @@
       
       <DropdownMenu class="pt-2 notification-content">
         <DropdownContent tag="div" class="notification-content__box">
-          <div class="notification-content__title">Notifications</div>
+          <div class="notification-content__title">Notificaciones</div>
           <div
             v-for="(faker, fakerKey) in $_.take($f(), 5)"
             :key="fakerKey"
@@ -212,8 +272,8 @@
     <!-- END: Account Menu -->
   </div>
   <!-- END: Top Bar -->
-</template>
 
+<<<<<<< HEAD
 <script setup>
   import { ref } from "vue";
   import router from "@/router";
@@ -241,3 +301,14 @@
     
   }
 </script>
+=======
+  <ProspectStepQuickForm        
+        @submit="submitStep"
+        :prospect="form" :activity="form_activity" :addProspectModal="addProspectModal" />
+
+</template>
+
+<style>
+.vs__selected-options{flex-wrap: nowrap!important}
+</style>
+>>>>>>> angel

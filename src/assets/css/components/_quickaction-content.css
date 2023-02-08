@@ -1,0 +1,12 @@
+.quickaction-content {
+    width: 250px;
+    @include media-breakpoint-down(sm) {
+        width: 180px;
+    }
+    .quickaction-content__title {
+        @apply font-medium mb-5;
+    }
+    .quickaction-content__box {
+        @apply p-5;
+    }
+}
