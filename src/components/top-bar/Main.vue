@@ -1,35 +1,45 @@
 <script setup>
-import { ref, reactive } from "vue";
-import { storeToRefs } from "pinia";
-import { useProspectsStore } from "@/stores/leader/prospects";
-import { useActivitiesStore } from "@/stores/leader/activities";
-import ProspectStepQuickForm from "@/components/leader/prospects/Form_step_quick.vue";
+  import { ref, reactive } from "vue";
+  import { storeToRefs } from "pinia";
+  import { useProspectsStore } from "@/stores/leader/prospects";
+  import { useActivitiesStore } from "@/stores/leader/activities";
+  import ProspectStepQuickForm from "@/components/leader/prospects/Form_step_quick.vue";
 
-const { prospect: form, step } = storeToRefs(useProspectsStore());
-const { activity: form_activity } = storeToRefs(useActivitiesStore());
-const submitStep = async () => {
-  step.value = 1;
-}
-const submit = async () => {
-  //const data_prospect_activity = {...form.value};
-  //await createProspectActivity(data_prospect_activity);
-}
+  const { prospect: form, step } = storeToRefs(useProspectsStore());
+  const { activity: form_activity } = storeToRefs(useActivitiesStore());
+  const submitStep = async () => {
+    step.value = 1;
+  }
+  const submit = async () => {
+    //const data_prospect_activity = {...form.value};
+    //await createProspectActivity(data_prospect_activity);
+  }
 
-const searchDropdown = ref(false);
-const showSearchDropdown = () => {
-  searchDropdown.value = true;
-};
-const hideSearchDropdown = () => {
-  searchDropdown.value = false;
-};
+  const searchDropdown = ref(false);
+  const showSearchDropdown = () => {
+    searchDropdown.value = true;
+  };
+  const hideSearchDropdown = () => {
+    searchDropdown.value = false;
+  };
 
-const addProspectModal = ref(false);
-const addProspectButton = () => {
-    addProspectModal.value = true;
-}
+  const addProspectModal = ref(false);
+  const addProspectButton = () => {
+      addProspectModal.value = true;
+  }
 
-
-
+  import router from "@/router";
+  const login_user = ref(JSON.parse(sessionStorage.getItem("session_storage_user")));
+  
+  const logout = () => {
+    sessionStorage.clear();
+    
+    router.push({
+                    //name: "home",
+                    path: "/login",
+                })
+    
+  }
 </script>
 
 <template>
@@ -149,8 +159,7 @@ const addProspectButton = () => {
       </div> -->
     <!-- END: Basic Select -->
 
-<<<<<<< HEAD
-=======
+
     <!-- BEGIN: Quick actions -->
     <Dropdown class="intro-x mr-auto sm:mr-6">
       <DropdownToggle
@@ -174,7 +183,7 @@ const addProspectButton = () => {
     </Dropdown>
     <!-- END: Basic Select -->
 
->>>>>>> angel
+
     <!-- BEGIN: Notifications -->
     <!--
     <Dropdown class="mr-auto intro-x sm:mr-6">
@@ -273,42 +282,15 @@ const addProspectButton = () => {
   </div>
   <!-- END: Top Bar -->
 
-<<<<<<< HEAD
-<script setup>
-  import { ref } from "vue";
-  import router from "@/router";
-  
-  const searchDropdown = ref(false);
-  const login_user = ref(JSON.parse(sessionStorage.getItem("session_storage_user")));
 
-  //alert(JSON.stringify(login_user, null, 4));
-  
-  const showSearchDropdown = () => {
-    searchDropdown.value = true;
-  };
-
-  const hideSearchDropdown = () => {
-    searchDropdown.value = false;
-  };
-
-  const logout = () => {
-    sessionStorage.clear();
-    
-    router.push({
-                    //name: "home",
-                    path: "/login",
-                })
-    
-  }
-</script>
-=======
-  <ProspectStepQuickForm        
+   <ProspectStepQuickForm        
         @submit="submitStep"
         :prospect="form" :activity="form_activity" :addProspectModal="addProspectModal" />
 
 </template>
 
+
 <style>
 .vs__selected-options{flex-wrap: nowrap!important}
 </style>
->>>>>>> angel
+
