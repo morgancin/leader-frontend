@@ -177,22 +177,20 @@
 
       <DropdownMenu class="w-56">
         <DropdownContent class="text-white bg-primary">
-          
           <DropdownHeader tag="div" class="!font-normal">
-            <div class="font-medium">Admin</div>
+            <div class="font-medium">{{ login_user.name }}</div>
             <!--
             <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">
               {{ $f()[0].jobs[0] }}
             </div>
             -->
           </DropdownHeader>
-          
-          <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="hover:bg-white/5">
-              <UserIcon class="w-4 h-4 mr-2" /> Profile
-            </DropdownItem>
-          
+
             <!--
+              <DropdownDivider class="border-white/[0.08]" />
+            <DropdownItem class="hover:bg-white/5">
+              <UserIcon class="w-4 h-4 mr-2" /> {{ login_user.name }}
+            </DropdownItem>
             <DropdownItem class="hover:bg-white/5">
               <EditIcon class="w-4 h-4 mr-2" /> Add Account
             </DropdownItem>
@@ -205,8 +203,8 @@
             -->
 
           <DropdownDivider class="border-white/[0.08]" />
-          <DropdownItem class="hover:bg-white/5">
-            <ToggleRightIcon class="w-4 h-4 mr-2" @click="logout" /> Logout
+          <DropdownItem class="hover:bg-white/5" @click="logout">
+            <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout
           </DropdownItem>
         </DropdownContent>
       </DropdownMenu>
@@ -219,9 +217,12 @@
 <script setup>
   import { ref } from "vue";
   import router from "@/router";
-
+  
   const searchDropdown = ref(false);
+  const login_user = ref(JSON.parse(sessionStorage.getItem("session_storage_user")));
 
+  //alert(JSON.stringify(login_user, null, 4));
+  
   const showSearchDropdown = () => {
     searchDropdown.value = true;
   };
@@ -231,11 +232,11 @@
   };
 
   const logout = () => {
+    sessionStorage.clear();
     
-    localStorage.clear();
-
     router.push({
-                    name: "home",
+                    //name: "home",
+                    path: "/login",
                 })
     
   }
