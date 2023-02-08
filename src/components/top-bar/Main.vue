@@ -113,6 +113,32 @@
           </TomSelect>
       </div> -->
     <!-- END: Basic Select -->
+
+    <!-- BEGIN: Quick actions -->
+    <Dropdown class="intro-x mr-auto sm:mr-6">
+      <DropdownToggle
+        tag="div"
+        role="button"
+        class="notification cursor-pointer"
+      >
+        <PlusCircleIcon class="notification__icon dark:text-slate-500" />
+      </DropdownToggle>
+      <DropdownMenu class="quickaction-content pt-2">
+        <DropdownContent class="w-40">
+          <DropdownHeader>Quick Actions</DropdownHeader>
+          <DropdownDivider/>
+          <!--<li>
+              <a :href="`/add-activity`" class="dropdown-item"><UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}</a>
+          </li>-->
+          <li>
+              <a data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview" class="dropdown-item cursor-pointer">
+              <UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}</a>
+          </li>
+        </DropdownContent>
+      </DropdownMenu>
+    </Dropdown>
+    <!-- END: Basic Select -->
+
     <!-- BEGIN: Notifications -->
     <Dropdown class="intro-x mr-auto sm:mr-6">
       <DropdownToggle
@@ -124,7 +150,7 @@
       </DropdownToggle>
       <DropdownMenu class="notification-content pt-2">
         <DropdownContent tag="div" class="notification-content__box">
-          <div class="notification-content__title">Notifications</div>
+          <div class="notification-content__title">Notificaciones</div>
           <div
             v-for="(faker, fakerKey) in $_.take($f(), 5)"
             :key="fakerKey"

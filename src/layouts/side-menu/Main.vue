@@ -143,6 +143,54 @@
       <!-- END: Content -->
     </div>
   </div>
+
+  <!-- BEGIN: Modal Content quick action nuevo prospecto -->
+  <div id="header-footer-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <!-- BEGIN: Modal Header -->
+              <div class="modal-header">
+                  <h2 class="font-medium text-base mr-auto">{{$t('prospects.btn-add-new-prospect') }}</h2>                  
+              </div>
+              <!-- END: Modal Header -->
+              <!-- BEGIN: Modal Body -->
+              <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                  <div class="col-span-12 sm:col-span-6">
+                      <label for="modal-form-1" class="form-label">Nombre(s)</label>
+                      <input id="modal-form-1" type="text" class="form-control" placeholder="Juan">
+                  </div>
+                  <div class="col-span-12 sm:col-span-6">
+                      <label for="modal-form-2" class="form-label">Apellido(s)</label>
+                      <input id="modal-form-2" type="text" class="form-control" placeholder="Pérez">
+                  </div>
+                  <div class="col-span-12 sm:col-span-12">
+                      <label for="modal-form-3" class="form-label">Correo electrónico</label>
+                      <input id="modal-form-3" type="text" class="form-control" placeholder="juan@email.com">
+                  </div>
+                  <div class="col-span-12 sm:col-span-12">
+                      <label for="modal-form-4" class="form-label">Teléfono Celular</label>
+                      <input id="modal-form-4" type="text" class="form-control" placeholder="Teléfono celular">
+                  </div>
+                  <div class="col-span-12 sm:col-span-12">
+                      <label for="modal-form-5" class="form-label">Dirección</label>
+                      <input id="modal-form-5" type="text" class="form-control" placeholder="Calle #123 Col. La Colonia">
+                  </div>
+                  
+              </div>
+              <!-- END: Modal Body -->
+              <!-- BEGIN: Modal Footer -->
+              <div class="modal-footer">
+                  <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancelar</button>
+                  <button type="button" class="btn btn-primary w-20">Guardar</button>
+              </div>
+              <!-- END: Modal Footer -->
+          </div>
+      </div>
+  </div>
+  <!-- END: Modal Content -->
+
+                            
+
 </template>
 
 <script setup>
