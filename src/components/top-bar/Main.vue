@@ -1,3 +1,37 @@
+<script setup>
+import { ref, reactive } from "vue";
+import { storeToRefs } from "pinia";
+import { useProspectsStore } from "@/stores/leader/prospects";
+import { useActivitiesStore } from "@/stores/leader/activities";
+import ProspectStepQuickForm from "@/components/leader/prospects/Form_step_quick.vue";
+
+const { prospect: form, step } = storeToRefs(useProspectsStore());
+const { activity: form_activity } = storeToRefs(useActivitiesStore());
+const submitStep = async () => {
+  step.value = 1;
+}
+const submit = async () => {
+  //const data_prospect_activity = {...form.value};
+  //await createProspectActivity(data_prospect_activity);
+}
+
+const searchDropdown = ref(false);
+const showSearchDropdown = () => {
+  searchDropdown.value = true;
+};
+const hideSearchDropdown = () => {
+  searchDropdown.value = false;
+};
+
+const addProspectModal = ref(false);
+const addProspectButton = () => {
+    addProspectModal.value = true;
+}
+
+
+
+</script>
+
 <template>
   <!-- BEGIN: Top Bar -->
   <div class="top-bar">
@@ -127,12 +161,10 @@
         <DropdownContent class="w-40">
           <DropdownHeader>Quick Actions</DropdownHeader>
           <DropdownDivider/>
-          <!--<li>
-              <a :href="`/add-activity`" class="dropdown-item"><UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}</a>
-          </li>-->
           <li>
-              <a data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview" class="dropdown-item cursor-pointer">
-              <UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}</a>
+              <a href="javascript:;" @click="addProspectButton" class="dropdown-item cursor-pointer">
+              <UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}
+              </a>
           </li>
         </DropdownContent>
       </DropdownMenu>
@@ -228,16 +260,13 @@
     <!-- END: Account Menu -->
   </div>
   <!-- END: Top Bar -->
+
+  <ProspectStepQuickForm        
+        @submit="submitStep"
+        :prospect="form" :activity="form_activity" :addProspectModal="addProspectModal" />
+
 </template>
 
-<script setup>
-import { ref } from "vue";
-
-const searchDropdown = ref(false);
-const showSearchDropdown = () => {
-  searchDropdown.value = true;
-};
-const hideSearchDropdown = () => {
-  searchDropdown.value = false;
-};
-</script>
+<style>
+.vs__selected-options{flex-wrap: nowrap!important}
+</style>

@@ -13,6 +13,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             activity_date: null,
         },
         activity: {
+            //activity_type_id: null,
             comments: '',
             client_id: null,
             activity_subject_id: null,
