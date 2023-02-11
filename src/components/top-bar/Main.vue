@@ -1,4 +1,11 @@
+<script>
+    export default {
+        name: "TopBar",
+    }
+</script>
+
 <script setup>
+  import router from "@/router";
   import { ref, reactive } from "vue";
   import { storeToRefs } from "pinia";
   import { useProspectsStore } from "@/stores/leader/prospects";
@@ -7,28 +14,31 @@
 
   const { prospect: form, step } = storeToRefs(useProspectsStore());
   const { activity: form_activity } = storeToRefs(useActivitiesStore());
-  const submitStep = async () => {
-    step.value = 1;
-  }
+  
+  /*
   const submit = async () => {
     //const data_prospect_activity = {...form.value};
     //await createProspectActivity(data_prospect_activity);
   }
+  */
 
   const searchDropdown = ref(false);
+  const show_modal_prospect = ref(false);
+  
   const showSearchDropdown = () => {
     searchDropdown.value = true;
   };
   const hideSearchDropdown = () => {
     searchDropdown.value = false;
   };
-
-  const addProspectModal = ref(false);
   const addProspectButton = () => {
-      addProspectModal.value = true;
+    show_modal_prospect.value = true;
+  };
+  
+  const submitStep = () => {
+    show_modal_prospect.value = false; //PROBANDO
   }
-
-  import router from "@/router";
+  
   const login_user = ref(JSON.parse(sessionStorage.getItem("session_storage_user")));
   
   const logout = () => {
@@ -38,7 +48,6 @@
                     //name: "home",
                     path: "/login",
                 })
-    
   }
 </script>
 
@@ -161,22 +170,21 @@
 
 
     <!-- BEGIN: Quick actions -->
-    <Dropdown class="intro-x mr-auto sm:mr-6">
+    <Dropdown class="mr-auto intro-x sm:mr-6">
       <DropdownToggle
         tag="div"
         role="button"
-        class="notification cursor-pointer"
-      >
-        <PlusCircleIcon class="notification__icon dark:text-slate-500" />
+        class="cursor-pointer notification">
+          <PlusCircleIcon class="notification__icon dark:text-slate-500" />
       </DropdownToggle>
-      <DropdownMenu class="quickaction-content pt-2">
+      <DropdownMenu class="pt-2 quickaction-content">
         <DropdownContent class="w-40">
           <DropdownHeader>Quick Actions</DropdownHeader>
           <DropdownDivider/>
           <li>
-              <a href="javascript:;" @click="addProspectButton" class="dropdown-item cursor-pointer">
+            <a @click="addProspectButton" class="cursor-pointer dropdown-item">
               <UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}
-              </a>
+            </a>
           </li>
         </DropdownContent>
       </DropdownMenu>
@@ -281,16 +289,21 @@
     <!-- END: Account Menu -->
   </div>
   <!-- END: Top Bar -->
-
-
-   <ProspectStepQuickForm        
-        @submit="submitStep"
-        :prospect="form" :activity="form_activity" :addProspectModal="addProspectModal" />
-
+  
+  <!--
+    v-if="(show_modal_prospect == 'view')"
+    @submit="submitStep"
+  -->
+  <ProspectStepQuickForm
+    @submit="submitStep"
+    :prospect="form"
+    :activity="form_activity"
+    :show_modal="show_modal_prospect" />
+    
+    <!-- :show_modal_prospect="show_modal_prospect" -->
 </template>
 
-
 <style>
-.vs__selected-options{flex-wrap: nowrap!important}
+  .vs__selected-options{flex-wrap: nowrap!important}
 </style>
 

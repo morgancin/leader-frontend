@@ -27,14 +27,14 @@
       activity: {
         type: Object,
         required: true
-      },
-      addProspectModal: {
+      },      
+      show_modal: {
         type: Boolean
-      }
+      },
   });
 
-  const addProspectModal = toRef(props, 'addProspectModal');
-
+  //const show_modal = toRef(props, 'show_modal');
+  
   const emit = defineEmits(["submit"]);
 
   ////////RULES
@@ -88,11 +88,14 @@
         stopOnFocus: true,
       }).showToast();
       //console.log(props.addProspectModal);
-      addProspectModal.value = false;
+      //addProspectModal.value = false;
     }
+
     const result = await validate.value.$validate();
+
     if(result){
-        emit('submit')
+        emit('submit');
+        //show_modal.value = false;
     }
   } 
 
@@ -100,22 +103,13 @@
   const dataOrigins = ref([]);
   const dataOriginsMediums = ref([]);
   
-  onMounted(async() => {
-      dataOrigins.value = await fetchOrigins();
-  });
-  watch(
-      () => props.prospect.client_origin,
-      async () => {
-          dataOriginsMediums.value = await fetchOriginsMediums();
-      }
-  );
-
   ////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
   const dataActivitiesTypes = ref([]);
   const dataActivitiesSubjects = ref([]);
 
   onMounted(async() => {
-      dataActivitiesTypes.value = await fetchActivitiesTypes();
+    dataOrigins.value = await fetchOrigins();
+    dataActivitiesTypes.value = await fetchActivitiesTypes();
   });
   watch(
       () => props.activity.activity_type_id,
@@ -123,41 +117,54 @@
           dataActivitiesSubjects.value = await fetchActivitiesSubjects(props.activity.activity_type_id);
       }
   );
+  watch(
+      () => props.prospect.client_origin,
+      async () => {
+          dataOriginsMediums.value = await fetchOriginsMediums();
+      }
+  );
 
+  const editorConfig = {
+    toolbar: {
+      items: [],
+    },
+  };
 </script>
 
 <template>
   <!-- BEGIN: Modal Content quick action nuevo prospecto -->
-  <Modal :show="addProspectModal" @hidden="addProspectModal = false">
-    
-      <!--<div class="modal-dialog">-->
+  <!-- <Modal :show="addProspectModal" @hidden="addProspectModal = false"> -->
+  <Modal :show="show_modal">
+    <!--<div class="modal-dialog">-->
         <!--<form @submit.prevent="submitForm" autocomplete="on">-->
           <!--<div class="modal-content">-->
               <!-- BEGIN: Modal Header -->
               <ModalHeader>
-                  <h2 class="font-medium text-base mr-auto">{{$t('prospects.btn-add-new-prospect') }}</h2>                  
+                  <h2 class="mr-auto text-base font-medium">{{$t('prospects.btn-add-new-prospect') }}</h2>                  
               </ModalHeader>
               <!-- END: Modal Header -->
               <!-- BEGIN: Modal Body -->
               <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-                  <div class="col-span-12 sm:col-span-6">
-                      <label for="modal-form-1" class="form-label">{{ $t('add_prospect_details.first_name') }}</label>
-                      <input 
-                      id="modal-form-1" 
-                      type="text" 
-                      class="form-control" 
-                      v-model="prospect.first_name"
-                      :class="{ 'border-danger': validate.prospect.first_name.$error }"
-                      :placeholder="$t('add_prospect_details.first_name')">
-                      <template v-if="validate.prospect.first_name.$error">
-                          <div
-                              v-for="(error, index) in validate.prospect.first_name.$errors"
-                              :key="index"
-                              class="mt-2 text-danger">
-                              {{ error.$message }}
-                          </div>
-                      </template>
-                  </div>
+
+                <div class="col-span-12 sm:col-span-6">
+                  <label for="modal-form-1" class="form-label">{{ $t('add_prospect_details.first_name') }}</label>
+                  <input 
+                    id="modal-form-1" 
+                    type="text" 
+                    class="form-control" 
+                    v-model="prospect.first_name"
+                    :class="{ 'border-danger': validate.prospect.first_name.$error }"
+                    :placeholder="$t('add_prospect_details.first_name')">
+                  <template v-if="validate.prospect.first_name.$error">
+                    <div
+                      class="mt-2 text-danger"
+                      v-for="(error, index) in validate.prospect.first_name.$errors"
+                      :key="index">
+                        {{ error.$message }}
+                    </div>
+                  </template>
+                </div>
+
                   <div class="col-span-12 sm:col-span-6">
                       <label for="modal-form-2" class="form-label">{{ $t('add_prospect_details.last_name') }}</label>
                       <input 
@@ -212,9 +219,27 @@
                         </div>
                       </template>
                   </div>
+
+                  <div class="col-span-12 input-form intro-y sm:col-span-12">
+                    <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
+                    <v-select
+                        label="description"
+                        class="form-control" 
+                        :options="dataOrigins"
+                        :reduce="description => description.id"
+                        v-model="prospect.client_origin"
+                        :class="{ 'border-danger': validate.prospect.client_origin.$error }">
+                    </v-select>
+                    <template v-if="validate.prospect.client_origin.$error">
+                      <div
+                        v-for="(error, index) in validate.prospect.client_origin.$errors"
+                        :key="index"
+                        class="mt-2 text-danger">
+                          {{ error.$message }}
+                      </div>
+                    </template>
+                  </div>
                   
-
-
                   <div class="col-span-12 input-form intro-y sm:col-span-6">
                     <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.origin') }}</label>
                     <v-select
@@ -230,10 +255,10 @@
                         v-for="(error, index) in validate.prospect.client_origin.$errors"
                         :key="index"
                         class="mt-2 text-danger">
-                        {{ error.$message }}
+                          {{ error.$message }}
                       </div>
                     </template>
-                </div>
+                  </div>
 
                 <div class="col-span-12 input-form intro-y sm:col-span-6">
                     <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.medium') }}</label>
@@ -328,13 +353,58 @@
                         timePicker />
                 </div>
 
-                  
+                <div class="col-span-12 sm:col-span-12">
+                  <label for="modal-form-1" class="form-label">{{ $t('add_prospect_activity.comments') }}</label>
+                  <ClassicEditor 
+                    v-model="activity.comments" 
+                    :placeholder="$t('add_prospect_activity.comments')"
+                    :config="editorConfig" />
+                  <!--
+                  <input 
+                    id="modal-form-1" 
+                    type="text" 
+                    class="form-control" 
+                    v-model="prospect.first_name"
+                    :class="{ 'border-danger': validate.prospect.first_name.$error }"
+                    :placeholder="$t('add_prospect_details.first_name')">
+                  <template v-if="validate.prospect.first_name.$error">
+                    <div
+                      class="mt-2 text-danger"
+                      v-for="(error, index) in validate.prospect.first_name.$errors"
+                      :key="index">
+                        {{ error.$message }}
+                    </div>
+                  </template>
+                  -->
+                </div>
+                
+                <!--
+                <div class="col-span-12 intro-y ">
+                  <label>{{ $t('add_prospect_activity.comments') }}</label>
+                  <div class="mt-2">
+                      <ClassicEditor 
+                          v-model="activity.comments" 
+                          :placeholder="$t('add_prospect_activity.comments')"
+                          :config="editorConfig"/>
+                  </div>
+                </div>
+                -->
+
+
+
+
+
+
+
+
+
+
               </ModalBody>
               <!-- END: Modal Body -->
               <!-- BEGIN: Modal Footer -->
               <ModalFooter>
-                  <button type="button" @click="addItemModal = false" class="btn btn-outline-secondary w-20 mr-1">Cancelar</button>
-                  <button type="submit" @click="submitForm" class="btn btn-primary w-20">Guardar</button>
+                  <button type="button" @click="addItemModal = false" class="w-20 mr-1 btn btn-outline-secondary">Cancelar</button>
+                  <button type="submit" @click="submitForm" class="w-20 btn btn-primary">Guardar</button>
               </ModalFooter>
               <!-- END: Modal Footer -->
 

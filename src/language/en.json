@@ -118,6 +118,7 @@
 
         "origin": "Origin",
         "medium": "Medium",
+        "company": "Company",
 
         "btn_prev": "Next"
     },
