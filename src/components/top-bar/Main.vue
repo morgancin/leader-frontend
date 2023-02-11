@@ -35,8 +35,24 @@
     show_modal_prospect.value = true;
   };
   
-  const submitStep = () => {
-    show_modal_prospect.value = false; //PROBANDO
+  const submitStep = () => {    
+    hideModal();
+  }
+
+  const hideModal = () => {    
+    show_modal_prospect.value = false;
+    resetForm();
+  }
+
+  const resetForm = () => {
+    /*form._object.prospect.first_name=null;
+    form._object.prospect.last_name=null;
+    form._object.prospect.email=null;
+    form._object.prospect.phone_mobile=null;
+    form._object.prospect.client_origin=null;
+    form_activity._object.activity.activity_type_id=null;
+    form_activity._object.activity.activity_subject_id=null;
+    form_activity._object.activity.comments=null;*/
   }
   
   const login_user = ref(JSON.parse(sessionStorage.getItem("session_storage_user")));
@@ -296,6 +312,8 @@
   -->
   <ProspectStepQuickForm
     @submit="submitStep"
+    @reset="resetForm()"
+    @hideModal="hideModal"
     :prospect="form"
     :activity="form_activity"
     :show_modal="show_modal_prospect" />
