@@ -9,7 +9,7 @@ export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore",
     }),
     actions: {
         async createClientOriginMedium(medium) {
-            axiosClient.post('/clients/origins/mediums/register ', medium)
+            axiosClient.post('/prospecting-means', medium)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore",
             })
         },
         async updateClientOriginMedium() {
-            axiosClient.patch(`/clients/origins/mediums/update/${this.medium.id}`, this.medium)
+            axiosClient.put(`/prospecting-means/${this.medium.id}`, this.medium)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -27,7 +27,7 @@ export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore",
             })
         },
         async fetchClientOriginMedium(id) {
-            axiosClient.get(`/clients/origins/mediums/client-origin-medium/${id}`)
+            axiosClient.get(`/prospecting-means/${id}`)
             .then (({data}) => {
                 //return data;
                 this.medium = data;
@@ -37,7 +37,7 @@ export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore",
             })
         },
         async fetchClientsOriginsMedium() {
-            axiosClient.get('/clients/origins/mediums/list')
+            axiosClient.get('/prospecting-means')
             .then (({data}) => {
                 //return data;
                 this.medium = data;

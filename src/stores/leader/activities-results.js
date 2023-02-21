@@ -10,7 +10,7 @@ export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
     }),
     actions: {
         async createActivityResult(activity) {
-            axiosClient.post('/activities/results/create', activity)
+            axiosClient.post('/activity-results', activity)
             .then (({data}) => {
                 return data;
             })
@@ -19,7 +19,7 @@ export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
             })
         },
         async updateActivityResult() {
-            axiosClient.patch(`/activities/results/update/${this.activity_result.id}`, this.activity_result)
+            axiosClient.put(`/activity-results/${this.activity_result.id}`, this.activity_result)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -38,7 +38,7 @@ export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
             */
         },
         async fetchActivitiesResults() {
-            axiosClient.get('/activities/results/list')
+            axiosClient.get('/activity-results')
             .then (({data}) => {
                 //return data;
                 this.activities_results = data;
@@ -48,7 +48,7 @@ export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
             })
         },
         async fetchActivityResult(id) {
-            axiosClient.get(`/activities/results/activity-result/${id}`)
+            axiosClient.get(`/activity-results/${id}`)
             .then (({data}) => {
                 //return data;
                 this.activity_result = data;

@@ -9,7 +9,7 @@ export const useProductsStore = defineStore("ProductsStore", {
     }),
     actions: {
         async createProduct(product) {
-            axiosClient.post('/products/create', product)
+            axiosClient.post('/products', product)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             })
         },
         async updateProduct() {
-            axiosClient.patch(`/products/update/${this.product.id}`, this.product)
+            axiosClient.put(`/products/${this.product.id}`, this.product)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -37,7 +37,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             */
         },
         async fetchProducts() {
-            axiosClient.get('/products/list')
+            axiosClient.get('/products')
             .then (({data}) => {
                 this.products = data;
             })
@@ -46,7 +46,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             })
         },
         async fetchProduct(id) {
-            axiosClient.get(`/products/product/${id}`)
+            axiosClient.get(`/products/${id}`)
             .then (({data}) => {
                 this.product = data;
             })

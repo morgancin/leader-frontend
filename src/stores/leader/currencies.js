@@ -9,7 +9,7 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
     }),
     actions: {
         async createCurrency(currency) {
-            axiosClient.post('/currencies/create', currency)
+            axiosClient.post('/currencies', currency)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
             })
         },
         async updateCurrency() {
-            axiosClient.patch(`/currencies/update/${this.currency.id}`, this.currency)
+            axiosClient.put(`/currencies/${this.currency.id}`, this.currency)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -37,7 +37,7 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
             */
         },
         async fetchCurrencies() {
-            axiosClient.get('/currencies/list')
+            axiosClient.get('/currencies')
             .then (({data}) => {
                 this.currencies = data;
             })
@@ -46,7 +46,7 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
             })
         },
         async fetchCurrency(id) {
-            axiosClient.get(`/currencies/currency/${id}`)
+            axiosClient.get(`/currencies/${id}`)
             .then (({data}) => {
                 this.currency = data;
             })

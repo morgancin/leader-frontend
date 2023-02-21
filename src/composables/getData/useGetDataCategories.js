@@ -9,9 +9,10 @@ export function useGetDataCategories()
     const fetchCategories = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/categories/list`)
+        await axiosClient.get(`/categories`)
         .then (({data}) => {
              //results.value = data;
+             console.log(data.data);
             results.value = data.data;
         })
         .catch(function (err) {

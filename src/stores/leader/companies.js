@@ -9,7 +9,7 @@ export const useCompaniesStore = defineStore("CompaniesStore", {
     }),
     actions: {
         async createCompany(company) {
-            axiosClient.post('/companies/register', company)
+            axiosClient.post('/companies', company)
             .then (({data}) => {
                 this.company = data.result;
                 this.message = data.message;
@@ -19,7 +19,7 @@ export const useCompaniesStore = defineStore("CompaniesStore", {
             })
         },
         async fetchCompany(id) {
-            axiosClient.get(`/companies/company`)
+            axiosClient.get(`/companies`)
             .then (({data}) => {
                 this.company = data;
             })
@@ -28,7 +28,7 @@ export const useCompaniesStore = defineStore("CompaniesStore", {
             })
         },
         async updateCompany(company) {
-            axiosClient.patch(`/companies/update`, company)
+            axiosClient.put(`/companies`, company)
             .then (({data}) => {
                 this.company = data.result;
                 this.message = data.message;

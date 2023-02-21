@@ -3,19 +3,24 @@ import axiosClient from "../../axios";
 
 export function useGetDataCurrencies()
 {
-    const error = ref(null);
+    const error_currencies = ref(null);
     const results = ref(null);
 
     const fetchCurrencies = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/currencies/list`)
+        results.value = [
+            {id:1,code:"MXN",name:"Peso mexicano"},{id:2,code:"JPY",name:"Yen japones"},{id:3,code:"USD",name:"Dolar americano"}
+        ];
+
+        /*
+        await axiosClient.get(`/currencies`)
         .then (({data}) => {
-            results.value = data;
+            results.value = data.data;
         })
         .catch(function (err) {
-            error.value = err;
-        })
+            error_currencies.value = err;
+        })*/
     };
 
     /*
@@ -33,6 +38,6 @@ export function useGetDataCurrencies()
     return{
         fetchCurrencies,
         currencies: readonly(results),
-        error,
+        error_currencies,
     };
 }

@@ -9,7 +9,7 @@ export function useGetDataActivityTypes()
     const fetchActivityTypes = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/activities/types/list`)
+        await axiosClient.get(`/activity-types`)
         .then (({data}) => {
             results.value = data;
         })

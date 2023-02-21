@@ -9,7 +9,7 @@ export function useGetDataActivityResults()
     const fetchActivitiesResults = async (cType) => {
         results.value = [];
 
-        await axiosClient.get('/activities/results/list')
+        await axiosClient.get('/activity-results')
         .then (({data}) => {
             results.value = data;
         })

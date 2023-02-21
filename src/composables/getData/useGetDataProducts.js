@@ -9,7 +9,7 @@ export function useGetDataProducts()
     const fetchProducts = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/products/list`)
+        await axiosClient.get(`/products`)
         .then (({data}) => {
             results.value = data;
         })
@@ -21,7 +21,7 @@ export function useGetDataProducts()
     const fetchProductsCategory = async (category) => {
         results.value = [];
         
-        await axiosClient.get(`/products/list/category/${category.id}`)
+        await axiosClient.get(`/products/category/${category.id}`)
         .then (({data}) => {
             results.value = data.data;
         })

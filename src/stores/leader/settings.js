@@ -12,7 +12,7 @@ export const useSettingsStore = defineStore("SettingsStore", {
     actions: {
         async updateProfileLanguage() {
             //axiosClient.patch(`/users/update/profile`, this.setting)
-            axiosClient.patch(`/users/profile/update`, this.setting)
+            axiosClient.put(`/profiles`, this.setting)
             .then (({data}) => {
                 this.message = data.message;
                 i18n.global.locale.value = this.setting.language;
@@ -24,7 +24,7 @@ export const useSettingsStore = defineStore("SettingsStore", {
             })
         },
         async fetchUserProfile() {
-            axiosClient.get(`/users/profile`)
+            axiosClient.get(`/profiles`)
             .then (({data}) => {
                 this.setting = data;
             })

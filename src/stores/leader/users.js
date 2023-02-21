@@ -10,7 +10,7 @@ export const useUsersStore = defineStore("UsersStore", {
     }),
     actions: {
         async createUser(user) {
-            axiosClient.post('/users/register', user)
+            axiosClient.post('/users', user)
             .then (({data}) => {
                 return data;
                 //user: {}
@@ -21,7 +21,7 @@ export const useUsersStore = defineStore("UsersStore", {
         },
 
         async fetchUser(id) {
-            axiosClient.get(`/users/user`)
+            axiosClient.get(`/users`)
             .then (({data}) => {
                 //return data;
                 this.user = data;
@@ -43,7 +43,7 @@ export const useUsersStore = defineStore("UsersStore", {
         },
 
         async updateUser(user) {
-            axiosClient.patch(`/users/update`, user)
+            axiosClient.put(`/users`, user)
             .then (({data}) => {
                 this.user = data.result;
                 this.message = data.message;

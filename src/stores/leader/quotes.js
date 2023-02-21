@@ -12,7 +12,7 @@ export const useQuotesStore = defineStore("QuotesStore", {
     }),
     actions: {
         async createQuote(activity, cart) {
-            axiosClient.post('/quotes/create', quote)
+            axiosClient.post('/quotes', quote)
             .then (({data}) => {
                 return data;
             })
@@ -21,7 +21,7 @@ export const useQuotesStore = defineStore("QuotesStore", {
             })
         },
         async updateQuote() {
-            axiosClient.patch(`/quotes/update/${this.quote.id}`, this.quote)
+            axiosClient.put(`/quotes/${this.quote.id}`, this.quote)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -40,7 +40,7 @@ export const useQuotesStore = defineStore("QuotesStore", {
             */
         },
         async fetchQuotes() {
-            axiosClient.get('/quotes/list')
+            axiosClient.get('/quotes')
             .then (({data}) => {
                 this.quotes = data;
             })
@@ -49,7 +49,7 @@ export const useQuotesStore = defineStore("QuotesStore", {
             })
         },
         async fetchQuote(id) {
-            axiosClient.get(`/quotes/quote/${id}`)
+            axiosClient.get(`/quotes/${id}`)
             .then (({data}) => {
                 this.quote = data;
             })
@@ -58,7 +58,7 @@ export const useQuotesStore = defineStore("QuotesStore", {
             })
         },
         async fetchDocumentQuote() {
-            axiosClient.get(`/quotes/document/view`)
+            axiosClient.get(`/quotes/view`)
             .then (({data}) => {
                 //this.quote = data;
             })

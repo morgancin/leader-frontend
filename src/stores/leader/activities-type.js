@@ -10,7 +10,7 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
     }),
     actions: {
         async createActivityType(activity) {
-            axiosClient.post('/activities/types/register', activity)
+            axiosClient.post('/activity-types', activity)
             .then (({data}) => {
                 return data;
             })
@@ -19,7 +19,7 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
             })
         },
         async updateActivityType() {
-            axiosClient.patch(`/activities/types/update/${this.activity_type.id}`, this.activity_type)
+            axiosClient.put(`/activity-types/${this.activity_type.id}`, this.activity_type)
             .then (({data}) => {
                 //this.activity_type = data.result;
                 this.message = data.message;
@@ -51,7 +51,7 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
         },
         */
         async fetchActivitiesTypes() {
-            axiosClient.get('/activities/types/list')
+            axiosClient.get('/activity-types')
             .then (({data}) => {
                 //return data;
                 this.activities_types = data;
@@ -61,7 +61,7 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
             })
         },
         async fetchActivityType(id) {
-            axiosClient.get(`/activities/types/activity-type/${id}`)
+            axiosClient.get(`/activity-types/${id}`)
             .then (({data}) => {
                 //return data;
                 this.activity_type = data;

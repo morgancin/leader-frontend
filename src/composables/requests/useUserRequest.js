@@ -18,7 +18,7 @@ export function useUserRequest()
     */
 
     const createUser = async (user) => {
-        axiosClient.post('/users/register', user)
+        axiosClient.post('/users', user)
         .then (({data}) => {
             return data;
             //user: {}

@@ -9,7 +9,7 @@ export function useGetDatasTags()
     const fetchTags = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/tags/list/${cType}`)
+        await axiosClient.get(`/tags/${cType}`)
         .then (({data}) => {
             //results.value = data.data;
             results.value = data;

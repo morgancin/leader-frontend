@@ -9,7 +9,7 @@ export const useTagsStore = defineStore("TagsStore", {
     }),
     actions: {
         async createTags(tag) {
-            axiosClient.post('/tags/register', tag)
+            axiosClient.post('/tags', tag)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const useTagsStore = defineStore("TagsStore", {
             })
         },
         async fetchTag(id) {
-            axiosClient.get(`/tags/tag/${id}`)
+            axiosClient.get(`/tags/${id}`)
             .then (({data}) => {
                 //return data;
                 this.tag = data;
@@ -28,7 +28,7 @@ export const useTagsStore = defineStore("TagsStore", {
             })
         },
         async updateTag() {
-            axiosClient.patch(`/tags/update/${this.tag.id}`, this.tag)
+            axiosClient.put(`/tags/${this.tag.id}`, this.tag)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -37,7 +37,7 @@ export const useTagsStore = defineStore("TagsStore", {
             })
         },
         async fetchTags() {
-            axiosClient.get('/tags/list')
+            axiosClient.get('/tags')
             .then (({data}) => {
                 //return data;
                 this.tag = data;

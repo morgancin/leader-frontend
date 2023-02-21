@@ -9,7 +9,7 @@ export const useClientOriginStore = defineStore("ClientOriginStore", {
     }),
     actions: {
         async createClientOrigin(origin) {
-            axiosClient.post('/clients/origins/register ', origin)
+            axiosClient.post('/prospecting-sources', origin)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const useClientOriginStore = defineStore("ClientOriginStore", {
             })
         },
         async fetchClientOrigin(id) {
-            axiosClient.get(`/clients/origins/client-origin/${id}`)
+            axiosClient.get(`/prospecting-sources/${id}`)
             .then (({data}) => {
                 //return data;
                 this.origin = data;
@@ -28,7 +28,7 @@ export const useClientOriginStore = defineStore("ClientOriginStore", {
             })
         },
         async fetchClientsOrigins() {
-            axiosClient.get('/clients/origins/list')
+            axiosClient.get('/prospecting-sources')
             .then (({data}) => {
                 //return data;
                 this.origin = data;
@@ -38,7 +38,7 @@ export const useClientOriginStore = defineStore("ClientOriginStore", {
             })
         },
         async updateClientOrigin() {
-            axiosClient.patch(`/clients/origins/update/${this.origin.id}`, this.origin)
+            axiosClient.put(`/prospecting-sources/${this.origin.id}`, this.origin)
             .then (({data}) => {
                 this.message = data.message;
             })

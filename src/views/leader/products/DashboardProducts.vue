@@ -23,7 +23,10 @@
 
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-      ajaxURL: "https://api.leader.arkanmedia.com/api/products/list",
+      ajaxURL: "https://api.leader.arkanmedia.com/api/products",
+      ajaxResponse:function(url, params, response){
+          return response.data; 
+      },
       ajaxConfig:{
         method:"GET",
         headers: {
@@ -60,7 +63,7 @@
         {
           title: t('list.products.column_3'),
           minWidth: 200,
-          field: "category_id",
+          field: "category.name",
           vertAlign: "middle",
           print: true,
           download: true,
@@ -103,7 +106,7 @@
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
       // ajaxURL: "https://dummy-data.left4code.com",
-      ajaxURL: "https://api.leader.arkanmedia.com/api/activities/types/list",
+      ajaxURL: "https://api.leader.arkanmedia.com/api/activity-type",
       ajaxConfig:{
         method:"GET",
         headers: {

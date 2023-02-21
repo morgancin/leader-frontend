@@ -681,3 +681,6 @@
     <!-- END: Add Item Modal -->
 
   </template>  
+  <style>
+    .vs__dropdown-toggle{ background:#fff}
+  </style>

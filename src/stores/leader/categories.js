@@ -9,7 +9,7 @@ export const useCategoriesStore = defineStore("CategoriesStore", {
     }),
     actions: {
         async createCategory(category) {
-            axiosClient.post('/categories/create', category)
+            axiosClient.post('/categories', category)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const useCategoriesStore = defineStore("CategoriesStore", {
             })
         },
         async updateCategory() {
-            axiosClient.patch(`/categories/update/${this.category.id}`, this.category)
+            axiosClient.put(`/categories/${this.category.id}`, this.category)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -37,7 +37,7 @@ export const useCategoriesStore = defineStore("CategoriesStore", {
             */
         },
         async fetchCategories() {
-            axiosClient.get('/categories/list')
+            axiosClient.get('/categories')
             .then (({data}) => {
                 this.categories = data;
             })
@@ -46,7 +46,7 @@ export const useCategoriesStore = defineStore("CategoriesStore", {
             })
         },
         async fetchCategory(id) {
-            axiosClient.get(`/categories/category/${id}`)
+            axiosClient.get(`/categories/${id}`)
             .then (({data}) => {
                 this.category = data;
             })

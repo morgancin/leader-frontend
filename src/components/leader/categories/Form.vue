@@ -22,13 +22,13 @@
 
     defineEmits(["submit"]);
 
-    const { fetchCategories, results, error } = useGetDataCategories();
+    const { fetchCategories, results_categories, error } = useGetDataCategories();
     
     const dataCategories = ref([]);
     
     onMounted(async() => {
         await fetchCategories();
-        dataCategories.value = results.value;
+        dataCategories.value = results_categories.value;
     });
 </script>
 

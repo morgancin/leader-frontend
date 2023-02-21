@@ -9,7 +9,7 @@ export const usePricesStore = defineStore("TagsStore", {
     }),
     actions: {
         async createPrice(price) {
-            axiosClient.post('/prices/create', price)
+            axiosClient.post('/prices', price)
             .then (({data}) => {
                 return data;
             })
@@ -18,7 +18,7 @@ export const usePricesStore = defineStore("TagsStore", {
             })
         },
         async fetchPrice(id) {
-            axiosClient.get(`/prices/price/${id}`)
+            axiosClient.get(`/prices/${id}`)
             .then (({data}) => {
                 //return data;
                 this.price = data;
@@ -28,7 +28,7 @@ export const usePricesStore = defineStore("TagsStore", {
             })
         },
         async updatePrice() {
-            axiosClient.patch(`/prices/update/${this.price.id}`, this.price)
+            axiosClient.put(`/prices/${this.price.id}`, this.price)
             .then (({data}) => {
                 this.message = data.message;
             })
@@ -37,7 +37,7 @@ export const usePricesStore = defineStore("TagsStore", {
             })
         },
         async fetchPrices() {
-            axiosClient.get('/prices/list')
+            axiosClient.get('/prices')
             .then (({data}) => {
                 //return data;
                 this.price = data;

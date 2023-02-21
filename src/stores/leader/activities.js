@@ -40,7 +40,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             this.activity.start_time = this.activity.start_time.hours + ':' + this.activity.start_time.minutes;
             this.activity.start_date = new Date(this.activity.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
 
-            axiosClient.post('/activities/create', this.activity)
+            axiosClient.post('/activities', this.activity)
             .then (({data}) => {
                 return data;
             })
@@ -49,7 +49,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
                 this.message = error.message;
             })
         },
-
+        /*
         async createActivityReschedule(data, activities_results_tracking_type) {
             if(activities_results_tracking_type == 'activity') {
                 //data.end_time = data.end_time.hours + ':' + data.end_time.minutes;
@@ -59,19 +59,19 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
                 data.start_date = new Date(data.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
             }
 
-            axiosClient.post(`/activities/reschedule/create/${this.activity.id}`, data)
+            axiosClient.post(`/activities/reschedule/${this.activity.id}`, data)
             .then (({data}) => {
                 return data;
             })
             .catch((error) => {
                 this.message = error.message;
             })
-        },
+        },*/
 
         async fetchActivitiesTypes() {
             let result = [];
             
-            await axiosClient.get(`/activities/types/list`)
+            await axiosClient.get(`/activity-types`)
             .then (({data}) => {
                 this.message = data;
                 //this.selects.dataActivitiesTypes = data;
@@ -85,7 +85,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
         },
 
         async fetchActivity(id) {
-            axiosClient.get(`/activities/activity/${id}`)
+            axiosClient.get(`/activities/${id}`)
             .then (({data}) => {
                 this.activity = data.data;
                 this.activity_information.client = data.data.client.full_name;
@@ -101,7 +101,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
         async fetchActivitiesSubjects(activity_type_id) {
             let result = [];
 
-            await axiosClient.get(`/activities/subjects/list/${activity_type_id}`)
+            await axiosClient.get(`/activity-subjects/${activity_type_id}`)
             .then (({data}) => {
                 this.message = data.message;
                 //this.selects.dataActivitiesSubjects = data;

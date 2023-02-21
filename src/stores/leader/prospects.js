@@ -48,7 +48,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
             data.start_date = new Date(data.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
             
-            axiosClient.post('/clients/activity/register', data)
+            axiosClient.post('/prospects/activity', data)
             .then (({data}) => {
                 //this.company = data.result;
                 //this.message = data.message;
@@ -58,7 +58,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             })
         },
         async fetchProspect(id) {
-            axiosClient.get(`/clients/client/${id}`)
+            axiosClient.get(`/prospects/${id}`)
             .then (({data}) => {
                 this.prospect = data;
             })
@@ -69,7 +69,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
         async fetchOrigins() {
             let result = [];
 
-            await axiosClient.get(`/clients/origins/list`)
+            await axiosClient.get(`/prospecting-sources`)
             .then (({data}) => {
                 //this.message = data.message;
                 result = data.data;
@@ -84,7 +84,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             let result = [];
 
             if(this.prospect.client_origin){
-                await axiosClient.get(`/clients/origins/mediums/list/${this.prospect.client_origin}`)
+                await axiosClient.get(`/prospecting-means/${this.prospect.client_origin}`)
                 .then (({data}) => {
                     //this.message = data.message;
                     result = data.data;
@@ -100,7 +100,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             return result;
         },
         async fetchCp() {
-            axiosClient.get(`/fetch/data/cp/${this.prospect.zipcode}`)
+            axiosClient.get(`/commons/get-zip-code/${this.prospect.zipcode}`)
             .then (({data}) => {
                 //this.message = data.message;
                 //this.dataOriginsMediums = data;
@@ -125,7 +125,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
                 second_last_name: this.prospect.second_last_name,
             }
             
-            axiosClient.post(`/fetch/curp`, fieldsCurp)
+            axiosClient.post(`/commons/get-curp`, fieldsCurp)
             .then (({data}) => {
                 //this.message = data.message;
                 //this.dataOriginsMediums = data;

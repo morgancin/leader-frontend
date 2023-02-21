@@ -9,7 +9,7 @@ export function useGetDataPricesLists()
     const fetchPricesLists = async (cType) => {
         results.value = [];
         
-        await axiosClient.get(`/prices/lists/list`)
+        await axiosClient.get(`/price-lists`)
         .then (({data}) => {
              //results.value = data;
             results.value = data.data;

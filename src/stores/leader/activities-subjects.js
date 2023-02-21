@@ -9,7 +9,7 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
     }),
     actions: {
         async createActivitySubject(subject) {
-            axiosClient.post('/activities/subjects/register', subject)
+            axiosClient.post('/activity-subjects', subject)
             .then (({data}) => {
                 return data;
             })
@@ -30,7 +30,7 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
         },
         */
         async fetchActivitiesSubjects() {
-            axiosClient.get('/activities/subjects/list')
+            axiosClient.get('/activity-subjects')
             .then (({data}) => {
                 //return data;
                 this.subject = data;
@@ -40,7 +40,7 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
             })
         },
         async fetchActivitySubject(id) {
-            axiosClient.get(`/activities/subjects/activity-subject/${id}`)
+            axiosClient.get(`/activity-subjects/${id}`)
             .then (({data}) => {
                 //return data;
                 this.subject = data;
@@ -50,7 +50,7 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
             })
         },
         async updateActivitySubject() {
-            axiosClient.patch(`/activities/subjects/update/${this.subject.id}`, this.subject)
+            axiosClient.put(`/activity-subjects/${this.subject.id}`, this.subject)
             .then (({data}) => {
                 //this.activity_type = data.result;
                 this.message = data.message;

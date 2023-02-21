@@ -9,7 +9,7 @@ export function useGetDataOrigins()
     const fetchClientOrigin = async (cType) => {
         results.value = [];
 
-        await axiosClient.get('/clients/origins/list')
+        await axiosClient.get('/prospecting-sources')
         .then (({data}) => {
             results.value = data;
         })
