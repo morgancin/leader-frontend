@@ -199,7 +199,7 @@
           <DropdownDivider/>
           <li>
             <a @click="addProspectButton" class="cursor-pointer dropdown-item">
-              <UserCheckIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}
+              <ZoomInIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}
             </a>
           </li>
         </DropdownContent>

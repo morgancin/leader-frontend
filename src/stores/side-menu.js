@@ -26,17 +26,22 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: 'side-menu.users'
       },
       {
-        icon: "UserCheckIcon",
+        icon: "ZoomInIcon",
         pageName: "side-menu-prospects",
         title: 'side-menu.prospects',
       },
       {
-        icon: "UserCheckIcon",
+        icon: "ActivityIcon",
         pageName: "side-menu-activities",
         title: 'side-menu.activities',
       },
-      // "devider",
       {
+        icon: "MapPinIcon",
+        pageName: "side-menu-companies",
+        title: 'side-menu.companies',
+      },
+      // "devider",
+      /*{
         icon: "TruckIcon",
         pageName: "side-menu-dashboard-companies",
         title: 'side-menu.companies',
@@ -52,7 +57,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
             title: "side-menu.company-users",
           },
         ],
-      },
+      },*/
       "devider",
       {
         icon: "SettingsIcon",
@@ -60,7 +65,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: 'side-menu.settings',
         subMenu: [
           {
-            icon: "GlobeIcon",
+            icon: "MicIcon",
             pageName: "side-menu-languages",
             title: 'side-menu.settings-languages',
           },
@@ -70,57 +75,57 @@ export const useSideMenuStore = defineStore("sideMenu", {
             title: 'side-menu.currencies',
           },
           {
-            icon: "GlobeIcon",
+            icon: "PackageIcon",
             pageName: "side-menu-products",
             title: 'side-menu.products',
           },
-          {
+          /*{
             icon: "GlobeIcon",
             pageName: "side-menu-prices",
             title: 'side-menu.prices',
-          },
+          },*/
           {
-            icon: "GlobeIcon",
+            icon: "DollarSignIcon",
             pageName: "side-menu-price-lists",
             title: 'side-menu.settings-price-lists',
-          },
+          },          
           {
-            icon: "GlobeIcon",
+            icon: "TagIcon",
             pageName: "side-menu-categories",
             title: 'side-menu.categories',
           },
           {
-            icon: "GlobeIcon",
+            icon: "ListIcon",
             pageName: "side-menu-company-catalogs",
             title: 'side-menu.settings-catalogs',
             subMenu: [
               {
-                icon: "GlobeIcon",
+                icon: "ActivityIcon",
                 pageName: "side-menu-activity-type", //"side-menu-activity",
                 title: 'side-menu.settings-catalogs-activity',
               },
               {
-                icon: "GlobeIcon",
+                icon: "GitBranchIcon",
                 pageName: "side-menu-activities-results",
                 title: 'side-menu.settings-activities-results',
               },
               {
-                icon: "GlobeIcon",
+                icon: "TargetIcon",
                 pageName: "side-menu-subjects",
                 title: 'side-menu.settings-catalogs-subjects',
               },
               {
-                icon: "GlobeIcon",
+                icon: "RadioIcon",
                 pageName: "side-menu-origin",
                 title: 'side-menu.settings-catalogs-origin',
               },
               {
-                icon: "GlobeIcon",
+                icon: "MessageCircleIcon",
                 pageName: "side-menu-medium",
                 title: 'side-menu.settings-catalogs-medium',
               },
               {
-                icon: "GlobeIcon",
+                icon: "TagIcon",
                 pageName: "side-menu-tags",
                 title: 'side-menu.settings-catalogs-tags',
               },

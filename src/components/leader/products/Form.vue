@@ -247,10 +247,10 @@
 
       <div class="grid grid-cols-12 gap-6 mt-5">
 
-        <div class="intro-y box p-5 col-span-12 lg:col-span-6">
-          <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+        <div class="intro-y box p-5 col-span-12 lg:col-span-5">
+          <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5 h-100">
             <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 flex-col sm:flex-row">
-                <div class="text-base font-medium mr-auto flex items-center"><ChevronDownIcon class="w-4 h-4 mr-2" /> Componentes</div> <a class="mr-2 shadow-md btn btn-primary" @click="addComponentModal = true">Agregar componente <PlusIcon class="w-4 h-4" /></a>
+                <div class="text-base font-medium mr-auto flex items-center"><ChevronDownIcon class="w-4 h-4 mr-2" /> Componentes</div> <a class="mr-2 shadow-md btn btn-primary text-xs" @click="addComponentModal = true">Agregar componente <PlusIcon class="w-4 h-4" /></a>
             </div>
             <div class="mt-5"> 
                 <a v-if="Object.keys(cartComponents).length === 0" class="w-full text-center block text-slate-500 text-xs">Sin componentes agregados</a>               
@@ -270,13 +270,14 @@
           </div>
         </div>  
 
-        <div class="intro-y box p-5 col-span-12 lg:col-span-6">
-          <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+        <div class="intro-y box p-5 col-span-12 lg:col-span-7">
+          <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5 h-100">
             <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 flex-col sm:flex-row">
-                <div class="text-base font-medium mr-auto flex items-center"><ChevronDownIcon class="w-4 h-4 mr-2" /> Listas de precios</div> <a class="mr-2 shadow-md btn btn-primary" @click="addPricesListsModal = true">Agregar lista de precio <PlusIcon class="w-4 h-4" /></a>
+                <div class="text-base font-medium mr-auto flex items-center"><ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('add_prices.prices') }}</div>
+                <!--<a class="mr-2 shadow-md btn btn-primary" @click="addPricesListsModal = true">Agregar lista de precio <PlusIcon class="w-4 h-4" /></a>-->
             </div>
             <div class="mt-5"> 
-                <a v-if="Object.keys(cartPriceslists).length === 0" class="w-full text-center block text-slate-500 text-xs">Sin listas de precios agregadas</a>               
+                <!--<a v-if="Object.keys(cartPriceslists).length === 0" class="w-full text-center block text-slate-500 text-xs">Sin listas de precios agregadas</a>               
                 <a v-for="(pricelist, id) in cartPriceslists"
                 :key="id"
                 href="javascript:;"
@@ -288,7 +289,54 @@
                   <div class="ml-auto font-medium flex">
                     <div class="text-slate-500">$ {{ pricelist.price }}</div>                    
                   </div>
-                </a>
+                </a>-->
+
+                <div class="overflow-x-auto">
+                  <table class="table border">
+                    <thead>
+                      <tr>                        
+                        <th class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap">
+                          <div class="flex items-center">
+                            {{ $t('add_prices.price_price_list') }} 
+                          </div>
+                        </th>
+                        <th class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !pl-0 pr-2">
+                          {{ $t('add_prices.price_price') }}
+                        </th>
+                        <th class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !pl-0 pr-5">
+                          {{ $t('add_prices.price_currency') }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(pricelist, id) in dataPricesLists">
+                        <td>{{pricelist.name}}</td>
+                        <td class="!pl-0 pr-2 max-w-[7rem]">
+                          <div class="input-group">
+                            <div class="input-group-text">$</div>
+                            <input
+                              type="number"
+                              class="form-control max-w-[6rem]"
+                              :placeholder="$t('add_prices.price_price')"
+                            />
+                          </div>
+                        </td>
+                        <td class="!pl-0 pr-5 min-w-[7rem]">
+                          <v-select      
+                            label="code"      
+                            class="form-control" 
+                            :options="dataCurrencies"
+                            v-model="add_pricelist_form.currency">
+                            <template #option="{ code, name }">
+                              <b>{{ code }}</b> {{ name }}
+                            </template>
+                          </v-select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
             </div>
           </div>
         </div>  
@@ -424,6 +472,7 @@
     .dz-error:before{ width:100%; height:100%; background:#cf0c00; opacity:0.5; content:""; position:absolute; left:0px; top:0px;
     z-index:11; border-radius:5px}
   .mb-0{ margin-bottom:0px}
+  .h-100{ height:100%}
 </style>
 
 <script setup>

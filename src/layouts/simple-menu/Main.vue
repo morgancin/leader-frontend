@@ -76,7 +76,7 @@
                       @click="linkTo(subMenu, router, $event)"
                     >
                       <div class="side-menu__icon">
-                        <ActivityIcon />
+                        <component :is="menu.icon" />
                       </div>
                       <div class="side-menu__title">
                         {{ subMenu.title }}
@@ -119,7 +119,7 @@
                             @click="linkTo(lastSubMenu, router, $event)"
                           >
                             <div class="side-menu__icon">
-                              <ZapIcon />
+                              <component :is="lastSubMenu.icon" />
                             </div>
                             <div class="side-menu__title">
                               {{ lastSubMenu.title }}

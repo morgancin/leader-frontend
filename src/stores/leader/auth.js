@@ -18,7 +18,8 @@ export const useAuthStore = defineStore("AuthStore", {
     actions: {
         async loginUser(userData) {
             axiosClient.post(`/login`, userData)
-            .then (({data}) => {
+            .then (({data}) => {               
+            
                 //this.user.data = data.user;
                 //sessionStorage.setItem("user", data.user.id);
                 //this.company = data;
@@ -33,16 +34,16 @@ export const useAuthStore = defineStore("AuthStore", {
                 //this.global_property_user = 'heyyyyy';
                 //this.$global_property_user = 'heyyyyy';
 
-                sessionStorage.setItem("TOKEN", data.token);
+                sessionStorage.setItem("TOKEN", data.data.token);
                 //sessionStorage.setItem("session_storage_user", {...data.user});
                 //console.log(data.user);
                 //console.log(sessionStorage.getItem("session_storage_user"));
 
-                sessionStorage.setItem("session_storage_user", JSON.stringify(data.user));
+                sessionStorage.setItem("session_storage_user", JSON.stringify(data.data));
                 
-                sessionStorage.setItem("language", data.user.profile.language);
+                sessionStorage.setItem("language", data.data.profile.language);
 
-                i18n.global.locale.value = data.user.profile.language;
+                i18n.global.locale.value = data.data.profile.language;
                 
                 router.push({
                     name: "side-menu-dashboard-overview-1",

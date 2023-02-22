@@ -367,5 +367,12 @@
     "users": {
         "users": "Usuarios",
         "btn-add-new-user": "Crear Nuevo Usuario"
+    },
+    "forms":{
+        "basic-info":"Información básica",
+        "complementary-info":"Información complementaria",
+        "roles":"Roles",
+        "permissions":"Permisos",
+        "select_options": "Seleccione una o más opciones"
     }
 }

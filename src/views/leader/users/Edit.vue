@@ -34,8 +34,8 @@ const submit = async () => {
         <h2 class="text-lg font-medium mr-auto">Update User</h2>
     </div>
     
-    <router-link class="btn btn-primary shadow-md w-20 mr-2" :to="`/dashboard-user`">Prev</router-link>
-    <div class="grid grid-cols-3 gap-3 mt-5">
+    <router-link class="btn btn-primary shadow-md w-20 mr-2" :to="`/dashboard-user`">{{ $t('add_user.btn_prev') }}</router-link>
+    <div class="grid grid-cols-1 gap-3 mt-5">
         <p v-if="message">{{ message }}</p>
         <UserForm
             text-button="Actualizar"

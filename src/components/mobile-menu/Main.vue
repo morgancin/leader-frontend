@@ -50,7 +50,7 @@
                 <component :is="menu.icon" />
               </div>
               <div class="menu__title">
-                {{ menu.title }}
+                {{ $t(menu.title) }}
                 <div
                   v-if="menu.subMenu"
                   class="menu__sub-icon"
@@ -77,7 +77,7 @@
                       <ActivityIcon />
                     </div>
                     <div class="menu__title">
-                      {{ subMenu.title }}
+                      {{ $t(subMenu.title) }}
                       <div
                         v-if="subMenu.subMenu"
                         class="menu__sub-icon"
@@ -103,10 +103,10 @@
                           @click="linkTo(lastSubMenu, router)"
                         >
                           <div class="menu__icon">
-                            <ZapIcon />
+                            <ActivityIcon />
                           </div>
                           <div class="menu__title">
-                            {{ lastSubMenu.title }}
+                            {{ $t(lastSubMenu.title) }}
                           </div>
                         </a>
                       </li>
