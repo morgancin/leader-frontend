@@ -75,6 +75,11 @@
         }
     },
 
+    "top_bar": {
+        "label_drop_down_content": "Acciones rápidas",
+        "opc_1_drop_down_content": "Nuevo prospecto"
+    },
+
     "add_user": {
         "add_user": "Agregar Usuario",
         "name": "Nombre",
@@ -118,6 +123,7 @@
         "medium": "Medio",
         "origin": "Origen",
         "company": "Empresa",
+        "account": "Cuenta",
         "btn_prev": "Siguiente"
     },
     "add_prospect_address": {
@@ -145,7 +151,9 @@
         "comments": "Comentarios",
         "btn_prev": "Anterior",
         "btn_cancel": "Cancelar",
-        "btn_save": "Guardar"
+        "btn_save": "Guardar",
+        "activities_label": "Actividades Programadas",
+        "activities_label_2": "para el día"
     },
     "catalogs_activities":{
         "list_activities": "Lista de Actividades",

@@ -64,7 +64,7 @@ export const useUsersStore = defineStore("UsersStore", {
         },
         
         async deleteUser(id) {
-            this.message = 'heyyy';
+            //this.message = 'heyyy';
             /*
             axiosClient.delete(`/users/${id}`)
             .then (({data}) => {

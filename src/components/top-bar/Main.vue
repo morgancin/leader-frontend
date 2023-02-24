@@ -8,20 +8,14 @@
   import router from "@/router";
   import { ref, reactive } from "vue";
   import { storeToRefs } from "pinia";
-  import { useProspectsStore } from "@/stores/leader/prospects";
-  import { useActivitiesStore } from "@/stores/leader/activities";
   import ProspectStepQuickForm from "@/components/leader/prospects/Form_step_quick.vue";
 
-  const { prospect: form, step } = storeToRefs(useProspectsStore());
-  const { activity: form_activity } = storeToRefs(useActivitiesStore());
+  //import { useProspectsStore } from "@/stores/leader/prospects";
+  //import { useActivitiesStore } from "@/stores/leader/activities";
   
-  /*
-  const submit = async () => {
-    //const data_prospect_activity = {...form.value};
-    //await createProspectActivity(data_prospect_activity);
-  }
-  */
-
+  //const { prospect: form, step } = storeToRefs(useProspectsStore());
+  //const { activity: form_activity } = storeToRefs(useActivitiesStore());
+  
   const searchDropdown = ref(false);
   const show_modal_prospect = ref(false);
   
@@ -61,9 +55,8 @@
     sessionStorage.clear();
     
     router.push({
-                    //name: "home",
-                    path: "/login",
-                })
+                  path: "/login",
+              })
   }
 </script>
 
@@ -78,7 +71,7 @@
       </ol>
     </nav>
     <!-- END: Breadcrumb -->
-    
+        
     <!-- BEGIN: Search -->
     <!-- <div class="relative mr-3 intro-x sm:mr-6">
       <div class="hidden search sm:block">
@@ -195,18 +188,17 @@
       </DropdownToggle>
       <DropdownMenu class="pt-2 quickaction-content">
         <DropdownContent class="w-40">
-          <DropdownHeader>Quick Actions</DropdownHeader>
+          <DropdownHeader>{{ $t('top_bar.label_drop_down_content') }}</DropdownHeader>
           <DropdownDivider/>
           <li>
             <a @click="addProspectButton" class="cursor-pointer dropdown-item">
-              <ZoomInIcon class="w-4 h-4 mr-2"/> {{$t('prospects.btn-add-new-prospect') }}
+              <ZoomInIcon class="w-4 h-4 mr-2"/> {{ $t('top_bar.opc_1_drop_down_content') }}
             </a>
           </li>
         </DropdownContent>
       </DropdownMenu>
     </Dropdown>
     <!-- END: Basic Select -->
-
 
     <!-- BEGIN: Notifications -->
     <!--
@@ -305,20 +297,18 @@
     <!-- END: Account Menu -->
   </div>
   <!-- END: Top Bar -->
-  
+
   <!--
-    v-if="(show_modal_prospect == 'view')"
-    @submit="submitStep"
+    :prospect="form"
+    :prospect_example="form"
+    :activity="form_activity"
   -->
+  
   <ProspectStepQuickForm
     @submit="submitStep"
-    @reset="resetForm()"
     @hideModal="hideModal"
-    :prospect="form"
-    :activity="form_activity"
+    @reset="resetForm()"
     :show_modal="show_modal_prospect" />
-    
-    <!-- :show_modal_prospect="show_modal_prospect" -->
 </template>
 
 <style>

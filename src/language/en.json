@@ -75,6 +75,11 @@
         }
     },
 
+    "top_bar": {
+        "label_drop_down_content": "Quick Actions",
+        "opc_1_drop_down_content": "Create New Prospect"
+    },
+
     "add_user": {
         "add_user": "Add User",
         "name": "Name",
@@ -119,7 +124,7 @@
         "origin": "Origin",
         "medium": "Medium",
         "company": "Company",
-
+        "account": "Account",
         "btn_prev": "Next"
     },
     "add_prospect_address": {
@@ -145,7 +150,9 @@
         "end_time": "End Time",
         "comments": "Comments",
         "btn_prev": "Previous",
-        "btn_save": "Save"
+        "btn_save": "Save",
+        "activities_label": "Scheduled activities",
+        "activities_label_2": "For the day"
     },
     "catalogs_activities":{
         "list_activities": "List Activities",

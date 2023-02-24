@@ -11,6 +11,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             first_name:null,
             last_name:null,
             second_last_name:null,
+            account_id:null,
             client_origin:null,         //Se recupera con base a client_medium_origin_id
             client_medium_origin_id:null,
             
@@ -48,7 +49,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
             data.start_date = new Date(data.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
             
-            axiosClient.post('/prospects/activity', data)
+            axiosClient.post('/activity-prospect', data)
             .then (({data}) => {
                 //this.company = data.result;
                 //this.message = data.message;

@@ -4,46 +4,83 @@
     }
 </script>
 <script setup>  
-  import { onMounted, ref, watch, toRef, reactive } from 'vue';
+  import { onMounted, ref, watch, reactive } from 'vue';
   import { storeToRefs } from "pinia";  
   import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators';
-  import {useVuelidate} from '@vuelidate/core';
+  import { useVuelidate } from '@vuelidate/core';
   import Toastify from "toastify-js";
   import dom from "@left4code/tw-starter/dist/js/dom";
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
   import Datepicker from '@vuepic/vue-datepicker';
   import '@vuepic/vue-datepicker/dist/main.css';
+
+  import { useAccountsStore } from "@/stores/leader/accounts";
   import { useProspectsStore } from "@/stores/leader/prospects";
   import { useActivitiesStore } from "@/stores/leader/activities";
+  
+  const { prospect } = storeToRefs(useProspectsStore());
+  const { activity } = storeToRefs(useActivitiesStore());
+  const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
 
-  const { fetchOrigins, fetchOriginsMediums } = useProspectsStore();   //ACTIONS
-  const { fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore(); //ACTIONS
+  const { fetchAccounts } = useAccountsStore();
+  const { fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
+  const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
+  
   const props = defineProps({
-      prospect: {
+      /*
+      prospect_example: {
           type: Object,
           required: true
       },
       activity: {
         type: Object,
         required: true
-      },      
+      },
+      */
       show_modal: {
         type: Boolean
       },
   });
-  const aServicePriority = [
-        { key:'bajo', value: 'BAJO' },
-        { key:'medio', value: 'MEDIO' },
-        { key:'alto', value: 'ALTO' },
-        { key:'pendiente', value: 'PENDIENTE' },
-    ];
 
-  //const show_modal = toRef(props, 'show_modal');
-  
+  //console.log(props.prospect_example);
+  //console.log(prospect.value);
+    
+  const aServicePriority = [
+                            { key:'bajo', value: 'BAJO' },
+                            { key:'medio', value: 'MEDIO' },
+                            { key:'alto', value: 'ALTO' },
+                            { key:'pendiente', value: 'PENDIENTE' },
+                        ];
+
   const emit = defineEmits(["submit","hideModal","reset"]);
 
+  const data_prospect_activity = ref({...prospect.value, ...activity.value});
+  
   ////////RULES
+  const rules = {
+    ////Prospect
+    last_name: { required },
+    first_name: { required },
+    account_id: { required },
+    email: { required, email },
+    client_origin: { required },
+    service_priority: { required },
+    client_medium_origin_id: { required },
+    phone_mobile: {
+                  required,
+                  numeric,
+                  minLength: minLength(10),
+                  maxLength: maxLength(10) },
+    ////Activity
+    start_date: { required },
+    activity_type_id: { required },
+    activity_subject_id: { required }
+  }
+
+  const validate = useVuelidate(rules, data_prospect_activity);
+
+  /*
   const rules = {
       prospect:{
         last_name: { required },
@@ -54,7 +91,8 @@
           numeric,
           minLength: minLength(10),
           maxLength: maxLength(10) },
-        service_priority: { required },  
+        service_priority: { required },
+        account_id: { required },
         client_origin: { required },
         client_medium_origin_id: { required }
       },
@@ -65,7 +103,8 @@
       }
   }
 
-  const validate = useVuelidate(rules, props );
+  const validate = useVuelidate(rules, props);
+  */
 
   const hideModal = () => {
     emit('hideModal');
@@ -101,9 +140,11 @@
     }
 
     const result = await validate.value.$validate();
+    
+    if(result) {
+      await createProspectActivity(data_prospect_activity.value);
 
-    if(result){
-        emit('submit');
+      //emit('submit');
     }
   } 
 
@@ -116,22 +157,24 @@
   const dataActivitiesSubjects = ref([]);
 
   onMounted(async() => {
+    await fetchAccounts();
     dataOrigins.value = await fetchOrigins();
     dataActivitiesTypes.value = await fetchActivitiesTypes();
   });
+
   watch(
-      () => props.activity.activity_type_id,
-      async () => {
-          dataActivitiesSubjects.value = await fetchActivitiesSubjects(props.activity.activity_type_id);
-      }
-  );
-  watch(
-      () => props.prospect.client_origin,
+      () => prospect.client_origin, //props.prospect.client_origin,
       async () => {
           dataOriginsMediums.value = await fetchOriginsMediums();
       }
   );
-
+  watch(
+      () => activity.activity_type_id,  //props.activity.activity_type_id,
+      async () => {
+          dataActivitiesSubjects.value = await fetchActivitiesSubjects(activity.activity_type_id);  //fetchActivitiesSubjects(props.activity.activity_type_id);
+      }
+  );
+  
   const editorConfig = {
     toolbar: {
       items: [],
@@ -153,306 +196,293 @@
               <!-- END: Modal Header -->
               <!-- BEGIN: Modal Body -->
               <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-
-                <div class="col-span-8 grid-cols-12 grid gap-4">
-                  <div class="col-span-12 sm:col-span-6 withlabel">
-                    <label for="modal-form-1" class="form-label">{{ $t('add_prospect_details.first_name') }}</label>
-                    <input 
-                      id="modal-form-1" 
-                      type="text" 
-                      class="form-control" 
-                      v-model="prospect.first_name"
-                      :class="{ 'border-danger': validate.prospect.first_name.$error }"
-                      >
-                    <template v-if="validate.prospect.first_name.$error">
-                      <div
-                        class="mt-2 text-danger"
-                        v-for="(error, index) in validate.prospect.first_name.$errors"
-                        :key="index">
-                          {{ error.$message }}
-                      </div>
-                    </template>
-                  </div>
-
-                  <div class="col-span-12 sm:col-span-6 withlabel">
-                      <label for="modal-form-2" class="form-label">{{ $t('add_prospect_details.last_name') }}</label>
+                <div class="grid grid-cols-12 col-span-8 gap-4">
+                   
+                    <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
+                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.account') }}</label>
+                      <v-select
+                          label="name"
+                          class="form-control" 
+                          :options="dataAccounts"
+                          v-model="data_prospect_activity.account_id"
+                          :reduce="name => name.id"
+                          :class="{ 'border-danger': validate.account_id.$error }">
+                      </v-select>
+                      <template v-if="validate.account_id.$error">
+                        <div
+                          v-for="(error, index) in validate.account_id.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                            {{ error.$message }}
+                        </div>
+                      </template>
+                    </div>
+                    
+                    <div class="col-span-12 sm:col-span-6 withlabel">
+                      <label for="modal-form-1" class="form-label">{{ $t('add_prospect_details.first_name') }}</label>
                       <input 
-                      id="modal-form-2" 
-                      type="text" 
-                      class="form-control" 
-                      v-model="prospect.last_name"
-                      :class="{ 'border-danger': validate.prospect.last_name.$error }"
-                      >
-                      <template v-if="validate.prospect.last_name.$error">
-                          <div
-                              v-for="(error, index) in validate.prospect.last_name.$errors"
+                        id="modal-form-1" 
+                        type="text" 
+                        class="form-control" 
+                        v-model="data_prospect_activity.first_name"
+                        :class="{ 'border-danger': validate.first_name.$error }"
+                        >
+                      <template v-if="validate.first_name.$error">
+                        <div
+                          class="mt-2 text-danger"
+                          v-for="(error, index) in validate.first_name.$errors"
+                          :key="index">
+                            {{ error.$message }}
+                        </div>
+                      </template>
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-6 withlabel">
+                        <label for="modal-form-2" class="form-label">{{ $t('add_prospect_details.last_name') }}</label>
+                        <input 
+                        id="modal-form-2" 
+                        type="text" 
+                        class="form-control" 
+                        v-model="data_prospect_activity.last_name"
+                        :class="{ 'border-danger': validate.last_name.$error }"
+                        >
+                        <template v-if="validate.last_name.$error">
+                            <div
+                                v-for="(error, index) in validate.last_name.$errors"
+                                :key="index"
+                                class="mt-2 text-danger">
+                                {{ error.$message }}
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <div class="col-span-12 sm:col-span-4 withlabel">
+                        <label for="modal-form-3" class="form-label">{{ $t('add_prospect_details.mobile_phone') }}</label>
+                        <input 
+                          id="modal-form-3" 
+                          type="text" 
+                          class="form-control" 
+                          v-model.number="data_prospect_activity.phone_mobile"
+                          :class="{ 'border-danger': validate.phone_mobile.$error }">
+                        <template v-if="validate.phone_mobile.$error">
+                            <div
+                              v-for="(error, index) in validate.phone_mobile.$errors"
                               :key="index"
                               class="mt-2 text-danger">
                               {{ error.$message }}
-                          </div>
-                      </template>
-                  </div>
-
-                  <div class="col-span-12 sm:col-span-4 withlabel">
-                      <label for="modal-form-3" class="form-label">{{ $t('add_prospect_details.mobile_phone') }}</label>
-                      <input 
-                      id="modal-form-3" 
-                      type="text" 
-                      class="form-control" 
-                      v-model.number="prospect.phone_mobile"
-                      :class="{ 'border-danger': validate.prospect.phone_mobile.$error }"
-                      >
-                      <template v-if="validate.prospect.phone_mobile.$error">
+                            </div>
+                          </template>
+                    </div>
+                    
+                    <div class="col-span-12 sm:col-span-8 withlabel">
+                        <label for="modal-form-4" class="form-label">{{ $t('add_prospect_details.email') }}</label>
+                        <input 
+                        id="modal-form-4" 
+                        type="text" 
+                        class="form-control" 
+                        v-model="data_prospect_activity.email"
+                        :class="{ 'border-danger': validate.email.$error }"
+                        >
+                        <template v-if="validate.email.$error">
                           <div
-                            v-for="(error, index) in validate.prospect.phone_mobile.$errors"
+                            v-for="(error, index) in validate.email.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                             {{ error.$message }}
                           </div>
                         </template>
-                  </div>
-
-                  <div class="col-span-12 sm:col-span-8 withlabel">
-                      <label for="modal-form-4" class="form-label">{{ $t('add_prospect_details.email') }}</label>
-                      <input 
-                      id="modal-form-4" 
-                      type="text" 
-                      class="form-control" 
-                      v-model="prospect.email"
-                      :class="{ 'border-danger': validate.prospect.email.$error }"
-                      >
-                      <template v-if="validate.prospect.email.$error">
+                    </div>
+                    
+                    <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
+                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
+                      <v-select
+                          label="description"
+                          class="form-control" 
+                          :options="dataOrigins"
+                          :reduce="description => description.id"
+                          v-model="data_prospect_activity.client_origin"
+                          :class="{ 'border-danger': validate.client_origin.$error }">
+                      </v-select>
+                      <template v-if="validate.client_origin.$error">
                         <div
-                          v-for="(error, index) in validate.prospect.email.$errors"
+                          v-for="(error, index) in validate.client_origin.$errors"
                           :key="index"
                           class="mt-2 text-danger">
-                          {{ error.$message }}
+                            {{ error.$message }}
                         </div>
                       </template>
-                  </div>
-
-                  <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                    <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
-                    <v-select
-                        label="description"
-                        class="form-control" 
-                        :options="dataOrigins"
-                        :reduce="description => description.id"
-                        v-model="prospect.client_origin"
-                        :class="{ 'border-danger': validate.prospect.client_origin.$error }">
-                    </v-select>
-                    <template v-if="validate.prospect.client_origin.$error">
-                      <div
-                        v-for="(error, index) in validate.prospect.client_origin.$errors"
-                        :key="index"
-                        class="mt-2 text-danger">
-                          {{ error.$message }}
-                      </div>
-                    </template>
-                  </div>
-                  
-                  <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
+                    </div>
+                                      
+                    <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                       <label class="form-label">{{ $t('add_prospect_details.service_priority') }}</label>
                       <v-select 
-                          class="form-control" 
-                          :options="aServicePriority" 
-                          :reduce="value => value.key"
-                          label="value"
-                          v-model="prospect.service_priority"
-                          :class="{ 'border-danger': validate.prospect.service_priority.$error }">
-                      </v-select>
-                      <template v-if="validate.prospect.service_priority.$error">
-                        <div
-                          v-for="(error, index) in validate.prospect.service_priority.$errors"
-                          :key="index"
-                          class="mt-2 text-danger">
-                          {{ error.$message }}
-                        </div>
-                      </template>
-                  </div>
-
-                  <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                    <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.origin') }}</label>
-                    <v-select
-                        label="description"
                         class="form-control" 
-                        :options="dataOrigins"
-                        :reduce="description => description.id"
-                        v-model="prospect.client_origin"
-                        :class="{ 'border-danger': validate.prospect.client_origin.$error }">
-                    </v-select>
-                    <template v-if="validate.prospect.client_origin.$error">
-                      <div
-                        v-for="(error, index) in validate.prospect.client_origin.$errors"
-                        :key="index"
-                        class="mt-2 text-danger">
-                          {{ error.$message }}
-                      </div>
-                    </template>
-                  </div>
-
-                  <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.medium') }}</label>
-                      <v-select 
-                          class="form-control" 
-                          :options="dataOriginsMediums"
-                          :reduce="description => description.id" 
-                          label="description"
-                          v-model="prospect.client_medium_origin_id"
-                          :class="{ 'border-danger': validate.prospect.client_medium_origin_id.$error }">
+                        :options="aServicePriority" 
+                        :reduce="value => value.key"
+                        label="value"
+                        v-model="data_prospect_activity.service_priority"
+                        :class="{ 'border-danger': validate.service_priority.$error }">
                       </v-select>
-                      
-                      <template v-if="validate.prospect.client_medium_origin_id.$error">
+                        <template v-if="validate.service_priority.$error">
+                          <div
+                            v-for="(error, index) in validate.service_priority.$errors"
+                            :key="index"
+                            class="mt-2 text-danger">
+                            {{ error.$message }}
+                          </div>
+                        </template>
+                    </div>
+                                        
+                    <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
+                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.origin') }}</label>
+                      <v-select
+                          label="description"
+                          class="form-control" 
+                          :options="dataOrigins"
+                          :reduce="description => description.id"
+                          v-model="data_prospect_activity.client_origin"
+                          :class="{ 'border-danger': validate.client_origin.$error }">
+                      </v-select>
+                      <template v-if="validate.client_origin.$error">
                         <div
-                          v-for="(error, index) in validate.prospect.client_medium_origin_id.$errors"
+                          v-for="(error, index) in validate.client_origin.$errors"
                           :key="index"
                           class="mt-2 text-danger">
-                          {{ error.$message }}
+                            {{ error.$message }}
                         </div>
                       </template>
-                  </div>
-
-                  <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
-                      <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
-                      <v-select  
-                          id="cmbActivityType"
-                          class="form-control"
-                          :options="dataActivitiesTypes"
-                          :reduce="name => name.id"
-                          label="name"                        
-                          v-model="activity.activity_type_id"
-                          :class="{ 'border-danger': validate.activity.activity_type_id.$error }"
-                          >
-                      </v-select >
-                      <template v-if="validate.activity.activity_type_id.$error">
+                    </div>
+                    
+                    <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
+                        <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.medium') }}</label>
+                        <v-select 
+                            class="form-control" 
+                            :options="dataOriginsMediums"
+                            :reduce="description => description.id" 
+                            label="description"
+                            v-model="data_prospect_activity.client_medium_origin_id"
+                            :class="{ 'border-danger': validate.client_medium_origin_id.$error }">
+                        </v-select>
+                        
+                        <template v-if="validate.client_medium_origin_id.$error">
                           <div
-                              v-for="(error, index) in validate.activity.activity_type_id.$errors"
+                            v-for="(error, index) in validate.client_medium_origin_id.$errors"
+                            :key="index"
+                            class="mt-2 text-danger">
+                            {{ error.$message }}
+                          </div>
+                        </template>
+                    </div>
+                    
+                    <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
+                        <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
+                        <v-select  
+                            id="cmbActivityType"
+                            class="form-control"
+                            :options="dataActivitiesTypes"
+                            :reduce="name => name.id"
+                            label="name"                        
+                            v-model="data_prospect_activity.activity_type_id"
+                            :class="{ 'border-danger': validate.activity_type_id.$error }"
+                            >
+                        </v-select >
+                        <template v-if="validate.activity_type_id.$error">
+                            <div
+                                v-for="(error, index) in validate.activity_type_id.$errors"
+                                :key="index"
+                                class="mt-2 text-danger">
+                                {{ error.$message }}
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
+                      <label for="cmbActivitySubject" class="form-label">*{{ $t('add_prospect_activity.subject') }}</label>
+                      <v-select
+                          label="name"
+                          id="cmbActivitySubject"
+                          class="form-control"
+                          :options="dataActivitiesSubjects"
+                          :reduce="name => name.id"
+                          v-model="data_prospect_activity.activity_subject_id"
+                          :class="{ 'border-danger': validate.activity_subject_id.$error }">
+                      </v-select >
+                      <template v-if="validate.activity_subject_id.$error">
+                          <div
+                              v-for="(error, index) in validate.activity_subject_id.$errors"
                               :key="index"
                               class="mt-2 text-danger">
                               {{ error.$message }}
                           </div>
                       </template>
-                  </div>
-
-
-                  <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
-                    <label for="cmbActivitySubject" class="form-label">*{{ $t('add_prospect_activity.subject') }}</label>
-                    <v-select
-                        label="name"
-                        id="cmbActivitySubject"
-                        class="form-control"
-                        :options="dataActivitiesSubjects"
-                        :reduce="name => name.id"
-                        v-model="activity.activity_subject_id"
-                        :class="{ 'border-danger': validate.activity.activity_subject_id.$error }">
-                    </v-select >
-                    <template v-if="validate.activity.activity_subject_id.$error">
-                        <div
-                            v-for="(error, index) in validate.activity.activity_subject_id.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                            {{ error.$message }}
-                        </div>
-                    </template>
-                  </div>
-
-                  <div class="col-span-12 intro-y sm:col-span-6 withlabel">
-                    <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_date_activity') }}</label>
-                    <Datepicker 
-                        v-model="activity.start_date" 
-                        :placeholder="$t('add_prospect_activity.start_date_activity')"
-                        utc 
-                        modelType="yyyy.MM.dd" 
-                        closeOnScroll  
-                        :enableTimePicker="false" />
-                    <template v-if="validate.activity.start_date.$error">
-                        <div
-                            v-for="(error, index) in validate.activity.start_date.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                            {{ error.$message }}
-                        </div>
-                    </template>
-                  </div>
-
-                  <div class="col-span-12 intro-y sm:col-span-6 withlabel">
-                      <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_time') }}</label>
-                      <Datepicker 
-                          v-model="activity.start_time" 
-                          :placeholder="$t('add_prospect_activity.start_time')"
-                          timePicker />
-                  </div>
-
-                  <div class="col-span-12 sm:col-span-12 withlabel">
-                    <label for="modal-form-1" class="form-label">{{ $t('add_prospect_activity.comments') }}</label>
-                    <ClassicEditor 
-                      v-model="activity.comments" 
-                      :placeholder="$t('add_prospect_activity.comments')"
-                      :config="editorConfig" />
-                    <!--
-                    <input 
-                      id="modal-form-1" 
-                      type="text" 
-                      class="form-control" 
-                      v-model="prospect.first_name"
-                      :class="{ 'border-danger': validate.prospect.first_name.$error }"
-                      :placeholder="$t('add_prospect_details.first_name')">
-                    <template v-if="validate.prospect.first_name.$error">
-                      <div
-                        class="mt-2 text-danger"
-                        v-for="(error, index) in validate.prospect.first_name.$errors"
-                        :key="index">
-                          {{ error.$message }}
-                      </div>
-                    </template>
-                    -->
-                  </div>
-                  
-                  <!--
-                  <div class="col-span-12 intro-y ">
-                    <label>{{ $t('add_prospect_activity.comments') }}</label>
-                    <div class="mt-2">
-                        <ClassicEditor 
-                            v-model="activity.comments" 
-                            :placeholder="$t('add_prospect_activity.comments')"
-                            :config="editorConfig"/>
                     </div>
-                  </div>
-                  -->
-                </div>
-
-                <div class="col-span-4 timeline">
-                   <!-- Inicio de la linea del tiempo Prospecto -->
-                   <div>
-                      <div  class="grid justify-items-start">
-                          <div class="text-center title">
-                              <h3 class="text-md text-gray-900 dark:text-white">Actividades Programadas</h3>
-                              <h4 class="text-md text-gray-400 dark:text-white">para el dia 01/01/2023</h4>
+                                                            
+                    <div class="col-span-12 intro-y sm:col-span-6 withlabel">
+                      <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_date_activity') }}</label>
+                      <Datepicker 
+                          v-model="data_prospect_activity.start_date"
+                          :placeholder="$t('add_prospect_activity.start_date_activity')"
+                          utc 
+                          modelType="yyyy.MM.dd" 
+                          closeOnScroll  
+                          :enableTimePicker="false" />
+                      <template v-if="validate.start_date.$error">
+                          <div
+                              v-for="(error, index) in validate.start_date.$errors"
+                              :key="index"
+                              class="mt-2 text-danger">
+                              {{ error.$message }}
                           </div>
-                          <p>&nbsp</p>
-                          <p>&nbsp</p>
-
-                          <ol class="relative border-l border-sky-800 dark:border-sky-800">                  
-                              <li class="mb-10 ml-4">
-                                  <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                                  <h3 class="text-md font-semibold text-gray-900 dark:text-white">Ricardo Martinez Prieto</h3>
-                                  <p class="mb-4 text-md font-normal text-gray-500 dark:text-gray-400">Seguimiento a Prospecto</p>
-                                  
-                              </li>
-                              <li class="mb-10 ml-4">
-                                  <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                                  <h3 class="text-md font-semibold text-gray-900 dark:text-white">Xavier López</h3>
-                                  <p class="mb-4 text-md font-normal text-gray-500 dark:text-gray-400">Seguimiento a Prospecto</p>
-                                  
-                              </li>
-                              <li class="mb-10 ml-4">
-                                  <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                                  <h3 class="text-md font-semibold text-gray-900 dark:text-white">Anastasia Domínguez</h3>
-                                  <p class="mb-4 text-md font-normal text-gray-500 dark:text-gray-400">Seguimiento a Prospecto</p>
-                                  
-                              </li>
-                          </ol>
+                      </template>
+                    </div>
+                    
+                    <div class="col-span-12 intro-y sm:col-span-6 withlabel">
+                        <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_time') }}</label>
+                        <Datepicker 
+                            v-model="data_prospect_activity.start_time" 
+                            :placeholder="$t('add_prospect_activity.start_time')"
+                            timePicker />
+                    </div>
+                    
+                    <div class="col-span-12 sm:col-span-12 withlabel">
+                      <label for="modal-form-1" class="form-label">{{ $t('add_prospect_activity.comments') }}</label>
+                      <ClassicEditor 
+                        v-model="data_prospect_activity.comments" 
+                        :placeholder="$t('add_prospect_activity.comments')"
+                        :config="editorConfig" />
+                    </div>
+                    
+                  </div>
+                
+                <div class="col-span-4 timeline">
+                  <!-- Inicio de la linea del tiempo Prospecto -->
+                  <div>
+                    <div class="grid justify-items-start">
+                      <div class="text-center title">
+                        <h3 class="text-gray-900 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label') }}</h3>
+                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label_2') }} {{ activity.start_date }}</h4>
                       </div>
+                      <p>&nbsp</p>
+                      <p>&nbsp</p>
+
+                      <ol class="relative border-l border-sky-800 dark:border-sky-800">                  
+                        <li class="mb-10 ml-4">
+                          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                          <h3 class="font-semibold text-gray-900 text-md dark:text-white">Ricardo Martinez Prieto</h3>
+                          <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
+                        </li>
+                        <li class="mb-10 ml-4">
+                          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                          <h3 class="font-semibold text-gray-900 text-md dark:text-white">Xavier López</h3>
+                          <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
+                        </li>
+                        <li class="mb-10 ml-4">
+                          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                          <h3 class="font-semibold text-gray-900 text-md dark:text-white">Anastasia Domínguez</h3>
+                          <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
+                        </li>
+                      </ol>
+                    </div>
                   </div>
                   <!-- Fin de la linea del tiempo Prospecto -->
                 </div>
@@ -469,13 +499,14 @@
           <!--</div>-->
         <!--</form>-->
       <!--</div>-->
-    
   </Modal>
   <!-- END: Modal Content -->
+  
   <!-- BEGIN: Success Notification Content -->
+  <!-- class="flex hidden toastify-content" -->
   <div
     id="success-notification-content"
-    class="flex hidden toastify-content">
+    class="hidden toastify-content">
     <CheckCircleIcon class="text-success" />
     <div class="ml-4 mr-4">
       <div class="font-medium">{{ $t('add_user.registration_success') }}</div>
@@ -485,10 +516,11 @@
     </div>
   </div> 
   <!-- END: Success Notification Content -->
+
   <!-- BEGIN: Failed Notification Content -->
   <div
     id="failed-notification-content"
-    class="flex hidden toastify-content">
+    class="hidden toastify-content">
     <XCircleIcon class="text-danger" />
     <div class="ml-4 mr-4">
       <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>

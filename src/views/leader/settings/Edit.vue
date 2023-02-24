@@ -5,89 +5,45 @@
 </script>
 
 <script setup>
-import { reactive } from "vue";
-import { storeToRefs } from "pinia";
+  import { reactive, ref } from 'vue';
+  import { storeToRefs } from "pinia";
 
-import { useSettingsStore } from "../../../stores/leader/settings";
-import SettingForm from "../../../components/leader/settings/Form.vue";
+  import { useSettingsStore } from "../../../stores/leader/settings";
+  import SettingForm from "../../../components/leader/settings/Form.vue";
 
-const { updateProfileLanguage, fetchUserProfile } = useSettingsStore();
-const { setting: form, message } = storeToRefs(useSettingsStore());
+  const { message } = storeToRefs(useSettingsStore());
+  const { updateProfileLanguage } = useSettingsStore();
 
-//import { useRoute } from "vue-router";
-//import UserForm from "../../../components/leader/users/Form.vue";
+  const profile_user = ref(JSON.parse(sessionStorage.getItem("session_storage_user")).profile);
 
-//const route = useRoute();
-//const { updateUser, fetchUser } = useUsersStore();
-//const { user: form, message } = storeToRefs(useUsersStore());
-
-fetchUserProfile();
-
-const submit = async () => {
-  await updateProfileLanguage(form.value);
-  /*
-  if ( ! error.value) {
-    await router.push({
-      name: "courses",
-    })
+  const submit = async () => {
+    await updateProfileLanguage(profile_user.value);
+      
+    /*
+    if ( ! error.value) {
+      await router.push({
+        name: "courses",
+      })
+    }
+    */
   }
-  */
-}
 </script>
 
 <template>
   <!--
-    <div class="intro-y flex items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">Update User</h2>
+    <div class="flex items-center mt-8 intro-y">
+        <h2 class="mr-auto text-lg font-medium">Update User</h2>
     </div>
 
-    <router-link class="btn btn-primary shadow-md w-20 mr-2" :to="`/dashboard-user`">Prev</router-link>
-  -->
+    <router-link class="w-20 mr-2 shadow-md btn btn-primary" :to="`/dashboard-user`">Prev</router-link>
 
+    :setting="form"
+  -->
     <div class="grid grid-cols-3 gap-3 mt-5">
         <p v-if="message">{{ message }}</p>
         <SettingForm
             text-button="Actualizar"
-            :setting="form"
-            @submit="submit"
-        />
+            :setting="profile_user"
+            @submit="submit" />
     </div>
 </template>
-
-<!--
-<script setup>
-import { storeToRefs } from "pinia";
-import { useRouter, useRoute } from "vue-router";
-import { useCoursesStore } from "../../stores/courses";
-import CourseForm from "../../components/Courses/Form.vue";
-
-const router = useRouter();
-const route = useRoute();
-const { updateCourse, fetchCourse } = useCoursesStore();
-const { course: form, loading, error } = storeToRefs(useCoursesStore());
-
-fetchCourse(route.params.id);
-
-const submit = async () => {
-  await updateCourse(form.value);
-  if ( ! error.value) {
-    await router.push({
-      name: "courses",
-    })
-  }
-}
-</script>
-
-<template>
-  <div>
-    <h1>Actualizar un curso</h1>
-    <p v-if="loading">Procesando curso...</p>
-    <p v-if="error">{{ error.message }}</p>
-    <CourseForm
-        text-button="Actualizar"
-        :course="form"
-        @submit="submit"
-    />
-  </div>
-</template>
--->
