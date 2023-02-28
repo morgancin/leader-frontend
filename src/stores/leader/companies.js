@@ -18,8 +18,17 @@ export const useCompaniesStore = defineStore("CompaniesStore", {
                 this.message = error.message;
             })
         },
-        async fetchCompany(id) {
+        async fetchCompanies() {
             axiosClient.get(`/companies`)
+            .then (({data}) => {
+                this.companies = data.data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async fetchCompany(id) {
+            axiosClient.get(`/companies/${id}`)
             .then (({data}) => {
                 this.company = data;
             })

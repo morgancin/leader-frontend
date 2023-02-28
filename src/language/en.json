@@ -121,8 +121,8 @@
         "extension_phone": "Extension Phone",
         "service_priority": "Service Priority",
 
-        "origin": "Origin",
-        "medium": "Medium",
+        "origin": "Source",
+        "medium": "Means",
         "company": "Company",
         "account": "Account",
         "btn_prev": "Next"

@@ -8,43 +8,36 @@
   import { storeToRefs } from "pinia";  
   import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators';
   import { useVuelidate } from '@vuelidate/core';
+  
   import Toastify from "toastify-js";
   import dom from "@left4code/tw-starter/dist/js/dom";
+
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
+
   import Datepicker from '@vuepic/vue-datepicker';
   import '@vuepic/vue-datepicker/dist/main.css';
 
   import { useAccountsStore } from "@/stores/leader/accounts";
   import { useProspectsStore } from "@/stores/leader/prospects";
+  import { useCompaniesStore } from "@/stores/leader/companies";
   import { useActivitiesStore } from "@/stores/leader/activities";
   
   const { prospect } = storeToRefs(useProspectsStore());
-  const { activity } = storeToRefs(useActivitiesStore());
+  const { activity, activities } = storeToRefs(useActivitiesStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
+  const { companies: dataCompanies } = storeToRefs(useCompaniesStore());
 
   const { fetchAccounts } = useAccountsStore();
-  const { fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
+  const { fetchCompanies } = useCompaniesStore();
   const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
-  
+  const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
+    
   const props = defineProps({
-      /*
-      prospect_example: {
-          type: Object,
-          required: true
-      },
-      activity: {
-        type: Object,
-        required: true
-      },
-      */
       show_modal: {
         type: Boolean
       },
   });
-
-  //console.log(props.prospect_example);
-  //console.log(prospect.value);
     
   const aServicePriority = [
                             { key:'bajo', value: 'BAJO' },
@@ -53,10 +46,22 @@
                             { key:'pendiente', value: 'PENDIENTE' },
                         ];
 
+  const convert_format_date = (date, format) => {
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    
+    if(format == 'en')
+      return `${year}-${month}-${day}`;
+      
+    else if(format == 'es')
+      return `${day}/${month}/${year}`;
+  }
+  
   const emit = defineEmits(["submit","hideModal","reset"]);
 
-  const data_prospect_activity = ref({...prospect.value, ...activity.value});
-  
+  const data_prospect_activity = reactive({...prospect.value, ...activity.value});
+
   ////////RULES
   const rules = {
     ////Prospect
@@ -79,37 +84,11 @@
   }
 
   const validate = useVuelidate(rules, data_prospect_activity);
-
-  /*
-  const rules = {
-      prospect:{
-        last_name: { required },
-        first_name: { required },
-        email: { required, email },
-        phone_mobile: {         
-          required,
-          numeric,
-          minLength: minLength(10),
-          maxLength: maxLength(10) },
-        service_priority: { required },
-        account_id: { required },
-        client_origin: { required },
-        client_medium_origin_id: { required }
-      },
-      activity:{
-        activity_type_id: { required },
-        activity_subject_id: { required },
-        start_date: { required }
-      }
-  }
-
-  const validate = useVuelidate(rules, props);
-  */
-
+  
   const hideModal = () => {
     emit('hideModal');
   }
-
+  
   const submitForm = async () => {
     validate.value.$touch();
     if (validate.value.$invalid) {
@@ -142,44 +121,62 @@
     const result = await validate.value.$validate();
     
     if(result) {
-      await createProspectActivity(data_prospect_activity.value);
-
-      //emit('submit');
+      await createProspectActivity(data_prospect_activity);
+      emit('submit');
     }
   } 
 
-  ////////ORIGINS & ORIGINS MEDIUMS
-  const dataOrigins = ref([]);
-  const dataOriginsMediums = ref([]);
+  ////////PROSPECTING SOURCES & MEANS
+  const dataProspectingMeans = ref([]);
+  const dataProspectingSources = ref([]);
   
   ////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
   const dataActivitiesTypes = ref([]);
   const dataActivitiesSubjects = ref([]);
 
   onMounted(async() => {
-    await fetchAccounts();
-    dataOrigins.value = await fetchOrigins();
+    dataProspectingSources.value = await fetchOrigins();
     dataActivitiesTypes.value = await fetchActivitiesTypes();
+
+    await fetchAccounts();
+    await fetchCompanies();
+
+    await fetchActivities(1, convert_format_date(data_prospect_activity.start_date, 'en'));
   });
 
   watch(
-      () => prospect.client_origin, //props.prospect.client_origin,
+      () => data_prospect_activity.start_date,
       async () => {
-          dataOriginsMediums.value = await fetchOriginsMediums();
+        await fetchActivities(1, convert_format_date(data_prospect_activity.start_date, 'en'));
       }
   );
   watch(
-      () => activity.activity_type_id,  //props.activity.activity_type_id,
+      () => data_prospect_activity.client_origin,
       async () => {
-          dataActivitiesSubjects.value = await fetchActivitiesSubjects(activity.activity_type_id);  //fetchActivitiesSubjects(props.activity.activity_type_id);
+          dataProspectingMeans.value = await fetchOriginsMediums(data_prospect_activity.client_origin);
       }
   );
-  
+  watch(
+      () => data_prospect_activity.activity_type_id,
+      async () => {
+          dataActivitiesSubjects.value = await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
+      }
+  );
+   
   const editorConfig = {
     toolbar: {
       items: [],
     },
   };
+  
+  const format_start_date = ref(data_prospect_activity.start_date);
+  format_start_date.value = (format_start_date) => {
+    const day = format_start_date.getDate();
+    const year = format_start_date.getFullYear();
+    const month = format_start_date.getMonth() + 1;
+    
+    return `${day}/${month}/${year}`;
+  }
 </script>
 
 <template>
@@ -296,23 +293,14 @@
                     <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
                       <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
                       <v-select
-                          label="description"
+                          label="name"
                           class="form-control" 
-                          :options="dataOrigins"
-                          :reduce="description => description.id"
-                          v-model="data_prospect_activity.client_origin"
-                          :class="{ 'border-danger': validate.client_origin.$error }">
+                          :options="dataCompanies"
+                          :reduce="name => name.id"
+                          v-model="data_prospect_activity.company_id">
                       </v-select>
-                      <template v-if="validate.client_origin.$error">
-                        <div
-                          v-for="(error, index) in validate.client_origin.$errors"
-                          :key="index"
-                          class="mt-2 text-danger">
-                            {{ error.$message }}
-                        </div>
-                      </template>
                     </div>
-                                      
+                                 
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                       <label class="form-label">{{ $t('add_prospect_details.service_priority') }}</label>
                       <v-select 
@@ -338,7 +326,7 @@
                       <v-select
                           label="description"
                           class="form-control" 
-                          :options="dataOrigins"
+                          :options="dataProspectingSources"
                           :reduce="description => description.id"
                           v-model="data_prospect_activity.client_origin"
                           :class="{ 'border-danger': validate.client_origin.$error }">
@@ -357,7 +345,7 @@
                         <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.medium') }}</label>
                         <v-select 
                             class="form-control" 
-                            :options="dataOriginsMediums"
+                            :options="dataProspectingMeans"
                             :reduce="description => description.id" 
                             label="description"
                             v-model="data_prospect_activity.client_medium_origin_id"
@@ -419,13 +407,22 @@
                                                             
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
                       <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_date_activity') }}</label>
-                      <Datepicker 
+                      
+                      <Datepicker
+                          :placeholder="$t('add_prospect_activity.start_date_activity')"
+                          closeOnScroll
+                          :format="format_start_date"
+                          :enableTimePicker="false"
+                          v-model="data_prospect_activity.start_date" />
+                      <!--
+                      <Datepicker
                           v-model="data_prospect_activity.start_date"
                           :placeholder="$t('add_prospect_activity.start_date_activity')"
                           utc 
                           modelType="yyyy.MM.dd" 
                           closeOnScroll  
                           :enableTimePicker="false" />
+                      -->
                       <template v-if="validate.start_date.$error">
                           <div
                               v-for="(error, index) in validate.start_date.$errors"
@@ -460,12 +457,20 @@
                     <div class="grid justify-items-start">
                       <div class="text-center title">
                         <h3 class="text-gray-900 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label') }}</h3>
-                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label_2') }} {{ activity.start_date }}</h4>
+                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label_2') }} {{ convert_format_date(data_prospect_activity.start_date, 'es') }}</h4>
                       </div>
                       <p>&nbsp</p>
                       <p>&nbsp</p>
 
-                      <ol class="relative border-l border-sky-800 dark:border-sky-800">                  
+                      <ol class="relative border-l border-sky-800 dark:border-sky-800">
+                        <li class="mb-10 ml-4"
+                          v-for="(activity, id) in activities" 
+                          :key="id">
+                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                            <h3 class="font-semibold text-gray-900 text-md dark:text-white">{{ activity.prospect.first_name }}</h3>
+                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
+                        </li>
+                        <!--
                         <li class="mb-10 ml-4">
                           <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                           <h3 class="font-semibold text-gray-900 text-md dark:text-white">Ricardo Martinez Prieto</h3>
@@ -481,6 +486,7 @@
                           <h3 class="font-semibold text-gray-900 text-md dark:text-white">Anastasia Domínguez</h3>
                           <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
                         </li>
+                        -->
                       </ol>
                     </div>
                   </div>

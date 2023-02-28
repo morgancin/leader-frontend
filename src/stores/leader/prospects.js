@@ -12,6 +12,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             last_name:null,
             second_last_name:null,
             account_id:null,
+            company_id:null,
             client_origin:null,         //Se recupera con base a client_medium_origin_id
             client_medium_origin_id:null,
             
@@ -42,13 +43,17 @@ export const useProspectsStore = defineStore("ProspectsStore", {
         },
     }),
     actions: {
-        async createProspectActivity(data) {
-            //data.end_time = data.end_time.hours + ':' + data.end_time.minutes;
-            //data.end_date = new Date(data.end_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
-            //data.activity_date = new Date(data.activity_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
-            data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
-            data.start_date = new Date(data.start_date).toLocaleDateString("en-CA", { year: 'numeric', month: 'numeric', day: 'numeric' });
+        async createProspectActivity(data_) {
+            let data = { ...data_ };
             
+            let d = data.start_date;    //new Date();
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+            
+            data.start_date = `${ye}-${mo}-${da}`;
+            data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
+
             axiosClient.post('/activity-prospect', data)
             .then (({data}) => {
                 //this.company = data.result;
@@ -81,11 +86,12 @@ export const useProspectsStore = defineStore("ProspectsStore", {
 
             return result;
         },
-        async fetchOriginsMediums() {
+        async fetchOriginsMediums(prospecting_source_id) {
             let result = [];
 
-            if(this.prospect.client_origin){
-                await axiosClient.get(`/prospecting-means/${this.prospect.client_origin}`)
+            //if(this.prospect.client_origin){
+                //await axiosClient.get(`/prospecting-means/${this.prospect.client_origin}`)
+                await axiosClient.get(`/prospecting-means?prospecting_source_id=${prospecting_source_id}`)
                 .then (({data}) => {
                     //this.message = data.message;
                     result = data.data;
@@ -93,10 +99,9 @@ export const useProspectsStore = defineStore("ProspectsStore", {
                 .catch(function (error) {
                     this.message = error.message;
                 })
-
-            }else{
-                this.prospect.client_medium_origin_id = null;
-            }
+            //}else{
+                //this.prospect.client_medium_origin_id = null;
+            //}
 
             return result;
         },
