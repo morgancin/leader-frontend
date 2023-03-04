@@ -106,9 +106,10 @@
 </script>
 
 <template>
-    <form @submit.prevent="submitForm()" autocomplete="on">
-         <div class="grid grid-cols-4 gap-4 gap-y-5 mt-5">
-            <div class="intro-y md:col-span-1">
+    <form @submit.prevent="submitForm()" autocomplete="on" class="speciallabels">
+
+        <div class="grid grid-cols-4 gap-4 gap-y-5 mt-5">
+            <div class="col-span-6 intro-y md:col-span-2 lg:col-span-1 withlabel">
                 <label for="txtZipCode" class="form-label">{{ $t('add_prospect_address.zip_code') }}</label>
                 <input
                     type="text"
@@ -131,8 +132,7 @@
                     
                     type="text"
                     class="form-control"
-                    :class="{ 'border-danger': validate.zipcode.$error  }" 
-                    :placeholder="$t('add_prospect_address.zip_code')"/> 
+                    :class="{ 'border-danger': validate.zipcode.$error  }" /> 
                 <template v-if="validate.zipcode.$error">
                     <div
                         v-for="(error, index) in validate.zipcode.$errors"
@@ -143,89 +143,83 @@
                 </template>
             </div> -->
         </div>
+
+        <div class="col-span-12 dark:border-darkmode-400 intro-y mt-5"> <hr> </div>     
+
         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
 
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-4 withlabel">
                 <label for="cmbSuburb" class="form-label">{{ $t('add_prospect_address.suburb') }}</label>
                 <v-select
                     id="cmbSuburb"
                     taggable push-tags
                     class="form-control"
-                    :options="dataSuburb"
-                    :placeholder="$t('add_prospect_address.suburb')"
+                    :options="dataSuburb"                    
                     v-model="prospect.suburb">
                 </v-select>
             </div>
             
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-4 withlabel">
                 <label for="txtStreet" class="form-label">{{ $t('add_prospect_address.street') }}</label>
                 <input
                   type="text"
                   id="txtStreet"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.street')"
                   v-model="prospect.street" />
             </div>
             
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-2 withlabel">
                 <label for="txtOutdoor" class="form-label">{{ $t('add_prospect_address.outdoor') }}</label>
                 <input
                   type="text"
                   id="txtOutdoor"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.outdoor')"
                   v-model.trim="prospect.outdoor" />
             </div>
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-2 withlabel">
                 <label for="txtIndoor" class="form-label">{{ $t('add_prospect_address.indoor') }}</label>
                 <input
                   type="text"
                   id="txtIndoor"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.indoor')"
                   v-model="prospect.indoor" />
             </div>
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                 <label for="txtTown" class="form-label">{{ $t('add_prospect_address.town') }}</label>
                 <input
                   type="text"
                   id="txtTown"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.town')"
                   v-model="prospect.town" />
             </div>
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                 <label for="txtCity" class="form-label">{{ $t('add_prospect_address.city') }}</label>
                 <input
                   type="text"
                   id="txtCity"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.city')"
                   v-model="prospect.city" />
             </div>
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                 <label for="txtState" class="form-label">{{ $t('add_prospect_address.state') }}</label>
                 <input
                   type="text"
                   id="txtState"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.state')"
                   v-model="prospect.state" />
             </div>
-            <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
+            <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                 <label for="txtCountry" class="form-label">{{ $t('add_prospect_address.country') }}</label>
                 <input
                   type="text"
                   id="txtCountry"
                   class="form-control"
-                  :placeholder="$t('add_prospect_address.country')"
                   v-model="prospect.country" />
             </div>
 
-            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5" >
+            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5 " >
                 <button 
-                    class="btn btn-secondary w-24"
-                    
+                    class="btn btn-secondary w-24"                    
                     @click="submitStep">
                     {{ $t('add_prospect_address.btn-prev') }}
                     </button>
@@ -260,3 +254,9 @@
     </div>
     <!-- END: Failed Notification Content -->
 </template>
+<style>
+.speciallabels .withlabel label.nolabel{ left:-5px}
+.speciallabels .withlabel label.form-check-label{ position:static}
+.vs__dropdown-toggle{border-color:rgb(var(--color-slate-200) / var(--tw-border-opacity));}
+.border-danger .vs__dropdown-toggle{border-color:rgb(var(--color-danger) / var(--tw-border-opacity))}
+</style>

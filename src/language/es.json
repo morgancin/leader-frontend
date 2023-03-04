@@ -234,7 +234,8 @@
         "origin_medium_origin": "Origen",
         "btn_prev": "Anterior",
         "btn_save": "Guardar",
-        "btn_cancel": "Cancelar"
+        "btn_cancel": "Cancelar",
+        "btn_add_new_origin_medium": "Creaar Nuevo Medio de Orígen"
     },
     "add_currencies":{
         "currencies": "Divisas",

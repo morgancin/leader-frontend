@@ -456,7 +456,7 @@
               type="button"
               class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
             >
-              Cancelar
+              {{ $t('add_user.btn_cancel') }}
             </button>
             <button type="submit" class="btn py-3 btn-primary w-full md:w-52" @click="update">
               {{ $t('add_user.btn_save') }}

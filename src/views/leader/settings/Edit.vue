@@ -39,11 +39,11 @@
 
     :setting="form"
   -->
-    <div class="grid grid-cols-3 gap-3 mt-5">
+    
         <p v-if="message">{{ message }}</p>
         <SettingForm
             text-button="Actualizar"
             :setting="profile_user"
             @submit="submit" />
-    </div>
+    
 </template>

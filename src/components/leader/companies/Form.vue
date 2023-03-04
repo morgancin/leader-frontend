@@ -111,16 +111,17 @@
 <template>
   <div class="intro-y col-span-12 lg:col-span-6">
     
-    <div class="intro-y box p-5">
-  
-      <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-          <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
-            <ChevronDownIcon class="w-4 h-4 mr-2" /> Datos de compañía
-          </div>
-          <div class="mt-5">  
-              <!-- BEGIN: Form Layout -->
-              <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
-              <form class="validate-form" @submit.prevent="submitForm">
+    <form class="validate-form" @submit.prevent="submitForm">
+      <div class="intro-y box p-5">
+    
+        <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+            <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+              <ChevronDownIcon class="w-4 h-4 mr-2" /> Datos de compañía
+            </div>
+            <div class="mt-5">  
+                <!-- BEGIN: Form Layout -->
+                <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
+              
                 
                   <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
@@ -389,34 +390,33 @@
                         <option value="Miguel Hidalgo">Miguel Hidalgo</option>
                       </TomSelect>
                     </div>
-                  </div>
-
-                  <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-                    <button
-                      type="button"
-                      class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
-                    >
-                      Cancelar
-                    </button>
-                    <button type="submit" class="btn py-3 btn-primary w-full md:w-52">
-                      {{ $t('add_companies.btn_save') }}
-                    </button>
-                  </div>
-
+                  </div>              
                 
-              </form>
+              </div>
               <!-- END: Form Layout -->
           </div>
       </div>
 
-    </div>
+      <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+        <button
+          type="button"
+          class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
+        >
+          {{ $t('add_companies.btn_cancel') }}
+        </button>
+        <button type="submit" class="btn py-3 btn-primary w-full md:w-52">
+          {{ $t('add_companies.btn_save') }}
+        </button>
+      </div>
 
-    <div>
+    </form>
+
+    <!--<div>
       <p>Errors:</p>
       <span v-for="error in v$.$errors" :key="error.$uid">
         {{ error.$property }} - {{ error.$message }}
       </span>
-    </div>
+    </div>-->
     <!-- BEGIN: Success Notification Content -->
     <div
       id="success-notification-content"
