@@ -12,7 +12,6 @@ export function useGetDataCategories()
         await axiosClient.get(`/categories`)
         .then (({data}) => {
              //results.value = data;
-             console.log(data.data);
             results.value = data.data;
         })
         .catch(function (err) {

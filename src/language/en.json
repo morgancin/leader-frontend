@@ -120,7 +120,7 @@
         "office_phone": "Office Phone",
         "extension_phone": "Extension Phone",
         "service_priority": "Service Priority",
-
+        
         "origin": "Source",
         "medium": "Means",
         "company": "Company",
@@ -190,6 +190,13 @@
         "btn_cancel": "Cancel",
         "btn_add_new_tags": "Create New Tag"
     },
+    "add_components":{
+        "components": "Components",
+        "component": "Component",
+        "name": "Name",
+        "add": "Add component",
+        "quantity": "Quantity"
+    },
     "add_prices":{
         "prices": "Prices",
         "price_price": "Price",
@@ -247,15 +254,17 @@
     },
     "add_products":{
         "products": "Products",
-        "product_name": "Name",
         "product_sku": "Sku",
+        "product_name": "Name",
+        "product_account": "Account",
         "product_quantity": "Quantity",
         "product_category": "Category",
         "product_description": "Description",
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_product": "Create New Product"
+        "btn_add_new_product": "Create New Product",
+        "file_description_account": "Select Options"
     },
     "add_categories":{
         "categories": "Categories",

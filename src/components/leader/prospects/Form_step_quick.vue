@@ -32,6 +32,8 @@
   const { fetchCompanies } = useCompaniesStore();
   const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
   const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
+  
+  const user_login = JSON.parse(sessionStorage.getItem("session_storage_user"));
     
   const props = defineProps({
       show_modal: {
@@ -58,7 +60,7 @@
       return `${day}/${month}/${year}`;
   }
   
-  const emit = defineEmits(["submit","hideModal","reset"]);
+  const emit = defineEmits(["submit", "hideModal", "reset"]);
 
   const data_prospect_activity = reactive({...prospect.value, ...activity.value});
 
@@ -103,8 +105,8 @@
         position: "right",
         stopOnFocus: true,
       }).showToast();
-    }
-    else{
+      
+    }else{
       Toastify({
         node: dom("#success-notification-content")
           .clone()
@@ -140,14 +142,14 @@
 
     await fetchAccounts();
     await fetchCompanies();
-
-    await fetchActivities(1, convert_format_date(data_prospect_activity.start_date, 'en'));
+        
+    await fetchActivities(user_login.id, convert_format_date(data_prospect_activity.start_date, 'en'));
   });
 
   watch(
       () => data_prospect_activity.start_date,
       async () => {
-        await fetchActivities(1, convert_format_date(data_prospect_activity.start_date, 'en'));
+        await fetchActivities(user_login.id, convert_format_date(data_prospect_activity.start_date, 'en'));
       }
   );
   watch(
@@ -468,7 +470,7 @@
                           :key="id">
                             <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                             <h3 class="font-semibold text-gray-900 text-md dark:text-white">{{ activity.prospect.first_name }}</h3>
-                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
+                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">{{ activity.activity_subject.activity_type.name }} - {{ activity.activity_subject.name }}</p>
                         </li>
                         <!--
                         <li class="mb-10 ml-4">

@@ -191,6 +191,13 @@
         "btn_cancel": "Cancelar",
         "btn_add_new_tags": "Nueva Etiqueta"
     },
+    "add_components":{
+        "components": "Componentes",
+        "component": "Componente",
+        "name": "Nombre",
+        "add": "Agregando Componente",
+        "quantity": "Cantidad"
+    },
     "add_prices":{
         "prices": "Precios",
         "price_price": "Precio",
@@ -252,11 +259,13 @@
         "product_sku": "Sku",
         "product_quantity": "Cantidad",
         "product_category": "Categoría",
+        "product_account": "Cuenta",
         "product_description": "Descripción",
         "btn_prev": "Anterior",
         "btn_save": "Guardar",
         "btn_cancel": "Cancelar",
-        "btn_add_new_product": "Nuevo producto"
+        "btn_add_new_product": "Nuevo producto",
+        "file_description_account": "Seleccione opción"
     },
     "add_categories":{
         "categories": "Categorías",

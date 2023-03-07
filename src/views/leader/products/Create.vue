@@ -5,20 +5,26 @@
 </script>
 
 <script setup>
-  import { reactive } from "vue";
+  import { ref, reactive } from "vue";
+
   import { useProductsStore } from "../../../stores/leader/products";
+  
   import ProductsForm from "../../../components/leader/products/Form.vue";
   
   const { createProduct } = useProductsStore();
 
+  const cart_components = ref([]);
   const form = reactive({
-                        sku:'',
-                        name:'',
-                        quantity:'',
-                        description:'',
-                        category_id:'',
+                        sku:null,
+                        name:null,
+                        quantity:null,
+                        account_id:null,
+                        category_id:null,
+                        description:null,
+                        components:[],
+                        price_lists:[],                      
                   });
-
+                  
   const submit = async () => {
     await createProduct(form);
   }
@@ -32,8 +38,9 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ProductsForm
-          :product="form"
-          @submit="submit" />
+        @submit="submit"
+        :product="form"
+        :cart_components="cart_components" />
     </div>
   </div>
 </template>

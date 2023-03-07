@@ -13,7 +13,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             .then (({data}) => {
                 return data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
         },
@@ -22,7 +22,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             .then (({data}) => {
                 this.message = data.message;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
 
@@ -41,7 +41,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             .then (({data}) => {
                 this.products = data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
         },
@@ -50,7 +50,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             .then (({data}) => {
                 this.product = data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 this.message = error.message;
             })
         },
