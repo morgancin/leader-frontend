@@ -12,8 +12,9 @@
   const { createClientOrigin } = useClientOriginStore();
   
   const form = reactive({
-        description:''
-  });
+                        description:'',
+                        account_id:null,
+                    });
   
   const submit = async () => {
     await createClientOrigin(form);
@@ -29,7 +30,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <!-- BEGIN: Form Layout -->
       <ClientOriginForm
-            :origin="form"
+            :source="form"
             @submit="submit"/>
       <!-- END: Form Layout -->
     </div>

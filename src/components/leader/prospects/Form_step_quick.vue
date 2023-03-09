@@ -198,7 +198,7 @@
                 <div class="grid grid-cols-12 col-span-8 gap-4">
                    
                     <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.account') }}</label>
+                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.account') }}</label>
                       <v-select
                           label="name"
                           class="form-control" 
@@ -218,7 +218,7 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-6 withlabel">
-                      <label for="modal-form-1" class="form-label">{{ $t('add_prospect_details.first_name') }}</label>
+                      <label for="modal-form-1" class="form-label">*{{ $t('add_prospect_details.first_name') }}</label>
                       <input 
                         id="modal-form-1" 
                         type="text" 
@@ -237,7 +237,7 @@
                     </div>
 
                     <div class="col-span-12 sm:col-span-6 withlabel">
-                        <label for="modal-form-2" class="form-label">{{ $t('add_prospect_details.last_name') }}</label>
+                        <label for="modal-form-2" class="form-label">*{{ $t('add_prospect_details.last_name') }}</label>
                         <input 
                         id="modal-form-2" 
                         type="text" 
@@ -256,7 +256,7 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-4 withlabel">
-                        <label for="modal-form-3" class="form-label">{{ $t('add_prospect_details.mobile_phone') }}</label>
+                        <label for="modal-form-3" class="form-label">*{{ $t('add_prospect_details.mobile_phone') }}</label>
                         <input 
                           id="modal-form-3" 
                           type="text" 
@@ -274,7 +274,7 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
-                        <label for="modal-form-4" class="form-label">{{ $t('add_prospect_details.email') }}</label>
+                        <label for="modal-form-4" class="form-label">*{{ $t('add_prospect_details.email') }}</label>
                         <input 
                         id="modal-form-4" 
                         type="text" 
@@ -304,7 +304,7 @@
                     </div>
                                  
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                      <label class="form-label">{{ $t('add_prospect_details.service_priority') }}</label>
+                      <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
                       <v-select 
                         class="form-control" 
                         :options="aServicePriority" 
@@ -324,7 +324,7 @@
                     </div>
                                         
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.origin') }}</label>
+                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.origin') }}</label>
                       <v-select
                           label="description"
                           class="form-control" 
@@ -344,7 +344,7 @@
                     </div>
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                        <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.medium') }}</label>
+                        <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.medium') }}</label>
                         <v-select 
                             class="form-control" 
                             :options="dataProspectingMeans"
@@ -408,7 +408,7 @@
                     </div>
                                                             
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
-                      <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_date_activity') }}</label>
+                      <label for="crud-form-2" class="form-label">*{{ $t('add_prospect_activity.start_date_activity') }}</label>
                       
                       <Datepicker
                           :placeholder="$t('add_prospect_activity.start_date_activity')"
@@ -436,7 +436,7 @@
                     </div>
                     
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
-                        <label for="crud-form-2" class="form-label">{{ $t('add_prospect_activity.start_time') }}</label>
+                        <label for="crud-form-2" class="form-label">*{{ $t('add_prospect_activity.start_time') }}</label>
                         <Datepicker 
                             v-model="data_prospect_activity.start_time" 
                             :placeholder="$t('add_prospect_activity.start_time')"
@@ -469,8 +469,8 @@
                           v-for="(activity, id) in activities" 
                           :key="id">
                             <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                            <h3 class="font-semibold text-gray-900 text-md dark:text-white">{{ activity.prospect.first_name }}</h3>
-                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">{{ activity.activity_subject.activity_type.name }} - {{ activity.activity_subject.name }}</p>
+                            <h3 class="font-semibold text-gray-900 text-md dark:text-white">{{ activity.prospect.full_name }}</h3>
+                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">{{ activity.start_time }} {{ activity.activity_subject.activity_type.name }} - {{ activity.activity_subject.name }}</p>
                         </li>
                         <!--
                         <li class="mb-10 ml-4">

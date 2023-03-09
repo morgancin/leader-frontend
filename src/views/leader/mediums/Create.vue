@@ -12,8 +12,8 @@
     const { createClientOriginMedium } = useClientOriginMediumStore();
   
     const form = reactive({
-                      description: "",
-                      parent_id_client_medium: '',
+                      description:null,
+                      prospecting_source_id:null,
                   });
 
     const submit = async () => {
@@ -30,7 +30,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <!-- BEGIN: Form Layout -->
       <ClientOriginMediumForm
-            :medium="form"
+            :mean="form"
             @submit="submit"/>
       <!-- END: Form Layout -->
     </div>

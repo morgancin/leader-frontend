@@ -31,14 +31,32 @@
         },
       },
       
+      ajaxResponse:function(url, params, response){
+          //url - the URL of the request
+          //params - the parameters passed with the request
+          //response - the JSON object returned in the body of the response.
+
+          return response.data; //return the tableData property of a response json object
+      },
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load
       resizableColumnFit:true,
       //paginationMode:"remote", //enable remote pagination
       placeholder: "No matching records found",
+      
       columns: [
         // For HTML table
+        {
+          title: t('list.catalogs_origins.column_3'),
+          minWidth: 200,
+          field: "account.name",
+          vertAlign: "middle",
+          print: true,
+          download: true,
+          // responsive: 0,
+          // hozAlign: "center",
+        },
         {
           title: t('list.catalogs_origins.column_1'),
           minWidth: 200,

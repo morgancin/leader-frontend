@@ -23,15 +23,20 @@
 
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-      ajaxURL: "https://api.leader.arkanmedia.com/api/prospecting-means",
+      ajaxURL: "https://api.leader.arkanmedia.com/api/prospecting-means?prospecting_source_id=all",
       ajaxConfig:{
         method:"GET",
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
+      
       ajaxResponse:function(url, params, response){
-        return response.data; //return the tableData property of a response json object
+          //url - the URL of the request
+          //params - the parameters passed with the request
+          //response - the JSON object returned in the body of the response.
+
+          return response.data; //return the tableData property of a response json object
       },
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
@@ -39,12 +44,13 @@
       resizableColumnFit:true,
       //paginationMode:"remote", //enable remote pagination
       placeholder: "No matching records found",
+      
       columns: [
         // For HTML table
         {
           title: t('list.catalogs_mediums_origins.column_1'),
           minWidth: 200,
-          field: "description",
+          field: "prospecting_source.description",
           vertAlign: "middle",
           print: true,
           download: true,
@@ -54,7 +60,7 @@
         {
           title: t('list.catalogs_mediums_origins.column_2'),
           minWidth: 200,
-          field: "origin.description",
+          field: "description",
           vertAlign: "middle",
           print: true,
           download: true,

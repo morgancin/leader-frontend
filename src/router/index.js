@@ -380,7 +380,7 @@ const routes = [
       
       //PROSPECTS CATALOGUE ORIGINS
       {
-        path: 'origin',
+        path: 'sources',
         name: 'side-menu-origin',
         component: () => import('../views/leader/origins/DashboardClientOrigin.vue'),
         beforeEnter: requireAuth
@@ -500,7 +500,7 @@ const routes = [
 
       //PROSPECTS CATALOGUE MEDIUMS
       {
-        path: 'medium',
+        path: 'means',
         name: 'side-menu-medium',
         component: () => import('../views/leader/mediums/DashboardClientOriginMedium.vue'),
         beforeEnter: requireAuth

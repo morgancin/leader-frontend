@@ -61,13 +61,13 @@
       <ProspectStep1Form
         v-if="(step == 1)"
         @submit="submitStep"
-        :prospect="form" />z
+        :prospect="form" />
 
       <ProspectStep2Form
         v-if="(step == 2)"
         @submit="submitStep"
         :prospect="form" />
-        
+
       <ActivitieForm
         v-if="(step == 3)"
         @submit="submit"

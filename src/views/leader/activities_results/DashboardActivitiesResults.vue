@@ -31,6 +31,13 @@
         },
       },
       
+      ajaxResponse:function(url, params, response){
+          //url - the URL of the request
+          //params - the parameters passed with the request
+          //response - the JSON object returned in the body of the response.
+
+          return response.data; //return the tableData property of a response json object
+      },
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load
@@ -52,7 +59,7 @@
         {
           title: t('list.catalogs_activities_results.column_2'),
           minWidth: 200,
-          field: "activity_type_id",
+          field: "activity_type.name",
           vertAlign: "middle",
           print: true,
           download: true,

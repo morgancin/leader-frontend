@@ -158,9 +158,9 @@
         
         <form id="formulario" class="validate-form" @submit.prevent="submitForm">
           
-          <div class="intro-y box p-5">
-            <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-              <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+          <div class="p-5 intro-y box">
+            <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
+              <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
                 <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.basic-info')}}
               </div>
               <div class="mt-5">
@@ -170,24 +170,23 @@
                     <!-- <form class="validate-form" @submit.prevent="save"> -->
                     <!-- <form @submit.prevent="$emit('submit')" autocomplete="on"> -->
 
-                    <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
                             <div class="font-medium">{{ $t('add_user.name') }}</div>
                             <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                            >
-                              Requerido
+                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                Requerido
                             </div>
                           </div>
-                          <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
                             Nombre del usuario, espacio para caracteres alfanúmericos, no incluir apellidos.
                           </div>
                         </div>
                       </div>
 
-                      <div class="w-full mt-3 xl:mt-0 flex-1">                    
+                      <div class="flex-1 w-full mt-3 xl:mt-0">                    
                         <input
                           id="validation-form-1"
                           v-model.trim="v$.name.$model"
@@ -197,7 +196,7 @@
                           class="form-control"
                           :class="{ 'border-danger': v$.name.$error }"
                           :placeholder="$t('add_user.name')"/> 
-                        <div class="form-help text-right">
+                        <div class="text-right form-help">
                             Deben ser al menos 2 caracteres.
                         </div>
                         <template v-if="v$.name.$error">
@@ -212,24 +211,23 @@
                     
                     </div>
 
-                    <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
                             <div class="font-medium">{{ $t('add_user.email') }}</div>
                             <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                            >
+                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
                               Requerido
                             </div>
                           </div>
-                          <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
                             Email del usuario, escribir en formato de correo, por ejemplo: usuario@dominio.com
                           </div>
                         </div>
                       </div>
 
-                      <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <div class="flex-1 w-full mt-3 xl:mt-0">
                         <input
                           id="validation-form-2"
                           v-model.trim="v$.email.$model"
@@ -239,7 +237,7 @@
                           class="form-control"
                           :class="{ 'border-danger': v$.email.$error }"
                           :placeholder="$t('add_user.email')"/>
-                        <div class="form-help text-right">
+                        <div class="text-right form-help">
                             En formato de correo electrónico.
                         </div>
                         <template v-if="v$.email.$error">
@@ -253,24 +251,23 @@
                       </div>
                     </div>
 
-                    <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
                             <div class="font-medium">{{ $t('add_user.password') }}</div>
                             <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                            >
-                              Requerido
+                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                Requerido
                             </div>
                           </div>
-                          <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
                             Contraseña para el usuario, con la que ingresará al sistema.
                           </div>
                         </div>
                       </div>
 
-                      <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <div class="flex-1 w-full mt-3 xl:mt-0">
                         <input
                           id="validation-form-3"
                           v-model.trim="v$.password.$model"
@@ -280,7 +277,7 @@
                           class="form-control"
                           :class="{ 'border-danger': v$.password.$error }"
                           :placeholder="$t('add_user.password')"/>
-                        <div class="form-help text-right">
+                        <div class="text-right form-help">
                             Deben ser al menos 6 caracteres.
                         </div>
                         <template v-if="v$.password.$error">
@@ -294,24 +291,23 @@
                       </div>
                     </div>
 
-                    <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
                             <div class="font-medium">{{ $t('add_user.password_confirmation') }}</div>
                             <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                            >
-                              Requerido
+                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                Requerido
                             </div>
                           </div>
-                          <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
                             Confirmación de contraseña para el usuario, debe coincidir con la contraseña de arriba.
                           </div>
                         </div>
                       </div>
 
-                      <div class="w-full mt-3 xl:mt-0 flex-1">
+                      <div class="flex-1 w-full mt-3 xl:mt-0">
                         <input
                           id="validation-form-4"
                           v-model.trim="v$.password_confirmation.$model"
@@ -321,7 +317,7 @@
                           class="form-control"
                           :class="{ 'border-danger': v$.password_confirmation.$error }"
                           :placeholder="$t('add_user.password_confirmation')"/>
-                        <div class="form-help text-right">
+                        <div class="text-right form-help">
                             Deben ser al menos 6 caracteres.
                         </div>
                         <template v-if="v$.password_confirmation.$error">
@@ -337,10 +333,6 @@
                     <!--<button type="submit" class="mt-5 btn btn-primary" @click="update">
                       {{ $t('add_user.btn_save') }}
                     </button>-->
-
-                    
-
-                 
                   <!--<div class="mt-5">
                     <p>Errors:</p>
                     <span v-for="error in v$.$errors" :key="error.$uid">
@@ -378,14 +370,14 @@
             </div>
           </div>
 
-          <div class="intro-y box p-5 mt-5">
-            <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-              <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+          <div class="p-5 mt-5 intro-y box">
+            <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
+              <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
                 <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.complementary-info')}}
               </div>
               <div class="mt-5">
 
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
@@ -396,12 +388,12 @@
                           Requerido
                         </div>
                       </div>
-                      <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                      <div class="mt-3 text-xs leading-relaxed text-slate-500">
                         Rol que funge el usuario en el sistema.
                       </div>
                     </div>
                   </div>
-                  <div class="w-full mt-3 xl:mt-0 flex-1">
+                  <div class="flex-1 w-full mt-3 xl:mt-0">
                     <v-select
                       multiple
                       label="name"
@@ -409,14 +401,14 @@
                       :options="dataRoles" 
                       v-model="user.roles">
                     </v-select>
-                    <div class="form-help text-right">
+                    <div class="text-right form-help">
                       {{ $t('forms.select_options') }}
                     </div>                    
                   </div>
                 </div> 
 
 
-                <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
@@ -427,12 +419,12 @@
                           Requerido
                         </div>
                       </div>
-                      <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                      <div class="mt-3 text-xs leading-relaxed text-slate-500">
                         Permisos que tiene el usuario en el sistema.
                       </div>
                     </div>
                   </div>
-                  <div class="w-full mt-3 xl:mt-0 flex-1">
+                  <div class="flex-1 w-full mt-3 xl:mt-0">
                     <v-select
                       multiple
                       label="name"
@@ -440,7 +432,7 @@
                       :options="dataPermissions" 
                       v-model="user.permissions">
                     </v-select>
-                    <div class="form-help text-right">
+                    <div class="text-right form-help">
                       {{ $t('forms.select_options') }}
                     </div>                    
                   </div>
@@ -451,14 +443,14 @@
             </div>
           </div>
 
-          <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+          <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
             <button
               type="button"
-              class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
+              class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
             >
               {{ $t('add_user.btn_cancel') }}
             </button>
-            <button type="submit" class="btn py-3 btn-primary w-full md:w-52" @click="update">
+            <button type="submit" class="w-full py-3 btn btn-primary md:w-52" @click="update">
               {{ $t('add_user.btn_save') }}
             </button>
           </div>

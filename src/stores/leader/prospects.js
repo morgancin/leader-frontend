@@ -43,15 +43,26 @@ export const useProspectsStore = defineStore("ProspectsStore", {
         },
     }),
     actions: {
-        async createProspectActivity(data_) {
-            let data = { ...data_ };
-            
-            let d = data.start_date;    //new Date();
+        date_format(date) {
+            let d = date;    //new Date();
             let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
             let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
             let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
-            
-            data.start_date = `${ye}-${mo}-${da}`;
+
+            return `${ye}-${mo}-${da}`;
+        },
+        async createProspectActivity(data_) {
+            let data = { ...data_ };
+
+            //let d = data.start_date;    //new Date();
+            //let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            //let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            //let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+            //data.start_date = `${ye}-${mo}-${da}`;
+            if(data.birth_date != null)
+                data.birth_date = this.date_format(data.birth_date);
+
+            data.start_date = this.date_format(data.start_date);    //`${ye}-${mo}-${da}`;
             data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
 
             axiosClient.post('/activity-prospect', data)
@@ -104,13 +115,6 @@ export const useProspectsStore = defineStore("ProspectsStore", {
                 })
             }
 
-            //if(this.prospect.client_origin){
-                //await axiosClient.get(`/prospecting-means/${this.prospect.client_origin}`)
-                
-            //}else{
-                //this.prospect.client_medium_origin_id = null;
-            //}
-
             return result;
         },
         async fetchCp() {
@@ -130,7 +134,14 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             })
         },
         async fetchCurp() {
-            axiosClient.get(`/commons/get-curp?gender=${this.prospect.gender}&last_name=${this.prospect.last_name}&first_name=${this.prospect.first_name}&birth_date=${this.prospect.birth_date}&birth_place=${this.prospect.birth_place}&second_last_name=${this.prospect.second_last_name}`)
+            ///
+            //let d = this.prospect.birth_date;
+            //let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            //let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            //let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+            ////
+
+            axiosClient.get(`/commons/get-curp?gender=${this.prospect.gender}&last_name=${this.prospect.last_name}&first_name=${this.prospect.first_name}&birth_date=${this.date_format(this.prospect.birth_date)}&birth_place=${this.prospect.birth_place}&second_last_name=${this.prospect.second_last_name}`)
             .then (({data}) => {
                 //this.message = data.message;
                 //this.dataOriginsMediums = data;

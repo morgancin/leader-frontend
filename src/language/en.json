@@ -61,6 +61,7 @@
         },
         "catalogs_origins": {
             "column_1": "ORIGIN",
+            "column_3": "ACCOUNT",
             "column_2": "ACTIONS"
         },
         "catalogs_mediums_origins": {
@@ -119,7 +120,7 @@
         "home_phone": "Home Phone",
         "office_phone": "Office Phone",
         "extension_phone": "Extension Phone",
-        "service_priority": "Service Priority",
+        "service_priority": "Priority",
         
         "origin": "Source",
         "medium": "Means",

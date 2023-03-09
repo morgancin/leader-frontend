@@ -11,7 +11,7 @@ export function useGetDataOrigins()
 
         await axiosClient.get('/prospecting-sources')
         .then (({data}) => {
-            results.value = data;
+            results.value = data.data;
         })
         .catch(function (err) {
             error.value = err;

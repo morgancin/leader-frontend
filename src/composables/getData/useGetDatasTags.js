@@ -12,11 +12,9 @@ export function useGetDatasTags()
         //if(cType === 'list') {
 
         //}
-            
-        
-        await axiosClient.get(`/tags/${cType}`)
+        await axiosClient.get(`/tags`)
         .then (({data}) => {
-            results.value = data;
+            results.value = data.data;
             //results.value = data.data;
         })
         .catch(({error}) => {

@@ -57,7 +57,7 @@
         {
           title: t('list.activities.column_2'),
           minWidth: 200,
-          field: "client.full_name",
+          field: "prospect.full_name",
           vertAlign: "middle",
           print: true,
           download: true,

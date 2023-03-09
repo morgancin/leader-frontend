@@ -109,13 +109,13 @@
 </script>
 
 <template>
-  <div class="intro-y col-span-12 lg:col-span-6">
+  <div class="col-span-12 intro-y lg:col-span-6">
     
     <form class="validate-form" @submit.prevent="submitForm">
-      <div class="intro-y box p-5">
+      <div class="p-5 intro-y box">
     
-        <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-            <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+        <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
+            <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
               <ChevronDownIcon class="w-4 h-4 mr-2" /> Datos de compañía
             </div>
             <div class="mt-5">  
@@ -123,7 +123,7 @@
                 <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
               
                 
-                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
@@ -134,13 +134,13 @@
                             Requerido
                           </div>
                         </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
                           Nombre de la compañía, espacio para caracteres alfanúmericos.
                         </div>
                       </div>
                     </div>
 
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
                       <input 
                         id="validation-form-1" 
                         v-model.trim="v$.name.$model" 
@@ -150,184 +150,57 @@
                         class="form-control" 
                         :class="{ 'border-danger': v$.name.$error }" 
                         :placeholder="$t('add_companies.name')" />
-                      <div class="form-help text-right">
+                      <div class="text-right form-help">
                         Deben ser al menos 2 caracteres.
                       </div>
                       <template v-if="v$.name.$error">
                         <div 
                           v-for="(error, index) in v$.name.$errors" 
                           :key="index" 
-                          class="text-danger mt-2">
-                          {{ error.$message }}
-                        </div>
-                      </template>
-                    </div>
-                  </div>
-
-                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.email') }}</div>
-                          <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                          >
-                            Requerido
-                          </div>
-                        </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
-                          Email de la compañía, escribir en formato de correo, por ejemplo: usuario@dominio.com
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                      <input 
-                        id="validation-form-2" 
-                        v-model.trim="v$.email.$model" 
-                        v-model="company.email" 
-                        type="email" 
-                        name="email"
-                        class="form-control" 
-                        :class="{ 'border-danger': v$.email.$error }" 
-                        :placeholder="$t('add_companies.email')" />
-                      <div class="form-help text-right">
-                        En formato de correo electrónico.
-                      </div>
-                      <template v-if="v$.email.$error">
-                        <div 
-                          v-for="(error, index) in v$.email.$errors" 
-                          :key="index" 
-                          class="text-danger mt-2">
-                          {{ error.$message }}
-                        </div>
-                      </template>
-                    </div>
-                  </div>
-
-
-                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.password') }}</div>
-                          <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                          >
-                            Requerido
-                          </div>
-                        </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
-                          Contraseña para la compañía, con la que ingresará al sistema.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                      <input
-                        id="validation-form-3"
-                        v-model.trim="v$.password.$model"
-                        v-model="company.password"
-                        type="password"
-                        name="password"
-                        class="form-control"
-                        :class="{ 'border-danger': v$.password.$error }"
-                        :placeholder="$t('add_companies.password')"/>
-                      <div class="form-help text-right">
-                          Deben ser al menos 6 caracteres.
-                      </div>
-                      <template v-if="v$.password.$error">
-                        <div
-                          v-for="(error, index) in v$.password.$errors"
-                          :key="index"
                           class="mt-2 text-danger">
                           {{ error.$message }}
                         </div>
                       </template>
                     </div>
                   </div>
-
-
-                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.password_confirmation') }}</div>
-                          <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                          >
-                            Requerido
-                          </div>
-                        </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
-                          Confirmación de contraseña para la compañía, debe coincidir con la contraseña de arriba.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
-                      <input
-                        id="validation-form-3"
-                        v-model.trim="v$.password_confirmation.$model"
-                        v-model="company.password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        class="form-control"
-                        :class="{ 'border-danger': v$.password_confirmation.$error }"
-                        :placeholder="$t('add_companies.password_confirmation')"/>
-                      <div class="form-help text-right">
-                          Deben ser al menos 6 caracteres.
-                      </div>
-                      <template v-if="v$.password_confirmation.$error">
-                        <div
-                          v-for="(error, index) in v$.password_confirmation.$errors"
-                          :key="index"
-                          class="mt-2 text-danger">
-                          {{ error.$message }}
-                        </div>
-                      </template>
-                    </div>
-                  </div>
-
 
                   
-
-                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
                           <div class="font-medium">{{ $t('add_companies.zip_code') }}</div>                          
                         </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
                           Código postal de la compañía.
                         </div>
                       </div>
                     </div>
 
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
                       <input 
                       v-model.number="company.postal_code" 
                       :placeholder="$t('add_companies.zip_code')"
-                      type="text" class="form-control w-full"/>
-                      <div class="form-help text-right">
+                      type="text" class="w-full form-control"/>
+                      <div class="text-right form-help">
                           Deben ser 5 caracteres.
                       </div>
                     </div>
                   </div>
 
-                  <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
                           <div class="font-medium">{{ $t('add_companies.state') }}</div>                          
                         </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
                           Estado de la compañía.
                         </div>
                       </div>
                     </div>
 
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
                       <TomSelect class="form-control" v-model.trim="select" v-model="company.state">
                         <option value="1">{{ $t('add_companies.select_option') }}</option>
                         <!-- <option disabled value="">{{ $t('add_companies.select_option') }}</option> -->
@@ -369,19 +242,19 @@
                     </div>
                   </div>
 
-                 <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+                 <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
                           <div class="font-medium">{{ $t('add_companies.city') }}</div>                          
                         </div>
-                        <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
                           Ciudad de la compañía.
                         </div>
                       </div>
                     </div>
 
-                    <div class="w-full mt-3 xl:mt-0 flex-1">
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
                       <TomSelect  class="form-control" :placeholder="$t('add_companies.city')" v-model.trim="select" v-model="company.city">
                         <option value="1">{{ $t('add_companies.select_option') }}</option>
                         <option value="">{{ $t('add_companies.city') }}</option>
@@ -397,14 +270,14 @@
           </div>
       </div>
 
-      <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+      <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
         <button
           type="button"
-          class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
+          class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
         >
           {{ $t('add_companies.btn_cancel') }}
         </button>
-        <button type="submit" class="btn py-3 btn-primary w-full md:w-52">
+        <button type="submit" class="w-full py-3 btn btn-primary md:w-52">
           {{ $t('add_companies.btn_save') }}
         </button>
       </div>
@@ -420,11 +293,11 @@
     <!-- BEGIN: Success Notification Content -->
     <div
       id="success-notification-content"
-      class="toastify-content hidden flex">
+      class="flex hidden toastify-content">
       <CheckCircleIcon class="text-success" />
       <div class="ml-4 mr-4">
         <div class="font-medium">{{ $t('add_companies.registration_success') }}</div>
-        <div class="text-slate-500 mt-1">
+        <div class="mt-1 text-slate-500">
           {{ $t('add_companies.check_success') }}
         </div>
       </div>
@@ -433,11 +306,11 @@
     <!-- BEGIN: Failed Notification Content -->
     <div
       id="failed-notification-content"
-      class="toastify-content hidden flex">
+      class="flex hidden toastify-content">
       <XCircleIcon class="text-danger" />
       <div class="ml-4 mr-4">
         <div class="font-medium">{{ $t('add_companies.registration_failed') }}</div>
-        <div class="text-slate-500 mt-1">
+        <div class="mt-1 text-slate-500">
           {{ $t('add_companies.check_failed') }}
         </div>
       </div>
