@@ -5,21 +5,17 @@
 </script>
 
 <script setup>
-  import { ref, provide, toRefs } from "vue"
+  import { ref, provide, toRefs } from "vue";
+  import { useVuelidate } from "@vuelidate/core";
   import {
     required,
     minLength,
     maxLength,
     email,
     numeric
-    // sameAs
-    // url,
-    // integer,
   } from "@vuelidate/validators";
-  import { useVuelidate } from "@vuelidate/core";
   import Toastify from "toastify-js";
   import dom from "@left4code/tw-starter/dist/js/dom";
-
   
   const props = defineProps({
         company: {
@@ -35,40 +31,10 @@
     const emit = defineEmits(["submit"]);
 
     const rules = {
-    name: {
-      required,
-      // minLength: minLength(2),
-    },
-    email: {
-      required,
-      email,
-    },
-    password: {
-      required,
-      minLength: minLength(6),
-    },
-    password_confirmation: {
-      required,
-      minLength: minLength(6),
-      // sameAs: sameAs(formData.password)
-    },
-    // zip_code: {
-    //   required,
-    //   numeric,
-    //   minLength: minLength(6),
-    //   maxLength: maxLength(6),
-    // },
-    city: {
-      required
-    },    
-    // state: {
-    //   required
-    // },
-    
-    // postal_code: {
-    //   required
-    // },
-  };
+      name: {
+        required,
+      },
+    };
 
   const v$ = useVuelidate(rules, toRefs(props.company));
 
@@ -121,17 +87,14 @@
             <div class="mt-5">  
                 <!-- BEGIN: Form Layout -->
                 <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
-              
-                
                   <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
                           <div class="font-medium">{{ $t('add_companies.name') }}</div>
                           <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                          >
-                            Requerido
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                              Requerido
                           </div>
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
@@ -163,24 +126,23 @@
                       </template>
                     </div>
                   </div>
-
                   
                   <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.zip_code') }}</div>                          
+                          <div class="font-medium">{{ $t('add_companies.phone') }}</div>                          
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Código postal de la compañía.
+                          Teléfono.
                         </div>
                       </div>
                     </div>
 
                     <div class="flex-1 w-full mt-3 xl:mt-0">
                       <input 
-                      v-model.number="company.postal_code" 
-                      :placeholder="$t('add_companies.zip_code')"
+                      v-model.number="company.phone" 
+                      :placeholder="$t('add_companies.phone')"
                       type="text" class="w-full form-control"/>
                       <div class="text-right form-help">
                           Deben ser 5 caracteres.
@@ -192,53 +154,22 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.state') }}</div>                          
+                          <div class="font-medium">{{ $t('add_companies.website') }}</div>                          
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Estado de la compañía.
+                          Sitio Web.
                         </div>
                       </div>
                     </div>
 
                     <div class="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect class="form-control" v-model.trim="select" v-model="company.state">
-                        <option value="1">{{ $t('add_companies.select_option') }}</option>
-                        <!-- <option disabled value="">{{ $t('add_companies.select_option') }}</option> -->
-                        <option value="">{{ $t('add_companies.select_option') }}</option>
-                        <option value="Aguacalientes">Aguacalientes</option>
-                        <option value="Baja California">Baja California</option>
-                        <option value="Baja California Sur">Baja California Sur</option>
-                        <option value="Campeche">Campeche</option>
-                        <option value="Chiapas">Chiapas</option>
-                        <option value="Chihuahua">Chihuahua</option>
-                        <option value="Ciudad de México">Ciudad de México</option>
-                        <option value="Coahuila">Coahuila</option>
-                        <option value="Colima">Colima</option>
-                        <option value="Durango">Durango</option>
-                        <option value="Estado de México">Estado de México</option>
-                        <option value="Extranjero">Extranjero</option>
-                        <option value="Guanajuato">Guanajuato</option>
-                        <option value="Guerrero">Guerrero</option>
-                        <option value="Hidalgo">Hidalgo</option>
-                        <option value="Jalisco">Jalisco</option>
-                        <option value="Michoacan">Michoacan</option>
-                        <option value="Morelos">Morelos</option>
-                        <option value="Nayarit">Nayarit</option>
-                        <option value="Nuevo León">Nuevo León</option>
-                        <option value="Oaxaca">Oaxaca</option>
-                        <option value="Puebla">Puebla</option>
-                        <option value="Querétaro">Querétaro</option>
-                        <option value="Quintana Roo">Quintana Roo</option>
-                        <option value="San Luis Potosi">San Luis Potosi</option>
-                        <option value="Sinaloa">Sinaloa</option>
-                        <option value="Sonora">Sonora</option>
-                        <option value="Tabasco">Tabasco</option>
-                        <option value="Tamaulipas">Tamaulipas</option>
-                        <option value="Tlaxcala">Tlaxcala</option>
-                        <option value="Veracruz">Veracruz</option>
-                        <option value="Yucatan">Yucatan</option>
-                        <option value="Zacatecas">Zacatecas</option>
-                      </TomSelect>
+                      <input 
+                      v-model.number="company.website" 
+                      :placeholder="$t('add_companies.website')"
+                      type="text" class="w-full form-control"/>
+                      <div class="text-right form-help">
+                          Deben ser 5 caracteres.
+                      </div>
                     </div>
                   </div>
 
@@ -246,25 +177,24 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.city') }}</div>                          
+                          <div class="font-medium">{{ $t('add_companies.adress') }}</div>                          
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Ciudad de la compañía.
+                          Dirección.
                         </div>
                       </div>
                     </div>
 
                     <div class="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect  class="form-control" :placeholder="$t('add_companies.city')" v-model.trim="select" v-model="company.city">
-                        <option value="1">{{ $t('add_companies.select_option') }}</option>
-                        <option value="">{{ $t('add_companies.city') }}</option>
-                        <option value="Cuauhtémoc">Cuauhtémoc</option>
-                        <option value="VenustianoCarranza">Venustiano Carranza</option>
-                        <option value="Miguel Hidalgo">Miguel Hidalgo</option>
-                      </TomSelect>
+                      <input 
+                      v-model.number="company.adress" 
+                      :placeholder="$t('add_companies.adress')"
+                      type="text" class="w-full form-control"/>
+                      <div class="text-right form-help">
+                          Deben ser 5 caracteres.
+                      </div>
                     </div>
-                  </div>              
-                
+                  </div>
               </div>
               <!-- END: Form Layout -->
           </div>
@@ -273,15 +203,13 @@
       <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
         <button
           type="button"
-          class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
-        >
-          {{ $t('add_companies.btn_cancel') }}
+          class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52">
+            {{ $t('add_companies.btn_cancel') }}
         </button>
         <button type="submit" class="w-full py-3 btn btn-primary md:w-52">
           {{ $t('add_companies.btn_save') }}
         </button>
       </div>
-
     </form>
 
     <!--<div>
