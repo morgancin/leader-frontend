@@ -316,7 +316,10 @@
         "name": "Nombre",
         "phone": "Teléfono",
         "website": "Sitio web",
-        "adress": "Dirección",
+        "address": "Dirección",
+        "comments": "Comentarios",
+        "tax": "RFC",
+        "potential": "Valor potencial",
         "select_option": "Seleccione una Opcion",
         "btn_prev": "Regresar",
         "btn_cancel": "Cancelar",
@@ -389,6 +392,14 @@
         "complementary-info":"Información complementaria",
         "roles":"Roles",
         "permissions":"Permisos",
-        "select_options": "Seleccione una o más opciones"
+        "select_options": "Seleccione una o más opciones",
+        "cancel": "Cancelar",
+        "accept": "Aceptar",
+        "save": "Guardar",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "required": "Requerido",
+        "export": "Exportar",
+        "print": "Imprimir"
     }
 }

@@ -3,7 +3,7 @@
     <h2 class="mr-auto text-lg font-medium">{{ $t('companies.companies') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-company`">{{ $t('companies.btn-add-new-companies') }}</router-link>
-      <Dropdown class="ml-auto sm:ml-0">
+      <!--<Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">
           <span class="flex items-center justify-center w-5 h-5">
             <PlusIcon class="w-4 h-4" />
@@ -19,7 +19,7 @@
             </DropdownItem>
           </DropdownContent>
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown>-->
     </div>
   </div>
   <!-- BEGIN: HTML Table Data -->
@@ -36,8 +36,6 @@
             class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto"
           >
             <option value="name">Name</option>
-            <option value="category">Category</option>
-            <option value="remaining_stock">Remaining Stock</option>
           </select>
         </div>
         <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
@@ -311,6 +309,8 @@ const initTabulator = () => {
           vertAlign: "middle",
           print: false,
           download: false,
+          hozAlign: "center",
+          headerSort:false,
           formatter(cell) {
             const a = dom(`<div class="flex items-center lg:justify-center">
                  <a class="flex items-center mr-3" href="/company/edit/${cell.getData().id_user}">
@@ -404,6 +404,13 @@ const initTabulator = () => {
       });
     },
   });
+  tabulator.value.on("renderComplete",function(){
+      createIcons({
+          icons,
+          "stroke-width": 1.5,
+          nameAttr: "data-lucide",
+        });
+    });
 };
 
 // Redraw table onresize

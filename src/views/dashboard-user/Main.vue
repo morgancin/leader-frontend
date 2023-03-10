@@ -3,7 +3,7 @@
     <h2 class="mr-auto text-lg font-medium">{{ $t('users.users') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-user`">{{ $t('users.btn-add-new-user') }}</router-link>
-      <Dropdown class="ml-auto sm:ml-0">
+      <!--<Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">
           <span class="flex items-center justify-center w-5 h-5">
             <PlusIcon class="w-4 h-4" />
@@ -19,7 +19,7 @@
             </DropdownItem>
           </DropdownContent>
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown>-->
     </div>
   </div>
 
@@ -34,8 +34,7 @@
             v-model="filter.field"
             class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto">
             <option value="name">Name</option>
-            <!-- <option value="category">Category</option>
-            <option value="remaining_stock">Remaining Stock</option> -->
+            <option value="email">Email</option>
           </select>
         </div>
         <div class="items-center mt-2 sm:flex sm:mr-4 xl:mt-0">
@@ -159,7 +158,7 @@
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
-      
+      layout:"fitColumns",
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load
@@ -174,9 +173,7 @@
           field: "name",
           vertAlign: "middle",
           print: true,
-          download: true,
-          // responsive: 0,
-          // hozAlign: "center",
+          download: true
         },
         {
           title: t('list.users.column_2'),
@@ -184,7 +181,7 @@
           field: "email",
           vertAlign: "middle",
           print: true,
-          download: true,
+          download: true
         },
         {
           title: t('list.users.column_3'),
@@ -193,6 +190,8 @@
           vertAlign: "middle",
           print: false,
           download: false,
+          hozAlign: "center",
+          headerSort:false,
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/user/edit/${cell.getData().id}">
@@ -205,21 +204,18 @@
             
             dom(a).on("click", function () {
               // On click actions
-            });
-              
+            });              
             return a[0];
           },
         },
-      ]
-      /*
-      renderComplete() {
-        createIcons({
+      ]      
+    });
+    tabulator.value.on("renderComplete",function(){
+      createIcons({
           icons,
           "stroke-width": 1.5,
           nameAttr: "data-lucide",
         });
-      },
-      */
     });
   };
 
@@ -283,3 +279,9 @@
     reInitOnResizeWindow();
   });
 </script>
+<style>
+  .table-report.table-report--tabulator .tabulator-header .tabulator-headers .tabulator-col .tabulator-col-content .tabulator-col-title{
+    text-align:left!important
+  }
+  .table-report.table-report--tabulator .tabulator-header .tabulator-headers .tabulator-col[tabulator-field="actions"] .tabulator-col-content .tabulator-col-title{ text-align:center!important}
+</style>

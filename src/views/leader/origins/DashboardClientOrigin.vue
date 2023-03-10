@@ -30,7 +30,7 @@
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
-      
+      layout:"fitColumns",
       ajaxResponse:function(url, params, response){
           //url - the URL of the request
           //params - the parameters passed with the request
@@ -74,6 +74,8 @@
           vertAlign: "middle",
           print: false,
           download: false,
+          hozAlign: "center",
+          headerSort:false,
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/origin/edit/${cell.getData().id}">
@@ -98,6 +100,13 @@
         });
       },
       */
+    });
+    tabulator.value.on("renderComplete",function(){
+      createIcons({
+          icons,
+          "stroke-width": 1.5,
+          nameAttr: "data-lucide",
+        });
     });
   };
   

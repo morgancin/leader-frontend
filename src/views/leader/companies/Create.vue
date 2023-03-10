@@ -15,10 +15,13 @@
     const { createCompany } = useCompaniesStore();
 
     const formData = reactive({
-                                name: "",
-                                phone: "",
-                                adress: "",
-                                website: "",
+                                name: '',
+                                phone: '',
+                                tax_id: '',
+                                address: '',
+                                website: '',
+                                comments: '',
+                                potential_value: ''
                             });
 
     const submit = async () => {

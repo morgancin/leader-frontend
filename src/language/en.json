@@ -315,7 +315,10 @@
         "name": "Name",
         "phone": "Phone",
         "website": "Website",
-        "adress": "Adress",
+        "address": "Address",
+        "comments": "Comments",
+        "tax": "Tax ID",
+        "potential": "Potential",
         "select_option": "Select Options",
         "btn_prev": "Previous",
         "btn_cancel": "Cancel",
@@ -388,6 +391,14 @@
         "complementary-info":"Complementary information",
         "roles":"Roles",
         "permissions":"Permissions",
-        "select_options": "Select one or more options"
+        "select_options": "Select one or more options",
+        "cancel": "Cancel",
+        "accept": "Accept",
+        "save": "Save",
+        "previous": "Previous",
+        "next": "Next",
+        "required": "Required",
+        "export": "Export",
+        "print": "Print"
     }
 }

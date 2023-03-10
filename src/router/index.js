@@ -285,6 +285,12 @@ const routes = [
         beforeEnter: requireAuth
       },
       {
+        path: 'add-prospect',
+        name: 'side-menu-add-prospect',
+        component: () => import('../views/leader/prospects/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+      {
         path: '/prospect/edit/:id',
         name: 'side-menu-edit-prospect',
         component: () => import('../views/leader/prospects/Edit.vue'),
