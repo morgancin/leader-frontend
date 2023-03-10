@@ -23,7 +23,7 @@
 
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-      ajaxURL: "https://api.leader.arkanmedia.com/api/prices",
+      ajaxURL: `${import.meta.env.VITE_API_BASE}prices`,
       ajaxConfig:{
         method:"GET",
         headers: {
@@ -85,7 +85,7 @@
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
       // ajaxURL: "https://dummy-data.left4code.com",
-      ajaxURL: "https://api.leader.arkanmedia.com/api/activity-types",
+      ajaxURL: `${import.meta.env.VITE_API_BASE}activity-types",
       ajaxConfig:{
         method:"GET",
         headers: {

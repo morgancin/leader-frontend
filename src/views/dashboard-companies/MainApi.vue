@@ -273,7 +273,7 @@ const initTabulator = () => {
   tabulator.value = new Tabulator(tableRef.value, {
     // ajaxURL: "https://dummy-data.left4code.com",
     // ajaxURL: "https://jsonplaceholder.typicode.com/users",
-    // ajaxURL: "https://api.leader.arkanmedia.com/api/users/company",
+    // ajaxURL: `${import.meta.env.VITE_API_BASE}users/company`,
     ajaxFiltering: true,
     ajaxSorting: true,
     printAsHtml: true,

@@ -1,2 +1,15 @@
+<<<<<<< HEAD
 node_modules
 .vscode
+=======
+#node
+/node_modules
+node_modules
+# testing
+/coverage
+coverage
+# production
+/build
+build
+.vscode
+>>>>>>> 5c920639 (removed node_modules folder)
