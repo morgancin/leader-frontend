@@ -106,6 +106,8 @@
     },
     "add_prospect_details": {
         "profile": "Profile",
+        "full_name": "Full Name",
+        "id-documents": "ID Documents",
         "first_name": "First Name",
         "last_name": "Last Name",
         "second_last_name": "Second Last Name",
@@ -116,6 +118,7 @@
         "female": "Female",
         "male": "Male",
         "email": "Email",
+        "personal_phone": "Personal(s) Phone(s)",
         "mobile_phone": "Mobile Phone",
         "home_phone": "Home Phone",
         "office_phone": "Office Phone",
@@ -126,7 +129,8 @@
         "medium": "Means",
         "company": "Company",
         "account": "Account",
-        "btn_prev": "Next"
+        "btn-prev": "Previous",
+        "btn-next": "Next"
     },
     "add_prospect_address": {
         "address": "Address",
@@ -399,6 +403,8 @@
         "next": "Next",
         "required": "Required",
         "export": "Export",
-        "print": "Print"
+        "print": "Print",
+        "add":"Add",
+        "remove":"Remove"
     }
 }

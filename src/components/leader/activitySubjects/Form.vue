@@ -52,7 +52,7 @@
                       <div class="font-medium">{{ $t('add_catalog_subject.subject_type') }}</div>
                       <div
                         class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                        Requerido
+                        {{ $t('forms.required') }}
                       </div>
                     </div>
                     <div class="leading-relaxed text-slate-500 text-xs mt-3">
@@ -79,7 +79,7 @@
                       <div class="font-medium">{{ $t('add_catalog_subject.subject_name') }}</div>
                       <div
                         class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                        Requerido
+                        {{ $t('forms.required') }}
                       </div>
                     </div>
                     <div class="leading-relaxed text-slate-500 text-xs mt-3">

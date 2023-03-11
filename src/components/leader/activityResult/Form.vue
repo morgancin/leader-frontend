@@ -57,7 +57,7 @@
                     <div class="font-medium">{{ $t('add_catalog_activity_result.activity_result_type') }}</div>
                     <div
                       class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                      Requerido
+                      {{ $t('forms.required') }}
                     </div>
                   </div>
                   <div class="mt-3 text-xs leading-relaxed text-slate-500">
@@ -84,7 +84,7 @@
                     <div class="font-medium">{{ $t('add_catalog_activity_result.activity_result_tracking_type') }}</div>
                     <div
                       class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                      Requerido
+                      {{ $t('forms.required') }}
                     </div>
                   </div>
                   <div class="mt-3 text-xs leading-relaxed text-slate-500">
@@ -111,7 +111,7 @@
                     <div class="font-medium">{{ $t('add_catalog_activity_result.activity_result_name') }}</div>
                     <div
                       class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                      Requerido
+                      {{ $t('forms.required') }}
                     </div>
                   </div>
                   <div class="mt-3 text-xs leading-relaxed text-slate-500">

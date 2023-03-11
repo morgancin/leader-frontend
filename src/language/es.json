@@ -106,6 +106,8 @@
     },
     "add_prospect_details": {
         "profile": "Perfil",
+        "full_name": "Nombre Completo",
+        "id-documents": "Documentos Identidad",
         "first_name": "Nombre",
         "last_name": "Apellido Paterno",
         "second_last_name": "Apellido Materno",
@@ -116,6 +118,7 @@
         "female": "Femenino",
         "male": "Masculino",
         "email": "Correo Electrónico",
+        "personal_phone": "Teléfono(s) Personal(es)",
         "mobile_phone": "Teléfono Celular",
         "home_phone": "Teléfono de Casa",
         "office_phone": "Teléfono de Oficina",
@@ -125,7 +128,8 @@
         "origin": "Fuente",
         "company": "Empresa",
         "account": "Cuenta",
-        "btn_prev": "Siguiente"
+        "btn-prev": "Anterior",
+        "btn-next": "Siguiente"
     },
     "add_prospect_address": {
         "address": "Dirección",
@@ -400,6 +404,8 @@
         "next": "Siguiente",
         "required": "Requerido",
         "export": "Exportar",
-        "print": "Imprimir"
+        "print": "Imprimir",
+        "add":"Agregar",
+        "remove":"Eliminar"
     }
 }

@@ -309,6 +309,7 @@
     @hideModal="hideModal"
     @reset="resetForm()"
     :show_modal="show_modal_prospect" />
+    
 </template>
 
 <style>

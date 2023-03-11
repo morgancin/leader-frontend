@@ -57,7 +57,7 @@
       </div>
     </div>
     
-    <div class="px-5 pt-10 mt-10 border-t sm:px-20 border-slate-200/60 dark:border-darkmode-400">
+    <div class="px-5 pt-10 mt-10 border-t border-slate-200/60 dark:border-darkmode-400">
       <ProspectStep1Form
         v-if="(step == 1)"
         @submit="submitStep"

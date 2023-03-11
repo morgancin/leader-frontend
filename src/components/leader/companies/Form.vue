@@ -82,9 +82,9 @@
     
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
             <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-              <ChevronDownIcon class="w-4 h-4 mr-2" /> Datos de compañía
+              <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('add_companies.add_company')}}
             </div>
-            <div class="mt-5">  
+            <div class="mt-5 fieldscontainer">  
                 <!-- BEGIN: Form Layout -->
                 <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
                   <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
@@ -103,7 +103,8 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.name')}} *</label>
                       <input 
                         id="validation-form-1" 
                         v-model.trim="v$.name.$model" 
@@ -111,11 +112,10 @@
                         type="text" 
                         name="name"
                         class="form-control" 
-                        :class="{ 'border-danger': v$.name.$error }" 
-                        :placeholder="$t('add_companies.name')" />
-                      <div class="text-right form-help">
+                        :class="{ 'border-danger': v$.name.$error }" />
+                      <!--<div class="text-right form-help">
                         Deben ser al menos 2 caracteres.
-                      </div>
+                      </div>-->
                       <template v-if="v$.name.$error">
                         <div 
                           v-for="(error, index) in v$.name.$errors" 
@@ -140,11 +140,11 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.tax')}}</label>
                       <input
                         type="text"
                         class="w-full form-control"
-                        :placeholder="$t('add_companies.tax')"
                         v-model.number="company.tax_id" />                      
                     </div>
                   </div>
@@ -162,14 +162,14 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.phone')}}</label>
                       <input 
                       v-model.number="company.phone" 
-                      :placeholder="$t('add_companies.phone')"
                       type="text" class="w-full form-control"/>
-                      <div class="text-right form-help">
+                      <!--<div class="text-right form-help">
                           Deben ser 5 caracteres.
-                      </div>
+                      </div>-->
                     </div>
                   </div>
 
@@ -185,14 +185,14 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.website')}}</label>
                       <input 
                       v-model.number="company.website" 
-                      :placeholder="$t('add_companies.website')"
                       type="text" class="w-full form-control"/>
-                      <div class="text-right form-help">
+                      <!--<div class="text-right form-help">
                           Deben ser 5 caracteres.
-                      </div>
+                      </div>-->
                     </div>
                   </div>
 
@@ -208,14 +208,14 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.address')}}</label>
                       <input 
                       v-model.number="company.adress" 
-                      :placeholder="$t('add_companies.address')"
                       type="text" class="w-full form-control"/>
-                      <div class="text-right form-help">
+                      <!--<div class="text-right form-help">
                           Deben ser 5 caracteres.
-                      </div>
+                      </div>-->
                     </div>
                   </div>
 
@@ -234,11 +234,11 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.potential')}}</label>
                       <input
                         type="text"
                         class="w-full form-control"
-                        :placeholder="$t('add_companies.potential')"
                         v-model.number="company.potential_value" />                      
                     </div>
                   </div>
@@ -255,11 +255,11 @@
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                      <label class="form-label">{{$t('add_companies.comments')}}</label>
                       <input
                         type="text"
                         class="w-full form-control"
-                        :placeholder="$t('add_companies.comments')"
                         v-model.number="company.comments" />
                         <!--
                         <div class="text-right form-help">
@@ -323,3 +323,22 @@
   </div>
 
 </template>
+<style>
+  .withlabel label{display:none}  
+  .speciallabels.speciallabeleds .col-span-12.intro-y{border:2px dashed rgb(var(--color-slate-200) / 1); border-radius:0.375rem; 
+  background:rgb(var(--color-slate-50) / var(--tw-bg-opacity)); box-shadow:0px 3px 20px #0000000b; background:#fff}
+  .speciallabels.speciallabeleds label{background:rgb(var(--color-slate-50) / var(--tw-bg-opacity))!important; background:#fff!important;
+   border-radius:4px}
+    .speciallabels.speciallabeleds .form-control{ background:#fff}
+  .speciallabels .withlabel label.form-label,.speciallabels .withlabel label.form-check-label,.speciallabels .withlabel label.nolabel{display:block}
+  .speciallabels.speciallabeleds .form-label{display:none}
+  .speciallabels.speciallabeleds .p-5.intro-y.box{ background-color:transparent; box-shadow:none; padding-bottom:0px}
+    .speciallabels.speciallabeleds .p-5.intro-y.box .p-5.border{background:transparent; padding:0px; border:0px none}
+  .speciallabels.speciallabeleds .fieldscontainer{ display:grid!important; grid-template-columns: repeat(2, 1fr); grid-column-gap: 1rem;}
+  .speciallabels.speciallabeleds .first\:mt-0{ padding-top:0px; margin-top:0px; margin-bottom:20px}
+  .speciallabels.speciallabeleds .first\:mt-0:nth-child(7){ width:calc(200% + 1rem)}
+  .speciallabels.speciallabeleds .flex.items-center.pb-5.text-base.font-medium.border-b{ padding-bottom:1rem; font-size:0.7rem}
+  .speciallabels.speciallabeleds .btn{ margin-bottom:1.25rem; width:5rem; padding:0.35rem; display:none}
+  .speciallabels.speciallabeleds .btn.btn-primary{margin-right:1.25rem; display:block}
+  .speciallabels.speciallabeleds .flex.flex-col.justify-end.gap-2.mt-5{ margin-top:0px}
+</style>

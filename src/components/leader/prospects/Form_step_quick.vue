@@ -179,6 +179,30 @@
     
     return `${day}/${month}/${year}`;
   }
+
+  import CompanyForm from "@/components/leader/companies/Form.vue";
+  const { createCompany } = useCompaniesStore();
+  const show_company_prospect = ref(false);
+   const addCompanyButton = () => {
+    show_company_prospect.value = true;
+  };
+  const hideCompany = () => {    
+    show_company_prospect.value = false;
+  }
+  const formCompanyData = reactive({
+                                name: '',
+                                phone: '',
+                                tax_id: '',
+                                address: '',
+                                website: '',
+                                comments: '',
+                                potential_value: ''
+                            });
+
+  const submitCompany = async () => {
+      await createCompany(formCompanyData)
+  }
+
 </script>
 
 <template>
@@ -292,15 +316,26 @@
                         </template>
                     </div>
                     
-                    <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
+                    <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel flex">
                       <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
                       <v-select
                           label="name"
-                          class="form-control" 
+                          class="form-control w-full" 
                           :options="dataCompanies"
                           :reduce="name => name.id"
                           v-model="data_prospect_activity.company_id">
                       </v-select>
+                      <div class="z-30 rounded-r w-10 flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 mr-1 addmore" 
+                      :class="{ active: show_company_prospect }"
+                      @click="show_company_prospect = !show_company_prospect"><PlusIcon class="w-4 h-4" /></div>
+                    </div>
+
+                    <div class="col-span-12 input-form intro-y sm:col-span-12 speciallabels speciallabeleds">
+                      <CompanyForm
+                      :company="formCompanyData"
+                      @submit="submitCompany"
+                      @hideCompany="hideCompany"
+                      v-if="show_company_prospect" show />
                     </div>
                                  
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
@@ -451,7 +486,7 @@
                         :config="editorConfig" />
                     </div>
                     
-                  </div>
+                </div>
                 
                 <div class="col-span-4 timeline">
                   <!-- Inicio de la linea del tiempo Prospecto -->
@@ -499,8 +534,8 @@
               <!-- END: Modal Body -->
               <!-- BEGIN: Modal Footer -->
               <ModalFooter>
-                  <button type="button" @click="hideModal" class="w-20 mr-1 btn btn-outline-secondary">Cancelar</button>
-                  <button type="submit" @click="submitForm" class="w-20 btn btn-primary">Guardar</button>
+                  <button type="button" @click="hideModal" class="w-20 mr-1 btn btn-outline-secondary">{{$t('forms.cancel')}}</button>
+                  <button type="submit" @click="submitForm" class="w-20 btn btn-primary">{{$t('forms.save')}}</button>
               </ModalFooter>
               <!-- END: Modal Footer -->
 
@@ -565,4 +600,7 @@ line-height:1; z-index:1; width:auto; font-size:11px; color:#999}
     --tw-ring-opacity: 0.2;box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)!important}
     .timeline{ background:rgb(var(--color-slate-100) / var(--tw-bg-opacity)); border-radius:6px; padding:20px; border:1px dashed rgba(0,0,0,0.1)}
     .title{width:100%; border-bottom:1px dashed rgba(0,0,0,0.1);padding-bottom:20px;margin-bottom:-10px}
+    .withlabel.flex .vs__dropdown-toggle{ border-radius:0.25rem 0px 0px 0.25rem}
+    .addmore{cursor:pointer}
+    .addmore.active svg{ transform:rotate(45deg)}
 </style>
