@@ -49,7 +49,7 @@
         {
           title: t('list.activities.column_1'),
           minWidth: 200,
-          field: "activity_date_format",
+          field: "activity_date",
           vertAlign: "middle",
           print: true,
           download: true,
