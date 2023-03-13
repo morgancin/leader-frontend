@@ -308,7 +308,6 @@ const routes = [
         path: 'add-activity',
         name: 'side-menu-add-activity',
         component: () => import('../views/leader/activities/Create.vue'),
-        //component: () => import('../views/leader/prospects/Create.vue'),
         beforeEnter: requireAuth
       },
       {
@@ -381,6 +380,14 @@ const routes = [
         path: '/quotes/create/:id',
         name: 'side-menu-add-quote',
         component: () => import('../views/leader/quotes/Create.vue'),
+        beforeEnter: requireAuth
+      },
+
+      //QUOTES
+      {
+        path: '/contract/create/:id',
+        name: 'side-menu-add-contract',
+        component: () => import('../views/leader/contracts/Create.vue'),
         beforeEnter: requireAuth
       },
       

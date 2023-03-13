@@ -7,14 +7,13 @@
 <script setup>
   import { storeToRefs } from "pinia";
   import { useProspectsStore } from "../../../stores/leader/prospects";
-  import { useActivitiesStore } from "../../../stores/leader/activities";
-  import ActivityForm from "../../../components/leader/activities/Form.vue";
+  //import { useActivitiesStore } from "../../../stores/leader/activities";
   import ProspectStep1Form from "../../../components/leader/prospects/Form_step_1.vue";
   import ProspectStep2Form from "../../../components/leader/prospects/Form_step_2.vue";
 
   const { createProspectActivity } = useProspectsStore();
   const { prospect: form, step } = storeToRefs(useProspectsStore());
-  const { activity: form_activity } = storeToRefs(useActivitiesStore());
+  //const { activity: form_activity } = storeToRefs(useActivitiesStore());
   
   const submitStep = async () => {
     step.value = (step.value == 1) ? 2 : 3;
@@ -47,14 +46,6 @@
           {{ $t('add-prospect.prospect-address') }}
         </div>
       </div>
-      
-      <div class="z-10 flex items-center flex-1 mt-5 intro-x lg:text-center lg:mt-0 lg:block">
-        <button class="w-10 h-10 rounded-full btn btn-primary" v-if="(step >= 3)">3</button>
-        <button class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400" v-else>3</button>
-        <div class="ml-3 text-base lg:w-32 lg:mt-3 lg:mx-auto text-slate-600 dark:text-slate-400">
-          {{ $t('add-prospect.activity') }}
-        </div>
-      </div>
     </div>
     
     <div class="px-5 pt-10 mt-10 border-t border-slate-200/60 dark:border-darkmode-400">
@@ -67,11 +58,6 @@
         v-if="(step == 2)"
         @submit="submitStep"
         :prospect="form" />
-
-      <ActivityForm
-        v-if="(step == 3)"
-        @submit="submit"
-        :activity="form_activity" />
     </div>
   </div>
   <!-- END: Wizard Layout -->

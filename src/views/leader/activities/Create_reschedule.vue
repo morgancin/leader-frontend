@@ -66,11 +66,12 @@
         :activity_reschedule="form_reschedule"
         :activity_information="activity_information" />
       <!--v-if="(form_activities_results_tracking_type == 'activity')"-->
-      
+      <!--
       <ActivityForm        
         @submit="submit"
         :activity="form_activity" 
         class="mt-5" />
+        -->
       
         
     </div>

@@ -63,6 +63,9 @@
                                 <a class="flex items-center mr-3 btn btn-secondary" href="/quotes/create/${cell.getData().id}">
                                   <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Quote
                                 </a>
+                                <a class="flex items-center mr-3 btn btn-secondary" href="/contract/create/${cell.getData().id}">
+                                  <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Contract
+                                </a>
                             </div>`);
 
             dom(a).on("click", function () {
@@ -112,8 +115,6 @@
           print: true,
           download: true,
         },
-        
-        
       ]
       /*
       renderComplete() {
