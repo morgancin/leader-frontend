@@ -397,6 +397,7 @@
         "roles":"Roles",
         "permissions":"Permisos",
         "select_options": "Seleccione una o más opciones",
+        "select_option": "Seleccione una opción",
         "cancel": "Cancelar",
         "accept": "Aceptar",
         "save": "Guardar",
@@ -406,6 +407,17 @@
         "export": "Exportar",
         "print": "Imprimir",
         "add":"Agregar",
-        "remove":"Eliminar"
+        "remove":"Eliminar",
+        "download":"Descargar",
+        "clearitems":"Borrar Productos",
+        "noitems":"Sin elementos agregados",
+        "zeroitems":"Sin elementos para seleccionar, elige una categoría con elementos",
+        "notes":"Notas",
+        "comments":"Comentarios",
+        "items":"Elementos",
+        "back":"Atrás",
+        "pickone":"Selecciona un producto",
+        "cart":"Carrito",
+        "start":"Iniciar"
     }
 }

@@ -182,7 +182,6 @@
     
     return `${day}/${month}/${year}`;
   }
-
   
   const show_company_prospect = ref(false);
    const addCompanyButton = () => {

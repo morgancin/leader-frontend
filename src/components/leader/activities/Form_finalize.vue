@@ -13,6 +13,9 @@
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
 
+    import Toastify from "toastify-js";
+    import dom from "@left4code/tw-starter/dist/js/dom";
+
     import { useGetDataActivityResults } from '../../../composables/getData/useGetDataActivityResults';
     const { fetchActivitiesResults, results, error } = useGetDataActivityResults();
 
@@ -48,10 +51,11 @@
         async () => {
           let [result_activities_results] = dataActivitiesResults.value.filter((p) => p.id == props.activity_reschedule.activity_result_id);
 
+          console.log(result_activities_results);
           if(typeof result_activities_results !== 'undefined') {
 
               if(result_activities_results.tracking_type !== null)
-                  bButtonsShow.value = false;
+                  bButtonsShow.value = true; //false
               else
                   bButtonsShow.value = true;
 
@@ -65,13 +69,52 @@
     );
     
     const submitForm = async () => {
-      emit('submit')
+        validate.value.$touch();
+        if (validate.value.$invalid) {
+            Toastify({
+            node: dom("#failed-notification-content")
+                .clone()
+                .removeClass("hidden")[0],
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            }).showToast();
+        } else {
+            Toastify({
+            node: dom("#success-notification-content")
+                .clone()
+                .removeClass("hidden")[0],
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            }).showToast();
+        }
+        const result = await validate.value.$validate();
+
+        if(result){
+            emit('submit')
+        }
+      //emit('submit')
     }
+
+    ////////RULES
+    const rules = {
+            activity_result_id: { required }
+        }
+        
+    const validate = useVuelidate(rules, props.activity_reschedule);
+
 </script>
 
 <template>
     <form @submit.prevent="submitForm()" autocomplete="on">
-        <div class="grid grid-cols-12 gap-4 mt-5 gap-y-5">
+        <div class="grid grid-cols-12 gap-4 mt-5 gap-y-5 speciallabels">
 
             <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
                 <b>{{ $t('add_activity_finalize.label_prospect') }}:</b> {{ activity_information.client }}<br />
@@ -80,27 +123,26 @@
                 <b>{{ $t('add_activity_finalize.label_date') }}:</b>{{ activity_information.activity_date }}
             </div>
             
-            <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6">
-                <label for="cmbActivitiesResults" class="form-label">*{{ $t('add_activity_finalize.activity_finalize_activity_result') }}</label>
+            <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6 withlabel">
+                <label for="cmbActivitiesResults" class="form-label">*{{ $t('add_activity_finalize.activity_finalize_activity_result') }}:</label>
                 <v-select
                     label="name"
                     id="cmbActivitiesResults"
                     class="form-control"
                     :options="dataActivitiesResults"
                     :reduce="name => name.id"
-                    v-model="activity_reschedule.activity_result_id">
+                    :placeholder="$t('forms.select_option')"
+                    v-model="activity_reschedule.activity_result_id"
+                    :class="{ 'border-danger': validate.activity_result_id.$error }">
                 </v-select>
-                <!--
-                <v-select  
-                    id="cmbActivityResult"
-                    class="form-control"
-                    :options="dataActivitiesResults"
-                    :reduce="name => name.id"
-                    label="name"
-                    v-model="validate.activity_type_id.$model"
-                    :class="{ 'border-danger': validate.activity_type_id.$error }">
-                </v-select>
-                -->
+                <template v-if="validate.activity_result_id.$error">
+                    <div
+                        v-for="(error, index) in validate.activity_result_id.$errors"
+                        :key="index"
+                        class="mt-2 text-danger">
+                        {{ error.$message }}
+                    </div>
+                </template> 
             </div>
             
             <div class="col-span-12 intro-y ">
@@ -113,39 +155,39 @@
                 </div>
             </div>
             
-            <div class="flex items-center justify-center col-span-12 mt-5 intro-y sm:justify-end" v-if="bButtonsShow">
-                <button class="w-24 btn btn-secondary" @click="submitStep">Previous</button>
-                <button class="w-24 ml-2 btn btn-primary">{{ $t('add_activity_finalize.btn_save') }}</button>
+            <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row w-full col-span-12" v-if="bButtonsShow">
+                <button class="btn btn-secondary md:w-52" @click="submitStep">{{ $t('add_activity_finalize.btn_cancel') }}</button>
+                <button class="w-full py-3 btn btn-primary md:w-52">{{ $t('add_activity_finalize.btn_save') }}</button>
             </div>
         </div>
     </form>
     
      <!-- BEGIN: Success Notification Content -->
      <div
-              id="success-notification-content"
-              class="flex hidden toastify-content">
-              <CheckCircleIcon class="text-success" />
-              <div class="ml-4 mr-4">
-                <div class="font-medium">{{ $t('add_user.registration_success') }}</div>
-                <div class="mt-1 text-slate-500">
-                  {{ $t('add_user.check_success') }}
-                </div>
-              </div>
-            </div>
-            <!-- END: Success Notification Content -->
-            <!-- BEGIN: Failed Notification Content -->
-            <div
-              id="failed-notification-content"
-              class="flex hidden toastify-content">
-              <XCircleIcon class="text-danger" />
-              <div class="ml-4 mr-4">
-                <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>
-                <div class="mt-1 text-slate-500">
-                  {{ $t('add_user.check_failed') }}
-                </div>
-              </div>
-            </div>
-            <!-- END: Failed Notification Content -->
+      id="success-notification-content"
+      class="flex hidden toastify-content">
+      <CheckCircleIcon class="text-success" />
+      <div class="ml-4 mr-4">
+        <div class="font-medium">{{ $t('add_user.registration_success') }}</div>
+        <div class="mt-1 text-slate-500">
+          {{ $t('add_user.check_success') }}
+        </div>
+      </div>
+    </div>
+    <!-- END: Success Notification Content -->
+    <!-- BEGIN: Failed Notification Content -->
+    <div
+      id="failed-notification-content"
+      class="flex hidden toastify-content">
+      <XCircleIcon class="text-danger" />
+      <div class="ml-4 mr-4">
+        <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>
+        <div class="mt-1 text-slate-500">
+          {{ $t('add_user.check_failed') }}
+        </div>
+      </div>
+    </div>
+    <!-- END: Failed Notification Content -->
 </template>
 
 <style>
@@ -175,4 +217,5 @@
     font-family: Roboto;
     font-size: 0.875rem;
 } */
+.vs__search{ font-size:14px}
 </style>

@@ -17,19 +17,7 @@ export function useGetDataActivityTypes()
             error.value = err;
         })
     };
-
-    /*
-    const makeRequest = async (API_URL) => {
-        try{
-            const request = await (await fetch(API_URL)).json();
-            results.value = request;
-
-        } catch (err){
-            console.log(err);
-            error.value = err;
-        }
-    };
-    */
+    
     return{
         fetchActivityTypes,
         results: readonly(results),

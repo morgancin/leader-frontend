@@ -11,7 +11,7 @@ export function useGetDataActivityResults()
 
         await axiosClient.get('/activity-results')
         .then (({data}) => {
-            results.value = data;
+            results.value = data.data;
         })
         .catch(function (err) {
             error.value = err;

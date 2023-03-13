@@ -99,9 +99,9 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             axiosClient.get(`/activities/${id}`)
             .then (({data}) => {
                 this.activity = data.data;
-                this.activity_information.client = data.data.client.full_name;
+                this.activity_information.client = data.data.prospect.full_name;
                 this.activity_information.subject = data.data.activity_subject.name;
-                this.activity_information.activity_date = data.data.activity_date_format;
+                this.activity_information.activity_date = data.data.activity_date;
                 this.activity_information.type = data.data.activity_subject.activity_type.name;
             })
             .catch((error) => {
