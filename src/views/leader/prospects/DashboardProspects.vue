@@ -167,7 +167,7 @@
 
 const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-        ajaxURL:"https://api.leader.arkanmedia.com/api/prospects", //ajax URL
+        ajaxURL: `${import.meta.env.VITE_API_BASE}prospects`,
         ajaxConfig:{
           method:"GET",
           headers: {

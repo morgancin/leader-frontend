@@ -156,7 +156,7 @@ const imageAssets = import.meta.globEager(
 const initTabulator = () => {
   tabulator.value = new Tabulator(tableRef.value, {
     // ajaxURL: "https://dummy-data.left4code.com",
-    ajaxURL: "https://api.leader.arkanmedia.com/api/companies/users/list",
+    ajaxURL: `${import.meta.env.VITE_API_BASE}companies/users/list`,
     ajaxConfig:{
       method:"GET",
       headers: {
