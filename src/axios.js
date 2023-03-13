@@ -1,8 +1,8 @@
 import axios from "axios";
 
 //import { storeToRefs } from "pinia";
-//import { useAuthStore } from "@/stores/leader/auth";
 //const { user } = storeToRefs(useAuthStore());
+//import { useAuthStore } from "@/stores/leader/auth";
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE}`

@@ -245,11 +245,9 @@ const imageAssets = import.meta.globEager(
 );
 const initTabulator = () => {
   tabulator.value = new Tabulator(tableRef.value, {
-    // ajaxURL: "https://dummy-data.left4code.com",
-    // ajaxURL: "https://jsonplaceholder.typicode.com/users",
     ajaxURL: `${import.meta.env.VITE_API_BASE}users/company`,
     ajaxConfig:{
-        // method:"GET",
+        method:"GET",
         headers: {
             "Authorization": 'Bearer 18|UfNhj4XaWqmdt29OYA9ApctrnHPWkUbWxMxHK9YQ',
         },

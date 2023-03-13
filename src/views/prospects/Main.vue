@@ -152,7 +152,7 @@
 
 const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-        ajaxURL:`${import.meta.env.VITE_API_BASE}clients/list`,
+        ajaxURL: `${import.meta.env.VITE_API_BASE}clients/list`,
         ajaxConfig:{
           method:"GET",
           headers: {

@@ -152,21 +152,9 @@ const imageAssets = import.meta.globEager(
   `/src/assets/images/*.{jpg,jpeg,png,svg}`
 );
 
-/*
-tabulator.value = new Tabulator(tableRef.value, {
-    ajaxURL:`${import.meta.env.VITE_API_BASE}clients/list`,
-    ajaxConfig:{
-      method:"GET",
-      headers: {
-        "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
-      },
-    },
-});
-*/
-
 const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-        ajaxURL:`${import.meta.env.VITE_API_BASE}clients/list`,
+        ajaxURL: `${import.meta.env.VITE_API_BASE}clients/list`,
         ajaxConfig:{
         method:"GET",
         headers: {
