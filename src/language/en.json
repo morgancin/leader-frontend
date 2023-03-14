@@ -73,6 +73,12 @@
             "column_1": "TAG",
             "column_2": "TYPE",
             "column_3": "ACTIONS"
+        },
+        "pipelines": {
+            "column_1": "NAME",
+            "column_2": "IS DEFAULT",
+            "column_3": "STAGES",
+            "column_4": "ACTIONS"
         }
     },
 
@@ -256,6 +262,20 @@
         "btn_save": "Save",
         "btn_cancel": "Cancel",
         "btn_add_new_currency": "Create New Currency"
+    },
+    "add_pipelines":{
+        "pipelines": "Pipelines",
+        "pipeline": "Pipeline",
+        "pipeline_name": "Name",
+        "pipeline_account_id": "Account ID",
+        "pipeline_is_default": "Is Default",
+        "pipeline_stages": "Stages",
+        "pipeline_stage": "Stage",
+        "pipeline_stage_name": "Stage Name",
+        "pipeline_stage_percent": "Percentage",
+        "pipeline_stage_sort": "Sort Order",
+        "btn_add_new_stage": "Add New Stage",
+        "btn_add_new_pipeline": "Create New Pipeline"
     },
     "add_products":{
         "products": "Products",
@@ -461,6 +481,8 @@
         "back":"Back",
         "pickone":"Pick one item",
         "cart":"Cart",
-        "start":"Start"
+        "start":"Start",
+        "yes":"Yes",
+        "no":"No"
     }
 }

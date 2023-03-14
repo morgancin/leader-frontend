@@ -299,7 +299,7 @@ Seguro con una suma Asegurada por <b>$25,000.00</b>
 
             <div class="col-span-12 sm:col-span-6 withlabel">
                 <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                  <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.relationship') }}</label>
+                  <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('contracts.relationship') }}</label>
                   <v-select
                         id="cmbSuburb"
                         taggable push-tags
@@ -310,7 +310,7 @@ Seguro con una suma Asegurada por <b>$25,000.00</b>
             </div>
             <div class="col-span-12 sm:col-span-6 withlabel">
                 <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                  <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.percentage') }}</label>
+                  <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('contracts.percentage') }}</label>
                   <input 
                     id="modal-form-1" 
                     type="number" 

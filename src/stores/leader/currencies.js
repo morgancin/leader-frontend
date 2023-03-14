@@ -39,7 +39,7 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
         async fetchCurrencies() {
             axiosClient.get('/currencies')
             .then (({data}) => {
-                this.currencies = data;
+                this.currencies = data.data;
             })
             .catch(function (error) {
                 this.message = error.message;

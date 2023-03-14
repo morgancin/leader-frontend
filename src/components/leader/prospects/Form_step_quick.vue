@@ -270,22 +270,25 @@
                         @hideCompany="hideCompany" />
                     </div>
 
-                    <div class="col-span-12 sm:col-span-4 withlabel">
-                        <label for="modal-form-3" class="form-label">*{{ $t('add_companies.potential') }}</label>
-                        <input 
-                          id="modal-form-3" 
-                          type="text" 
-                          class="form-control" 
-                          v-model.number="data_prospect_activity.potential_value"
-                          :class="{ 'border-danger': validate.potential_value.$error }">
-                        <template v-if="validate.potential_value.$error">
-                          <div
-                            v-for="(error, index) in validate.potential_value.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                              {{ error.$message }}
-                          </div>
-                        </template>
+                    <div class="col-span-12 sm:col-span-4 forgroup withlabel">
+                        <div class="input-group">     
+                          <div class="input-group-text">$</div> 
+                          <label for="modal-form-3" class="form-label">*{{ $t('add_companies.potential') }}</label>
+                          <input 
+                            id="modal-form-3" 
+                            type="text" 
+                            class="form-control" 
+                            v-model.number="data_prospect_activity.potential_value"
+                            :class="{ 'border-danger': validate.potential_value.$error }">
+                          <template v-if="validate.potential_value.$error">
+                            <div
+                              v-for="(error, index) in validate.potential_value.$errors"
+                              :key="index"
+                              class="mt-2 text-danger">
+                                {{ error.$message }}
+                            </div>
+                          </template>
+                        </div>
                     </div>
 
 
@@ -297,7 +300,7 @@
 
 
                     
-                    <div class="col-span-12 sm:col-span-6 withlabel">
+                    <div class="col-span-12 sm:col-span-8 withlabel">
                       <label for="modal-form-1" class="form-label">*{{ $t('add_prospect_details.first_name') }}</label>
                       <input 
                         id="modal-form-1" 
@@ -316,7 +319,7 @@
                       </template>
                     </div>
 
-                    <div class="col-span-12 sm:col-span-6 withlabel">
+                    <div class="col-span-12 sm:col-span-8 withlabel">
                         <label for="modal-form-2" class="form-label">*{{ $t('add_prospect_details.last_name') }}</label>
                         <input 
                           id="modal-form-2" 

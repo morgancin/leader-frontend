@@ -73,6 +73,12 @@
             "column_1": "ETIQUETA",
             "column_2": "TIPO",
             "column_3": "ACCIONES"
+        },
+        "pipelines": {
+            "column_1": "NOMBRE",
+            "column_2": "PREDETERMINADO",
+            "column_3": "ETAPAS",
+            "column_4": "ACCIONES"
         }
     },
 
@@ -257,6 +263,20 @@
         "btn_save": "Guardar",
         "btn_cancel": "Cancelar",
         "btn_add_new_currency": "Nueva Divisa"
+    },
+    "add_pipelines":{
+        "pipelines": "Canalizaciones",
+        "pipeline": "Canalización",
+        "pipeline_name": "Nombre",
+        "pipeline_account_id": "ID de la cuenta",
+        "pipeline_is_default": "Predeterminado",
+        "pipeline_stages": "Etapas",
+        "pipeline_stage": "Etapa",
+        "pipeline_stage_name": "Nombre de Etapa",
+        "pipeline_stage_percent": "Porcentaje",
+        "pipeline_stage_sort": "Orden",
+        "btn_add_new_stage": "Agregar Nueva Etapa",
+        "btn_add_new_pipeline": "Agregar Nueva Canalización"
     },
     "add_products":{
         "products": "Productos",
@@ -463,6 +483,8 @@
         "back":"Atrás",
         "pickone":"Selecciona un producto",
         "cart":"Carrito",
-        "start":"Iniciar"
+        "start":"Iniciar",
+        "yes":"Si",
+        "no":"No"
     }
 }

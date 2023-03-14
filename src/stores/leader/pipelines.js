@@ -29,9 +29,11 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
         async fetchPipelines() {
             axiosClient.get('/pipelines')
             .then (({data}) => {
-                this.pipelines = data;
+                console.log(data);
+                this.pipelines = data.data;
             })
             .catch(function (error) {
+                console.log(error);
                 this.message = error.message;
             })
         },

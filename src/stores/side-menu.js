@@ -70,7 +70,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
             title: 'side-menu.settings-languages',
           },
           {
-            icon: "GlobeIcon",
+            icon: "AlignLeftIcon",
             pageName: "side-menu-pipelines",
             title: 'side-menu.pipelines',
           },
