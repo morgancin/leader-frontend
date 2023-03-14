@@ -1,6 +1,6 @@
 <script>
     export default {
-        name: "ProspectStep1Form",
+        name: "ContractStep1Form",
     }
 </script>
 
@@ -19,85 +19,23 @@
     import Datepicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
     
-    import { useAccountsStore } from "../../../stores/leader/accounts";
-    import { useProspectsStore } from "../../../stores/leader/prospects";
-    import { useCompaniesStore } from "../../../stores/leader/companies";
-
-    /////
-    import { useGetDatasTags } from '../../../composables/getData/useGetDatasTags';
-
-    const { fetchTags, results, error } = useGetDatasTags();
-    const { fetchOrigins, fetchOriginsMediums, fetchCurp } = useProspectsStore();
-    
-    const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
-    const { companies: dataCompanies } = storeToRefs(useCompaniesStore());
-    
-    const dataTags_tag = ref([]);
-    const dataTags_list = ref([]);
-    
-    onMounted(async() => {
-        await fetchTags('tag');
-        dataTags_tag.value = results.value;
-        
-        await fetchTags('list');
-        dataTags_list.value = results.value;
-    });
-    //////////
+    import { useContractsStore } from "../../../stores/leader/contracts";
     
     const props = defineProps({
-        prospect: {
+        contract: {
             type: Object,
             required: true,
         }
     });
-    const emit = defineEmits(["submit"]);
+    const emit = defineEmits(["submit","previousStep"]);
 
     ////////RULES
     const rules = {
         ////Prospect
-        last_name: { required },
-        first_name: { required },
-        account_id: { required },
-        email: { required, email },
-        client_origin: { required },
-        second_last_name:{ required },
-        service_priority: { required },
-        client_medium_origin_id: { required },
-        phone_mobile: {
-                    required,
-                    numeric,
-                    minLength: minLength(10),
-                    maxLength: maxLength(10) },
-        ////Activity
-        //start_date: { required },
-        //activity_type_id: { required },
-        //activity_subject_id: { required }
+        //prospect_id: { required }
     }
-    
-    const rulesCurp = {
-        first_name: {
-            required,
-            minLength: minLength(3),
-        },
-        last_name: {
-            required,
-            minLength: minLength(3),
-        },
-        gender: {
-            required
-        },        
-        birth_date: {
-            required
-            //minLength: minLength(9),
-            //maxLength: maxLength(10)
-        },        
-        birth_place: {
-            required
-        },
-    }
-    ////////////////
-    
-    const validate = useVuelidate(rules, toRefs(props.prospect));
+        
+    const validate = useVuelidate(rules, toRefs(props.contract));
 
     const submitForm = async () => {
         validate.value.$touch();
@@ -114,170 +52,14 @@
                 stopOnFocus: true,
             }).showToast();
 
-        }else{
-            /*
-            Toastify({
-                node: dom("#success-notification-content")
-                .clone()
-                .removeClass("hidden")[0],
-                duration: 3000,
-                newWindow: true,
-                close: true,
-                gravity: "top",
-                position: "right",
-                stopOnFocus: true,
-            }).showToast();
-            */
         }
 
         const result = await validate.value.$validate();
         
         if(result) {
-            //await createProspectActivity(data_prospect_activity);
             emit('submit');
         }
-    }
-    
-    ////////ORIGINS & ORIGINS MEDIUMS
-    const dataOrigins = ref([]);
-    const dataOriginsMediums = ref([]);
-    
-    onMounted(async() => {
-        dataOrigins.value = await fetchOrigins();
-    });
-    
-    watch(
-        () => props.prospect.client_origin,
-        async () => {
-            dataOriginsMediums.value = await fetchOriginsMediums(props.prospect.client_origin);
-        }
-    );
-    ////////////////
-    
-    ////////FETCH CURP
-    const v2$ = useVuelidate(rulesCurp, props.prospect);
-    const fecthCurpSubmit = async () => {
-        const result = await v2$.value.$validate();
-        //console.log('Entras al curp', result);
-        
-        if(result){
-            fetchCurp();
-        }
-    }
-    
-    watch(
-        () => props.prospect.first_name,
-        () => {
-            fecthCurpSubmit();
-        }
-    );
-    watch(
-        () => props.prospect.last_name,
-        () => {
-            fecthCurpSubmit();
-        }
-    );
-    watch(
-        () => props.prospect.gender,
-        () => {
-            fecthCurpSubmit();
-        }
-    );
-    watch(
-        () => props.prospect.birth_date,
-        () => {
-            props.prospect.age = new Date(new Date() - new Date(props.prospect.birth_date)).getFullYear() - 1970;
-            fecthCurpSubmit();
-        }
-    );
-    watch(
-        () => props.prospect.birth_place,
-        () => {
-            fecthCurpSubmit();
-        }
-    );
-    watch(
-        () => props.prospect.second_last_name,
-        () => {
-            fecthCurpSubmit();
-        }
-    );
-    ////////////////
-    const aEntidades = [
-        { clv:'01', entidad: 'AGUASCALIENTES' },
-        { clv:'02', entidad: 'BAJA CALIFORNIA' },
-        { clv:'03', entidad: 'BAJA CALIFORNIA SUR' },
-        { clv:'04', entidad: 'CAMPECHE' },
-        { clv:'05', entidad: 'COAHUILA' },
-        { clv:'06', entidad: 'COLIMA' },
-        { clv:'07', entidad: 'CHIAPAS' },
-        { clv:'08', entidad: 'CHIHUAHUA' },
-        { clv:'09', entidad: 'DISTRITO FEDERAL' },
-        { clv:'10', entidad: 'DURANGO' },
-        { clv:'11', entidad: 'GUANAJUATO' },
-        { clv:'12', entidad: 'GUERRERO' },
-        { clv:'13', entidad: 'HIDALGO' },
-        { clv:'14', entidad: 'JALISCO' },
-        { clv:'15', entidad: 'ESTADO DE MEXICO' },
-        { clv:'16', entidad: 'MICHOACAN' },
-        { clv:'17', entidad: 'MORELOS' },
-        { clv:'18', entidad: 'NAYARIT' },
-        { clv:'19', entidad: 'NUEVO LEON' },
-        { clv:'20', entidad: 'OAXACA' },
-        { clv:'21', entidad: 'PUEBLA' },
-        { clv:'22', entidad: 'QUERETARO' },
-        { clv:'23', entidad: 'QUINTANA ROO' },
-        { clv:'24', entidad: 'SAN LUIS POTOSI' },
-        { clv:'25', entidad: 'SINALOA' },
-        { clv:'26', entidad: 'SONORA' },
-        { clv:'27', entidad: 'TABASCO' },
-        { clv:'28', entidad: 'TAMAULIPAS' },
-        { clv:'29', entidad: 'TLAXCALA' },
-        { clv:'30', entidad: 'VERACRUZ' },
-        { clv:'31', entidad: 'YUCATAN' },
-        { clv:'32', entidad: 'ZACATECAS' },
-        { clv:'87', entidad: 'DOBLE NACIONALIDAD' },
-        { clv:'88', entidad: 'NACIDO EXTRANJERO O NATURALIZADO' },
-    ];
-    const aServicePriority = [
-        { key:'bajo', value: 'BAJO' },
-        { key:'medio', value: 'MEDIO' },
-        { key:'alto', value: 'ALTO' },
-        { key:'pendiente', value: 'PENDIENTE' },
-    ];
-    
-    //const format_start_date = ref(data_prospect_activity.start_date);
-    const format_start_date = ref(new Date());
-    format_start_date.value = (format_start_date) => {
-        const day = format_start_date.getDate();
-        const year = format_start_date.getFullYear();
-        const month = format_start_date.getMonth() + 1;
-        
-        return `${day}/${month}/${year}`;
-    }
-
-    import CompanyForm from "@/components/leader/companies/Form.vue";
-    const { createCompany } = useCompaniesStore();
-    const show_company_prospect = ref(false);
-    const addCompanyButton = () => {
-        show_company_prospect.value = true;
-    };
-    const hideCompany = () => {    
-        show_company_prospect.value = false;
-    }
-    const formCompanyData = reactive({
-                                    name: '',
-                                    phone: '',
-                                    tax_id: '',
-                                    address: '',
-                                    website: '',
-                                    comments: '',
-                                    potential_value: ''
-                                });
-
-    const submitCompany = async () => {
-          await createCompany(formCompanyData)
-    }
+    }        
 </script>
 
 <template>
@@ -285,54 +67,82 @@
     <div class="speciallabels pb0">
 
         <form @submit.prevent="submitForm" autocomplete="on"> 
-            <div class="grid gap-3">
+            <div class="grid gap-3 mt0">
+                
+
                 <div class="col-span-12 p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                     <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                      <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.basic-info')}}
+                      <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('contracts.seller')}}
                     </div>
                     <div class="mt-5">
-
+                                               
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
-                                  <div class="font-medium">{{ $t('add_prospect_details.account') }}</div>
+                                  <div class="font-medium">{{ $t('contracts.seller') }}</div>
                                   <div
                                     class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
                                       {{ $t('forms.required') }}
                                   </div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                                  {{ $t('add_prospect_details.account') }}
+                                  {{ $t('contracts.seller') }}
                                 </div>
                               </div>
                             </div>
-                            <div class="flex-1 w-full mt-3 xl:mt-0">
-                              <v-select
-                                label="name"
-                                class="form-control"
-                                :options="dataAccounts"
-                                v-model="prospect.account_id"
-                                :reduce="name => name.id"
-                                :class="{ 'border-danger': validate.account_id.$error }"> 
-                              </v-select>
-                              <template v-if="validate.account_id.$error">
-                                <div
-                                  v-for="(error, index) in validate.account_id.$errors"
-                                  :key="index"
-                                  class="mt-2 text-danger">
-                                    {{ error.$message }}
+                            <div class="flex-1 w-full xl:mt-0 withlabel">
+                                <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
+                                    <div class="col-span-12 input-form intro-y sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
+                                        <label for="validation-form-1" class="flex flex-col w-full form-label sm:flex-row">
+                                            *{{ $t('contracts.id_seller') }}                        
+                                        </label>
+                                        <input
+                                            id="validation-form-1"
+                                            type="text"
+                                            name="name"
+                                            class="form-control"/> 
+                                    </div>
+                                    <div class="col-span-12 input-form intro-y sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                        <label for="validation-form-1" class="flex flex-col w-full form-label sm:flex-row">
+                                            *{{ $t('add_prospect_details.full_name') }}                        
+                                        </label>
+                                        <input
+                                            id="validation-form-1"
+                                            type="text"
+                                            name="name"
+                                            class="form-control"/> 
+                                    </div>
+                                    <div class="col-span-12 input-form intro-y sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
+                                        <label for="validation-form-1" class="flex flex-col w-full form-label sm:flex-row">
+                                            *{{ $t('contracts.sell_date') }}                        
+                                        </label>
+                                        <Datepicker
+                                          closeOnScroll
+                                          :enableTimePicker="false"
+                                          id="txtBirth_date"/>
+                                    </div>
                                 </div>
-                              </template>
                             </div>
                         </div>
+                    </div>
+                </div>
 
 
+                <div class="col-span-12 p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
+                    <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
+                      <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('contracts.client')}}
+                    </div>
+                    <div class="mt-5">
+                        
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
                                   <div class="font-medium">{{ $t('add_prospect_details.company') }}</div>
+                                  <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                      {{ $t('forms.required') }}
+                                  </div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
                                   {{ $t('add_prospect_details.company') }}
@@ -344,25 +154,11 @@
                                   <v-select
                                     label="name"
                                     class="form-control" 
-                                    :options="dataCompanies"
-                                    :reduce="name => name.id"
-                                    v-model="prospect.company_id">
+                                    :reduce="name => name.id">
                                   </v-select>
-                                  <div class="z-30 rounded-r w-10 flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 mr-1 addmore" 
-                                  :class="{ active: show_company_prospect }"
-                                  @click="show_company_prospect = !show_company_prospect"><PlusIcon class="w-4 h-4" /></div>
-                              </div>
-                              <div class="col-span-12 input-form intro-y sm:col-span-12 speciallabels speciallabeleds">
-                                  <CompanyForm
-                                  :company="formCompanyData"
-                                  @submit="submitCompany"
-                                  @hideCompany="hideCompany"
-                                  v-if="show_company_prospect" show />
-                                </div>
+                              </div>                              
                             </div>
                         </div>
-
-                        
 
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
@@ -390,17 +186,7 @@
                                             id="validation-form-1"
                                             type="text"
                                             name="name"
-                                            class="form-control"
-                                            v-model="prospect.first_name"
-                                            :class="{ 'border-danger': validate.first_name.$error }"/> 
-                                        <template v-if="validate.first_name.$error">
-                                            <div
-                                                v-for="(error, index) in validate.first_name.$errors"
-                                                :key="index"
-                                                class="mt-2 text-danger">
-                                                {{ error.$message }}
-                                            </div>
-                                        </template>
+                                            class="form-control"/> 
                                     </div>
                                     <div class="col-span-12 input-form intro-y sm:col-span-12 md:col-span-6 lg:col-span-4 withlabel">
                                         <label for="validation-form-1" class="flex flex-col w-full form-label sm:flex-row">
@@ -410,39 +196,30 @@
                                             id="validation-form-1"
                                             type="text"
                                             name="name"
-                                            class="form-control"
-                                            v-model="prospect.last_name"
-                                            :class="{ 'border-danger': validate.last_name.$error }"/> 
-                                        <template v-if="validate.last_name.$error">
-                                            <div
-                                                v-for="(error, index) in validate.last_name.$errors"
-                                                :key="index"
-                                                class="mt-2 text-danger">
-                                                {{ error.$message }}
-                                            </div>
-                                        </template>
+                                            class="form-control"/> 
                                     </div>
                                     <div class="col-span-12 input-form intro-y sm:col-span-12 md:col-span-6 lg:col-span-4 withlabel">
                                         <label for="validation-form-1" class="flex flex-col w-full form-label sm:flex-row">
-                                            {{ $t('add_prospect_details.second_last_name') }}                        
+                                            *{{ $t('add_prospect_details.second_last_name') }}                        
                                         </label>
                                         <input
                                             id="validation-form-1"
                                             type="text"
                                             name="name"
-                                            class="form-control"
-                                            v-model="prospect.second_last_name"/> 
+                                            class="form-control"/> 
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
                                   <div class="font-medium">{{ $t('add_prospect_details.place_of_birth') }}</div>
+                                  <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                      {{ $t('forms.required') }}
+                                  </div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
                                   {{ $t('add_prospect_details.place_of_birth') }}
@@ -452,22 +229,21 @@
                             <div class="flex-1 w-full mt-3 xl:mt-0">                      
                               <v-select
                                     id="cmbEntidad"
-                                    class="form-control" 
-                                    :options="aEntidades" 
+                                    class="form-control"  
                                     :reduce="entidad => entidad.clv"
-                                    label="entidad"
-                                    v-model="prospect.birth_place">
+                                    label="entidad">
                                 </v-select>
                             </div>
                         </div>
-
-
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
                                   <div class="font-medium">{{ $t('add_prospect_details.profile') }}</div>
+                                  <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                      {{ $t('forms.required') }}
+                                  </div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
                                   {{ $t('add_prospect_details.profile') }}
@@ -477,44 +253,40 @@
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
                                     <div class="col-span-12 input-form intro-y sm:col-span-5 md:col-span-4 lg:col-span-4 withlabel">
-                                        <label class="nolabel">{{ $t('add_prospect_details.gender')}}</label>
+                                        <label class="nolabel">*{{ $t('add_prospect_details.gender')}}</label>
                                         <div class="flex flex-col mt-3 sm:flex-row">
                                             <div class="mr-2 form-check">
                                                 <input 
                                                     class="form-check-input" 
                                                     type="radio" 
-                                                    name="female" 
+                                                    name="gender" 
                                                     value="female"  
-                                                    id="female"
-                                                    v-model="prospect.gender"/>
+                                                    id="female"/>
                                                 <label class="form-check-label" for="female">{{ $t('add_prospect_details.female') }}</label>
                                             </div>
                                             <div class="mt-2 mr-2 form-check sm:mt-0">
                                                 <input 
                                                     class="form-check-input" 
                                                     type="radio" 
-                                                    name="male" 
+                                                    name="gender" 
                                                     value="male"
-                                                    id="male" 
-                                                    v-model="prospect.gender" />
+                                                    id="male"  />
                                                 <label class="form-check-label" for="male">{{ $t('add_prospect_details.male') }}</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-span-12 intro-y sm:col-span-5 md:col-span-4 lg:col-span-4 withlabel">
-                                        <label for="txtBirth_date" class="form-label">{{ $t('add_prospect_details.birth_date') }}</label>
+                                        <label for="txtBirth_date" class="form-label">*{{ $t('add_prospect_details.birth_date') }}</label>
                                         <Datepicker
                                           closeOnScroll
-                                          :format="format_start_date"
                                           :enableTimePicker="false"
-                                          id="txtBirth_date"
-                                          v-model="prospect.birth_date" />
+                                          id="txtBirth_date"/>
                                     </div>
 
                                     <div class="col-span-12 intro-y sm:col-span-2 md:col-span-4 lg:col-span-4 withlabel">
                                         <label class="form-label">{{ $t('add_prospect_details.age') }}</label>
-                                        <input type="number" class="form-control" minlength="1" maxlength="3" v-model="prospect.age" />
+                                        <input type="number" class="form-control" minlength="1" maxlength="3" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -526,6 +298,9 @@
                               <div class="text-left">
                                 <div class="flex items-center">
                                   <div class="font-medium">{{ $t('add_prospect_details.id-documents') }}</div>
+                                  <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                      {{ $t('forms.required') }}
+                                  </div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
                                   {{ $t('add_prospect_details.id-documents') }}
@@ -535,26 +310,35 @@
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
                                     <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6 lg:col-span-6 withlabel">
-                                        <label class="form-label">CURP</label>
-                                        <input type="text" class="form-control" v-model="prospect.curp"  />
+                                        <label class="form-label">*CURP</label>
+                                        <input type="text" class="form-control"  />
                                     </div>
 
                                     <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6 lg:col-span-6 withlabel">
-                                        <label class="form-label">RFC</label>
-                                        <input type="text" class="form-control" maxlength="16" v-model="prospect.rfc" />
+                                        <label class="form-label">*RFC</label>
+                                        <input type="text" class="form-control" maxlength="16" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
 
+
+                    </div>
+                </div>  
+
+
+                <div class="col-span-12 p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400 mt-3">
+                    <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
+                      <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('contracts.contact')}}
+                    </div>
+                    <div class="mt-5">
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
                                   <div class="font-medium">{{ $t('add_prospect_details.email') }}</div>
-                                  <div
-                                    class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                  <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
                                       {{ $t('forms.required') }}
                                   </div>
                                 </div>
@@ -564,33 +348,12 @@
                               </div>
                             </div>
                             <div class="flex-1 w-full mt-3 xl:mt-0">                      
-                              <input
+                                <input
                                   type="text"
                                   name="name"
-                                  class="form-control"
-                                  :class="{ 'border-danger': validate.email.$error }"
-                                  v-model="prospect.email" />
-                                <template v-if="validate.email.$error">
-                                  <div
-                                    v-for="(error, index) in validate.email.$errors"
-                                    :key="index"
-                                    class="mt-2 text-danger">
-                                    {{ error.$message }}
-                                  </div>
-                                </template>
+                                  class="form-control"/>                               
                             </div>
                         </div>
-
-
-                    </div>
-                </div>  
-
-
-                <div class="col-span-12 p-5 mt-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
-                    <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                      <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.complementary-info')}}
-                    </div>
-                    <div class="mt-5">
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
@@ -610,25 +373,14 @@
                                         <input
                                             type="number"
                                             name="name"
-                                            class="form-control"
-                                            :class="{ 'border-danger': validate.phone_mobile.$error }"
-                                            v-model.number="prospect.phone_mobile" />
-                                        <template v-if="validate.phone_mobile.$error">
-                                          <div
-                                            v-for="(error, index) in validate.phone_mobile.$errors"
-                                            :key="index"
-                                            class="mt-2 text-danger">
-                                            {{ error.$message }}
-                                          </div>
-                                        </template>
+                                            class="form-control" />
                                     </div>
 
                                     <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6 lg:col-span-6 withlabel">
                                         <label class="form-label">{{$t('add_prospect_details.home_phone')}}</label>
                                         <input
                                         type="number"
-                                        class="w-full form-control"
-                                        v-model.number="prospect.phone_home" />
+                                        class="w-full form-control"/>
                                     </div>
                                 </div>
                             </div>
@@ -653,91 +405,134 @@
                                         <input
                                             type="number"
                                             id="txtOfficePhone"
-                                            class="form-control"
-                                            v-model="prospect.phone_office" />
+                                            class="form-control" />
                                     </div>
 
                                     <div class="col-span-12 intro-y sm:col-span-6 md:col-span-6 lg:col-span-6 withlabel">
                                         <label class="form-label">{{$t('add_prospect_details.extension_phone')}}</label>
                                         <input
                                         type="number"
-                                        class="w-full form-control"
-                                        v-model.number="prospect.phone_extension" />
+                                        class="w-full form-control"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-span-12 p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400 mt-3">
+                    <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
+                      <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('contracts.address')}}
+                    </div>
+                    <div class="mt-5">
+                        <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                            <div class="form-label xl:w-72 xl:!mr-10">
+                              <div class="text-left">
+                                <div class="flex items-center">
+                                  <div class="font-medium">{{ $t('add_prospect_address.zip_code') }}</div>
+                                </div>
+                                <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                                  {{ $t('add_prospect_address.zip_code') }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="flex-1 w-full mt-3 xl:mt-0">                      
+                              <input
+                                  type="text"
+                                  name="name"
+                                  class="form-control col-span-3" />
+                            </div>
+                        </div>
+
+                        <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                            <div class="form-label xl:w-72 xl:!mr-10">
+                              <div class="text-left">
+                                <div class="flex items-center">
+                                  <div class="font-medium">{{ $t('add_prospect_address.suburb') }}</div>
+                                </div>
+                                <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                                  {{ $t('add_prospect_address.suburb') }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="flex-1 w-full mt-3 xl:mt-0">                      
+                                <v-select
+                                    id="cmbSuburb"
+                                    taggable push-tags
+                                    class="form-control">
+                                </v-select>
+                            </div>
+                        </div>    
 
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
-                                  <div class="font-medium">{{ $t('add_prospect_details.service_priority') }}</div>
+                                  <div class="font-medium">{{ $t('add_prospect_address.address') }}</div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                                  {{ $t('add_prospect_details.service_priority') }}
+                                  {{ $t('add_prospect_address.address') }}
                                 </div>
                               </div>
                             </div>
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
-                                    <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4 withlabel">
-                                        <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
-                                        <v-select 
-                                            class="form-control" 
-                                            :options="aServicePriority" 
-                                            :reduce="value => value.key"
-                                            label="value"
-                                            v-model="prospect.service_priority"
-                                            :class="{ 'border-danger': validate.service_priority.$error }">
-                                        </v-select>
-                                        <template v-if="validate.service_priority.$error">
-                                          <div
-                                            v-for="(error, index) in validate.service_priority.$errors"
-                                            :key="index"
-                                            class="mt-2 text-danger">
-                                            {{ error.$message }}
-                                          </div>
-                                        </template>
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                        <label for="txtStreet" class="form-label">{{ $t('add_prospect_address.street') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtStreet"
+                                          class="form-control"/>
                                     </div>
-                                    <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4 withlabel">
-                                        <label class="form-label">*{{ $t('add_prospect_details.origin') }}</label>
-                                        <v-select
-                                            class="form-control"
-                                            label="description"
-                                            :options="dataOrigins"                            
-                                            :reduce="description => description.id"
-                                            v-model="prospect.client_origin"
-                                            :class="{ 'border-danger': validate.client_origin.$error }">
-                                        </v-select>
-                                        <template v-if="validate.client_origin.$error">
-                                          <div
-                                            v-for="(error, index) in validate.client_origin.$errors"
-                                            :key="index"
-                                            class="mt-2 text-danger">
-                                            {{ error.$message }}
-                                          </div>
-                                        </template>
-                                    </div>        
-                                    <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4 withlabel">
-                                        <label class="form-label">*{{ $t('add_prospect_details.medium') }}</label>
-                                        <v-select
-                                            class="form-control"
-                                            label="description"
-                                            :options="dataOriginsMediums"
-                                            :reduce="description => description.id"
-                                            v-model="prospect.client_medium_origin_id"
-                                            :class="{ 'border-danger': validate.client_medium_origin_id.$error }">
-                                        </v-select>
-                                        <template v-if="validate.client_medium_origin_id.$error">
-                                          <div
-                                            v-for="(error, index) in validate.client_medium_origin_id.$errors"
-                                            :key="index"
-                                            class="mt-2 text-danger">
-                                            {{ error.$message }}
-                                          </div>
-                                        </template>
+                                    
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 withlabel">
+                                        <label for="txtOutdoor" class="form-label">{{ $t('add_prospect_address.outdoor') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtOutdoor"
+                                          class="form-control" />
+                                    </div>
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 withlabel">
+                                        <label for="txtIndoor" class="form-label">{{ $t('add_prospect_address.indoor') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtIndoor"
+                                          class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+
+
+                        <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                            <div class="form-label xl:w-72 xl:!mr-10">
+                              <div class="text-left">
+                                <div class="flex items-center">
+                                  <div class="font-medium">{{ $t('add_prospect_address.town') }}</div>
+                                </div>
+                                <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                                  {{ $t('add_prospect_address.town') }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="flex-1 w-full xl:mt-0 withlabel">
+                                <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                        <label for="txtTown" class="form-label">{{ $t('add_prospect_address.town') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtTown"
+                                          class="form-control" />
+                                    </div>
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                        <label for="txtCity" class="form-label">{{ $t('add_prospect_address.city') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtCity"
+                                          class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -748,33 +543,41 @@
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
-                                  <div class="font-medium">{{ $t('add_tags.tags') }}</div>
+                                  <div class="font-medium">{{ $t('add_prospect_address.state') }}</div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                                  {{ $t('add_tags.tags') }}
+                                  {{ $t('add_prospect_address.state') }}
                                 </div>
                               </div>
                             </div>
-                            <div class="flex-1 w-full mt-3 xl:mt-0 withmultiple">                      
-                              <v-select
-                                    multiple
-                                    label="name"
-                                    class="form-control"
-                                    :options="dataTags_tag">
-                                </v-select>
+                            <div class="flex-1 w-full xl:mt-0 withlabel">
+                                <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                        <label for="txtState" class="form-label">{{ $t('add_prospect_address.state') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtState"
+                                          class="form-control" />
+                                    </div>
+                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                        <label for="txtCountry" class="form-label">{{ $t('add_prospect_address.country') }}</label>
+                                        <input
+                                          type="text"
+                                          id="txtCountry"
+                                          class="form-control" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-
-
+                        </div>  
                     </div>
                 </div>
+                
 
             </div>
 
             <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">                    
                 <button class="w-full py-3 btn btn-primary md:w-52">
-                  {{ $t('add_prospect_details.btn-next') }}
+                  {{ $t('forms.next') }}
                 </button>
             </div>
 
@@ -810,4 +613,5 @@
     .companycontainer.flex .vs__dropdown-toggle{ border-radius:0.25rem 0px 0px 0.25rem}
     .speciallabels .vs__selected{ padding:0 .25em}
     .withmultiple .vs__dropdown-option--selected{ display:none} 
+    .withlabel [disabled]{ background:#fff}
 </style>

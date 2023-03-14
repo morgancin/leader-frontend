@@ -1,6 +1,6 @@
 <script>
     export default {
-        name: "ContractStep2Form",
+        name: "ContractStep4Form",
     }
 </script>
 
@@ -83,7 +83,9 @@
                                         city:'',
                                         town:'',
                                         state:'',
-                                        age:''
+                                        age:'',
+                                        percentage:'',
+                                        relationship:''
                                     });
     //props.cart_beneficiaries.value = cartBeneficiaries.value;
 
@@ -116,14 +118,18 @@
         add_beneficiary_form.state = '';
         add_beneficiary_form.town = '';
         add_beneficiary_form.age = '';
+        add_beneficiary_form.percentage = '';
+        add_beneficiary_form.relationship = '';
         addBeneficiaryModal.value = false;      
       }
+
+      const show_beneficiaries = ref(false);
 
 </script>
 
 <template>
     
-    <div class="speciallabels pb0">
+    <div class="pb0">
 
         <form @submit.prevent="submitForm()" autocomplete="on">
 
@@ -131,36 +137,86 @@
 
                 <div class="col-span-12 p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                     <div class="flex items-center pb-5 text-base border-b border-slate-200/60 dark:border-darkmode-400 sm:flex-row">
-                      <div class="flex items-center mr-auto text-base font-medium"> <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('contracts.step2')}}</div>
-                      <a class="mr-2 text-xs shadow-md btn btn-primary" @click="addBeneficiaryModal = true"> {{$t('contracts.add_beneficiaries')}} <PlusIcon class="w-4 h-4" /></a>
+                      <div class="flex items-center mr-auto text-base font-medium"> <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('contracts.life_insurance')}}</div>
+                      <a class="mr-2 text-xs shadow-md btn btn-primary" @click="addBeneficiaryModal = true" v-if="show_beneficiaries" show> {{$t('contracts.add_beneficiaries')}} <PlusIcon class="w-4 h-4" /></a>
                     </div>
                     <div class="mt-5">
+                        <div class="caracteristicas">
+                        <span>Seguro otorgado como beneficio exclusivamente al “Titular” y/o “El Consumidor” <b>ANGEL COBOS COBOS</b> que aparece registrado de primera instancia en el Contrato de Prestación de Servicios Funerarios Integrales a Futuro.
+<br>
+Seguro con una suma Asegurada por <b>$25,000.00</b>
+</span>
+<ul>
+    <li>Vigencia del seguro GRATIS POR UN AÑO del 13/03/2023 hasta 12/03/2024 Brindado por J. García López, pero podrá ser renovado a solicitud del Titular del Servicio Funerario a Futuro con un costo de recuperación.</li>
+    <li><b>Para recibir la suma asegurada</b>, se debe liquidar el costo total del Plan Funerario a Futuro y llevar acabo el Homenaje® en una de nuestras casas funerarias.</li>
+    <li>Al momento de otorgar el servicio la póliza del Seguro de Vida debe estar vigente.</li>
+    <li><b>EL SEGURO DE VIDA SE CANCELA AUTOMÁTICAMENTE SI</b> se presentan más de tres meses de adeudo en el Plan Funerario a Futuro.</li>
+    <li>Para hacer válido el Seguro de Vida, la póliza debe estar firmada por el Titular del Plan Funerario a Futuro.</li>
+    <li><b>No es transferible.</b> El Titular no puede ceder los derechos del Seguro de Vida a un tercero. Al utilizar el Plan Funerario a Futuro el seguro pierde vigencia.</li>
+    <li>El Titular no puede contar con más de un Seguro de Vida vigente, aún y cuando éste cuente con más de un Servicio Funerario contratado.</li>
+    <li>Edad de aceptación de 18 a 60 años, durante el primer año.</li>
+    <li>El seguro podrá ser válido: Después de los 30 días naturales de ingresar el contrato de Previsión Final.</li>
+    <li>NO SE OTORGA EN SERVICIOS FUNERARIOS DE NECESIDAD INMEDIATA.</li>
+</ul>
+<div class="form-check mt-5">
+    <input id="vertical-form-3" class="form-check-input" type="checkbox" value="">
+    <label class="form-check-label" for="vertical-form-3" @click="show_beneficiaries = !show_beneficiaries">{{$t("forms.accept")}} {{$t('contracts.life_insurance')}}</label>
+</div>
+    </div>
+                                                
 
-                        <a v-if="Object.keys(cartBeneficiaries).length === 0" class="block w-full text-xs text-center text-slate-500">{{$t('forms.noitems')}}</a>                       
+                        <div v-if="show_beneficiaries">
+                            <br>
+                            <hr>
+                            <br>
+                            <a v-if="Object.keys(cartBeneficiaries).length === 0" class="block w-full text-xs text-center text-slate-500">{{$t('forms.noitems')}}</a>                       
 
-                        <div class="overflow-x-auto" v-if="Object.keys(cartBeneficiaries).length > 0">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th class="text-left">{{$t('add_prospect_details.full_name')}}</th>
-                                        <th class="text-left">{{$t('add_prospect_details.mobile_phone')}}</th>
-                                        <th class="text-left">{{$t('add_prospect_details.age')}}</th>
-                                        <th class="text-left">{{$t('add_prospect_details.gender')}}</th>
-                                        <th class="text-left">{{$t('add_prospect_address.address')}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(beneficiary, id) in cartBeneficiaries">
-                                        <td><TrashIcon class="w-4 h-4 mr-2 text-slate-500 cursor-pointer" @click="removeBeneficiary(beneficiary)"/></td>
-                                        <td>Angel Raúl Cobos Ortega</td>
-                                        <td>2291748371</td>
-                                        <td>36</td>
-                                        <td>Hombre</td>
-                                        <td>Dirección conocida #123, Veracruz</td>
-                                    </tr>                                    
-                                </tbody>
-                            </table>
+                            <div class="overflow-x-auto" v-if="Object.keys(cartBeneficiaries).length > 0">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-left">{{$t('add_prospect_details.full_name')}}</th>
+                                            <th class="text-left">{{$t('contracts.relationship')}}</th>
+                                            <th class="text-right">{{$t('contracts.percentage')}}</th>
+                                            <th class="text-left">{{$t('add_prospect_details.mobile_phone')}}</th>
+                                            <th class="text-left">{{$t('add_prospect_details.age')}}</th>
+                                            <th class="text-left">{{$t('add_prospect_details.gender')}}</th>
+                                            <th class="text-left">{{$t('add_prospect_address.address')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(beneficiary, id) in cartBeneficiaries">
+                                            <td><TrashIcon class="w-4 h-4 mr-2 text-slate-500 cursor-pointer" @click="removeBeneficiary(beneficiary)"/></td>
+                                            <td>Angel Raúl Cobos Ortega</td>
+                                            <td>Esposo</td>
+                                            <td class="text-right">100</td>
+                                            <td>2291748371</td>
+                                            <td>36</td>
+                                            <td>Hombre</td>
+                                            <td>Dirección conocida #123, Veracruz</td>
+                                        </tr>                                    
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right"><b>100</b></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <br>
+                            <hr>
+                            <br>
+                            <a class="block w-full text-md text-center text-red-500 ">{{$t('contracts.unaccepted')}}</a> 
                         </div>
 
                     </div>
@@ -239,6 +295,30 @@
                     v-model="add_beneficiary_form.second_last_name">
                 </div>
             </div>
+
+
+            <div class="col-span-12 sm:col-span-6 withlabel">
+                <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
+                  <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.relationship') }}</label>
+                  <v-select
+                        id="cmbSuburb"
+                        taggable push-tags
+                        class="form-control"
+                        v-model="add_beneficiary_form.relationship">
+                  </v-select>
+                </div>
+            </div>
+            <div class="col-span-12 sm:col-span-6 withlabel">
+                <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
+                  <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.percentage') }}</label>
+                  <input 
+                    id="modal-form-1" 
+                    type="number" 
+                    class="form-control"
+                    v-model="add_beneficiary_form.percentage">
+                </div>
+            </div>
+
 
             <div class="col-span-12 sm:col-span-8 withlabel">
                 <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
@@ -404,4 +484,7 @@
 .vs__dropdown-toggle{border-color:rgb(var(--color-slate-200) / var(--tw-border-opacity));}
 .border-danger .vs__dropdown-toggle{border-color:rgb(var(--color-danger) / var(--tw-border-opacity))}
 .pb0{margin-bottom:-3.5rem}
+.caracteristicas span,.caracteristicas ul li{ line-height:1.7}
+.caracteristicas ul{ margin:1.25rem}
+.caracteristicas ul li{ list-style-type:circle; display:list-item}
 </style>

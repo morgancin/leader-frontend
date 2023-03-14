@@ -277,7 +277,7 @@
                       v-for="(category, id) in dataCategories" 
                       :key="id"
                       @click="get_categories_from_category(category)"
-                      class="w-full btn btn-outline-default sm:w-auto zoom-in mt-2">
+                      class="w-full btn btn-outline-default sm:w-auto zoom-in mt-2 ml-2">
                         <div class="text-sm font-medium">{{ category.name }}</div>
                         <ChevronRightIcon class="w-4 h-4 ml-auto sm:ml-2" />
                         <!--<div class="text-slate-500">{{ category_products_count.products_count }} {{$t("forms.items")}}</div>-->
@@ -285,7 +285,7 @@
                     <div
                       v-if="(category_products_count.products_count > 0)"
                       @click="get_category_products(category_products_count)"
-                      class="w-full btn btn-outline-default sm:w-auto zoom-in text-left">
+                      class="w-full btn btn-outline-default sm:w-auto zoom-in mt-2 ml-2 text-left">
                         <div class="text-sm font-medium text-left">{{$t("add_products.products")}}<br><div class="text-slate-500 text-xs">{{ category_products_count.products_count }} {{$t("forms.items")}}</div></div>                        
                         <ChevronRightIcon class="w-4 h-4 ml-auto sm:ml-2" />
                     </div>
