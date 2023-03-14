@@ -322,7 +322,7 @@
         "address": "Address",
         "comments": "Comments",
         "tax": "Tax ID",
-        "potential": "Potential",
+        "potential": "Potential value",
         "select_option": "Select Options",
         "btn_prev": "Previous",
         "btn_cancel": "Cancel",

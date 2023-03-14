@@ -15,6 +15,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             company_id:null,
             client_origin:null,         //Se recupera con base a client_medium_origin_id
             client_medium_origin_id:null,
+            potential_value:0,
             
             age:null,
             rfc:null,

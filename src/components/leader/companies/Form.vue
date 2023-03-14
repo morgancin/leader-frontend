@@ -126,8 +126,7 @@
                       </template>
                     </div>
                   </div>
-
-
+                  
                   <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
@@ -229,7 +228,7 @@
                           <div class="font-medium">{{ $t('add_companies.potential') }}</div>                          
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Potential.
+                          {{ $t('add_companies.potential') }}
                         </div>
                       </div>
                     </div>
