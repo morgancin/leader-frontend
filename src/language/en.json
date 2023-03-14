@@ -370,8 +370,9 @@
         "currencies": "Currencies",
         "categories": "Categories",
         "activities": "Activities",
-        "company-users": "Company Users",
+        "pipelines": "Pipelines",
         "settings": "Settings",
+        "company-users": "Company Users",
         "settings-languages": "Languages",
         "settings-catalogs": "Catalogs",
         "settings-price-lists": "Price Lists",
@@ -379,7 +380,6 @@
         "settings-catalogs-subjects": "Subjects",
         "settings-catalogs-origin": "Origins",
         "settings-catalogs-medium": "Mediums",
-        "settings-catalogs-tags": "Tags",
         "settings-activities-results": "Activities Results"
     },
     "prospects": {

@@ -7,23 +7,23 @@
     <div
       class="border-b border-white/[0.08] mt-[2.2rem] md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 pt-3 md:pt-0 mb-10"
     >
-      <div class="top-bar-boxed flex items-center">
+      <div class="flex items-center top-bar-boxed">
         <!-- BEGIN: Logo -->
         <router-link
           :to="{ name: 'top-menu-dashboard-overview-1' }"
           tag="a"
-          class="-intro-x hidden md:flex"
+          class="hidden -intro-x md:flex"
         >
           <img
             alt="Midone Tailwind HTML Admin Template"
             class="w-6"
             src="@/assets/images/logo.svg"
           />
-          <span class="text-white text-lg ml-3"> Rubick </span>
+          <span class="ml-3 text-lg text-white"> Rubick </span>
         </router-link>
         <!-- END: Logo -->
         <!-- BEGIN: Breadcrumb -->
-        <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
+        <nav aria-label="breadcrumb" class="h-full mr-auto -intro-x">
           <ol class="breadcrumb breadcrumb-light">
             <li class="breadcrumb-item"><a href="#">Application</a></li>
             <li class="breadcrumb-item active" aria-current="page">
@@ -33,11 +33,11 @@
         </nav>
         <!-- END: Breadcrumb -->
         <!-- BEGIN: Search -->
-        <div class="intro-x relative mr-3 sm:mr-6">
-          <div class="search hidden sm:block">
+        <div class="relative mr-3 intro-x sm:mr-6">
+          <div class="hidden search sm:block">
             <input
               type="text"
-              class="search__input form-control border-transparent"
+              class="border-transparent search__input form-control"
               placeholder="Search..."
               @focus="showSearchDropdown"
               @blur="hideSearchDropdown"
@@ -53,7 +53,7 @@
               <div class="mb-5">
                 <a href="" class="flex items-center">
                   <div
-                    class="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full"
+                    class="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success"
                   >
                     <InboxIcon class="w-4 h-4" />
                   </div>
@@ -61,7 +61,7 @@
                 </a>
                 <a href="" class="flex items-center mt-2">
                   <div
-                    class="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full"
+                    class="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending"
                   >
                     <UsersIcon class="w-4 h-4" />
                   </div>
@@ -69,7 +69,7 @@
                 </a>
                 <a href="" class="flex items-center mt-2">
                   <div
-                    class="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full"
+                    class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80"
                   >
                     <CreditCardIcon class="w-4 h-4" />
                   </div>
@@ -93,7 +93,7 @@
                   </div>
                   <div class="ml-3">{{ faker.users[0].name }}</div>
                   <div
-                    class="ml-auto w-48 truncate text-slate-500 text-xs text-right"
+                    class="w-48 ml-auto text-xs text-right truncate text-slate-500"
                   >
                     {{ faker.users[0].email }}
                   </div>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="ml-3">{{ faker.products[0].name }}</div>
                 <div
-                  class="ml-auto w-48 truncate text-slate-500 text-xs text-right"
+                  class="w-48 ml-auto text-xs text-right truncate text-slate-500"
                 >
                   {{ faker.products[0].category }}
                 </div>
@@ -125,44 +125,41 @@
         </div>
         <!-- END: Search -->
         <!-- BEGIN: Notifications -->
-        <Dropdown class="intro-x mr-4 sm:mr-6">
+        <Dropdown class="mr-4 intro-x sm:mr-6">
           <DropdownToggle
             tag="div"
             role="button"
-            class="notification notification--light notification--bullet cursor-pointer"
+            class="cursor-pointer notification notification--light notification--bullet"
           >
             <BellIcon class="notification__icon dark:text-slate-500" />
           </DropdownToggle>
-          <DropdownMenu class="notification-content pt-2">
+          <DropdownMenu class="pt-2 notification-content">
             <DropdownContent tag="div" class="notification-content__box">
               <div class="notification-content__title">Notifications</div>
               <div
                 v-for="(faker, fakerKey) in $_.take($f(), 5)"
                 :key="fakerKey"
-                class="cursor-pointer relative flex items-center"
+                class="relative flex items-center cursor-pointer"
                 :class="{ 'mt-5': fakerKey }"
               >
-                <div class="w-12 h-12 flex-none image-fit mr-1">
+                <div class="flex-none w-12 h-12 mr-1 image-fit">
                   <img
                     alt="Midone Tailwind HTML Admin Template"
                     class="rounded-full"
-                    :src="faker.photos[0]"
-                  />
+                    :src="faker.photos[0]" />
                   <div
-                    class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white"
-                  ></div>
+                    class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success"></div>
                 </div>
+
                 <div class="ml-2 overflow-hidden">
                   <div class="flex items-center">
-                    <a href="javascript:;" class="font-medium truncate mr-5">{{
-                      faker.users[0].name
-                    }}</a>
-                    <div
-                      class="text-xs text-slate-400 ml-auto whitespace-nowrap"
-                    >
+                    <a href="javascript:;" class="mr-5 font-medium truncate">
+                      {{ faker.users[0].name }}
+                    </a>
+                    <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">
                       {{ faker.times[0] }}
                     </div>
-                  </div>
+                  </div>                  
                   <div class="w-full truncate text-slate-500 mt-0.5">
                     {{ faker.news[0].shortContent }}
                   </div>
@@ -173,11 +170,11 @@
         </Dropdown>
         <!-- END: Notifications -->
         <!-- BEGIN: Account Menu -->
-        <Dropdown class="intro-x w-8 h-8">
+        <Dropdown class="w-8 h-8 intro-x">
           <DropdownToggle
             tag="div"
             role="button"
-            class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
+            class="w-8 h-8 overflow-hidden scale-110 rounded-full shadow-lg image-fit zoom-in"
           >
             <img
               alt="Midone Tailwind HTML Admin Template"

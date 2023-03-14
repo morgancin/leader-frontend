@@ -431,6 +431,26 @@ const routes = [
         beforeEnter: requireAuth
       },
 
+      //PIPELINES
+      {
+        path: 'pipelines',
+        name: 'side-menu-pipelines',
+        component: () => import('../views/leader/pipelines/Index.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-pipeline',
+        name: 'side-menu-add-pipeline',
+        component: () => import('../views/leader/pipelines/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/pipelines/edit/:id',
+        name: 'side-menu-edit-pipeline',
+        component: () => import('../views/leader/pipelines/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+      
       //PRODUCTS
       {
         path: 'products',
