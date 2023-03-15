@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
-export const useCurrenciesStore = defineStore("CurrenciesStore", {
+export const usePipelinesStore = defineStore("PipelinesStore", {
     state: () => ({
-        currency: {},
-        currencies: [],
+        pipeline: {},
+        pipelines: [],
         message: null,
     }),
     actions: {
-        async createCurrency(currency) {
-            axiosClient.post('/currencies', currency)
+        async createPipeline(pipeline) {
+            axiosClient.post('/pipelines', pipeline)
             .then (({data}) => {
                 return data;
             })
@@ -17,36 +17,28 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
                 this.message = error.message;
             })
         },
-        async updateCurrency() {
-            axiosClient.put(`/currencies/${this.currency.id}`, this.currency)
+        async updatePipelines() {
+            axiosClient.put(`/pipelines/${this.pipeline.id}`, this.pipeline)
             .then (({data}) => {
                 this.message = data.message;
             })
             .catch(function (error) {
                 this.message = error.message;
             })
-
-            /*
-            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
-            .catch(error){
-                hasError.value=true;
-                if(axios.isAxiosError(error)){
-                    return errorMessage.value = error.message;
-                }
-            }
-            */
         },
-        async fetchCurrencies() {
-            axiosClient.get('/currencies')
+        async fetchPipelines() {
+            axiosClient.get('/pipelines')
             .then (({data}) => {
-                this.currencies = data.data;
+                console.log(data);
+                this.pipelines = data.data;
             })
             .catch(function (error) {
+                console.log(error);
                 this.message = error.message;
             })
         },
-        async fetchCurrency(id) {
-            axiosClient.get(`/currencies/${id}`)
+        async fetchPipeline(id) {
+            axiosClient.get(`/pipelines/${id}`)
             .then (({data}) => {
                 this.currency = data;
             })

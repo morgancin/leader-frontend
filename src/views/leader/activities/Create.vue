@@ -8,7 +8,7 @@
   import { storeToRefs } from "pinia";
   import { useProspectsStore } from "../../../stores/leader/prospects";
   import { useActivitiesStore } from "../../../stores/leader/activities";
-  import ActivitieForm from "../../../components/leader/activities/Form.vue";
+  import ActivityForm from "../../../components/leader/activities/Form.vue";
   import ProspectStep1Form from "../../../components/leader/prospects/Form_step_1.vue";
   import ProspectStep2Form from "../../../components/leader/prospects/Form_step_2.vue";
 
@@ -68,7 +68,7 @@
         @submit="submitStep"
         :prospect="form" />
 
-      <ActivitieForm
+      <ActivityForm
         v-if="(step == 3)"
         @submit="submit"
         :activity="form_activity" />

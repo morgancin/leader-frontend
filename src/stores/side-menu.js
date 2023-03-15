@@ -58,6 +58,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
             title: 'side-menu.settings-languages',
           },
           {
+            icon: "AlignLeftIcon",
+            pageName: "side-menu-pipelines",
+            title: 'side-menu.pipelines',
+          },
+          {
             icon: "GlobeIcon",
             pageName: "side-menu-currencies",
             title: 'side-menu.currencies',

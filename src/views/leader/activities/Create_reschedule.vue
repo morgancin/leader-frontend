@@ -58,25 +58,22 @@
   </div>
   
   <!-- BEGIN: Wizard Layout -->
-  <div class="py-10 mt-5 intro-y box sm:py-20">
-    <div class="px-5 pt-10 mt-10 sm:px-20 border-slate-200/60 dark:border-darkmode-400">
+  <div class="py-10 mt-5 intro-y box sm:py-10">
+    <div class="px-5 sm:px-10 border-slate-200/60 dark:border-darkmode-400">
       <ActivityFinalizeForm
         @submit="submit"
         @view_activity_form="ViewActivityForm"
         :activity_reschedule="form_reschedule"
         :activity_information="activity_information" />
-      
-      <ActivityForm
-        v-if="(form_activities_results_tracking_type == 'activity')"
+      <!--v-if="(form_activities_results_tracking_type == 'activity')"-->
+      <!--
+      <ActivityForm        
         @submit="submit"
-        :activity="form_activity" />
-        
-        <!--
-        <QuotesForm
-          v-if="(form_activities_results_tracking_type == 'quote')" />
-        @submit="submit"
-        :quote="form_quote"
+        :activity="form_activity" 
+        class="mt-5" />
         -->
+      
+        
     </div>
   </div>
   <!-- END: Wizard Layout -->

@@ -99,9 +99,9 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             axiosClient.get(`/activities/${id}`)
             .then (({data}) => {
                 this.activity = data.data;
-                this.activity_information.client = data.data.client.full_name;
+                this.activity_information.client = data.data.prospect.full_name;
                 this.activity_information.subject = data.data.activity_subject.name;
-                this.activity_information.activity_date = data.data.activity_date_format;
+                this.activity_information.activity_date = data.data.activity_date;
                 this.activity_information.type = data.data.activity_subject.activity_type.name;
             })
             .catch((error) => {
@@ -109,14 +109,15 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             })
         },
         
-        async fetchActivities(user_id = false, start_date = false) {
-            axiosClient.get(`/activities?user_id=${user_id}&start_date=${start_date}`)
+        async fetchActivities(user_id = false, activity_date = false) {
+            this.activities = [];
+
+            axiosClient.get(`/activities?user_id=${user_id}&activity_date=${activity_date}`)
             .then (({data}) => {
                 this.activities = data.data;
             })
             .catch((error) => {
                 this.message = error.message;
-                this.activities = [];
             })
         },
 

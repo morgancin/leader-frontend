@@ -8,7 +8,7 @@
   import { storeToRefs } from "pinia";  
   import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators';
   import { useVuelidate } from '@vuelidate/core';
-  
+
   import Toastify from "toastify-js";
   import dom from "@left4code/tw-starter/dist/js/dom";
 
@@ -22,13 +22,16 @@
   import { useProspectsStore } from "@/stores/leader/prospects";
   import { useCompaniesStore } from "@/stores/leader/companies";
   import { useActivitiesStore } from "@/stores/leader/activities";
+
+  import CompanyForm from "@/components/leader/companies/Form.vue";
   
   const { prospect } = storeToRefs(useProspectsStore());
   const { activity, activities } = storeToRefs(useActivitiesStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
   const { companies: dataCompanies } = storeToRefs(useCompaniesStore());
-
+  
   const { fetchAccounts } = useAccountsStore();
+  const { createCompany } = useCompaniesStore();
   const { fetchCompanies } = useCompaniesStore();
   const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
   const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
@@ -72,6 +75,7 @@
     account_id: { required },
     email: { required, email },
     client_origin: { required },
+    potential_value: { required },
     service_priority: { required },
     client_medium_origin_id: { required },
     phone_mobile: {
@@ -179,9 +183,7 @@
     
     return `${day}/${month}/${year}`;
   }
-
-  import CompanyForm from "@/components/leader/companies/Form.vue";
-  const { createCompany } = useCompaniesStore();
+  
   const show_company_prospect = ref(false);
    const addCompanyButton = () => {
     show_company_prospect.value = true;
@@ -189,20 +191,23 @@
   const hideCompany = () => {    
     show_company_prospect.value = false;
   }
-  const formCompanyData = reactive({
-                                name: '',
-                                phone: '',
-                                tax_id: '',
-                                address: '',
-                                website: '',
-                                comments: '',
-                                potential_value: ''
-                            });
+
+  const company_form = reactive({
+                                    name: '',
+                                    phone: '',
+                                    tax_id: '',
+                                    address: '',
+                                    website: '',
+                                    comments: '',
+                                    potential_value: ''
+                                });
 
   const submitCompany = async () => {
-      await createCompany(formCompanyData)
+      await createCompany(company_form);
+      
+      //Harcodee
+      //await fetchCompanies();
   }
-
 </script>
 
 <template>
@@ -240,8 +245,62 @@
                         </div>
                       </template>
                     </div>
+
+                    <div class="flex col-span-12 input-form intro-y sm:col-span-12 withlabel">
+                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
+                      <v-select
+                          label="name"
+                          class="w-full form-control" 
+                          :options="dataCompanies"
+                          :reduce="name => name.id"
+                          v-model="data_prospect_activity.company_id">
+                      </v-select>
+                      <div class="z-30 flex items-center justify-center w-10 mr-1 border rounded-r bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 addmore" 
+                        :class="{ active: show_company_prospect }"
+                        @click="show_company_prospect = !show_company_prospect">
+                          <PlusIcon class="w-4 h-4" />
+                      </div>
+                    </div>
+
+                    <div class="col-span-12 input-form intro-y sm:col-span-12 speciallabels speciallabeleds">
+                      <CompanyForm
+                        v-if="show_company_prospect" show
+                        :company="company_form"
+                        @submit="submitCompany"
+                        @hideCompany="hideCompany" />
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-4 forgroup withlabel">
+                        <div class="input-group">     
+                          <div class="input-group-text">$</div> 
+                          <label for="modal-form-3" class="form-label">*{{ $t('add_companies.potential') }}</label>
+                          <input 
+                            id="modal-form-3" 
+                            type="text" 
+                            class="form-control" 
+                            v-model.number="data_prospect_activity.potential_value"
+                            :class="{ 'border-danger': validate.potential_value.$error }">
+                          <template v-if="validate.potential_value.$error">
+                            <div
+                              v-for="(error, index) in validate.potential_value.$errors"
+                              :key="index"
+                              class="mt-2 text-danger">
+                                {{ error.$message }}
+                            </div>
+                          </template>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
                     
-                    <div class="col-span-12 sm:col-span-6 withlabel">
+                    <div class="col-span-12 sm:col-span-8 withlabel">
                       <label for="modal-form-1" class="form-label">*{{ $t('add_prospect_details.first_name') }}</label>
                       <input 
                         id="modal-form-1" 
@@ -260,23 +319,22 @@
                       </template>
                     </div>
 
-                    <div class="col-span-12 sm:col-span-6 withlabel">
+                    <div class="col-span-12 sm:col-span-8 withlabel">
                         <label for="modal-form-2" class="form-label">*{{ $t('add_prospect_details.last_name') }}</label>
                         <input 
-                        id="modal-form-2" 
-                        type="text" 
-                        class="form-control" 
-                        v-model="data_prospect_activity.last_name"
-                        :class="{ 'border-danger': validate.last_name.$error }"
-                        >
-                        <template v-if="validate.last_name.$error">
-                            <div
-                                v-for="(error, index) in validate.last_name.$errors"
-                                :key="index"
-                                class="mt-2 text-danger">
-                                {{ error.$message }}
-                            </div>
-                        </template>
+                          id="modal-form-2" 
+                          type="text" 
+                          class="form-control" 
+                          v-model="data_prospect_activity.last_name"
+                          :class="{ 'border-danger': validate.last_name.$error }">
+                            <template v-if="validate.last_name.$error">
+                                <div
+                                  v-for="(error, index) in validate.last_name.$errors"
+                                  :key="index"
+                                  class="mt-2 text-danger">
+                                    {{ error.$message }}
+                                </div>
+                            </template>
                     </div>
                     
                     <div class="col-span-12 sm:col-span-4 withlabel">
@@ -299,45 +357,22 @@
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
                         <label for="modal-form-4" class="form-label">*{{ $t('add_prospect_details.email') }}</label>
-                        <input 
-                        id="modal-form-4" 
-                        type="text" 
-                        class="form-control" 
-                        v-model="data_prospect_activity.email"
-                        :class="{ 'border-danger': validate.email.$error }"
-                        >
-                        <template v-if="validate.email.$error">
-                          <div
-                            v-for="(error, index) in validate.email.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                            {{ error.$message }}
-                          </div>
-                        </template>
-                    </div>
-                    
-                    <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel flex">
-                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
-                      <v-select
-                          label="name"
-                          class="form-control w-full" 
-                          :options="dataCompanies"
-                          :reduce="name => name.id"
-                          v-model="data_prospect_activity.company_id">
-                      </v-select>
-                      <div class="z-30 rounded-r w-10 flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 mr-1 addmore" 
-                      :class="{ active: show_company_prospect }"
-                      @click="show_company_prospect = !show_company_prospect"><PlusIcon class="w-4 h-4" /></div>
+                        <input
+                          type="text"
+                          id="modal-form-4"
+                          class="form-control" 
+                          v-model="data_prospect_activity.email"
+                          :class="{ 'border-danger': validate.email.$error }">
+                            <template v-if="validate.email.$error">
+                              <div
+                                v-for="(error, index) in validate.email.$errors"
+                                :key="index"
+                                class="mt-2 text-danger">
+                                {{ error.$message }}
+                              </div>
+                            </template>
                     </div>
 
-                    <div class="col-span-12 input-form intro-y sm:col-span-12 speciallabels speciallabeleds">
-                      <CompanyForm
-                      :company="formCompanyData"
-                      @submit="submitCompany"
-                      @hideCompany="hideCompany"
-                      v-if="show_company_prospect" show />
-                    </div>
-                                 
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                       <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
                       <v-select 
@@ -505,7 +540,7 @@
                           :key="id">
                             <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                             <h3 class="font-semibold text-gray-900 text-md dark:text-white">{{ activity.prospect.full_name }}</h3>
-                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">{{ activity.start_time }} {{ activity.activity_subject.activity_type.name }} - {{ activity.activity_subject.name }}</p>
+                            <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">{{ activity.activity_date }} {{ activity.activity_subject.activity_type.name }} - {{ activity.activity_subject.name }}</p>
                         </li>
                         <!--
                         <li class="mb-10 ml-4">

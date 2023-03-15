@@ -126,8 +126,7 @@
                       </template>
                     </div>
                   </div>
-
-
+                  
                   <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
@@ -229,17 +228,21 @@
                           <div class="font-medium">{{ $t('add_companies.potential') }}</div>                          
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Potential.
+                          {{ $t('add_companies.potential') }}
                         </div>
                       </div>
                     </div>
 
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel forgroup">
                       <label class="form-label">{{$t('add_companies.potential')}}</label>
-                      <input
-                        type="text"
-                        class="w-full form-control"
-                        v-model.number="company.potential_value" />                      
+                      <div class="input-group">     
+                        <div class="input-group-text">$</div>               
+                        <input
+                          type="number"
+                          class="w-full form-control"
+                          v-model.number="company.potential_value" />                        
+                      </div>
+                                            
                     </div>
                   </div>
 
@@ -341,4 +344,5 @@
   .speciallabels.speciallabeleds .btn{ margin-bottom:1.25rem; width:5rem; padding:0.35rem; display:none}
   .speciallabels.speciallabeleds .btn.btn-primary{margin-right:1.25rem; display:block}
   .speciallabels.speciallabeleds .flex.flex-col.justify-end.gap-2.mt-5{ margin-top:0px}
+  .speciallabels .forgroup.withlabel label{ left:40px; z-index:99}
 </style>

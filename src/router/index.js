@@ -308,7 +308,6 @@ const routes = [
         path: 'add-activity',
         name: 'side-menu-add-activity',
         component: () => import('../views/leader/activities/Create.vue'),
-        //component: () => import('../views/leader/prospects/Create.vue'),
         beforeEnter: requireAuth
       },
       {
@@ -383,6 +382,14 @@ const routes = [
         component: () => import('../views/leader/quotes/Create.vue'),
         beforeEnter: requireAuth
       },
+
+      //QUOTES
+      {
+        path: '/contract/create/:id',
+        name: 'side-menu-add-contract',
+        component: () => import('../views/leader/contracts/Create.vue'),
+        beforeEnter: requireAuth
+      },
       
       //PROSPECTS CATALOGUE ORIGINS
       {
@@ -424,6 +431,26 @@ const routes = [
         beforeEnter: requireAuth
       },
 
+      //PIPELINES
+      {
+        path: 'pipelines',
+        name: 'side-menu-pipelines',
+        component: () => import('../views/leader/pipelines/Index.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-pipeline',
+        name: 'side-menu-add-pipeline',
+        component: () => import('../views/leader/pipelines/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/pipelines/edit/:id',
+        name: 'side-menu-edit-pipeline',
+        component: () => import('../views/leader/pipelines/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+      
       //PRODUCTS
       {
         path: 'products',
