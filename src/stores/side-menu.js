@@ -6,24 +6,17 @@ const { t } = i18n.global;
 export const useSideMenuStore = defineStore("sideMenu", {
   state: () => ({
     menu: [
-      // {
-      //   icon: "UserIcon",
-      //   pageName: "side-menu-ecommerce",
-      //   title: "Prospectos",
-      //   subMenu: [
-      //     {
-      //       icon: "UserPlusIcon",
-      //       pageName: "side-menu-prospectos",
-      //       title: "Prospectos",
-      //     }
-      //   ],
-      // },
       {
         icon: "UsersIcon",
         pageName: "side-menu-dashboard-user",
         // title: this.$t('settings.language')
         // title: "Users"
         title: 'side-menu.users'
+      },
+      {
+        icon: "MapPinIcon",
+        pageName: "side-menu-companies",
+        title: 'side-menu.companies',
       },
       {
         icon: "ZoomInIcon",
@@ -34,11 +27,6 @@ export const useSideMenuStore = defineStore("sideMenu", {
         icon: "ActivityIcon",
         pageName: "side-menu-activities",
         title: 'side-menu.activities',
-      },
-      {
-        icon: "MapPinIcon",
-        pageName: "side-menu-companies",
-        title: 'side-menu.companies',
       },
       // "devider",
       /*{

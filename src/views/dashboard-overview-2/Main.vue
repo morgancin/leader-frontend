@@ -405,7 +405,7 @@
         <div class="col-span-12 mt-6">
           <div class="intro-y block sm:flex items-center h-10">
             <h2 class="text-lg font-medium truncate mr-5">
-              Weekly Top Products
+              Weekly Top Productss
             </h2>
             <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
               <button
