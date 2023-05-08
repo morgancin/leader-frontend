@@ -5,11 +5,12 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
     state: () => ({
         pipeline: {},
         pipelines: [],
+        pipeline_stages: [],
         message: null,
     }),
     actions: {
-        async createPipeline(pipeline) {
-            axiosClient.post('/pipelines', pipeline)
+        async createPipeline(data) {
+            axiosClient.post('/pipelines', data)
             .then (({data}) => {
                 return data;
             })
@@ -26,17 +27,6 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
                 this.message = error.message;
             })
         },
-        async fetchPipelines() {
-            axiosClient.get('/pipelines')
-            .then (({data}) => {
-                console.log(data);
-                this.pipelines = data.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-                this.message = error.message;
-            })
-        },
         async fetchPipeline(id) {
             axiosClient.get(`/pipelines/${id}`)
             .then (({data}) => {
@@ -45,6 +35,28 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
             .catch(function (error) {
                 this.message = error.message;
             })
+        },
+        async fetchPipelines() {
+            axiosClient.get('/pipelines')
+            .then (({data}) => {
+                this.pipelines = data.data;
+            })
+            .catch(function (error) {
+                this.message = error.message;
+            })
+        },
+        async fetchPipelineStages(pipeline_id) {
+            this.pipeline_stages = [];
+
+            if(pipeline_id) {
+                await axiosClient.get(`/pipelines/${pipeline_id}/stages`)
+                .then (({data}) => {
+                    this.pipeline_stages = data.data;
+                })
+                .catch(function (error) {
+                    this.message = error.message;
+                })
+            }
         },
     }
 });

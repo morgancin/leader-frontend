@@ -28,10 +28,6 @@
   const addProspectButton = () => {
     show_modal_prospect.value = true;
   };
-  
-  const submitStep = () => {    
-    hideModal();
-  }
 
   const hideModal = () => {    
     show_modal_prospect.value = false;
@@ -295,21 +291,15 @@
       </DropdownMenu>
     </Dropdown>
     <!-- END: Account Menu -->
+
+    <ProspectStepQuickForm
+      v-if="show_modal_prospect"
+      @hideModal="hideModal"
+      :login_user="login_user"
+      :show_modal="show_modal_prospect" />
+      
   </div>
   <!-- END: Top Bar -->
-
-  <!--
-    :prospect="form"
-    :prospect_example="form"
-    :activity="form_activity"
-  -->
-  
-  <ProspectStepQuickForm
-    @submit="submitStep"
-    @hideModal="hideModal"
-    @reset="resetForm()"
-    :show_modal="show_modal_prospect" />
-    
 </template>
 
 <style>

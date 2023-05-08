@@ -24,26 +24,30 @@
   import { useActivitiesStore } from "@/stores/leader/activities";
 
   import CompanyForm from "@/components/leader/companies/Form.vue";
+
+  const { fetchAccounts } = useAccountsStore();
+  const { createCompany, fetchCompanies } = useCompaniesStore();
+  const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
+  const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
   
   const { prospect } = storeToRefs(useProspectsStore());
   const { activity, activities } = storeToRefs(useActivitiesStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
-  const { companies: dataCompanies } = storeToRefs(useCompaniesStore());
+  const { company, companies: dataCompanies } = storeToRefs(useCompaniesStore());
   
-  const { fetchAccounts } = useAccountsStore();
-  const { createCompany } = useCompaniesStore();
-  const { fetchCompanies } = useCompaniesStore();
-  const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
-  const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
-  
-  const user_login = JSON.parse(sessionStorage.getItem("session_storage_user"));
-    
   const props = defineProps({
       show_modal: {
-        type: Boolean
+        type: Boolean,
+        required: true,
+      },
+      login_user: {
+        type: Object,
+        required: true,
       },
   });
-    
+  
+  const show_modal_here = ref(props.show_modal);
+
   const aServicePriority = [
                             { key:'bajo', value: 'BAJO' },
                             { key:'medio', value: 'MEDIO' },
@@ -63,7 +67,7 @@
       return `${day}/${month}/${year}`;
   }
   
-  const emit = defineEmits(["submit", "hideModal", "reset"]);
+  const emit = defineEmits(["hideModal"]);
 
   const data_prospect_activity = reactive({...prospect.value, ...activity.value});
 
@@ -128,7 +132,8 @@
     
     if(result) {
       await createProspectActivity(data_prospect_activity);
-      emit('submit');
+      show_modal_here.value = false;
+      //emit('submit');
     }
   } 
 
@@ -147,13 +152,13 @@
     await fetchAccounts();
     await fetchCompanies();
         
-    await fetchActivities(user_login.id, convert_format_date(data_prospect_activity.start_date, 'en'));
+    await fetchActivities(props.login_user.id, convert_format_date(data_prospect_activity.start_date, 'en'));
   });
 
   watch(
       () => data_prospect_activity.start_date,
       async () => {
-        await fetchActivities(user_login.id, convert_format_date(data_prospect_activity.start_date, 'en'));
+        await fetchActivities(props.login_user.id, convert_format_date(data_prospect_activity.start_date, 'en'));
       }
   );
   watch(
@@ -185,9 +190,10 @@
   }
   
   const show_company_prospect = ref(false);
-   const addCompanyButton = () => {
+  const addCompanyButton = () => {
     show_company_prospect.value = true;
   };
+
   const hideCompany = () => {    
     show_company_prospect.value = false;
   }
@@ -204,25 +210,24 @@
 
   const submitCompany = async () => {
       await createCompany(company_form);
+      data_prospect_activity.potential_value = company_form.potential_value;
       
-      //Harcodee
-      //await fetchCompanies();
+      setTimeout(async () => { 
+        await fetchCompanies();
+        data_prospect_activity.company_id = company.value.id;         
+      }, 790);
+      
+      hideCompany();
   }
 </script>
 
 <template>
   <!-- BEGIN: Modal Content quick action nuevo prospecto -->
-  <!-- <Modal :show="addProspectModal" @hidden="addProspectModal = false"> -->
-  <Modal :show="show_modal" @hidden="hideModal" class="speciallabels" size="modal-xl">
-    <!--<div class="modal-dialog">-->
-        <!--<form @submit.prevent="submitForm" autocomplete="on">-->
-          <!--<div class="modal-content">-->
-              <!-- BEGIN: Modal Header -->
-              <ModalHeader>
-                  <h2 class="mr-auto text-base font-medium">{{$t('prospects.btn-add-new-prospect') }}</h2>                  
-              </ModalHeader>
-              <!-- END: Modal Header -->
-              <!-- BEGIN: Modal Body -->
+   <Modal :show="show_modal_here" @hidden="hideModal" class="speciallabels" size="modal-xl">
+    <ModalHeader>
+      <h2 class="mr-auto text-base font-medium">{{$t('prospects.btn-add-new-prospect') }}</h2>
+    </ModalHeader>
+              
               <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
                 <div class="grid grid-cols-12 col-span-8 gap-4">
                    
@@ -290,15 +295,6 @@
                           </template>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
                       <label for="modal-form-1" class="form-label">*{{ $t('add_prospect_details.first_name') }}</label>
@@ -569,11 +565,11 @@
               <!-- END: Modal Body -->
               <!-- BEGIN: Modal Footer -->
               <ModalFooter>
-                  <button type="button" @click="hideModal" class="w-20 mr-1 btn btn-outline-secondary">{{$t('forms.cancel')}}</button>
-                  <button type="submit" @click="submitForm" class="w-20 btn btn-primary">{{$t('forms.save')}}</button>
+                <!-- BEGIN: Modal Content quick action nuevo prospecto -->
+                <button type="button" @click="show_modal_here = false" class="w-20 mr-1 btn btn-outline-secondary">{{$t('forms.cancel')}}</button>
+                <button type="submit" @click="submitForm" class="w-20 btn btn-primary">{{$t('forms.save')}}</button>
               </ModalFooter>
               <!-- END: Modal Footer -->
-
           <!--</div>-->
         <!--</form>-->
       <!--</div>-->

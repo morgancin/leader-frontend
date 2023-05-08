@@ -13,9 +13,9 @@
   const { createActivityResult } = useActivitiesResultStore();
 
   const form = reactive({
-                        name:'',
-                        tracking:'',
-                        activity_type_id:'',
+                        name:null,
+                        activity_type_id:null,
+                        pipeline_stage_id:null,
                   });
 
   const submit = async () => {

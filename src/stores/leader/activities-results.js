@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
-// export const useActivitiesTypeStore = defineStore("ActivitiesType", {
 export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
     state: () => ({
         activity_result: {},
@@ -40,8 +39,7 @@ export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
         async fetchActivitiesResults() {
             axiosClient.get('/activity-results')
             .then (({data}) => {
-                //return data;
-                this.activities_results = data;
+                this.activities_results = data.data;
             })
             .catch(function (error) {
                 this.message = error.message;

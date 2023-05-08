@@ -145,13 +145,13 @@
   import {TabulatorFull as Tabulator} from 'tabulator-tables';
   import { createIcons, icons } from "lucide";
   import dom from "@left4code/tw-starter/dist/js/dom";
-
-  import { useProspectsStore } from "@/stores/leader/prospects";
+  
+  import { useCompaniesStore } from "@/stores/leader/companies";
   
   import i18n from "../../../language/i18n";
   const { t } = i18n.global;
 
-  const { deleteProspect } = useProspectsStore();
+  const { deleteCompany } = useCompaniesStore();
 
   const tableRef = ref();
   const tabulator = ref();
@@ -167,14 +167,20 @@
 
 const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
-        ajaxURL: `${import.meta.env.VITE_API_BASE}prospects`,
+        ajaxURL: `${import.meta.env.VITE_API_BASE}companies`,
         ajaxConfig:{
           method:"GET",
           headers: {
               "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
           },
         },
+        ajaxResponse:function(url, params, response){
+          //url - the URL of the request
+          //params - the parameters passed with the request
+          //response - the JSON object returned in the body of the response.
 
+          return response.data; //return the tableData property of a response json object
+        },
         pagination:true, //enable pagination
         paginationSize:20, //optional parameter to request a certain number of rows per page
         paginationInitialPage:1, //optional parameter to set the initial page to load
@@ -187,13 +193,14 @@ const initTabulator = () => {
           {
             title: t('list.prospects.column_1'),
             minWidth: 200,
-            field: "first_name",
+            field: "name",
             vertAlign: "middle",
             print: true,
             download: true,
             // responsive: 0,
             // hozAlign: "center",
           },
+          /*
           {
             title: t('list.prospects.column_2'),
             minWidth: 200,
@@ -226,6 +233,7 @@ const initTabulator = () => {
             print: true,
             download: true,
           },
+          */
           {
             title: t('list.prospects.column_6'),
             minWidth: 200,
@@ -237,10 +245,10 @@ const initTabulator = () => {
             headerSort:false,
             formatter(cell) {
               const a = dom(` <div class="flex items-center lg:justify-center">
-                                <a class="flex items-center mr-3" href="/prospect/edit/${cell.getData().id}">
+                                <a class="flex items-center mr-3" href="/company/edit/${cell.getData().id}">
                                   <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
                                 </a>
-                                <a class="flex items-center text-danger" @click="deleteProspect(${cell.getData().id})">
+                                <a class="flex items-center text-danger" @click="deleteCompany(${cell.getData().id})">
                                   <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete 
                                 </a>
                               </div>`);

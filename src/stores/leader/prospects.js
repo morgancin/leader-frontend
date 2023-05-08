@@ -63,8 +63,10 @@ export const useProspectsStore = defineStore("ProspectsStore", {
             if(data.birth_date != null)
                 data.birth_date = this.date_format(data.birth_date);
 
-            data.start_date = this.date_format(data.start_date);    //`${ye}-${mo}-${da}`;
-            data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
+            //data.start_date = this.date_format(data.start_date);    //`${ye}-${mo}-${da}`;
+            //data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
+            
+            data.activity_date = this.date_format(data.start_date) + ' ' + (data.start_time.hours + ':' + data.start_time.minutes);
 
             axiosClient.post('/activity-prospect', data)
             .then (({data}) => {

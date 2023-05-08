@@ -579,18 +579,12 @@ const routes = [
         component: CompanyUsers,
         beforeEnter: requireAuth
       },
-      /*
+      
+      //COMPANIES
       {
-        path: "prospects",
-        name: "side-menu-prospects",
-        component: Prospects,
-        beforeEnter: requireAuth
-      },
-      */
-      {
-        path: "companies",
-        name: "side-menu-companies",
-        component: Companies,
+        path: 'companies',
+        name: 'side-menu-companies',
+        component: () => import('../views/leader/companies/Index.vue'),
         beforeEnter: requireAuth
       },
       {

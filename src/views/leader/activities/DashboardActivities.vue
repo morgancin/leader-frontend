@@ -4,6 +4,9 @@
   import { ref, reactive, onMounted } from "vue";
   import { createIcons, icons } from "lucide";
   import {TabulatorFull as Tabulator} from 'tabulator-tables';
+  
+  import ActivityLeadsForm from "../../../components/leader/activities/Form_leads.vue";
+
   import dom from "@left4code/tw-starter/dist/js/dom";
   
   import i18n from "../../../language/i18n";
@@ -20,6 +23,16 @@
   const imageAssets = import.meta.globEager(
     `/src/assets/images/*.{jpg,jpeg,png,svg}`
   );
+
+  /////
+  const id_activity = ref();
+  const show_leads_modal = ref(false);
+    
+  const showLeadsModal = (activity_id) => {
+    id_activity.value = activity_id;
+    show_leads_modal.value = true;
+  };
+  //////////
 
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
@@ -58,13 +71,13 @@
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3 btn btn-primary" href="/activities/reschedule/${cell.getData().id}">
-                                  <i data-lucide="check-circle" class="w-4 h-4 mr-1"></i> Start
+                                  <i data-lucide="check-circle" class="w-4 h-4 mr-1"></i> Comenzar
                                 </a>
                                 <a class="flex items-center mr-3 btn btn-secondary" href="/quotes/create/${cell.getData().id}">
-                                  <i data-lucide="shopping-cart" class="w-4 h-4 mr-1"></i> Quote
+                                  <i data-lucide="shopping-cart" class="w-4 h-4 mr-1"></i> Cotización
                                 </a>
                                 <a class="flex items-center mr-3 btn btn-success " href="/contract/create/${cell.getData().id}">
-                                  <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Contract
+                                  <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Contrato
                                 </a>
                             </div>`);
 
@@ -432,9 +445,11 @@
       </Dropdown> -->
     </div>
   </div>
+
   <!-- BEGIN: HTML Table Data -->
   <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+      <button @click="showLeadsModal(1)" class="w-20 btn btn-primary">Comenzar</button>
       
        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
@@ -484,28 +499,24 @@
             id="tabulator-html-filter-go"
             type="button"
             class="w-full btn btn-primary sm:w-16"
-            @click="onFilter"
-          >
-            Go
+            @click="onFilter">
+              Go
           </button>
           <button
             id="tabulator-html-filter-reset"
             type="button"
             class="w-full mt-2 btn btn-secondary sm:w-16 sm:mt-0 sm:ml-1"
-            @click="onResetFilter"
-          >
-            Reset
+            @click="onResetFilter">
+              Reset
           </button>
         </div>
       </form>
       
       <div class="flex mt-5 sm:mt-0">
-        
         <button
           id="tabulator-print"
           class="w-1/2 mr-2 btn btn-outline-secondary sm:w-auto"
-          @click="onPrint"
-        >
+          @click="onPrint">
           <PrinterIcon class="w-4 h-4 mr-2" /> Print
         </button>
         
@@ -541,10 +552,23 @@
       <div
         id="tabulator"
         ref="tableRef"
-        class="mt-5 table-report table-report--tabulator"
-      ></div>
+        class="mt-5 table-report table-report--tabulator">
+      </div>
     </div>
+    <!--
+      v-if="show_modal_prospect"
+      @submit="submitStep"
+      @hideModal="hideModal"
+      @reset="resetForm()"
+      :login_user="login_user"
+      :show_modal="show_modal_prospect"
+    -->
+
+    <ActivityLeadsForm
+      v-if="show_leads_modal"
+      :id_activity="id_activity"
+      :show_modal="show_leads_modal" />
+      
   </div>
   <!-- END: HTML Table Data -->
 </template>
-

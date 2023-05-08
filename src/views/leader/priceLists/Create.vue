@@ -13,6 +13,7 @@
 
   const form = reactive({
                         name:'',
+                        account_id:''
                   });
 
   const submit = async () => {

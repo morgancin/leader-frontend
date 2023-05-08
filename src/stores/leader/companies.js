@@ -11,8 +11,8 @@ export const useCompaniesStore = defineStore("CompaniesStore", {
         async createCompany(company) {
             axiosClient.post('/companies', company)
             .then (({data}) => {
-                this.company = data.result;
-                this.message = data.message;
+                this.company = data.data;
+                //this.message = data.message;
             })
             .catch(function (error) {
                 this.message = error.message;

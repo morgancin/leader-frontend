@@ -12,13 +12,14 @@
   const { createPipeline } = usePipelinesStore();
 
   const form = reactive({
-                        id:'',
                         name:'',
-                        is_default:''                        
-                  });
+                        is_default:'',
+                        account_id:null,
+                        stages:[]                    
+                    });
 
   const submit = async () => {
-    //await createPipeline(form);
+    await createPipeline(form);
   }
 </script>
 

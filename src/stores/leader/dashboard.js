@@ -7,14 +7,6 @@ export const useDashboardStore = defineStore("DashboardStore", {
         pipelines: [],
     }),
     actions: {
-        date_format(date) {
-            let d = date;    //new Date();
-            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
-
-            return `${ye}-${mo}-${da}`;
-        },
         async fetchPipeline(id) {
             let result = [];
 

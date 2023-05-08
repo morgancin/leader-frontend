@@ -68,9 +68,9 @@
       }
 
     const result = await v$.value.$validate()
-    if(result) {
+      if(result) {
         emit('submit')
-    } 
+      } 
     } 
 </script>
 

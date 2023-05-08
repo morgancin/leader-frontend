@@ -140,10 +140,12 @@ import { createIcons, icons } from "lucide";
 import {Tabulator} from 'tabulator-tables';
 import dom from "@left4code/tw-starter/dist/js/dom";
 
+import i18n from "../../language/i18n";
+const { t } = i18n.global;
+
+/*
 import axios from "axios"
 import axiosClient from "../../axios";
-
-
 axiosClient.get('/companies/list')
   .then(({data}) => {
     console.log(data)
@@ -152,7 +154,7 @@ axiosClient.get('/companies/list')
   .catch(function (error) {
   console.log(error);
 })
-
+*/
 
 const tableRef = ref();
 const tabulator = ref();
@@ -168,6 +170,42 @@ const imageAssets = import.meta.globEager(
 
 const initTabulator = () => {
   tabulator.value = new Tabulator(tableRef.value, {
+    //ajaxURL: "https://api.leader.arkanmedia.com/api/activities",
+    ajaxURL: `${import.meta.env.VITE_API_BASE}companies`,
+    ajaxConfig:{
+      method:"GET",
+      headers: {
+        "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
+      },
+    },
+      
+    ajaxResponse:function(url, params, response){
+      return response.data; //return the tableData property of a response json object
+    },
+    pagination:true, //enable pagination
+    paginationSize:20, //optional parameter to request a certain number of rows per page
+    paginationInitialPage:1, //optional parameter to set the initial page to load
+    resizableColumnFit:true,
+    //paginationMode:"remote", //enable remote pagination
+    placeholder: "No matching records found",
+    
+    /*
+    ajaxURL: `${import.meta.env.VITE_API_BASE}companies`,
+      ajaxConfig:{
+        method:"GET",
+        headers: {
+                  "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
+                },
+    },
+    pagination:true, //enable pagination
+    paginationSize:20, //optional parameter to request a certain number of rows per page
+    paginationInitialPage:1, //optional parameter to set the initial page to load
+    resizableColumnFit:true,
+    //paginationMode:"remote", //enable remote pagination
+    placeholder: "No matching records found",
+    */
+
+    /*
     ajaxURL: `${import.meta.env.VITE_API_BASE}companies/list`,
     ajaxConfig:{
       method:"GET",
@@ -185,6 +223,8 @@ const initTabulator = () => {
     layout: "fitColumns",
     responsiveLayout: "collapse",
     placeholder: "No matching records found",
+    */
+
     columns: [
       {
         formatter: "responsiveCollapse",
@@ -197,202 +237,39 @@ const initTabulator = () => {
 
       // For HTML table
       {
-        title: "NAME",
+        title: t('list.activities.column_1'),
         minWidth: 200,
-        // responsive: 0,
         field: "name",
-        // hozAlign: "center",
         vertAlign: "middle",
         print: true,
         download: true,
       },
       {
-        title: "EMAIL",
+        title: t('list.prospects.column_6'),
         minWidth: 200,
-        // responsive: 0,
-        field: "email",
-        hozAlign: "center",
+        field: "actions",
         vertAlign: "middle",
-        print: true,
-        download: true,
-      },
-      // {
-      //   title: "PRODUCT NAME",
-      //   minWidth: 200,
-      //   responsive: 0,
-      //   field: "name",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter(cell) {
-      //     return `<div>
-      //           <div class="font-medium whitespace-nowrap">${
-      //             cell.getData().name
-      //           }</div>
-      //           <div class="text-xs text-slate-500 whitespace-nowrap">${
-      //             cell.getData().category
-      //           }</div>
-      //         </div>`;
-      //   },
-      // },
-      // {
-      //   title: "IMAGES",
-      //   minWidth: 200,
-      //   field: "images",
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter(cell) {
-      //     return `<div class="flex lg:justify-center">
-      //             <div class="w-10 h-10 intro-x image-fit">
-      //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-      //                 imageAssets[
-      //                   "/src/assets/images/" + cell.getData().images[0]
-      //                 ].default
-      //               }">
-      //             </div>
-      //             <div class="w-10 h-10 -ml-5 intro-x image-fit">
-      //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-      //                 imageAssets[
-      //                   "/src/assets/images/" + cell.getData().images[1]
-      //                 ].default
-      //               }">
-      //             </div>
-      //             <div class="w-10 h-10 -ml-5 intro-x image-fit">
-      //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-      //                 imageAssets[
-      //                   "/src/assets/images/" + cell.getData().images[2]
-      //                 ].default
-      //               }">
-      //             </div>
-      //         </div>`;
-      //   },
-      // },
-      // {
-      //   title: "REMAINING STOCK",
-      //   minWidth: 200,
-      //   field: "remaining_stock",
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      // },
-      // {
-      //   title: "STATUS",
-      //   minWidth: 200,
-      //   field: "status",
-      //   hozAlign: "center",
-      //   vertAlign: "middle",
-      //   print: false,
-      //   download: false,
-      //   formatter(cell) {
-      //     return `<div class="flex items-center lg:justify-center ${
-      //       cell.getData().status ? "text-success" : "text-danger"
-      //     }">
-      //           <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
-      //             cell.getData().status ? "Active" : "Inactive"
-      //           }
-      //         </div>`;
-      //   },
-      // },
+        print: false,
+        download: false,
+        hozAlign: "center",
+        headerSort:false,
+        formatter(cell) {
+          const a = dom(` <div class="flex items-center lg:justify-center">
+                            <a class="flex items-center mr-3" href="/company/edit/${cell.getData().id}">
+                              <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
+                            </a>
+                            <a class="flex items-center text-danger" @click="deleteCompany(${cell.getData().id})">
+                              <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete 
+                            </a>
+                          </div>`);
 
-
-      {
-          title: "ACTIONS",
-          minWidth: 200,
-          field: "actions",
-          //responsive: 1,
-          //hozAlign: "center",
-          vertAlign: "middle",
-          print: false,
-          download: false,
-          hozAlign: "center",
-          headerSort:false,
-          formatter(cell) {
-            const a = dom(`<div class="flex items-center lg:justify-center">
-                 <a class="flex items-center mr-3" href="/company/edit/${cell.getData().id_user}">
-                   <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
-                 </a>
-                 <a class="flex items-center text-danger" @click="deleteUser(${cell.getData().id_user})">
-                   <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete 
-                 </a>
-               </div>`);
-           dom(a).on("click", function () {
-             // On click actions
-           });
-
-           return a[0];
+          dom(a).on("click", function () {
+            // On click actions
+          });
+              
+          return a[0];
         },
       },
-
-
-
-
-      // For print format
-
-
-      // {
-      //   title: "PRODUCT NAME",
-      //   field: "name",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "CATEGORY",
-      //   field: "category",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "REMAINING STOCK",
-      //   field: "remaining_stock",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      // },
-      // {
-      //   title: "STATUS",
-      //   field: "status",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue() ? "Active" : "Inactive";
-      //   },
-      // },
-      // {
-      //   title: "IMAGE 1",
-      //   field: "images",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue()[0];
-      //   },
-      // },
-      // {
-      //   title: "IMAGE 2",
-      //   field: "images",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue()[1];
-      //   },
-      // },
-      // {
-      //   title: "IMAGE 3",
-      //   field: "images",
-      //   visible: false,
-      //   print: true,
-      //   download: true,
-      //   formatterPrint(cell) {
-      //     return cell.getValue()[2];
-      //   },
-      // },
     ],
     renderComplete() {
       createIcons({

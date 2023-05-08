@@ -13,49 +13,36 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             activity_date: null,
         },
         activity: {
+            //client_id: null,
+            //activity_result_id: null,
             comments: '',
-            client_id: null,
             activity_subject_id: null,
+            start_date: new Date(),
             start_time: { 
                 hours: new Date().getHours(),
                 minutes: new Date().getMinutes()
-            },
-            start_date: new Date(),
-            /*
-            end_time: { 
-                hours: new Date().getHours(),
-                minutes: new Date().getMinutes()
-            },
-            end_date: new Date().toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' }),
-            activity_date: new Date().toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' }),
-            */
+            }
         },
     }),
     actions: {
-        async createActivity() {
-            //this.activity.end_time = this.activity.end_time.hours + ':' + this.activity.end_time.minutes;
-            //this.activity.end_date = new Date(this.activity.end_date).toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' });
-            //this.activity.activity_date = new Date(this.activity.activity_date).toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' });
-            //this.activity.start_date = new Date(this.activity.start_date).toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' });
+        date_format(date) {
+            let d = date;    //new Date();
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
 
-            /*
-            const format_start_date = activity.start_date;
-            this.activity.start_date = (format_start_date) => {
-                const day = format_start_date.getDate();
-                const year = format_start_date.getFullYear();
-                const month = format_start_date.getMonth() + 1;
-                
-                return `${year}-${month}-${day}`;
-            }
-            */
-           
-            this.activity.start_time = this.activity.start_time.hours + ':' + this.activity.start_time.minutes;
+            return `${ye}-${mo}-${da}`;
+        },
+        async createActivity(data_) {
+            let data = { ...data_ };
+            
+            if(data.start_date & data.start_time)
+                data.activity_date = this.date_format(data.start_date) + ' ' + (data.start_time.hours + ':' + data.start_time.minutes);
 
-            axiosClient.post('/activities', this.activity)
-            .then (({data}) => {
+            axiosClient.post('/activities', data)
+            .then(({data}) => {
                 return data;
             })
-
             .catch((error) => {
                 this.message = error.message;
             })

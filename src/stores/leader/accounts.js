@@ -8,6 +8,15 @@ export const useAccountsStore = defineStore("AccountsStore", {
         message: null,
     }),
     actions: {
+        async fetchAccounts() {
+            axiosClient.get('/accounts')
+            .then (({data}) => {
+                this.accounts = data.data;
+            })
+            .catch(({error}) => {
+                this.message = "Error";
+            })
+        },
         /*
         async createCategory(category) {
             axiosClient.post('/categories', category)
@@ -37,15 +46,6 @@ export const useAccountsStore = defineStore("AccountsStore", {
             //}
         },
         */
-        async fetchAccounts() {
-            axiosClient.get('/accounts')
-            .then (({data}) => {
-                this.accounts = data.data;
-            })
-            .catch(({error}) => {
-                this.message = "Error";
-            })
-        },
         /*
         async fetchCategory(id) {
             axiosClient.get(`/categories/${id}`)
