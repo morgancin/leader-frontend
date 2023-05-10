@@ -30,7 +30,7 @@ export function useGetDataProducts()
         })
     };
 
-    return{
+    return {
         fetchProducts,
         fetchProductsCategory,
         products: readonly(results),

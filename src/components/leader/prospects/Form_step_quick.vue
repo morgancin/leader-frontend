@@ -48,7 +48,7 @@
   
   const show_modal_here = ref(props.show_modal);
 
-  const aServicePriority = [
+  const priorities = [
                             { key:'bajo', value: 'BAJO' },
                             { key:'medio', value: 'MEDIO' },
                             { key:'alto', value: 'ALTO' },
@@ -80,13 +80,14 @@
     email: { required, email },
     client_origin: { required },
     potential_value: { required },
-    service_priority: { required },
-    client_medium_origin_id: { required },
+    priority: { required },
+    propecting_mean_id: { required },
     phone_mobile: {
                   required,
                   numeric,
                   minLength: minLength(10),
-                  maxLength: maxLength(10) },
+                  maxLength: maxLength(10) 
+                },
     ////Activity
     start_date: { required },
     activity_type_id: { required },
@@ -370,18 +371,18 @@
                     </div>
 
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                      <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
+                      <label class="form-label">*{{ $t('add_prospect_details.priority') }}</label>
                       <v-select 
                         class="form-control" 
-                        :options="aServicePriority" 
+                        :options="priorities" 
                         :reduce="value => value.key"
                         label="value"
-                        v-model="data_prospect_activity.service_priority"
-                        :class="{ 'border-danger': validate.service_priority.$error }">
+                        v-model="data_prospect_activity.priority"
+                        :class="{ 'border-danger': validate.priority.$error }">
                       </v-select>
-                        <template v-if="validate.service_priority.$error">
+                        <template v-if="validate.priority.$error">
                           <div
-                            v-for="(error, index) in validate.service_priority.$errors"
+                            v-for="(error, index) in validate.priority.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                             {{ error.$message }}
@@ -416,13 +417,13 @@
                             :options="dataProspectingMeans"
                             :reduce="description => description.id" 
                             label="description"
-                            v-model="data_prospect_activity.client_medium_origin_id"
-                            :class="{ 'border-danger': validate.client_medium_origin_id.$error }">
+                            v-model="data_prospect_activity.propecting_mean_id"
+                            :class="{ 'border-danger': validate.propecting_mean_id.$error }">
                         </v-select>
                         
-                        <template v-if="validate.client_medium_origin_id.$error">
+                        <template v-if="validate.propecting_mean_id.$error">
                           <div
-                            v-for="(error, index) in validate.client_medium_origin_id.$errors"
+                            v-for="(error, index) in validate.propecting_mean_id.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                             {{ error.$message }}

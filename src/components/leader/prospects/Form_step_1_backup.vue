@@ -199,7 +199,7 @@
         { clv:'87', entidad: 'DOBLE NACIONALIDAD' },
         { clv:'88', entidad: 'NACIDO EXTRANJERO O NATURALIZADO' },
     ];
-    const aServicePriority = [
+    const priorities = [
         { key:'bajo', value: 'BAJO' },
         { key:'medio', value: 'MEDIO' },
         { key:'alto', value: 'ALTO' },
@@ -465,10 +465,10 @@
                             v-model.number="prospect.extension" />
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
-                        <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
-                        <v-select class="form-control" :options="aServicePriority" :reduce="value => value.key"
-                            label="value" :placeholder="$t('add_prospect_details.service_priority')"
-                            v-model="prospect.service_priority">
+                        <label class="form-label">*{{ $t('add_prospect_details.priority') }}</label>
+                        <v-select class="form-control" :options="priorities" :reduce="value => value.key"
+                            label="value" :placeholder="$t('add_prospect_details.priority')"
+                            v-model="prospect.priority">
                         </v-select>
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6 md:col-span-4">
@@ -482,7 +482,7 @@
                         <label class="form-label">{{ $t('add_prospect_details.medium') }}</label>
                         <v-select class="form-control" :options="dataOriginsMediums"
                             :reduce="description => description.id" label="description"
-                            :placeholder="$t('add_prospect_details.medium')" v-model="prospect.client_medium_origin_id">
+                            :placeholder="$t('add_prospect_details.medium')" v-model="prospect.propecting_mean_id">
                         </v-select>
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6 md:col-span-4">

@@ -55,9 +55,9 @@
         birth_date: { required },
         birth_place: { required },
         email: { required, email },
-        service_priority: { required },
+        priority: { required },
         // client_origin: { required },
-        // client_medium_origin_id: { required }
+        // propecting_mean_id: { required }
     }
 
     const rulesCurp = {
@@ -222,7 +222,7 @@
         { clv:'88', entidad: 'NACIDO EXTRANJERO O NATURALIZADO' },
     ];
 
-    const aServicePriority = [
+    const priorities = [
         { key:'bajo', value: 'BAJO' },
         { key:'medio', value: 'MEDIO' },
         { key:'alto', value: 'ALTO' },
@@ -496,32 +496,32 @@
                             v-model.number="prospect.extension" />
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6 md:col-span-3">
-                        <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
+                        <label class="form-label">*{{ $t('add_prospect_details.priority') }}</label>
                         <v-select 
                             class="form-control" 
-                            :options="aServicePriority" 
+                            :options="priorities" 
                             :reduce="value => value.key"
                             label="value" 
                             
-                            v-model="prospect.service_priority">
+                            v-model="prospect.priority">
                         </v-select>
                     </div>
 
                     <!-- <div class="input-form intro-y col-span-12 sm:col-span-6 md:col-span-3">
-                        <label class="form-label w-full flex flex-col sm:flex-row">*{{ $t('add_prospect_details.service_priority') }}</label>
+                        <label class="form-label w-full flex flex-col sm:flex-row">*{{ $t('add_prospect_details.priority') }}</label>
                         <v-select 
                             class="form-control" 
-                            :options="aServicePriority" 
+                            :options="priorities" 
                             :reduce="value => value.key"
                             label="value" 
                             
-                            v-model="prospect.service_priority"
-                            v-model.trim="v$.service_priority.$model"
-                            :class="{ 'border-danger': v$.service_priority.$error }">
+                            v-model="prospect.priority"
+                            v-model.trim="v$.priority.$model"
+                            :class="{ 'border-danger': v$.priority.$error }">
                         </v-select>
-                        <template v-if="v$.service_priority.$error">
+                        <template v-if="v$.priority.$error">
                           <div
-                            v-for="(error, index) in v$.service_priority.$errors"
+                            v-for="(error, index) in v$.priority.$errors"
                             :key="index"
                             class="text-danger mt-2">
                             {{ error.$message }}
@@ -571,7 +571,7 @@
                             :reduce="description => description.id" 
                             label="description"
                             
-                            v-model="prospect.client_medium_origin_id">
+                            v-model="prospect.propecting_mean_id">
                         </v-select>
                     </div>
 
@@ -583,13 +583,13 @@
                             :reduce="description => description.id" 
                             label="description" 
                             
-                            v-model="prospect.client_medium_origin_id"
-                            v-model.trim="v$.client_medium_origin_id.$model"
-                            :class="{ 'border-danger': v$.client_medium_origin_id.$error }">
+                            v-model="prospect.propecting_mean_id"
+                            v-model.trim="v$.propecting_mean_id.$model"
+                            :class="{ 'border-danger': v$.propecting_mean_id.$error }">
                         </v-select>
-                        <template v-if="v$.client_medium_origin_id.$error">
+                        <template v-if="v$.propecting_mean_id.$error">
                           <div
-                            v-for="(error, index) in v$.client_medium_origin_id.$errors"
+                            v-for="(error, index) in v$.propecting_mean_id.$errors"
                             :key="index"
                             class="text-danger mt-2">
                             {{ error.$message }}

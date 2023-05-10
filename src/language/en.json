@@ -129,8 +129,7 @@
         "home_phone": "Home Phone",
         "office_phone": "Office Phone",
         "extension_phone": "Extension Phone",
-        "service_priority": "Priority",
-        
+        "priority": "Priority",
         "origin": "Source",
         "medium": "Means",
         "company": "Company",

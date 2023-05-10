@@ -5,7 +5,7 @@
 </script>
 
 <script setup>    
-    import { onMounted, ref, watch, toRefs, reactive } from 'vue';
+    import { onMounted, ref, watch, reactive } from 'vue';
     import { storeToRefs } from "pinia";
 
     import { numeric, required, email, minLength, maxLength } from '@vuelidate/validators';
@@ -18,29 +18,41 @@
 
     import Datepicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
+
+    //Forms
+    import CompanyForm from "@/components/leader/companies/Form.vue";
     
+    //Stores
     import { useAccountsStore } from "../../../stores/leader/accounts";
-    import { useProspectsStore } from "../../../stores/leader/prospects";
     import { useCompaniesStore } from "../../../stores/leader/companies";
+    import { useProspectsStore } from "../../../stores/leader/prospects";
 
-    /////
+    //Store methods
+    
+    import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
     import { useGetDatasTags } from '../../../composables/getData/useGetDatasTags';
-
-    const { fetchTags, results, error } = useGetDatasTags();
-    const { fetchOrigins, fetchOriginsMediums, fetchCurp } = useProspectsStore();
+    const { fetchTags } = useGetDatasTags();
+    const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
+    const { fetchCompanies } = useCompaniesStore();
+    const { fetchAccounts } = useAccountsStore();
+    const { fetchCurp } = useProspectsStore();
+    const { createCompany } = useCompaniesStore();
     
-    const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
-    const { companies: dataCompanies } = storeToRefs(useCompaniesStore());
-    
-    const dataTags_tag = ref([]);
-    const dataTags_list = ref([]);
+    //Catalogs
+    const { accounts } = storeToRefs(useAccountsStore());
+    const { companies } = storeToRefs(useCompaniesStore());
+    const catalogs = ref({});
     
     onMounted(async() => {
-        await fetchTags('tag');
-        dataTags_tag.value = results.value;
-        
-        await fetchTags('list');
-        dataTags_list.value = results.value;
+        await fetchAccounts();
+        await fetchCompanies();
+        catalogs.value.tags = await fetchTags();
+        catalogs.value.prospecting_sources = await fetchProspectingSources();
+        if (props.prospect.prospecting_mean_id) {
+          await fetchProspectingMean(props.prospect.prospecting_mean_id).then(async mean => {
+            props.prospect.prospecting_source_id = mean.prospecting_source_id;
+          })
+        }
     });
     //////////
     
@@ -51,27 +63,23 @@
         }
     });
     const emit = defineEmits(["submit"]);
-
+    
     ////////RULES
     const rules = {
-        ////Prospect
+        account_id: { required },
         last_name: { required },
         first_name: { required },
-        account_id: { required },
         email: { required, email },
         client_origin: { required },
         second_last_name:{ required },
-        service_priority: { required },
-        client_medium_origin_id: { required },
+        priority: { required },
+        propecting_mean_id: { required },
         phone_mobile: {
-                    required,
-                    numeric,
-                    minLength: minLength(10),
-                    maxLength: maxLength(10) },
-        ////Activity
-        //start_date: { required },
-        //activity_type_id: { required },
-        //activity_subject_id: { required }
+          required,
+          numeric,
+          minLength: minLength(10),
+          maxLength: maxLength(10)
+        },
     }
     
     const rulesCurp = {
@@ -97,7 +105,7 @@
     }
     ////////////////
     
-    const validate = useVuelidate(rules, toRefs(props.prospect));
+    const validate = useVuelidate(rules, props.prospect);
 
     const submitForm = async () => {
         validate.value.$touch();
@@ -113,8 +121,7 @@
                 position: "right",
                 stopOnFocus: true,
             }).showToast();
-
-        }else{
+        } else {
             /*
             Toastify({
                 node: dom("#success-notification-content")
@@ -132,24 +139,17 @@
 
         const result = await validate.value.$validate();
         
-        if(result) {
+        if (result) {
             //await createProspectActivity(data_prospect_activity);
             emit('submit');
         }
     }
     
     ////////ORIGINS & ORIGINS MEDIUMS
-    const dataOrigins = ref([]);
-    const dataOriginsMediums = ref([]);
-    
-    onMounted(async() => {
-        dataOrigins.value = await fetchOrigins();
-    });
-    
     watch(
-        () => props.prospect.client_origin,
+        () => props.prospect.prospecting_source_id,
         async () => {
-            dataOriginsMediums.value = await fetchOriginsMediums(props.prospect.client_origin);
+            catalogs.value.prospecting_means = await fetchProspectingMeans(props.prospect.prospecting_source_id);
         }
     );
     ////////////////
@@ -158,21 +158,14 @@
     const v2$ = useVuelidate(rulesCurp, props.prospect);
     const fecthCurpSubmit = async () => {
         const result = await v2$.value.$validate();
-        //console.log('Entras al curp', result);
-        
+
         if(result){
             fetchCurp();
         }
     }
     
     watch(
-        () => props.prospect.first_name,
-        () => {
-            fecthCurpSubmit();
-        }
-    );
-    watch(
-        () => props.prospect.last_name,
+        () => props.prospect.first_name || props.prospect.last_name,
         () => {
             fecthCurpSubmit();
         }
@@ -239,7 +232,8 @@
         { clv:'87', entidad: 'DOBLE NACIONALIDAD' },
         { clv:'88', entidad: 'NACIDO EXTRANJERO O NATURALIZADO' },
     ];
-    const aServicePriority = [
+
+    const priorities = [
         { key:'bajo', value: 'BAJO' },
         { key:'medio', value: 'MEDIO' },
         { key:'alto', value: 'ALTO' },
@@ -256,8 +250,6 @@
         return `${day}/${month}/${year}`;
     }
 
-    import CompanyForm from "@/components/leader/companies/Form.vue";
-    const { createCompany } = useCompaniesStore();
     const show_company_prospect = ref(false);
     const addCompanyButton = () => {
         show_company_prospect.value = true;
@@ -266,14 +258,14 @@
         show_company_prospect.value = false;
     }
     const formCompanyData = reactive({
-                                    name: '',
-                                    phone: '',
-                                    tax_id: '',
-                                    address: '',
-                                    website: '',
-                                    comments: '',
-                                    potential_value: ''
-                                });
+        name: '',
+        phone: '',
+        tax_id: '',
+        address: '',
+        website: '',
+        comments: '',
+        potential_value: ''
+    });
 
     const submitCompany = async () => {
           await createCompany(formCompanyData)
@@ -281,9 +273,7 @@
 </script>
 
 <template>
-      
     <div class="speciallabels pb0">
-
         <form @submit.prevent="submitForm" autocomplete="on"> 
             <div class="grid gap-3">
                 <div class="col-span-12 p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
@@ -291,7 +281,6 @@
                       <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.basic-info')}}
                     </div>
                     <div class="mt-5">
-
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
@@ -311,7 +300,7 @@
                               <v-select
                                 label="name"
                                 class="form-control"
-                                :options="dataAccounts"
+                                :options="accounts"
                                 v-model="prospect.account_id"
                                 :reduce="name => name.id"
                                 :class="{ 'border-danger': validate.account_id.$error }"> 
@@ -344,7 +333,7 @@
                                   <v-select
                                     label="name"
                                     class="form-control" 
-                                    :options="dataCompanies"
+                                    :options="companies"
                                     :reduce="name => name.id"
                                     v-model="prospect.company_id">
                                   </v-select>
@@ -692,33 +681,32 @@
                             </div>
                         </div>
 
-
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
                                 <div class="flex items-center">
-                                  <div class="font-medium">{{ $t('add_prospect_details.service_priority') }}</div>
+                                  <div class="font-medium">{{ $t('add_prospect_details.priority') }}</div>
                                 </div>
                                 <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                                  {{ $t('add_prospect_details.service_priority') }}
+                                  {{ $t('add_prospect_details.priority') }}
                                 </div>
                               </div>
                             </div>
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
                                     <div class="col-span-12 intro-y sm:col-span-6 md:col-span-4 withlabel">
-                                        <label class="form-label">*{{ $t('add_prospect_details.service_priority') }}</label>
+                                        <label class="form-label">*{{ $t('add_prospect_details.priority') }}</label>
                                         <v-select 
                                             class="form-control" 
-                                            :options="aServicePriority" 
+                                            :options="priorities" 
                                             :reduce="value => value.key"
                                             label="value"
-                                            v-model="prospect.service_priority"
-                                            :class="{ 'border-danger': validate.service_priority.$error }">
+                                            v-model="prospect.priority"
+                                            :class="{ 'border-danger': validate.priority.$error }">
                                         </v-select>
-                                        <template v-if="validate.service_priority.$error">
+                                        <template v-if="validate.priority.$error">
                                           <div
-                                            v-for="(error, index) in validate.service_priority.$errors"
+                                            v-for="(error, index) in validate.priority.$errors"
                                             :key="index"
                                             class="mt-2 text-danger">
                                             {{ error.$message }}
@@ -729,10 +717,10 @@
                                         <label class="form-label">*{{ $t('add_prospect_details.origin') }}</label>
                                         <v-select
                                             class="form-control"
-                                            label="description"
-                                            :options="dataOrigins"                            
-                                            :reduce="description => description.id"
-                                            v-model="prospect.client_origin"
+                                            label="name"
+                                            :options="catalogs.prospecting_sources"                            
+                                            :reduce="object => object.id"
+                                            v-model="prospect.prospecting_source_id"
                                             :class="{ 'border-danger': validate.client_origin.$error }">
                                         </v-select>
                                         <template v-if="validate.client_origin.$error">
@@ -748,15 +736,15 @@
                                         <label class="form-label">*{{ $t('add_prospect_details.medium') }}</label>
                                         <v-select
                                             class="form-control"
-                                            label="description"
-                                            :options="dataOriginsMediums"
-                                            :reduce="description => description.id"
-                                            v-model="prospect.client_medium_origin_id"
-                                            :class="{ 'border-danger': validate.client_medium_origin_id.$error }">
+                                            label="name"
+                                            :options="catalogs.prospecting_means"
+                                            :reduce="object => object.id"
+                                            v-model="prospect.prospecting_mean_id"
+                                            :class="{ 'border-danger': validate.propecting_mean_id.$error }">
                                         </v-select>
-                                        <template v-if="validate.client_medium_origin_id.$error">
+                                        <template v-if="validate.propecting_mean_id.$error">
                                           <div
-                                            v-for="(error, index) in validate.client_medium_origin_id.$errors"
+                                            v-for="(error, index) in validate.propecting_mean_id.$errors"
                                             :key="index"
                                             class="mt-2 text-danger">
                                             {{ error.$message }}
@@ -766,7 +754,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
@@ -781,19 +768,17 @@
                             </div>
                             <div class="flex-1 w-full mt-3 xl:mt-0 withmultiple">                      
                               <v-select
-                                    multiple
-                                    label="name"
-                                    class="form-control"
-                                    :options="dataTags_tag">
-                                </v-select>
+                                  multiple
+                                  class="form-control"
+                                  label="name"
+                                  :options="catalogs.tags"
+                                  :reduce="tag => tag.id"
+                                  v-model="prospect.tags">
+                              </v-select>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
-
             </div>
 
             <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">                    

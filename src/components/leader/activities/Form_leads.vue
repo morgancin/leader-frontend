@@ -146,8 +146,8 @@
         email: { required, email },
         client_origin: { required },
         potential_value: { required },
-        service_priority: { required },
-        client_medium_origin_id: { required },
+        priority: { required },
+        propecting_mean_id: { required },
         phone_mobile: {
                     required,
                     numeric,

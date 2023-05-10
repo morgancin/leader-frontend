@@ -59,7 +59,7 @@
             v-model="price.product_id">
           </v-select>
           <!--
-            :class="{ 'border-danger': validate.service_priority.$error }"
+            :class="{ 'border-danger': validate.priority.$error }"
           <template v-if="validate.client_origin.$error">
             <div
               v-for="(error, index) in validate.client_origin.$errors"

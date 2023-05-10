@@ -71,7 +71,7 @@
       if(result) {
         emit('submit')
       } 
-    } 
+  } 
 </script>
 
 <template>
