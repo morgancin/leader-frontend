@@ -1,48 +1,60 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useCurrenciesStore = defineStore("CurrenciesStore", {
     state: () => ({
         currency: {},
-        currencies: [],
-        message: null,
+        currencies: []
+        //message: null,
+        //error: null
     }),
     actions: {
         async createCurrency(currency) {
             axiosClient.post('/currencies', currency)
             .then (({data}) => {
-                return data;
-            })
-            .catch(function (error) {
-                this.message = error.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/currencies' });
+
+            }).catch ((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async updateCurrency() {
             axiosClient.put(`/currencies/${this.currency.id}`, this.currency)
             .then (({data}) => {
-                this.message = data.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/currencies' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+                //this.message = error.message;
             })
-
-            /*
-            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
-            .catch(error){
-                hasError.value=true;
-                if(axios.isAxiosError(error)){
-                    return errorMessage.value = error.message;
-                }
-            }
-            */
         },
         async fetchCurrencies() {
             axiosClient.get('/currencies')
             .then (({data}) => {
                 this.currencies = data.data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+                //this.message = error.message;
             })
         },
         async fetchCurrency(id) {
@@ -50,8 +62,11 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
             .then (({data}) => {
                 this.currency = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+                //this.message = error.message;
             })
         },
     }

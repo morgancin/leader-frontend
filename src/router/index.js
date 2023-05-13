@@ -319,19 +319,19 @@ const routes = [
 
       //PROSPECTS CATALOGUE ACTIVITIES
       {
-        path: 'activity',
-        name: 'side-menu-activity-type',  //name: 'side-menu-activity',
+        path: 'activities-types',
+        name: 'side-menu-activity-type',
         component: () => import('../views/leader/activities_types/DashboardActivities.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: 'add-activities',
-        name: 'side-menu-add-activities-types', //name: 'side-menu-add-activities',
+        path: 'add-activities-types',
+        name: 'side-menu-add-activities-types',
         component: () => import('../views/leader/activities_types/Create.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: '/activities/edit/:id',
+        path: '/activities-types/edit/:id',
         name: 'side-menu-edit-activities-types',
         component: () => import('../views/leader/activities_types/Edit.vue'),
         beforeEnter: requireAuth
@@ -906,12 +906,12 @@ const routes = [
         name: "simple-menu-categories",
         component: Categories,
       },
-      */
       {
         path: "add-product",
         name: "simple-menu-add-product",
         component: AddProduct,
       },
+      */
       {
         path: "product-list",
         name: "simple-menu-product-list",

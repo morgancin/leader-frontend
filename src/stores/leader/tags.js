@@ -1,49 +1,67 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useTagsStore = defineStore("TagsStore", {
     state: () => ({
         tag: {},
-        tags: [],
-        message: null,
+        tags: []
     }),
     actions: {
         async createTags(tag) {
             axiosClient.post('/tags', tag)
             .then (({data}) => {
-                return data;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/tags' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchTag(id) {
             axiosClient.get(`/tags/${id}`)
             .then (({data}) => {
-                //return data;
                 this.tag = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async updateTag() {
             axiosClient.put(`/tags/${this.tag.id}`, this.tag)
             .then (({data}) => {
-                this.message = data.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/tags' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchTags() {
             axiosClient.get('/tags')
             .then (({data}) => {
-                //return data;
-                this.tag = data;
+                this.tags = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
     }

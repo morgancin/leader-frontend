@@ -7,6 +7,13 @@
 <script setup>
   import { storeToRefs } from "pinia";
   import { onMounted, ref, provide, reactive, computed } from 'vue';
+
+  import { required } from '@vuelidate/validators';
+  import { useVuelidate } from '@vuelidate/core';
+
+  import { toast } from 'vue3-toastify';
+  import 'vue3-toastify/dist/index.css';
+
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
 
@@ -18,19 +25,6 @@
   import { useGetDataComponents } from '../../../composables/getData/useGetDataComponents';
   import { useGetDataCurrencies } from '../../../composables/getData/useGetDataCurrencies';
   import { useGetDataPricesLists } from '../../../composables/getData/useGetDataPricesLists';
-
-  const props = defineProps({
-                            product: {
-                                      type: Object,
-                                      required: true,
-                                    },
-                            cart_components: {
-                                              type: Object,
-                                              required: true,
-                                            },
-                          });
-                          
-  defineEmits(["submit"]);
 
   const { cartComponents } = storeToRefs(useComponentsCartStore());
   const { cartPriceslists } = storeToRefs(usePricesListsCartStore());
@@ -51,9 +45,21 @@
   const priceslists_modal = ref({});
   const dropzoneValidationRef = ref();
   const addComponentModal = ref(false);
-  //const dataCategories = ref([]);
-  //const dataPricesLists = ref({});
-  //const addPricesListsModal = ref(false);
+  
+  const props = defineProps({
+                            product: {
+                                      type: Object,
+                                      required: true,
+                                    },
+                            cart_components: {
+                                              type: Object,
+                                              required: true,
+                                            },
+                          });
+  const emit = defineEmits(["submit"]);                      
+  
+  
+  //defineEmits(["submit"]);
 
   const add_component_form = reactive({
                                         name:'',
@@ -95,22 +101,6 @@
     addComponentModal.value = false;      
   }
 
-  /*
-  const submit_add_component = () => {
-    component_modal.value = add_component_form.name;
-    
-    add_component_car(
-                        component_modal.value,                                                     
-                        add_component_form.quantity,
-                        add_component_form.name
-                    );
-    
-    add_component_form.name = '';
-    add_component_form.quantity = 1;
-    addComponentModal.value = false;      
-  }
-  */
-  
   onMounted(async() => {
     await fetchAccounts();
     await fetchCategories();
@@ -143,35 +133,45 @@
                                     price: null
                                 });
     })
-    
-    /*
-    props.product.price_lists.value = results_prices_lists.value.reduce((p, c) => {
-      
-      p[c.id] = {
-                  //...c,
-                  //price: '',
-                  //currency: '',
-                  "price_list_id": c.id,
-                  "currency_id":null,
-                  "price": null
-                }
-      
-      return p
-    }, {});
-    */
-
   });
 
   provide("bind[dropzoneValidationRef]", (el) => {
     dropzoneValidationRef.value = el;
   });
+  
+  ////////RULES
+  const rules = {
+    name: { required },
+    quantity: { required },
+    account_id: { required },
+    category_id: { required },
+    description: { required }
+  }
+  
+  const validate = useVuelidate(rules, props.product);
+  
+  const submitCreate = async () => {
+    validate.value.$touch();
+    
+    if (validate.value.$invalid) {
+      toast.error('Error de validación', {
+                      autoClose:1000,
+                    });
+    }
+    
+    const result = await validate.value.$validate();
+    
+    if(result) {
+      emit('submit');
+    }
+  }
 </script>
 
 <template>
   <div class="col-span-12 intro-y lg:col-span-6">
     
     <!-- BEGIN: Form Layout -->
-    <form @submit.prevent="$emit('submit')" autocomplete="on">
+    <form @submit.prevent="submitCreate" autocomplete="on">
 
       <div class="p-5 intro-y box">
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
@@ -201,8 +201,18 @@
                       class="form-control" 
                       :options="dataAccounts" 
                       :reduce="name => name.id"
-                      v-model="product.account_id">
+                      v-model="product.account_id"
+                      :class="{ 'border-danger': validate.account_id.$error }">
                     </v-select>
+                    
+                    <template v-if="validate.account_id.$error">
+                      <div
+                          v-for="(error, index) in validate.account_id.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                            {{ error.$message }}
+                        </div>
+                    </template>
                     <div class="text-right form-help">
                       {{ $t('add_products.file_description_account') }}
                     </div>
@@ -231,22 +241,21 @@
                       class="form-control" 
                       :options="dataCategories" 
                       :reduce="name => name.id"
-                      v-model="product.category_id">
+                      v-model="product.category_id"
+                      :class="{ 'border-danger': validate.category_id.$error }">
                     </v-select>
+
+                    <template v-if="validate.category_id.$error">
+                      <div
+                          v-for="(error, index) in validate.category_id.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                            {{ error.$message }}
+                        </div>
+                    </template>
                     <div class="text-right form-help">
                       {{ $t('add_companies.select_option') }}
                     </div>
-                    <!--
-                      :class="{ 'border-danger': validate.priority.$error }"
-                    <template v-if="validate.client_origin.$error">
-                      <div
-                        v-for="(error, index) in validate.client_origin.$errors"
-                        :key="index"
-                        class="mt-2 text-danger">
-                        {{ error.$message }}
-                      </div>
-                    </template>
-                  -->
                   </div>
               </div>
       
@@ -301,7 +310,18 @@
                         type="text"
                         class="w-full form-control"
                         :placeholder="$t('add_products.product_name')"
-                        v-model="product.name" />
+                        v-model="product.name"
+                        :class="{ 'border-danger': validate.name.$error }" />
+
+                    <template v-if="validate.name.$error">
+                      <div
+                        v-for="(error, index) in validate.name.$errors"
+                        :key="index"
+                        class="mt-2 text-danger">
+                          {{ error.$message }}
+                      </div>
+                    </template>
+
                     <div class="text-right form-help">
                         Deben ser al menos 2 caracteres.
                     </div>
@@ -330,7 +350,17 @@
                         type="text"
                         class="w-full form-control"
                         :placeholder="$t('add_products.product_description')"
-                        v-model="product.description" />
+                        v-model="product.description"
+                        :class="{ 'border-danger': validate.description.$error }" />
+                    
+                    <template v-if="validate.description.$error">
+                      <div
+                          v-for="(error, index) in validate.description.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                            {{ error.$message }}
+                        </div>
+                    </template>
                     <div class="text-right form-help">
                         Deben ser al menos 2 caracteres.
                     </div>
@@ -359,7 +389,17 @@
                         type="number"
                         class="w-full form-control"
                         :placeholder="$t('add_products.product_quantity')"
-                        v-model="product.quantity" />
+                        v-model="product.quantity"
+                        :class="{ 'border-danger': validate.quantity.$error }" />
+
+                    <template v-if="validate.quantity.$error">
+                      <div
+                          v-for="(error, index) in validate.quantity.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                            {{ error.$message }}
+                        </div>
+                    </template>
                   </div>
               </div>
           </div>

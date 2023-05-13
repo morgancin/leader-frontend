@@ -1,63 +1,57 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
-// export const useActivitiesTypeStore = defineStore("ActivitiesType", {
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
     state: () => ({
         activity_type: {},
-        activities_types: [],
-        message: null,
+        activities_types: []
     }),
     actions: {
         async createActivityType(activity) {
             axiosClient.post('/activity-types', activity)
             .then (({data}) => {
-                return data;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/activities-types' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async updateActivityType() {
             axiosClient.put(`/activity-types/${this.activity_type.id}`, this.activity_type)
             .then (({data}) => {
-                //this.activity_type = data.result;
-                this.message = data.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/activities-types' });
             })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-
-            /*
-            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
-            .catch(error){
-                hasError.value=true;
-                if(axios.isAxiosError(error)){
-                    return errorMessage.value = error.message;
-                }
-            }
-            */
-        },
-        /*
-        async fetchActivity() {
-            axiosClient.get('/activities/types/list')
-            .then (({data}) => {
-                //return data;
-                this.activity = data;
-            })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
-        */
         async fetchActivitiesTypes() {
             axiosClient.get('/activity-types')
             .then (({data}) => {
                 //return data;
                 this.activities_types = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchActivityType(id) {
@@ -66,8 +60,10 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
                 //return data;
                 this.activity_type = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
     }

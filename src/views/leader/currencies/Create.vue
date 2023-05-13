@@ -5,16 +5,19 @@
 </script>
 
 <script setup>
-  import { reactive } from "vue";
-  import { useCurrenciesStore } from "../../../stores/leader/currencies";
+  import { ref, reactive } from 'vue';
+  import { storeToRefs } from "pinia";
+
   import CurrenciesForm from "../../../components/leader/currencies/Form.vue";
   
-  const { createCurrency } = useCurrenciesStore();
+  import { useCurrenciesStore } from "../../../stores/leader/currencies";
 
+  const { createCurrency } = useCurrenciesStore();
+  
   const form = reactive({
                         code:'',
-                        name:'',
-                  });
+                        name:''
+                      });
 
   const submit = async () => {
     await createCurrency(form);

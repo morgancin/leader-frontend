@@ -1,22 +1,52 @@
 <script>
   export default {
-    name: "PricesCreateView"
+    name: "CategoriesCreateView"
   }
 </script>
 
 <script setup>
   import { reactive } from "vue";
-  import { useCategoriesStore } from "../../../stores/leader/categories";
   import CategoriesForm from "../../../components/leader/categories/Form.vue";
+
+  import { useCategoriesStore } from "../../../stores/leader/categories";
   
   const { createCategory } = useCategoriesStore();
 
   const form = reactive({
                       name:'',
-                      category_id:'',
+                      category_id:''
                   });
+  /*
+  //import { required } from '@vuelidate/validators';
+  //import { useVuelidate } from '@vuelidate/core';
+
+  //import { toast } from 'vue3-toastify';
+  //import 'vue3-toastify/dist/index.css';
+  
+  ////////RULES
+  const rules = {
+    name: { required }
+  }
+  
+  const validate = useVuelidate(rules, form);
+  */
 
   const submit = async () => {
+    /*
+    validate.value.$touch();
+    
+    if (validate.value.$invalid) {
+      toast.error('Error de validación', {
+                    autoClose:1000,
+                  });
+    }
+
+    const result = await validate.value.$validate();
+    
+    if(result) {
+      
+    }
+    */
     await createCategory(form);
   }
 </script>

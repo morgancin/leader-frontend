@@ -377,7 +377,7 @@
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('catalogs_activities.list_activities') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
-      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-activities`">{{ $t('catalogs_activities.btn_add_new_activities') }}</router-link>
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-activities-types`">{{ $t('catalogs_activities.btn_add_new_activities') }}</router-link>
       <!-- <Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">
           <span class="flex items-center justify-center w-5 h-5">

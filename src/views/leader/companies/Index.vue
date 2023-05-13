@@ -147,15 +147,20 @@ const initTabulator = () => {
               "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
           },
         },
-        ajaxResponse:function(url, params, response) {
-          return response.data;
+        ajaxResponse:function(url, params, response){
+            //url - the URL of the request
+            //params - the parameters passed with the request
+            //response - the JSON object returned in the body of the response.
+
+            return response.data; //return the tableData property of a response json object
         },
-        pagination:true,
-        paginationSize:20,
-        paginationInitialPage:1,
+        pagination:true, //enable pagination
+        paginationSize:20, //optional parameter to request a certain number of rows per page
+        paginationInitialPage:1, //optional parameter to set the initial page to load
         resizableColumnFit:true,
+
+        layout:"fitColumns",
         placeholder: "No matching records found",
-        
         columns: [
           // For HTML table
           {

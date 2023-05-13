@@ -1,30 +1,46 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const usePipelinesStore = defineStore("PipelinesStore", {
     state: () => ({
         pipeline: {},
         pipelines: [],
-        pipeline_stages: [],
-        message: null,
+        pipeline_stages: []
     }),
     actions: {
         async createPipeline(data) {
             axiosClient.post('/pipelines', data)
             .then (({data}) => {
-                return data;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/pipelines' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async updatePipelines() {
             axiosClient.put(`/pipelines/${this.pipeline.id}`, this.pipeline)
             .then (({data}) => {
-                this.message = data.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/pipelines' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchPipeline(id) {
@@ -32,8 +48,10 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
             .then (({data}) => {
                 this.currency = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchPipelines() {
@@ -41,8 +59,10 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
             .then (({data}) => {
                 this.pipelines = data.data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchPipelineStages(pipeline_id) {
@@ -53,8 +73,10 @@ export const usePipelinesStore = defineStore("PipelinesStore", {
                 .then (({data}) => {
                     this.pipeline_stages = data.data;
                 })
-                .catch(function (error) {
-                    this.message = error.message;
+                .catch((error) => {
+                    toast.error(error.response.data.message, {
+                        autoClose:1000
+                    });
                 })
             }
         },

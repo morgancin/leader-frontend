@@ -1,42 +1,42 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
     state: () => ({
         subject: {},
-        subjects: [],
-        message: null,
+        subjects: []
     }),
     actions: {
         async createActivitySubject(subject) {
             axiosClient.post('/activity-subjects', subject)
             .then (({data}) => {
-                return data;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/subjects' });
             })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-        },
-        /*
-        async fetchActivitySubject() {
-            axiosClient.get('/activities/subjects/list')
-            .then (({data}) => {
-                //return data;
-                this.subject = data;
-            })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
-        */
         async fetchActivitiesSubjects() {
             axiosClient.get('/activity-subjects')
             .then (({data}) => {
                 //return data;
                 this.subject = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchActivitySubject(id) {
@@ -45,18 +45,25 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
                 //return data;
                 this.subject = data;
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async updateActivitySubject() {
             axiosClient.put(`/activity-subjects/${this.subject.id}`, this.subject)
             .then (({data}) => {
-                //this.activity_type = data.result;
-                this.message = data.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/subjects' });
             })
-            .catch(function (error) {
-                this.message = error.message;
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
     }

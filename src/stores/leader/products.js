@@ -1,40 +1,47 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useProductsStore = defineStore("ProductsStore", {
     state: () => ({
         product: {},
-        products: [],
-        message: null,
+        products: []
+        //message: null,
     }),
     actions: {
         async createProduct(product) {
             axiosClient.post('/products', product)
             .then (({data}) => {
-                return data;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/products' });
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async updateProduct() {
             axiosClient.put(`/products/${this.product.id}`, this.product)
             .then (({data}) => {
-                this.message = data.message;
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/products' });
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
-
-            /*
-            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
-            .catch(error){
-                hasError.value=true;
-                if(axios.isAxiosError(error)){
-                    return errorMessage.value = error.message;
-                }
-            }
-            */
         },
         async fetchProducts() {
             axiosClient.get('/products')
@@ -42,7 +49,9 @@ export const useProductsStore = defineStore("ProductsStore", {
                 this.products = data;
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
         async fetchProduct(id) {
@@ -51,7 +60,9 @@ export const useProductsStore = defineStore("ProductsStore", {
                 this.product = data;
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
     }

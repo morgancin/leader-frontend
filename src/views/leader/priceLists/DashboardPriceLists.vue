@@ -30,12 +30,18 @@
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
-      layout:"fitColumns",
+      ajaxResponse:function(url, params, response){
+          //url - the URL of the request
+          //params - the parameters passed with the request
+          //response - the JSON object returned in the body of the response.
+
+          return response.data; //return the tableData property of a response json object
+      },
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load
       resizableColumnFit:true,
-      //paginationMode:"remote", //enable remote pagination
+      layout:"fitColumns",
       placeholder: "No matching records found",
       columns: [
         // For HTML table
@@ -89,219 +95,7 @@
         });
     });
   };
-
-  /*
-  const initTabulator = () => {
-    tabulator.value = new Tabulator(tableRef.value, {
-      // ajaxURL: "https://dummy-data.left4code.com",
-      ajaxURL: `${import.meta.env.VITE_API_BASE}activity-types",
-      ajaxConfig:{
-        method:"GET",
-        headers: {
-            "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
-        },
-      },
-      ajaxFiltering: true,
-      ajaxSorting: true,
-      printAsHtml: true,
-      printStyled: true,
-      // pagination: "remote",
-      // paginationSize: 10,
-      // paginationSizeSelector: [10, 20, 30, 40],
-      layout: "fitColumns",
-      responsiveLayout: "collapse",
-      placeholder: "No matching records found",
-      columns: [
-        {
-          formatter: "responsiveCollapse",
-          width: 40,
-          minWidth: 30,
-          hozAlign: "center",
-          resizable: false,
-          headerSort: false,
-        },
   
-        // For HTML table
-        {
-          title: "ACTIVITY",
-          minWidth: 200,
-          responsive: 0,
-          field: "type",
-          vertAlign: "middle",
-          print: false,
-          download: false,
-          // formatter(cell) {
-          //   return `<div>
-          //         <div class="font-medium whitespace-nowrap">${
-          //           cell.getData().name
-          //         }</div>
-          //         <div class="text-xs text-slate-500 whitespace-nowrap">${
-          //           cell.getData().category
-          //         }</div>
-          //       </div>`;
-          // },
-        },
-        // {
-        //   title: "IMAGES",
-        //   minWidth: 200,
-        //   field: "images",
-        //   hozAlign: "center",
-        //   vertAlign: "middle",
-        //   print: false,
-        //   download: false,
-        //   formatter(cell) {
-        //     return `<div class="flex lg:justify-center">
-        //             <div class="w-10 h-10 intro-x image-fit">
-        //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-        //                 imageAssets[
-        //                   "/src/assets/images/" + cell.getData().images[0]
-        //                 ].default
-        //               }">
-        //             </div>
-        //             <div class="w-10 h-10 -ml-5 intro-x image-fit">
-        //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-        //                 imageAssets[
-        //                   "/src/assets/images/" + cell.getData().images[1]
-        //                 ].default
-        //               }">
-        //             </div>
-        //             <div class="w-10 h-10 -ml-5 intro-x image-fit">
-        //               <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="${
-        //                 imageAssets[
-        //                   "/src/assets/images/" + cell.getData().images[2]
-        //                 ].default
-        //               }">
-        //             </div>
-        //         </div>`;
-        //   },
-        // },
-        // {
-        //   title: "REMAINING STOCK",
-        //   minWidth: 200,
-        //   field: "remaining_stock",
-        //   hozAlign: "center",
-        //   vertAlign: "middle",
-        //   print: false,
-        //   download: false,
-        // },
-        // {
-        //   title: "STATUS",
-        //   minWidth: 200,
-        //   field: "status",
-        //   hozAlign: "center",
-        //   vertAlign: "middle",
-        //   print: false,
-        //   download: false,
-        //   formatter(cell) {
-        //     return `<div class="flex items-center lg:justify-center ${
-        //       cell.getData().status ? "text-success" : "text-danger"
-        //     }">
-        //           <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
-        //             cell.getData().status ? "Active" : "Inactive"
-        //           }
-        //         </div>`;
-        //   },
-        // },
-        // {
-        //   title: "ACTIONS",
-        //   minWidth: 200,
-        //   field: "actions",
-        //   responsive: 1,
-        //   hozAlign: "center",
-        //   vertAlign: "middle",
-        //   print: false,
-        //   download: false,
-        //   formatter() {
-        //     const a = dom(`<div class="flex items-center lg:justify-center">
-        //           <a class="flex items-center mr-3" href="javascript:;">
-        //             <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
-        //           </a>
-        //           <a class="flex items-center text-danger" href="javascript:;">
-        //             <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete
-        //           </a>
-        //         </div>`);
-        //     dom(a).on("click", function () {
-        //       // On click actions
-        //     });
-  
-        //     return a[0];
-        //   },
-        // },
-  
-        // For print format
-        {
-          title: "ACTIVITY",
-          field: "type",
-          visible: false,
-          print: true,
-          download: true,
-        },
-        // {
-        //   title: "CATEGORY",
-        //   field: "category",
-        //   visible: false,
-        //   print: true,
-        //   download: true,
-        // },
-        // {
-        //   title: "REMAINING STOCK",
-        //   field: "remaining_stock",
-        //   visible: false,
-        //   print: true,
-        //   download: true,
-        // },
-        // {
-        //   title: "STATUS",
-        //   field: "status",
-        //   visible: false,
-        //   print: true,
-        //   download: true,
-        //   formatterPrint(cell) {
-        //     return cell.getValue() ? "Active" : "Inactive";
-        //   },
-        // },
-        // {
-        //   title: "IMAGE 1",
-        //   field: "images",
-        //   visible: false,
-        //   print: true,
-        //   download: true,
-        //   formatterPrint(cell) {
-        //     return cell.getValue()[0];
-        //   },
-        // },
-        // {
-        //   title: "IMAGE 2",
-        //   field: "images",
-        //   visible: false,
-        //   print: true,
-        //   download: true,
-        //   formatterPrint(cell) {
-        //     return cell.getValue()[1];
-        //   },
-        // },
-        // {
-        //   title: "IMAGE 3",
-        //   field: "images",
-        //   visible: false,
-        //   print: true,
-        //   download: true,
-        //   formatterPrint(cell) {
-        //     return cell.getValue()[2];
-        //   },
-        // },
-      ],
-      renderComplete() {
-        createIcons({
-          icons,
-          "stroke-width": 1.5,
-          nameAttr: "data-lucide",
-        });
-      },
-    });
-  };
-  */
-
   // Redraw table onresize
   const reInitOnResizeWindow = () => {
     window.addEventListener("resize", () => {

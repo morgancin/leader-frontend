@@ -1,61 +1,42 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useAccountsStore = defineStore("AccountsStore", {
     state: () => ({
         account: {},
-        accounts: [],
-        message: null,
+        accounts: []
     }),
     actions: {
+        async createAccount(account) {
+            axiosClient.post('/accounts', account)
+            .then (({data}) => {
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/accounts' });
+
+            }).catch ((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+            })
+        },
         async fetchAccounts() {
             axiosClient.get('/accounts')
             .then (({data}) => {
                 this.accounts = data.data;
             })
-            .catch(({error}) => {
-                this.message = "Error";
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
-        },
-        /*
-        async createCategory(category) {
-            axiosClient.post('/categories', category)
-            .then (({data}) => {
-                return data;
-            })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-        },
-        async updateCategory() {
-            axiosClient.put(`/categories/${this.category.id}`, this.category)
-            .then (({data}) => {
-                this.message = data.message;
-            })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-
-            
-            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
-            //.catch(error){
-                //hasError.value=true;
-                //if(axios.isAxiosError(error)){
-                    //return errorMessage.value = error.message;
-                //}
-            //}
-        },
-        */
-        /*
-        async fetchCategory(id) {
-            axiosClient.get(`/categories/${id}`)
-            .then (({data}) => {
-                this.category = data;
-            })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-        },
-        */
+        }
     }
 });

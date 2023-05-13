@@ -28,15 +28,15 @@
     import { useProspectsStore } from "../../../stores/leader/prospects";
 
     //Store methods
-    
-    import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
     import { useGetDatasTags } from '../../../composables/getData/useGetDatasTags';
+    import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
+
     const { fetchTags } = useGetDatasTags();
-    const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
-    const { fetchCompanies } = useCompaniesStore();
-    const { fetchAccounts } = useAccountsStore();
     const { fetchCurp } = useProspectsStore();
+    const { fetchAccounts } = useAccountsStore();
     const { createCompany } = useCompaniesStore();
+    const { fetchCompanies } = useCompaniesStore();
+    const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
     
     //Catalogs
     const { accounts } = storeToRefs(useAccountsStore());
@@ -337,7 +337,7 @@
                                     :reduce="name => name.id"
                                     v-model="prospect.company_id">
                                   </v-select>
-                                  <div class="z-30 rounded-r w-10 flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 mr-1 addmore" 
+                                  <div class="z-30 flex items-center justify-center w-10 mr-1 border rounded-r bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 addmore" 
                                   :class="{ active: show_company_prospect }"
                                   @click="show_company_prospect = !show_company_prospect"><PlusIcon class="w-4 h-4" /></div>
                               </div>

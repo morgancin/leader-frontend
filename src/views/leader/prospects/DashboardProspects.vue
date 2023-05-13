@@ -175,13 +175,20 @@ const initTabulator = () => {
           },
         },
 
+        ajaxResponse:function(url, params, response){
+            //url - the URL of the request
+            //params - the parameters passed with the request
+            //response - the JSON object returned in the body of the response.
+
+            return response.data; //return the tableData property of a response json object
+        },
         pagination:true, //enable pagination
         paginationSize:20, //optional parameter to request a certain number of rows per page
         paginationInitialPage:1, //optional parameter to set the initial page to load
         resizableColumnFit:true,
-        //paginationMode:"remote", //enable remote pagination
-        placeholder: "No matching records found",
         
+        layout:"fitColumns",
+        placeholder: "No matching records found",
         columns: [
           // For HTML table
           {

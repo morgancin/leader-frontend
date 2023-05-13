@@ -8,6 +8,12 @@
   import { onMounted } from 'vue';
   import { storeToRefs } from "pinia";
 
+  import { required } from '@vuelidate/validators';
+  import { useVuelidate } from '@vuelidate/core';
+
+  import { toast } from 'vue3-toastify';
+  import 'vue3-toastify/dist/index.css';
+
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
   
@@ -16,15 +22,39 @@
   const { fetchAccounts } = useAccountsStore();
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
 
-  defineProps({
+  const props = defineProps({
     price_list: {
       type: Object,
       required: true,
     },
-  })
-  
-  defineEmits(["submit"]);
+  });
 
+  const emit = defineEmits(["submit"]);
+
+  ////////RULES
+  const rules = {
+      name: { required },
+      account_id: { required }
+  }
+  
+  const validate = useVuelidate(rules, props.price_list);
+  
+  const submitCreate = async () => {
+    validate.value.$touch();
+    
+    if (validate.value.$invalid) {
+      toast.error('Error de validación', {
+                      autoClose:1000,
+                    });
+    }
+    
+    const result = await validate.value.$validate();
+    
+    if(result) {
+      emit('submit');
+    }
+  }
+  
   onMounted(async() => {
     await fetchAccounts();
   });
@@ -34,7 +64,7 @@
   <div class="col-span-12 intro-y lg:col-span-6">
 
     <!-- BEGIN: Form Layout -->
-    <form @submit.prevent="$emit('submit')" autocomplete="on">
+    <form @submit.prevent="submitCreate" autocomplete="on">
 
       <div class="p-5 intro-y box">
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
@@ -63,10 +93,19 @@
                   label="name"
                   class="w-full form-control"
                   :options="dataAccounts"
+                  :reduce="name => name.id"
                   v-model="price_list.account_id"
-                  :reduce="name => name.id">
+                  :class="{ 'border-danger': validate.account_id.$error }">
                 </v-select>
-                <!-- :class="{ 'border-danger': validate.account_id.$error }" -->                
+
+                <template v-if="validate.account_id.$error">
+                  <div
+                    v-for="(error, index) in validate.account_id.$errors"
+                    :key="index"
+                    class="mt-2 text-danger">
+                      {{ error.$message }}
+                  </div>
+                </template>              
               </div>
             </div>
           </div>
@@ -92,11 +131,20 @@
                   type="text"
                   class="w-full form-control"
                   :placeholder="$t('add_price_lists.price_lists_name')"
-                  v-model="price_list.name" />
+                  v-model="price_list.name"
+                  :class="{ 'border-danger': validate.name.$error }" />
+
+                <template v-if="validate.name.$error">
+                  <div
+                    v-for="(error, index) in validate.name.$errors"
+                    :key="index"
+                    class="mt-2 text-danger">
+                    {{ error.$message }}
+                  </div>
+                </template>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 

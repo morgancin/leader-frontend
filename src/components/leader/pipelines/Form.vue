@@ -5,9 +5,15 @@
 </script>
 
 <script setup>
-    import { ref, reactive } from 'vue';
+    import { ref, reactive, onMounted } from 'vue';
     import { storeToRefs } from "pinia";
     import draggable from 'vuedraggable';
+
+    import { required } from '@vuelidate/validators';
+    import { useVuelidate } from '@vuelidate/core';
+
+    import { toast } from 'vue3-toastify';
+    import 'vue3-toastify/dist/index.css';
     
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
@@ -16,19 +22,17 @@
 
     const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
 
+    const cartStages = ref([]);
+    const idref = ref(0);
+
     const props = defineProps({
       pipeline: {
                   type: Object,
                   required: true,
-                },
+                }
     });
     
     const emit = defineEmits(["submit"]);
-
-    const cartStages = ref([]);
-
-    //const idref = ref(1); //initialize
-    const idref = ref(0); //initialize
 
     const addStage = () => {
       cartStages.value.push({
@@ -44,27 +48,52 @@
       cartStages.value = cartStages.value.filter((obj) => obj.id !== id);
     }
     
-    const submitForm = async () => {
-      props.pipeline.stages = [...cartStages.value];
-      
-      emit('submit');
+    ////////RULES
+    const rules = {
+      name: { required },
+      is_default: { required },
+      account_id: { required }
     }
 
+    const validate = useVuelidate(rules, props.pipeline);
+
+    const submitCreate = async () => {
+      validate.value.$touch();
+    
+      if (validate.value.$invalid) {
+        toast.error('Error de validación', {
+                      autoClose:1000,
+                    });
+      }
+
+      const result = await validate.value.$validate();
+      
+      if(result) {
+        props.pipeline.stages = [...cartStages.value];
+      
+        emit('submit');
+      }
+    }
+    
     const aDefault = [
                       { key:1, value: 'SÍ' },
                       { key:2, value: 'NO' }
                     ];
+                    
+    onMounted(async() => {
+      await fetchAccounts();
+    });
 </script>
 
 <template>
   <div class="col-span-12 intro-y lg:col-span-6">
-    <form @submit.prevent="submitForm" autocomplete="on">
+    <form @submit.prevent="submitCreate" autocomplete="on">
       <div class="p-5 intro-y box">
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
           <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
             <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('add_pipelines.pipeline') }}
           </div>
-
+          
           <div class="mt-5">
           
             <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
@@ -87,8 +116,18 @@
                   class="form-control"
                   :options="dataAccounts"
                   :reduce="name => name.id"
-                  v-model="pipeline.account_id">
-                </v-select>  
+                  v-model="pipeline.account_id"
+                  :class="{ 'border-danger': validate.account_id.$error }">
+                </v-select>
+
+                <template v-if="validate.account_id.$error">
+                  <div
+                    v-for="(error, index) in validate.account_id.$errors"
+                    :key="index"
+                    class="mt-2 text-danger">
+                      {{ error.$message }}
+                  </div>
+                </template>  
               </div>
             </div>
             
@@ -110,7 +149,17 @@
                 <input
                   type="text"
                   class="w-full form-control"
-                  v-model="pipeline.name" />
+                  v-model="pipeline.name"
+                  :class="{ 'border-danger': validate.name.$error }" />
+                  
+                <template v-if="validate.name.$error">
+                  <div
+                    v-for="(error, index) in validate.name.$errors"
+                    :key="index"
+                    class="mt-2 text-danger">
+                      {{ error.$message }}
+                  </div>
+                </template>
               </div>
             </div>
 
@@ -136,11 +185,20 @@
                       class="form-control" 
                       :options="aDefault" 
                       :reduce="value => value.key"
-                      v-model="pipeline.is_default">
+                      v-model="pipeline.is_default"
+                      :class="{ 'border-danger': validate.is_default.$error }">
                     </v-select>
+
+                    <template v-if="validate.is_default.$error">
+                      <div
+                        v-for="(error, index) in validate.is_default.$errors"
+                        :key="index"
+                        class="mt-2 text-danger">
+                          {{ error.$message }}
+                      </div>
+                    </template>
                   </div>
               </div>
-              
             </div>
           </div>
 

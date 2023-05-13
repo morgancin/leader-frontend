@@ -134,7 +134,7 @@
                               <input
                                   type="text"
                                   name="name"
-                                  class="form-control col-span-3"
+                                  class="col-span-3 form-control"
                                   v-model="prospect.zipcode" />
                             </div>
                         </div>                        
@@ -168,9 +168,8 @@
                                     v-model="prospect.suburb">
                                 </v-select>
                             </div>
-                        </div>    
-
-
+                        </div>
+                        
                         <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                             <div class="form-label xl:w-72 xl:!mr-10">
                               <div class="text-left">
@@ -184,7 +183,7 @@
                             </div>
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
                                         <label for="txtStreet" class="form-label">{{ $t('add_prospect_address.street') }}</label>
                                         <input
                                           type="text"
@@ -193,7 +192,7 @@
                                           v-model="prospect.street" />
                                     </div>
                                     
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-3 lg:col-span-3 withlabel">
                                         <label for="txtOutdoor" class="form-label">{{ $t('add_prospect_address.outdoor') }}</label>
                                         <input
                                           type="text"
@@ -201,7 +200,7 @@
                                           class="form-control"
                                           v-model.trim="prospect.outdoor" />
                                     </div>
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-3 lg:col-span-3 withlabel">
                                         <label for="txtIndoor" class="form-label">{{ $t('add_prospect_address.indoor') }}</label>
                                         <input
                                           type="text"
@@ -227,7 +226,7 @@
                             </div>
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
                                         <label for="txtTown" class="form-label">{{ $t('add_prospect_address.town') }}</label>
                                         <input
                                           type="text"
@@ -235,7 +234,7 @@
                                           class="form-control"
                                           v-model="prospect.town" />
                                     </div>
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
                                         <label for="txtCity" class="form-label">{{ $t('add_prospect_address.city') }}</label>
                                         <input
                                           type="text"
@@ -261,7 +260,7 @@
                             </div>
                             <div class="flex-1 w-full xl:mt-0 withlabel">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mtlower">
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
                                         <label for="txtState" class="form-label">{{ $t('add_prospect_address.state') }}</label>
                                         <input
                                           type="text"
@@ -269,7 +268,7 @@
                                           class="form-control"
                                           v-model="prospect.state" />
                                     </div>
-                                    <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
+                                    <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-6 withlabel">
                                         <label for="txtCountry" class="form-label">{{ $t('add_prospect_address.country') }}</label>
                                         <input
                                           type="text"
@@ -289,9 +288,9 @@
 
 
             <!--
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+            <div class="grid grid-cols-12 gap-4 mt-5 gap-y-5">
 
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-4 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-12 lg:col-span-4 withlabel">
                     <label for="cmbSuburb" class="form-label">{{ $t('add_prospect_address.suburb') }}</label>
                     <v-select
                         id="cmbSuburb"
@@ -302,7 +301,7 @@
                     </v-select>
                 </div>
                 
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-4 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-4 withlabel">
                     <label for="txtStreet" class="form-label">{{ $t('add_prospect_address.street') }}</label>
                     <input
                       type="text"
@@ -311,7 +310,7 @@
                       v-model="prospect.street" />
                 </div>
                 
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-2 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-3 lg:col-span-2 withlabel">
                     <label for="txtOutdoor" class="form-label">{{ $t('add_prospect_address.outdoor') }}</label>
                     <input
                       type="text"
@@ -319,7 +318,7 @@
                       class="form-control"
                       v-model.trim="prospect.outdoor" />
                 </div>
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-2 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-3 lg:col-span-2 withlabel">
                     <label for="txtIndoor" class="form-label">{{ $t('add_prospect_address.indoor') }}</label>
                     <input
                       type="text"
@@ -327,7 +326,7 @@
                       class="form-control"
                       v-model="prospect.indoor" />
                 </div>
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                     <label for="txtTown" class="form-label">{{ $t('add_prospect_address.town') }}</label>
                     <input
                       type="text"
@@ -335,7 +334,7 @@
                       class="form-control"
                       v-model="prospect.town" />
                 </div>
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                     <label for="txtCity" class="form-label">{{ $t('add_prospect_address.city') }}</label>
                     <input
                       type="text"
@@ -343,7 +342,7 @@
                       class="form-control"
                       v-model="prospect.city" />
                 </div>
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                     <label for="txtState" class="form-label">{{ $t('add_prospect_address.state') }}</label>
                     <input
                       type="text"
@@ -351,7 +350,7 @@
                       class="form-control"
                       v-model="prospect.state" />
                 </div>
-                <div class="intro-y col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
+                <div class="col-span-12 intro-y sm:col-span-12 md:col-span-6 lg:col-span-3 withlabel">
                     <label for="txtCountry" class="form-label">{{ $t('add_prospect_address.country') }}</label>
                     <input
                       type="text"
@@ -360,13 +359,13 @@
                       v-model="prospect.country" />
                 </div>
 
-                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5 " >
+                <div class="flex items-center justify-center col-span-12 mt-5 intro-y sm:justify-end " >
                     <button 
-                        class="btn btn-secondary w-24"                    
+                        class="w-24 btn btn-secondary"                    
                         @click="submitStep">
                         {{ $t('add_prospect_address.btn-prev') }}
                         </button>
-                    <button class="btn btn-primary w-24 ml-2">{{ $t('add_prospect_address.btn-next') }}</button>
+                    <button class="w-24 ml-2 btn btn-primary">{{ $t('add_prospect_address.btn-next') }}</button>
                 </div>
             </div>-->
 
@@ -388,11 +387,11 @@
     <!-- BEGIN: Failed Notification Content -->
     <div
         id="failed-notification-content"
-        class="toastify-content hidden flex">
+        class="flex hidden toastify-content">
         <XCircleIcon class="text-danger" />
         <div class="ml-4 mr-4">
         <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>
-        <div class="text-slate-500 mt-1">
+        <div class="mt-1 text-slate-500">
             {{ $t('add_user.check_failed') }}
         </div>
         </div>

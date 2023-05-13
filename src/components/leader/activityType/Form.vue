@@ -8,15 +8,45 @@
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
 
-    defineProps({
+    import { required } from '@vuelidate/validators';
+    import { useVuelidate } from '@vuelidate/core';
+
+    import { toast } from 'vue3-toastify';
+    import 'vue3-toastify/dist/index.css';
+
+    const props = defineProps({
         activity_type: {
             type: Object,
             required: true,
         },
-    })
+    });
 
-    defineEmits(["submit"]);
+    const emit = defineEmits(["submit"]);
 
+    ////////RULES
+    const rules = {
+      name: { required },
+      type: { required }
+    }
+    
+    const validate = useVuelidate(rules, props.activity_type);
+
+    const submitCreate = async () => {
+      validate.value.$touch();
+    
+      if (validate.value.$invalid) {
+        toast.error('Error de validación', {
+                      autoClose:1000,
+                    });
+      }
+
+      const result = await validate.value.$validate();
+      
+      if(result) {
+        emit('submit');
+      }
+    }
+    
     const aTypes = [
         { key:'call', value: 'CALL' },
         { key:'email', value: 'EMAIL' },
@@ -28,20 +58,18 @@
 </script>
 
 <template>
-  <div class="intro-y col-span-12 lg:col-span-6">
+  <div class="col-span-12 intro-y lg:col-span-6">
     <!-- BEGIN: Form Layout -->
-    <form @submit.prevent="$emit('submit')" autocomplete="on">
-      <div class="intro-y box p-5">
-    
-        <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-
-          <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
-              <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('add_catalog_activity.activity') }}
+    <form @submit.prevent="submitCreate" autocomplete="on">
+      <div class="p-5 intro-y box">
+        <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
+          <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
+            <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('add_catalog_activity.activity') }}
           </div>
 
           <div class="mt-5"> 
 
-            <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+            <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
               <div class="form-label xl:w-72 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
@@ -51,24 +79,33 @@
                       {{ $t('forms.required') }}
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Tipo de actividad
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">   
+              <div class="flex-1 w-full mt-3 xl:mt-0">   
                 <v-select
                   label="value"
                   class="form-control" 
                   :options="aTypes" 
                   :reduce="value => value.key"
-                  v-model="activity_type.type">
+                  v-model="activity_type.type"
+                  :class="{ 'border-danger': validate.type.$error }">
                 </v-select>
+
+                <template v-if="validate.type.$error">
+                  <div
+                    v-for="(error, index) in validate.type.$errors"
+                    :key="index"
+                    class="mt-2 text-danger">
+                      {{ error.$message }}
+                  </div>
+                </template>
               </div>
             </div>
-
-
-            <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
+            
+            <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
               <div class="form-label xl:w-72 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
@@ -78,31 +115,37 @@
                       {{ $t('forms.required') }}
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Nombre de actividad
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">  
+              <div class="flex-1 w-full mt-3 xl:mt-0">  
                 <input
                   type="text"
                   :placeholder="$t('add_catalog_activity.activity_name')" 
                   class="w-full form-control"
-                  v-model="activity_type.name" />
+                  v-model="activity_type.name"
+                  :class="{ 'border-danger': validate.name.$error }" />
+
+                  <template v-if="validate.name.$error">
+                    <div
+                      v-for="(error, index) in validate.name.$errors"
+                      :key="index"
+                      class="mt-2 text-danger">
+                        {{ error.$message }}
+                    </div>
+                  </template>
               </div>
             </div>
-          
-
-
-      
-
+            
           </div>
         </div>
       </div>  
 
-      <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
-        <button type="button" class="py-3 w-full md:w-52 mr-1 btn btn-outline-secondary">{{ $t('add_catalog_activity.btn_cancel') }}</button>
-        <button type="submit" class="btn py-3 btn-primary w-full md:w-52">{{ $t('add_catalog_activity.btn_save') }}</button>
+      <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
+        <button type="button" class="w-full py-3 mr-1 md:w-52 btn btn-outline-secondary">{{ $t('add_catalog_activity.btn_cancel') }}</button>
+        <button type="submit" class="w-full py-3 btn btn-primary md:w-52">{{ $t('add_catalog_activity.btn_save') }}</button>
       </div>  
 
     </form>
