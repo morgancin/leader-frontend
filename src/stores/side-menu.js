@@ -33,6 +33,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "side-menu-activities",
         title: 'side-menu.activities',
       },
+      {
+        icon: "UsersIcon",
+        pageName: "side-menu-leads",
+        title: 'side-menu.leads'
+      },
       
       "devider",
       {

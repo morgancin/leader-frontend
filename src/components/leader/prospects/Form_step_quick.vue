@@ -22,13 +22,18 @@
   import { useProspectsStore } from "@/stores/leader/prospects";
   import { useCompaniesStore } from "@/stores/leader/companies";
   import { useActivitiesStore } from "@/stores/leader/activities";
+  import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
+  //import { useProspectingSourcesStore } from "@/stores/leader/prospecting-sources";
 
   import CompanyForm from "@/components/leader/companies/Form.vue";
 
   const { fetchAccounts } = useAccountsStore();
+  const { createProspect } = useProspectsStore();
   const { createCompany, fetchCompanies } = useCompaniesStore();
-  const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
   const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
+  const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
+  //const { createProspect, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
+  //const { fetchProspectingSources, fetchProspectingMeans } = useProspectingSourcesStore();
   
   const { prospect } = storeToRefs(useProspectsStore());
   const { activity, activities } = storeToRefs(useActivitiesStore());
@@ -49,11 +54,11 @@
   const show_modal_here = ref(props.show_modal);
 
   const priorities = [
-                            { key:'bajo', value: 'BAJO' },
-                            { key:'medio', value: 'MEDIO' },
-                            { key:'alto', value: 'ALTO' },
-                            { key:'pendiente', value: 'PENDIENTE' },
-                        ];
+                        { key:'bajo', value: 'BAJO' },
+                        { key:'medio', value: 'MEDIO' },
+                        { key:'alto', value: 'ALTO' },
+                        { key:'pendiente', value: 'PENDIENTE' }
+                      ];
 
   const convert_format_date = (date, format) => {
     const day = date.getDate();
@@ -132,7 +137,7 @@
     const result = await validate.value.$validate();
     
     if(result) {
-      await createProspectActivity(data_prospect_activity);
+      await createProspect(data_prospect_activity);
       show_modal_here.value = false;
       //emit('submit');
     }
@@ -147,11 +152,11 @@
   const dataActivitiesSubjects = ref([]);
 
   onMounted(async() => {
-    dataProspectingSources.value = await fetchOrigins();
-    dataActivitiesTypes.value = await fetchActivitiesTypes();
-
     await fetchAccounts();
     await fetchCompanies();
+
+    dataActivitiesTypes.value = await fetchActivitiesTypes();
+    dataProspectingSources.value = await fetchProspectingSources();
         
     await fetchActivities(props.login_user.id, convert_format_date(data_prospect_activity.start_date, 'en'));
   });
@@ -165,7 +170,7 @@
   watch(
       () => data_prospect_activity.client_origin,
       async () => {
-          dataProspectingMeans.value = await fetchOriginsMediums(data_prospect_activity.client_origin);
+          dataProspectingMeans.value = await fetchProspectingMeans(data_prospect_activity.client_origin);
       }
   );
   watch(
@@ -393,10 +398,10 @@
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                       <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.origin') }}</label>
                       <v-select
-                          label="description"
+                          label="name"
                           class="form-control" 
                           :options="dataProspectingSources"
-                          :reduce="description => description.id"
+                          :reduce="name => name.id"
                           v-model="data_prospect_activity.client_origin"
                           :class="{ 'border-danger': validate.client_origin.$error }">
                       </v-select>
@@ -415,8 +420,8 @@
                         <v-select 
                             class="form-control" 
                             :options="dataProspectingMeans"
-                            :reduce="description => description.id" 
-                            label="description"
+                            :reduce="name => name.id" 
+                            label="name"
                             v-model="data_prospect_activity.propecting_mean_id"
                             :class="{ 'border-danger': validate.propecting_mean_id.$error }">
                         </v-select>

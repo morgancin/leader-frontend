@@ -619,20 +619,16 @@ const routes = [
         component: DashboardOverview1,
         beforeEnter: requireAuth
       },
-      
-      /*
-      {
-        path: "add-user",
-        name: "side-menu-add-user",
-        component: AddUser,
-      },
 
+      //LEADS
       {
-        path: "add-company",
-        name: "side-menu-add-company",
-        component: AddCompany,
+        path: 'leads',
+        name: 'side-menu-leads',
+        component: () => import('../views/leader/leads/Index.vue'),
+        beforeEnter: requireAuth
       },
-      */
+      
+      
 
       {
         path: "edit-user",

@@ -13,8 +13,8 @@ export function useGetDataProspectingSources()
         })
     };
 
-    const fetchProspectingMeans = async (prospecting_source_id) => {
-        return await axiosClient.get(`/prospecting-means?prospecting_source_id=${prospecting_source_id}`)
+    const fetchProspectingMean = async (id) => {
+        return await axiosClient.get(`/prospecting-means/${id}`)
         .then (({data}) => {
             return data.data;
         })
@@ -22,9 +22,9 @@ export function useGetDataProspectingSources()
             return err;
         })
     };
-
-    const fetchProspectingMean = async (id) => {
-        return await axiosClient.get(`/prospecting-means/${id}`)
+    
+    const fetchProspectingMeans = async (prospecting_source_id) => {
+        return await axiosClient.get(`/prospecting-means?prospecting_source_id=${prospecting_source_id}`)
         .then (({data}) => {
             return data.data;
         })

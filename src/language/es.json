@@ -30,6 +30,14 @@
             "column_2": "NOMBRE",
             "column_3": "ACCIONES"
         },
+        "leads": {
+            "column_1": "NOMBRE",
+            "column_2": "APELLIDO",
+            "column_3": "CORREO ELECTRÓNICO",
+            "column_4": "COMENTARIO",
+            "column_5": "MEDIO DE PROSPECCIÓN",
+            "column_6": "ACCIONES"
+        },
         "products": {
             "column_1": "CLAVE",
             "column_2": "NOMBRE",
@@ -269,6 +277,9 @@
         "btn_cancel": "Cancelar",
         "btn_add_new_currency": "Nueva Divisa"
     },
+    "add_leads":{
+        "leads": "Seguimientos"
+    },
     "add_accounts":{
         "accounts": "Cuentas",
         "account_name": "Nombre",
@@ -401,6 +412,7 @@
         "users": "Usuarios",
         "prices": "Precios",
         "accounts": "Cuentas",
+        "leads": "Seguimientos",
         "categories": "Categorías",
         "products": "Products",
         "currencies": "Divisas",

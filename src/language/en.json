@@ -30,6 +30,14 @@
             "column_2": "NAME",
             "column_3": "ACTIONS"
         },
+        "leads": {
+            "column_1": "NAME",
+            "column_2": "LAST NAME",
+            "column_3": "EMAIL",
+            "column_4": "COMMENTS",
+            "column_5": "PROSPECTING MEAN",
+            "column_6": "ACTIONS"
+        },
         "products": {
             "column_1": "SKU",
             "column_2": "NAME",
@@ -267,6 +275,9 @@
         "btn_cancel": "Cancel",
         "btn_add_new_currency": "New Currency"
     },
+    "add_leads":{
+        "leads": "Leads"
+    },
     "add_accounts":{
         "accounts": "Accounts",
         "account_name": "Name",
@@ -399,6 +410,7 @@
         "users": "Users",
         "prices": "Prices",
         "accounts": "Accounts",
+        "leads": "Leads",
         "products": "Products",
         "prospects": "Prospects",
         "companies": "Companies",

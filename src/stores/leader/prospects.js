@@ -52,7 +52,7 @@ export const useProspectsStore = defineStore("ProspectsStore", {
 
             return `${ye}-${mo}-${da}`;
         },
-        async createProspectActivity(data_) {
+        async createProspect(data_) {
             let data = { ...data_ };
 
             if (data.birth_date != null)
@@ -60,7 +60,8 @@ export const useProspectsStore = defineStore("ProspectsStore", {
 
             data.activity_date = this.date_format(data.start_date) + ' ' + (data.start_time.hours + ':' + data.start_time.minutes);
 
-            axiosClient.post('/activity-prospect', data)
+            //axiosClient.post('/activity-prospect', data)
+            axiosClient.post('/prospects', data)
             .then (({data}) => {
 
             })

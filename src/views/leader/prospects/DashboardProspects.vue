@@ -29,8 +29,7 @@
   <!-- BEGIN: HTML Table Data -->
   <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-
-      
+      <!--
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
           <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Field</label>
@@ -91,10 +90,6 @@
         </div>
       </form>
       
-
-
-
-
       <div class="flex mt-5 sm:mt-0">
         <button
           id="tabulator-print"
@@ -125,7 +120,9 @@
           </DropdownMenu>
         </Dropdown>
       </div>
+      -->
     </div>
+    
     <div class="overflow-x-auto scrollbar-hidden">
       <div
         id="tabulator"
@@ -241,7 +238,8 @@ const initTabulator = () => {
             print: false,
             download: false,
             hozAlign: "center",
-            headerSort:false,
+            headerSort:false
+            /*
             formatter(cell) {
               const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3" href="/prospect/edit/${cell.getData().id}">
@@ -258,7 +256,9 @@ const initTabulator = () => {
               
               return a[0];
             },
+            */
           },
+          
         ]
         /*
         renderComplete() {

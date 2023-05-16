@@ -26,6 +26,7 @@
   <!-- BEGIN: HTML Table Data -->
   <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+      <!--
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
           <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Field</label>
@@ -98,11 +99,9 @@
               <DropdownItem @click="onExportJson">
                 <FileTextIcon class="w-4 h-4 mr-2" /> Export JSON
               </DropdownItem>
-              <!--
               <DropdownItem @click="onExportXlsx">
                 <FileTextIcon class="w-4 h-4 mr-2" /> Export XLSX
               </DropdownItem>
-              -->
               <DropdownItem @click="onExportHtml">
                 <FileTextIcon class="w-4 h-4 mr-2" /> Export HTML
               </DropdownItem>
@@ -110,7 +109,9 @@
           </DropdownMenu>
         </Dropdown>
       </div>
+      -->
     </div>
+    
     <div class="overflow-x-auto scrollbar-hidden">
       <div
         id="tabulator"
@@ -191,7 +192,8 @@
           print: false,
           download: false,
           hozAlign: "center",
-          headerSort:false,
+          headerSort:false
+          /*
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/user/edit/${cell.getData().id}">
@@ -207,6 +209,7 @@
             });              
             return a[0];
           },
+          */
         },
       ]      
     });

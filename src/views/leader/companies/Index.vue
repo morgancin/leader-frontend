@@ -2,20 +2,18 @@
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('companies.companies') }}</h2>
     
-    
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-prospect`">{{ $t('companies.btn-add-new-companies') }}</router-link>
     </div>
-    
   </div>
 
   <!-- BEGIN: HTML Table Data -->
   <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+      <!--
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
           <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial">Field</label>
-          
           <select
               v-model="filter.field"
               id="tabulator-html-filter-field"
@@ -67,7 +65,7 @@
           </button>
         </div>
       </form>
-
+      
       <div class="flex mt-5 sm:mt-0">
         <button
           id="tabulator-print"
@@ -98,6 +96,7 @@
           </DropdownMenu>
         </Dropdown>
       </div>
+      -->
     </div>
     <div class="overflow-x-auto scrollbar-hidden">
       <div
@@ -215,7 +214,8 @@ const initTabulator = () => {
             print: false,
             download: false,
             hozAlign: "center",
-            headerSort:false,
+            headerSort:false
+            /*
             formatter(cell) {
               const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3" href="/company/edit/${cell.getData().id}">
@@ -232,6 +232,7 @@ const initTabulator = () => {
               
               return a[0];
             },
+            */
           },
         ]
         /*

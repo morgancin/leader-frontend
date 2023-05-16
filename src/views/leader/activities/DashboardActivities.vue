@@ -68,6 +68,7 @@
           download: false,
           hozAlign: "center",
           headerSort:false,
+          
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3 btn btn-primary" href="/activities/reschedule/${cell.getData().id}">
@@ -87,6 +88,7 @@
               
             return a[0];
           },
+          
         },
         {
           title: t('list.activities.column_1'),
@@ -451,6 +453,7 @@
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
       <button @click="showLeadsModal(1)" class="w-20 btn btn-primary">Comenzar</button>
       
+      <!--
        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
           <label class="flex-none w-12 mr-2 xl:w-auto xl:flex-initial"
@@ -459,8 +462,7 @@
           <select
             id="tabulator-html-filter-field"
             v-model="filter.field"
-            class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto"
-          >
+            class="w-full mt-2 form-select sm:w-32 2xl:w-full sm:mt-0 sm:w-auto">
             <option value="name">Name</option>
           </select>
         </div>
@@ -530,7 +532,6 @@
               <DropdownItem @click="onExportCsv">
                 <FileTextIcon class="w-4 h-4 mr-2" /> Export CSV
               </DropdownItem>
-              <!--
               <DropdownItem @click="onExportJson">
                 <FileTextIcon class="w-4 h-4 mr-2" /> Export JSON
               </DropdownItem>
@@ -542,11 +543,16 @@
               <DropdownItem @click="onExportHtml">
                 <FileTextIcon class="w-4 h-4 mr-2" /> Export HTML
               </DropdownItem>
-              -->
             </DropdownContent>
           </DropdownMenu>
         </Dropdown>
       </div>
+      -->
+
+
+
+
+
     </div>
     <div class="overflow-x-auto scrollbar-hidden">
       <div

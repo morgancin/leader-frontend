@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
+//ESTE ARCHIVO SE BORRARÁ
 
 export const useClientOriginMediumStore = defineStore("ClientOriginMediumStore", {
     state: () => ({
