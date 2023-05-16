@@ -13,6 +13,10 @@
             "column_5": "PHONE MOBILE",
             "column_6": "ACTIONS"
         },
+        "accounts": {
+            "column_1": "NAME",
+            "column_2": "ACTIONS"
+        },
         "activities": {
             "column_1": "DATE",
             "column_2": "NAME",
@@ -81,16 +85,15 @@
             "column_4": "ACTIONS"
         }
     },
-
     "top_bar": {
         "label_drop_down_content": "Quick Actions",
-        "opc_1_drop_down_content": "Create New Prospect"
+        "opc_1_drop_down_content": "New Prospect"
     },
-
     "add_user": {
         "add_user": "Add User",
         "name": "Name",
         "email": "Email",
+        "account": "Account",
         "password": "Password",
         "password_confirmation": "Password Confirmation",
         "btn_prev": "Previous",
@@ -166,7 +169,7 @@
     },
     "catalogs_activities":{
         "list_activities": "List Activities",
-        "btn_add_new_activities": "Create New Activity"
+        "btn_add_new_activities": "New Activity"
     },
     "add_catalog_activity":{
         "activity": "Activities",
@@ -182,7 +185,7 @@
     },
     "catalogs_subjects":{
         "list_subjects": "List Subjects",
-        "btn_add_new_subjects": "Create New Subject"
+        "btn_add_new_subjects": "New Subject"
     },
     "add_catalog_subject":{
         "subject": "Subjects",
@@ -198,7 +201,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_tags": "Create New Tag"
+        "btn_add_new_tags": "New Tag"
     },
     "add_components":{
         "components": "Components",
@@ -216,14 +219,14 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_price": "Create New Price"
+        "btn_add_new_price": "New Price"
     },
     "add_activities":{
         "activities": "Activities",
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_activity": "Create New Activity"
+        "btn_add_new_activity": "New Activity"
     },
     "add_quotes":{
         "quotes": "Quotes",
@@ -232,7 +235,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_quote": "Create New Quote"
+        "btn_add_new_quote": "New Quote"
     },
     "add_catalog_activity_result":{
         "activity_result": "Activities Results",
@@ -244,7 +247,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_activity_result": "Create New Activity Result"
+        "btn_add_new_activity_result": "New Activity Result"
     },
     "add_origin_medium":{
         "origin_medium": "Medium Origins",
@@ -253,7 +256,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_origin_medium": "Create New Origin Medium"
+        "btn_add_new_origin_medium": "New Origin Medium"
     },
     "add_currencies":{
         "currencies": "Currencies",
@@ -262,7 +265,15 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_currency": "Create New Currency"
+        "btn_add_new_currency": "New Currency"
+    },
+    "add_accounts":{
+        "accounts": "Accounts",
+        "account_name": "Name",
+        "btn_prev": "Previous",
+        "btn_save": "Save",
+        "btn_cancel": "Cancel",
+        "btn_add_new_account": "New Account"
     },
     "add_pipelines":{
         "pipelines": "Pipelines",
@@ -277,7 +288,7 @@
         "pipeline_stage_percent": "Percentage",
         "pipeline_stage_sort": "Sort Order",
         "btn_add_new_stage": "Add New Stage",
-        "btn_add_new_pipeline": "Create New Pipeline"
+        "btn_add_new_pipeline": "New Pipeline"
     },
     "add_products":{
         "products": "Products",
@@ -290,7 +301,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_product": "Create New Product",
+        "btn_add_new_product": "New Product",
         "file_description_account": "Select Options"
     },
     "add_categories":{
@@ -300,7 +311,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_category": "Create New Category"
+        "btn_add_new_category": "New Category"
     },
     "add_price_lists":{
         "price_lists": "Price Lists",
@@ -309,7 +320,7 @@
         "btn_prev": "Previous",
         "btn_save": "Save",
         "btn_cancel": "Cancel",
-        "btn_add_new_price_list": "Create New Price list"
+        "btn_add_new_price_list": "New Price list"
     },
     "add_activity_finalize":{
         "activity_finalize": "Finish activity",
@@ -325,7 +336,7 @@
     },
     "catalogs_origins":{
         "list_origins": "List Origin",
-        "btn_add_new_origins": "Create New Origin"
+        "btn_add_new_origins": "New Origin"
     },
     "add_catalog_origin":{
         "origins": "Origins",
@@ -335,7 +346,7 @@
     },
     "companies": {
         "companies": "Companies",
-        "btn-add-new-companies": "Create New Company"
+        "btn-add-new-companies": "New Company"
     },
     "add_companies": {
         "add_company": "Add Company",
@@ -357,7 +368,7 @@
     },
     "company-users": {
         "users": "Company User",
-        "btn-add-new-company-user": "Create New Company User"
+        "btn-add-new-company-user": "New Company User"
     },
     "add_company_user": {
         "add_company_user": "Add Company User",
@@ -387,6 +398,7 @@
     "side-menu":{
         "users": "Users",
         "prices": "Prices",
+        "accounts": "Accounts",
         "products": "Products",
         "prospects": "Prospects",
         "companies": "Companies",
@@ -407,11 +419,11 @@
     },
     "prospects": {
         "prospects": "Prospects",
-        "btn-add-new-prospect": "Create New Prospect"
+        "btn-add-new-prospect": "New Prospect"
     },
     "users": {
         "users": "Users",
-        "btn-add-new-user": "Create New User"
+        "btn-add-new-user": "New User"
     },
     "contracts": {
         "contracts": "Contracts",

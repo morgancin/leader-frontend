@@ -8,6 +8,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
     menu: [
       {
         icon: "UsersIcon",
+        pageName: "side-menu-accounts",
+        title: 'side-menu.accounts'
+      },
+      {
+        icon: "UsersIcon",
         pageName: "side-menu-dashboard-user",
         // title: this.$t('settings.language')
         // title: "Users"
@@ -28,24 +33,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "side-menu-activities",
         title: 'side-menu.activities',
       },
-      // "devider",
-      /*{
-        icon: "TruckIcon",
-        pageName: "side-menu-dashboard-companies",
-        title: 'side-menu.companies',
-        subMenu: [
-          {
-            icon: "HardDriveIcon",
-            pageName: "side-menu-companies",
-            title: 'side-menu.companies',
-          },
-          {
-            icon: "GlobeIcon",
-            pageName: "side-menu-company-users",
-            title: "side-menu.company-users",
-          },
-        ],
-      },*/
+      
       "devider",
       {
         icon: "SettingsIcon",

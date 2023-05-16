@@ -431,6 +431,26 @@ const routes = [
         beforeEnter: requireAuth
       },
 
+      //ACCOUNTS
+      {
+        path: 'accounts',
+        name: 'side-menu-accounts',
+        component: () => import('../views/leader/accounts/Index.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-account',
+        name: 'side-menu-add-account',
+        component: () => import('../views/leader/accounts/Create.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/accounts/edit/:id',
+        name: 'side-menu-edit-account',
+        component: () => import('../views/leader/accounts/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+
       //PIPELINES
       {
         path: 'pipelines',

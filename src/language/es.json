@@ -13,6 +13,10 @@
             "column_5": "TELÉFONO MÓVIL",
             "column_6": "ACCIONES"
         },
+        "accounts": {
+            "column_1": "NOMBRE",
+            "column_2": "ACCIONES"
+        },
         "activities": {
             "column_1": "FECHA",
             "column_2": "NOMBRE",
@@ -81,16 +85,15 @@
             "column_4": "ACCIONES"
         }
     },
-
     "top_bar": {
         "label_drop_down_content": "Acciones rápidas",
         "opc_1_drop_down_content": "Nuevo prospecto"
     },
-
     "add_user": {
         "add_user": "Agregar Usuario",
         "name": "Nombre",
         "email": "Correo Electrónico",
+        "account": "Cuenta",
         "password": "Contraseña",
         "password_confirmation": "Confirmación de Contraseña",
         "btn_prev": "Anterior",
@@ -266,6 +269,14 @@
         "btn_cancel": "Cancelar",
         "btn_add_new_currency": "Nueva Divisa"
     },
+    "add_accounts":{
+        "accounts": "Cuentas",
+        "account_name": "Nombre",
+        "btn_prev": "Anterior",
+        "btn_save": "Guardar",
+        "btn_cancel": "Cancelar",
+        "btn_add_new_account": "Nueva Cuenta"
+    },
     "add_pipelines":{
         "pipelines": "Canalizaciones",
         "pipeline": "Canalización",
@@ -389,6 +400,7 @@
     "side-menu":{
         "users": "Usuarios",
         "prices": "Precios",
+        "accounts": "Cuentas",
         "categories": "Categorías",
         "products": "Products",
         "currencies": "Divisas",

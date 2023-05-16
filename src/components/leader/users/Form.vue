@@ -5,6 +5,8 @@
 </script>
 
 <script setup>
+  import { reactive, toRefs, ref, watch, computed, onMounted } from "vue";
+  import { storeToRefs } from "pinia";
   import {
     email,
     required,
@@ -15,12 +17,17 @@
     // url,
     // integer,
   } from "@vuelidate/validators";
-  import Toastify from "toastify-js";
+  //import Toastify from "toastify-js";
+  //import dom from "@left4code/tw-starter/dist/js/dom";
   import { useVuelidate } from "@vuelidate/core";
-  import dom from "@left4code/tw-starter/dist/js/dom";
-  import { reactive, toRefs, ref, watch, computed, onMounted } from "vue";
+
+  import { toast } from 'vue3-toastify';
+  import 'vue3-toastify/dist/index.css';
+  
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
+
+  import { useAccountsStore } from "@/stores/leader/accounts";
   import { useGetDataRoles } from '../../../composables/getData/useGetDataRoles';
   import { useGetDataPermissions } from '../../../composables/getData/useGetDataPermissions';  
 
@@ -33,28 +40,22 @@
   
   const emit = defineEmits(["submit"]);
 
+  const { fetchAccounts } = useAccountsStore();
+  const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
+  
   const { fetchRoles, results_roles, roles_errors } = useGetDataRoles();
   const { fetchPermissions, results_permissions, permissions_errors } = useGetDataPermissions();
+
   const dataRoles = ref([]);
   const dataPermissions = ref([]);
-
-  onMounted(async() => {
-    await fetchRoles();
-    dataRoles.value = results_roles.value;
-  });
-
-  onMounted(async() => {
-    await fetchPermissions();
-    dataPermissions.value = results_permissions.value;
-  });
-
+  
   const containsUser = (value) => {
     return value.include("user")
   }
-
+  
+  /*
   const rules = computed(() =>{
     return {
-      
         name: {
           required,
           // minLength: minLength(2),
@@ -76,31 +77,45 @@
       
     }
   })
+  */
 
- 
-
-  // const rules = {
-  //   name: {
-  //     required,
-  //     // minLength: minLength(2),
-  //   },
-  //   email: {
-  //     required,
-  //     email,
-  //   },
-  //   password: {
-  //     required,
-  //     minLength: minLength(6),
-  //   },
-  //   password_confirmation: {
-  //     required,
-  //     minLength: minLength(6),
-  //     sameAs: sameAs(props.password)
-  //   }
-  // };
-
-  const v$ = useVuelidate(rules, toRefs(props.user));
+  ////////RULES
+  const rules = {
+      name: { required },
+      accounts: { required },
+      email: { required, email},
+      password: { required, minLength: minLength(6)},
+      password_confirmation: { required, minLength: minLength(6)}
+  }
   
+  const v$ = useVuelidate(rules, props.user);
+  //const v$ = useVuelidate(rules, toRefs(props.user));
+
+  const submitCreate = async () => {
+    v$.value.$touch();
+    
+    if (v$.value.$invalid) {
+      toast.error('Error de validación', {
+                      autoClose:1000,
+                    });
+    }
+    
+    //const result = await validate.value.v$();
+    const result = await v$.value.$validate();
+    
+    if(result) {
+      emit('submit');
+    }
+  }
+
+  onMounted(async() => {
+    await fetchRoles();
+    await fetchAccounts();
+    await fetchPermissions();
+    dataRoles.value = results_roles.value;
+    dataPermissions.value = results_permissions.value;
+  });
+  /*
   const submitForm = async () => {
     v$.value.$touch();
     if (v$.value.$invalid) {
@@ -133,7 +148,8 @@
     if(result) {
       emit('submit')  
     } 
-  } 
+  }
+  */
 
 //   function update() {
 //  alert('click');
@@ -155,9 +171,7 @@
 
       <!-- BEGIN: Form Validation -->
       <PreviewComponent>
-        
-        <form id="formulario" class="validate-form" @submit.prevent="submitForm">
-          
+        <form id="formulario" @submit.prevent="submitCreate" class="validate-form" autocomplete="on">
           <div class="p-5 intro-y box">
             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
               <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
@@ -165,37 +179,69 @@
               </div>
               <div class="mt-5">
                 <Preview>
-                  <!-- BEGIN: Validation Form -->
-                  
-                    <!-- <form class="validate-form" @submit.prevent="save"> -->
-                    <!-- <form @submit.prevent="$emit('submit')" autocomplete="on"> -->
 
-                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                      <div class="form-label xl:w-72 xl:!mr-10">
-                        <div class="text-left">
-                          <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.name') }}</div>
-                            <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                                {{ $t('forms.required') }}
-                            </div>
-                          </div>
-                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Nombre del usuario, espacio para caracteres alfanúmericos, no incluir apellidos.
+                  <!-- BEGIN: Validation Form -->
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_user.account') }}</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                              {{ $t('forms.required') }}
                           </div>
                         </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                          Cuentas a las que pertenece.
+                        </div>
                       </div>
+                    </div>
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                      <v-select
+                        multiple
+                        label="name"
+                        class="w-full form-control"
+                        :options="dataAccounts"
+                        :reduce="name => name.id"
+                        v-model="user.accounts"
+                        :class="{ 'border-danger': v$.accounts.$error }">
+                      </v-select>
+                      
+                      <template v-if="v$.accounts.$error">
+                        <div
+                          v-for="(error, index) in v$.accounts.$errors"
+                          :key="index"
+                          class="mt-2 text-danger">
+                            {{ error.$message }}
+                        </div>
+                      </template>              
+                    </div>
+                  </div>
 
-                      <div class="flex-1 w-full mt-3 xl:mt-0">                    
-                        <input
-                          id="validation-form-1"
-                          v-model.trim="v$.name.$model"
-                          v-model="user.name"
-                          type="text"
-                          name="name"
-                          class="form-control"
-                          :class="{ 'border-danger': v$.name.$error }"
-                          :placeholder="$t('add_user.name')"/> 
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">{{ $t('add_user.name') }}</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                              {{ $t('forms.required') }}
+                          </div>
+                        </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                          Nombre del usuario, espacio para caracteres alfanúmericos, no incluir apellidos.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        id="validation-form-1"
+                        :placeholder="$t('add_user.name')"
+                        v-model="user.name"
+                        :class="{ 'border-danger': v$.name.$error }" />
                         <div class="text-right form-help">
                             Deben ser al menos 2 caracteres.
                         </div>
@@ -204,13 +250,12 @@
                             v-for="(error, index) in v$.name.$errors"
                             :key="index"
                             class="mt-2 text-danger">
-                            {{ error.$message }}
+                              {{ error.$message }}
                           </div>
                         </template>
                       </div>
-                    
                     </div>
-
+                    
                     <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">

@@ -2,32 +2,44 @@ import axios from "axios";
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useUsersStore = defineStore("UsersStore", {
     state: () => ({
         user: {},
-        users: [],
-        message: null,
+        users: []
+        //message: null,
     }),
     actions: {
         async createUser(user) {
             axiosClient.post('/users', user)
             .then (({data}) => {
-                return data;
-                //user: {}
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/dashboard-user' });
             })
             .catch((error) => {
-                this.message = error.message;
+                //this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
         },
 
         async fetchUser(id) {
             axiosClient.get(`/users`)
             .then (({data}) => {
-                //return data;
                 this.user = data;
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
             /*
             this.error = null;
@@ -49,18 +61,10 @@ export const useUsersStore = defineStore("UsersStore", {
                 this.message = data.message;
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
-
-            /*
-            ///EJEMPLO DE ERROR, sacado del curso de DevTaller
-            .catch(error){
-                hasError.value=true;
-                if(axios.isAxiosError(error)){
-                    return errorMessage.value = error.message;
-                }
-            }
-            */
         },
         
         async deleteUser(id) {
