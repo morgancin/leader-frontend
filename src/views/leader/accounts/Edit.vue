@@ -5,21 +5,30 @@
 </script>
 
 <script setup>
-    import { storeToRefs } from "pinia";
-    import { useRoute } from "vue-router";
-    
-    import { useCurrenciesStore } from "../../../stores/leader/currencies";
-    import CurrenciesForm from "../../../components/leader/currencies/Form.vue";
-
-    const route = useRoute();
-    const { updateCurrency, fetchCurrency } = useCurrenciesStore();
-    const { currency: form, message } = storeToRefs(useCurrenciesStore());
-
-    fetchCurrency(route.params.id);
-    
-    const submit = async () => {
-        await updateCurrency();
+  import { ref, watch } from 'vue';
+  import { storeToRefs } from "pinia";
+  import { useRoute } from "vue-router";
+  
+  import { useAccountsStore } from "../../../stores/leader/accounts";
+  import AccountsForm from "../../../components/leader/accounts/Form.vue";
+  
+  const route = useRoute();
+  const show_form = ref(false);
+  const { updateAccount, fetchAccount } = useAccountsStore();
+  const { account: form_data } = storeToRefs(useAccountsStore());
+  
+  fetchAccount(route.params.id);
+  
+  watch(
+    () => form_data.value,
+    () => {
+      show_form.value = true;
     }
+  );
+  
+  const submit = async () => {
+    await updateAccount();
+  }
 </script>
 
 <template>
@@ -29,10 +38,11 @@
   </div>
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
-      <CurrenciesForm
-          text-button="Actualizar"
-          :currency="form"
-          @submit="submit" />
+      <AccountsForm
+        v-if="show_form"
+        @submit="submit"
+        :account="form_data"
+        text-button="Actualizar" />
     </div>
   </div>
 </template>

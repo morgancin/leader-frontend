@@ -102,12 +102,12 @@ export const useSideMenuStore = defineStore("sideMenu", {
               },
               {
                 icon: "RadioIcon",
-                pageName: "side-menu-origin",
+                pageName: "side-menu-prospecting-sources",
                 title: 'side-menu.settings-catalogs-origin',
               },
               {
                 icon: "MessageCircleIcon",
-                pageName: "side-menu-medium",
+                pageName: "side-menu-prospecting-means",
                 title: 'side-menu.settings-catalogs-medium',
               },
               {

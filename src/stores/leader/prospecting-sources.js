@@ -20,58 +20,39 @@ export const useProspectingSourcesStore = defineStore("prospectingSourcesStore",
                     autoClose:1000
                 });
                 
-                router.push({ path: '/currencies' });
+                router.push({ path: '/prospecting-sources' });
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
-        }
-        /*
+        },
+        async updateProspectingSources() {
+            axiosClient.put(`/prospecting-sources/${this.prospecting_source.id}`, this.prospecting_source)
+            .then (({data}) => {
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+                
+                router.push({ path: '/prospecting-sources' });
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+            })
+        },
         async fetchProspectingSource(id) {
             axiosClient.get(`/prospecting-sources/${id}`)
             .then (({data}) => {
-                //return data;
-                this.prospecting_source = data;
+                this.prospecting_source = data.data;
             })
-            .catch(function (error) {
+            .catch((error) => {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
         },
-        async fetchProspectingSources() {
-            axiosClient.get('/prospecting-sources')
-            .then (({data}) => {
-                this.prospecting_sources = data;
-            })
-            .catch(function (error) {
-                toast.error(error.response.data.message, {
-                    autoClose:1000
-                });
-            })
-        },
-        async fetchProspectingMeans(prospecting_source) {
-            axiosClient.get('/prospecting-means?prospecting_source_id=${prospecting_source}')
-            .then (({data}) => {
-                this.prospecting_sources = data;
-            })
-            .catch(function (error) {
-                toast.error(error.response.data.message, {
-                    autoClose:1000
-                });
-            })
-        }
-        async updateClientOrigin() {
-            axiosClient.put(`/prospecting-sources/${this.origin.id}`, this.origin)
-            .then (({data}) => {
-                this.message = data.message;
-            })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-        },
-        */
     }
 });

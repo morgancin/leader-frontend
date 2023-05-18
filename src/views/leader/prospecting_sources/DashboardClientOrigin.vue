@@ -30,7 +30,6 @@
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
-      layout:"fitColumns",
       ajaxResponse:function(url, params, response){
           //url - the URL of the request
           //params - the parameters passed with the request
@@ -38,6 +37,7 @@
 
           return response.data; //return the tableData property of a response json object
       },
+      layout:"fitColumns",
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load
@@ -60,7 +60,7 @@
         {
           title: t('list.catalogs_origins.column_1'),
           minWidth: 200,
-          field: "description",
+          field: "name",
           vertAlign: "middle",
           print: true,
           download: true,
@@ -78,7 +78,7 @@
           headerSort:false,
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
-                              <a class="flex items-center mr-3" href="/origin/edit/${cell.getData().id}">
+                              <a class="flex items-center mr-3" href="/prospecting-sources/edit/${cell.getData().id}">
                                 <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
                               </a>
                             </div>`);
@@ -393,7 +393,7 @@
 <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('catalogs_origins.list_origins') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
-      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-origin`">{{ $t('catalogs_origins.btn_add_new_origins') }}</router-link>
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-prospecting-sources`">{{ $t('catalogs_origins.btn_add_new_origins') }}</router-link>
       <!-- <Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">
           <span class="flex items-center justify-center w-5 h-5">

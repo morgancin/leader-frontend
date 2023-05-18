@@ -1,15 +1,15 @@
 <script>
     export default {
-      name: "ClientsOriginsCreateView"
+      name: "ProspectingSourcesCreateView"
     }
 </script>
 
 <script setup>
   import { reactive } from "vue";
-  import { useClientOriginStore } from "@/stores/leader/client-origin";
-  import ClientOriginForm from "../../../components/leader/clientOrigin/Form.vue";
-  
-  const { createClientOrigin } = useClientOriginStore();
+  import { useProspectingSourcesStore } from "@/stores/leader/prospecting-sources";
+  import ProspectingSourcesForm from "../../../components/leader/prospecting_sources/Form.vue";
+   
+  const { createProspectingSources } = useProspectingSourcesStore();
   
   const form = reactive({
                         description:'',
@@ -17,7 +17,7 @@
                     });
   
   const submit = async () => {
-    await createClientOrigin(form);
+    await createProspectingSources(form);
   }
 </script>
   
@@ -29,9 +29,9 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <!-- BEGIN: Form Layout -->
-      <ClientOriginForm
-            :source="form"
-            @submit="submit"/>
+      <ProspectingSourcesForm
+        :source="form"
+        @submit="submit" />
       <!-- END: Form Layout -->
     </div>
   </div>

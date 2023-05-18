@@ -393,21 +393,21 @@ const routes = [
       
       //PROSPECTS CATALOGUE ORIGINS
       {
-        path: 'sources',
-        name: 'side-menu-origin',
-        component: () => import('../views/leader/origins/DashboardClientOrigin.vue'),
+        path: 'prospecting-sources',
+        name: 'side-menu-prospecting-sources',
+        component: () => import('../views/leader/prospecting_sources/DashboardClientOrigin.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: 'add-origin',
-        name: 'side-menu-add-origin',
-        component: () => import('../views/leader/origins/Create.vue'),
+        path: 'add-prospecting-sources',
+        name: 'side-menu-add-prospecting-sources',
+        component: () => import('../views/leader/prospecting_sources/Create.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: '/origin/edit/:id',
-        name: 'side-menu-edit-origin',
-        component: () => import('../views/leader/origins/Edit.vue'),
+        path: '/prospecting-sources/edit/:id',
+        name: 'side-menu-edit-prospecting-sources',
+        component: () => import('../views/leader/prospecting_sources/Edit.vue'),
         beforeEnter: requireAuth
       },
 
@@ -553,21 +553,21 @@ const routes = [
 
       //PROSPECTS CATALOGUE MEDIUMS
       {
-        path: 'means',
-        name: 'side-menu-medium',
-        component: () => import('../views/leader/mediums/DashboardClientOriginMedium.vue'),
+        path: 'prospecting-means',  //'means'
+        name: 'side-menu-prospecting-means', //'side-menu-medium'
+        component: () => import('../views/leader/prospecting_means/Index.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: 'add-medium',
-        name: 'side-menu-add-medium',
-        component: () => import('../views/leader/mediums/Create.vue'),
+        path: 'add-prospecting-means', //'add-medium'
+        name: 'side-menu-add-prospecting-means', //'side-menu-add-medium'
+        component: () => import('../views/leader/prospecting_means/Create.vue'),
         beforeEnter: requireAuth
       },
       {
-        path: '/medium/edit/:id',
-        name: 'side-menu-edit-medium',
-        component: () => import('../views/leader/mediums/Edit.vue'),
+        path: '/prospecting-means/edit/:id',      //'/medium/edit/:id'
+        name: 'side-menu-edit-prospecting-means', //'side-menu-edit-medium'
+        component: () => import('../views/leader/prospecting_means/Edit.vue'),
         beforeEnter: requireAuth
       },
 

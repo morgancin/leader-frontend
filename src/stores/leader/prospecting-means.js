@@ -6,63 +6,65 @@ import 'vue3-toastify/dist/index.css';
 
 import router from "@/router";
 
-export const useAccountsStore = defineStore("AccountsStore", {
+export const useProspectingMeansStore = defineStore("ProspectingMeansStore", {
     state: () => ({
-        account: {},
-        accounts: []
+        prospecting_mean: {},
+        prospecting_means: []
     }),
     actions: {
-        async createAccount(account) {
-            axiosClient.post('/accounts', account)
+        async createProspectingMeans(prospecting_mean) {
+            axiosClient.post('/prospecting-means', prospecting_mean)
             .then (({data}) => {
                 toast.success(data.message, {
                     autoClose:1000
                 });
                 
-                router.push({ path: '/accounts' });
-
-            }).catch ((error) => {
+                router.push({ path: '/prospecting-means' });
+            })
+            .catch(function (error) {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
         },
-        async updateAccount() {
-            axiosClient.put(`/accounts/${this.account.id}`, this.account)
+        async updateProspectingMeans() {
+            axiosClient.put(`/prospecting-means/${this.prospecting_mean.id}`, this.prospecting_mean)
             .then (({data}) => {
                 toast.success(data.message, {
                     autoClose:1000
                 });
                 
-                router.push({ path: '/accounts' });
+                router.push({ path: '/prospecting-means' });
             })
-            .catch((error) => {
+            .catch(function (error) {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
         },
-        async fetchAccount(id) {
-            axiosClient.get(`/accounts/${id}`)
+        async fetchProspectingMean(id) {
+            axiosClient.get(`/prospecting-means/${id}`)
             .then (({data}) => {
-                this.account = data.data;
+                //return data;
+                this.prospecting_mean = data.data;
             })
-            .catch((error) => {
+            .catch(function (error) {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
         },
-        async fetchAccounts() {
-            axiosClient.get('/accounts')
+        async fetchProspectingMeans() {
+            axiosClient.get('/prospecting-means')
             .then (({data}) => {
-                this.accounts = data.data;
+                //return data;
+                this.prospecting_means = data.data;
             })
-            .catch((error) => {
+            .catch(function (error) {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
-        }
+        },
     }
 });

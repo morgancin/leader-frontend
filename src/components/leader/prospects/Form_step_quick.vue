@@ -32,9 +32,7 @@
   const { createCompany, fetchCompanies } = useCompaniesStore();
   const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
   const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
-  //const { createProspect, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
-  //const { fetchProspectingSources, fetchProspectingMeans } = useProspectingSourcesStore();
-  
+    
   const { prospect } = storeToRefs(useProspectsStore());
   const { activity, activities } = storeToRefs(useActivitiesStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
