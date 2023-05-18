@@ -31,7 +31,7 @@ export const usePriceListStore = defineStore("PriceListStore", {
         async fetchPriceList(id) {
             axiosClient.get(`/price-lists/${id}`)
             .then (({data}) => {
-                this.price_list = data;
+                this.price_list = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -42,7 +42,7 @@ export const usePriceListStore = defineStore("PriceListStore", {
         async fetchPriceLists(id) {
             axiosClient.get(`/price-lists`)
             .then (({data}) => {
-                this.price_list = data;
+                this.price_list = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

@@ -5,21 +5,30 @@
 </script>
 
 <script setup>
-    import { storeToRefs } from "pinia";
-    import { useRoute } from "vue-router";
-
-    import { useActivitiesTypeStore } from "../../../stores/leader/activities-type";
-    import ActivityTypeForm from "../../../components/leader/activityType/Form.vue";
-
-    const route = useRoute();
-    const { updateActivityType, fetchActivityType } = useActivitiesTypeStore();
-    const { activity_type: form, message } = storeToRefs(useActivitiesTypeStore());
-
-    fetchActivityType(route.params.id);
-    
-    const submit = async () => {
-        await updateActivityType();
+  import { ref, watch } from 'vue';
+  import { storeToRefs } from "pinia";
+  import { useRoute } from "vue-router";
+  
+  import { useActivitiesTypeStore } from "../../../stores/leader/activities-type";
+  import ActivityTypeForm from "../../../components/leader/activityType/Form.vue";
+  
+  const route = useRoute();
+  const show_form = ref(false);
+  const { updateActivityType, fetchActivityType } = useActivitiesTypeStore();
+  const { activity_type: form_data } = storeToRefs(useActivitiesTypeStore());
+  
+  fetchActivityType(route.params.id);
+  
+  watch(
+    () => form_data.value,
+    () => {
+      show_form.value = true;
     }
+  );
+  
+  const submit = async () => {
+    await updateActivityType();
+  }
 </script>
 
 <template>
@@ -30,9 +39,10 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ActivityTypeForm
-          text-button="Actualizar"
-          :activity_type="form"
-          @submit="submit" />
+        v-if="show_form"
+        @submit="submit"
+        :activity_type="form_data"
+        text-button="Actualizar" />
     </div>
   </div>
 </template>

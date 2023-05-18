@@ -46,7 +46,7 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
             axiosClient.get('/activity-types')
             .then (({data}) => {
                 //return data;
-                this.activities_types = data;
+                this.activities_types = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -58,7 +58,7 @@ export const useActivitiesTypeStore = defineStore("ActivitiesTypeStore", {
             axiosClient.get(`/activity-types/${id}`)
             .then (({data}) => {
                 //return data;
-                this.activity_type = data;
+                this.activity_type = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

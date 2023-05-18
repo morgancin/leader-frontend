@@ -16,9 +16,12 @@
 
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
+
+  import i18n from "../../../language/i18n";
   
   import { useAccountsStore } from "@/stores/leader/accounts";
 
+  const { t } = i18n.global;
   const { fetchAccounts } = useAccountsStore();
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
 
@@ -43,7 +46,7 @@
     validate.value.$touch();
     
     if (validate.value.$invalid) {
-      toast.error('Error de validación', {
+      toast.error(t('messages.validation_error'), {
                       autoClose:1000,
                     });
     }

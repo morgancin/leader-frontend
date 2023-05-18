@@ -14,6 +14,9 @@
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
 
+    import i18n from "../../../language/i18n";
+    const { t } = i18n.global;
+
     const props = defineProps({
         activity_type: {
             type: Object,
@@ -35,7 +38,7 @@
       validate.value.$touch();
     
       if (validate.value.$invalid) {
-        toast.error('Error de validación', {
+        toast.error(t('messages.validation_error'), {
                       autoClose:1000,
                     });
       }

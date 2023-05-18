@@ -11,7 +11,7 @@ export function useGetDataActivityTypes()
         
         await axiosClient.get(`/activity-types`)
         .then (({data}) => {
-            results.value = data;
+            results.value = data.data;
         })
         .catch(function (err) {
             error.value = err;

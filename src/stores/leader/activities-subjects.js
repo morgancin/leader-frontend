@@ -31,7 +31,7 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
             axiosClient.get('/activity-subjects')
             .then (({data}) => {
                 //return data;
-                this.subject = data;
+                this.subject = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -42,8 +42,7 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
         async fetchActivitySubject(id) {
             axiosClient.get(`/activity-subjects/${id}`)
             .then (({data}) => {
-                //return data;
-                this.subject = data;
+                this.subject = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

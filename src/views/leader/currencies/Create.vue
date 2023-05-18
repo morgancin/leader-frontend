@@ -5,12 +5,11 @@
 </script>
 
 <script setup>
-  import { ref, reactive } from 'vue';
+  import { reactive } from 'vue';
   import { storeToRefs } from "pinia";
 
-  import CurrenciesForm from "../../../components/leader/currencies/Form.vue";
-  
   import { useCurrenciesStore } from "../../../stores/leader/currencies";
+  import CurrenciesForm from "../../../components/leader/currencies/Form.vue";
 
   const { createCurrency } = useCurrenciesStore();
   

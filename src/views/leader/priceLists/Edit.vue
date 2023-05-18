@@ -5,21 +5,30 @@
 </script>
 
 <script setup>
-    import { storeToRefs } from "pinia";
-    import { useRoute } from "vue-router";
-    
-    import { usePriceListStore } from "../../../stores/leader/price-list";
-    import PriceListsForm from "../../../components/leader/priceLists/Form.vue";
+  import { ref, watch } from 'vue';
+  import { storeToRefs } from "pinia";
+  import { useRoute } from "vue-router";
+  
+  import { usePriceListStore } from "../../../stores/leader/price-list";
+  import PriceListsForm from "../../../components/leader/priceLists/Form.vue";
 
-    const route = useRoute();
-    const { updatePriceList, fetchPriceList } = usePriceListStore();
-    const { price_list: form, message } = storeToRefs(usePriceListStore());
-
-    fetchPriceList(route.params.id);
-    
-    const submit = async () => {
-        await updatePriceList();
+  const route = useRoute();
+  const show_form = ref(false);
+  const { updatePriceList, fetchPriceList } = usePriceListStore();
+  const { price_list: form_data } = storeToRefs(usePriceListStore());
+  
+  fetchPriceList(route.params.id);
+  
+  watch(
+    () => form_data.value,
+    () => {
+      show_form.value = true;
     }
+  );
+  
+  const submit = async () => {
+    await updatePriceList();
+  }
 </script>
 
 <template>
@@ -30,9 +39,10 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <PriceListsForm
-          text-button="Actualizar"
-          :price_list="form"
-          @submit="submit" />
+        v-if="show_form"
+        @submit="submit"
+        :price_list="form_data"
+        text-button="Actualizar" />
     </div>
   </div>
 </template>

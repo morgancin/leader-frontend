@@ -30,7 +30,7 @@ export const useTagsStore = defineStore("TagsStore", {
         async fetchTag(id) {
             axiosClient.get(`/tags/${id}`)
             .then (({data}) => {
-                this.tag = data;
+                this.tag = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -56,7 +56,7 @@ export const useTagsStore = defineStore("TagsStore", {
         async fetchTags() {
             axiosClient.get('/tags')
             .then (({data}) => {
-                this.tags = data;
+                this.tags = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

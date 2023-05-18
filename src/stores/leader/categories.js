@@ -45,7 +45,7 @@ export const useCategoriesStore = defineStore("CategoriesStore", {
         async fetchCategories() {
             axiosClient.get('/categories')
             .then (({data}) => {
-                this.categories = data;
+                this.categories = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -56,7 +56,7 @@ export const useCategoriesStore = defineStore("CategoriesStore", {
         async fetchCategory(id) {
             axiosClient.get(`/categories/${id}`)
             .then (({data}) => {
-                this.category = data;
+                this.category = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

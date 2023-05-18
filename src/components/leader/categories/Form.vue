@@ -15,9 +15,12 @@
 
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
-    
+
+    import i18n from "../../../language/i18n";
+
     import { useGetDataCategories } from '../../../composables/getData/useGetDataCategories';
     const { fetchCategories, results_categories, error } = useGetDataCategories();
+    const { t } = i18n.global;
     
     const dataCategories = ref([]);
     
@@ -29,7 +32,6 @@
     });
 
     const emit = defineEmits(["submit"]);
-    //defineEmits(["submit"]);
 
     ////////RULES
     const rules = {
@@ -42,7 +44,7 @@
       validate.value.$touch();
     
       if (validate.value.$invalid) {
-        toast.error('Error de validación', {
+        toast.error(t('messages.validation_error'), {
                       autoClose:1000,
                     });
       }

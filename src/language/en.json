@@ -1,4 +1,7 @@
 {
+    "messages": {
+        "validation_error": "Validation error"
+    },
     "list": {
         "users": {
             "column_1": "NAME",

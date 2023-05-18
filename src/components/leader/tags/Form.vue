@@ -13,6 +13,9 @@
 
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
+
+    import i18n from "../../../language/i18n";
+    const { t } = i18n.global;
     
     const props = defineProps({
       tag: {
@@ -35,7 +38,7 @@
       validate.value.$touch();
     
       if (validate.value.$invalid) {
-        toast.error('Error de validación', {
+        toast.error(t('messages.validation_error'), {
                       autoClose:1000,
                     });
       }

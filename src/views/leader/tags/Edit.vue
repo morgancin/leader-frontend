@@ -5,21 +5,30 @@
 </script>
 
 <script setup>
-    import { storeToRefs } from "pinia";
-    import { useRoute } from "vue-router";
-    
-    import TagsForm from "@/components/leader/tags/Form.vue";
-    import { useTagsStore } from "@/stores/leader/tags";
-    
-    const route = useRoute();
-    const { updateTag, fetchTag } = useTagsStore();
-    const { tag: form, message } = storeToRefs(useTagsStore());
+  import { ref, watch } from 'vue';
+  import { storeToRefs } from "pinia";
+  import { useRoute } from "vue-router";
+  
+  import TagsForm from "@/components/leader/tags/Form.vue";
+  import { useTagsStore } from "@/stores/leader/tags";
+  
+  const route = useRoute();
+  const show_form = ref(false);
+  const { updateTag, fetchTag } = useTagsStore();
+  const { tag: form_data } = storeToRefs(useTagsStore());
+  
+  fetchTag(route.params.id);
 
-    fetchTag(route.params.id);
-    
-    const submit = async () => {
-        await updateTag();
-    }
+  watch(
+      () => form_data.value,
+      () => {
+        show_form.value = true;
+      }
+  );
+  
+  const submit = async () => {
+    await updateTag();
+  }
 </script>
 <template>
   <div class="flex items-center mt-8 intro-y">
@@ -29,9 +38,10 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <TagsForm
-          text-button="Actualizar"
-          :tag="form" 
-          @submit="submit" />
+        v-if="show_form"
+        @submit="submit"
+        :tag="form_data"
+        text-button="Actualizar" />
     </div>
   </div>
 </template>

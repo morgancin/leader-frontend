@@ -5,21 +5,30 @@
 </script>
 
 <script setup>
-    import { storeToRefs } from "pinia";
-    import { useRoute } from "vue-router";
-   
-    import { useActivitySubjectStore } from "../../../stores/leader/activities-subjects";
-    import ActivitySubjectForm from "../../../components/leader/activitySubjects/Form.vue";
-
-    const route = useRoute();
-    const { updateActivitySubject, fetchActivitySubject } = useActivitySubjectStore();
-    const { subject: form, message } = storeToRefs(useActivitySubjectStore());
-
-    fetchActivitySubject(route.params.id);
-    
-    const submit = async () => {
-        await updateActivitySubject();
+  import { ref, watch } from 'vue';
+  import { storeToRefs } from "pinia";
+  import { useRoute } from "vue-router";
+  
+  import { useActivitySubjectStore } from "../../../stores/leader/activities-subjects";
+  import ActivitySubjectForm from "../../../components/leader/activitySubjects/Form.vue";
+  
+  const route = useRoute();
+  const show_form = ref(false);
+  const { updateActivitySubject, fetchActivitySubject } = useActivitySubjectStore();
+  const { subject: form_data } = storeToRefs(useActivitySubjectStore());
+  
+  fetchActivitySubject(route.params.id);
+  
+  watch(
+    () => form_data.value,
+    () => {
+      show_form.value = true;
     }
+  );
+  
+  const submit = async () => {
+    await updateActivitySubject();
+  }
 </script>
 <template>
   <div class="flex items-center mt-8 intro-y">
@@ -29,9 +38,10 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ActivitySubjectForm
-          text-button="Actualizar"
-          :subject="form" 
-          @submit="submit" />
+        v-if="show_form"
+        @submit="submit"
+        :subject="form_data"
+        text-button="Actualizar" />
     </div>
   </div>
 </template>

@@ -10,8 +10,6 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
     state: () => ({
         currency: {},
         currencies: []
-        //message: null,
-        //error: null
     }),
     actions: {
         async createCurrency(currency) {
@@ -42,7 +40,6 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
-                //this.message = error.message;
             })
         },
         async fetchCurrencies() {
@@ -54,19 +51,17 @@ export const useCurrenciesStore = defineStore("CurrenciesStore", {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
-                //this.message = error.message;
             })
         },
         async fetchCurrency(id) {
             axiosClient.get(`/currencies/${id}`)
             .then (({data}) => {
-                this.currency = data;
+                this.currency = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
-                //this.message = error.message;
             })
         },
     }
