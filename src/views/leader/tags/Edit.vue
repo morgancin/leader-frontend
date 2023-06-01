@@ -20,10 +20,10 @@
   fetchTag(route.params.id);
 
   watch(
-      () => form_data.value,
-      () => {
-        show_form.value = true;
-      }
+    () => form_data.value,
+    () => {
+      show_form.value = true;
+    }
   );
   
   const submit = async () => {

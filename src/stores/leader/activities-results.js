@@ -56,7 +56,7 @@ export const useActivitiesResultStore = defineStore("ActivitiesResultStore", {
         async fetchActivityResult(id) {
             axiosClient.get(`/activity-results/${id}`)
             .then (({data}) => {
-                this.activity_result = data;
+                this.activity_result = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

@@ -11,15 +11,16 @@
   
   const { createPipeline } = usePipelinesStore();
 
-  const form = reactive({
+  const form_data = reactive({
                         name:'',
-                        is_default:'',
+                        active:true,
+                        is_default:false,
                         account_id:null,
                         stages:[]                    
                     });
 
   const submit = async () => {
-    await createPipeline(form);
+    await createPipeline(form_data);
   }
 </script>
 
@@ -31,7 +32,7 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <PipelinesForm
-          :pipeline="form"
+          :pipeline="form_data"
           @submit="submit" />
     </div>
   </div>

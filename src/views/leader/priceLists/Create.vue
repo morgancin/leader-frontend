@@ -11,13 +11,14 @@
   
   const { createPriceList } = usePriceListStore();
 
-  const form = reactive({
+  const form_data = reactive({
                         name:'',
+                        active:true,
                         account_id:''
                   });
 
   const submit = async () => {
-    await createPriceList(form);
+    await createPriceList(form_data);
   }
 </script>
 
@@ -29,7 +30,7 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <PriceListsForm
-          :price_list="form"
+          :price_list="form_data"
           @submit="submit" />
     </div>
   </div>

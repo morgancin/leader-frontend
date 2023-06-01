@@ -12,14 +12,16 @@
 
   const { createActivityResult } = useActivitiesResultStore();
 
-  const form = reactive({
+  const form_data = reactive({
                         name:null,
+                        active:true,
+                        is_tracking:false,
                         activity_type_id:null,
-                        pipeline_stage_id:null,
+                        pipeline_stage_id:null
                   });
 
   const submit = async () => {
-    await createActivityResult(form);
+    await createActivityResult(form_data);
   }
 </script>
 
@@ -31,7 +33,7 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ActivityResultForm
-          :activity_result="form"
+          :activity_result="form_data"
           @submit="submit" />
     </div>
   </div>

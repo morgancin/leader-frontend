@@ -11,13 +11,14 @@
    
   const { createProspectingSources } = useProspectingSourcesStore();
   
-  const form = reactive({
+  const form_data = reactive({
                         description:'',
+                        active:true,
                         account_id:null,
                     });
   
   const submit = async () => {
-    await createProspectingSources(form);
+    await createProspectingSources(form_data);
   }
 </script>
   
@@ -30,7 +31,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <!-- BEGIN: Form Layout -->
       <ProspectingSourcesForm
-        :source="form"
+        :source="form_data"
         @submit="submit" />
       <!-- END: Form Layout -->
     </div>

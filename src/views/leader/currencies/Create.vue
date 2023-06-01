@@ -13,13 +13,14 @@
 
   const { createCurrency } = useCurrenciesStore();
   
-  const form = reactive({
+  const form_data = reactive({
                         code:'',
-                        name:''
+                        name:'',
+                        active:true
                       });
 
   const submit = async () => {
-    await createCurrency(form);
+    await createCurrency(form_data);
   }
 </script>
 
@@ -31,7 +32,7 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <CurrenciesForm
-          :currency="form"
+          :currency="form_data"
           @submit="submit" />
     </div>
   </div>

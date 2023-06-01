@@ -140,6 +140,36 @@
                   </template>
                 </div>
               </div>
+
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">Status</div>
+                        <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                              Required
+                        </div>
+                      </div>
+                      <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                          If the status is active, your tag can be searched for by
+                          potential buyers.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                      <div class="form-check form-switch">
+                        <input
+                          type="checkbox"
+                          checked
+                          class="form-check-input"
+                          id="product-status-active"
+                          v-model="tag.active" />                        
+                        <label class="form-check-label" for="product-status-active">Active</label>
+                  </div>
+                </div>
+              </div>
+
           </div>
         </div>
       </div>  

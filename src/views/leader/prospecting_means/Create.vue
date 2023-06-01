@@ -11,14 +11,15 @@
    
   const { createProspectingMeans } = useProspectingMeansStore();
   
-  const form = reactive({
+  const form_data = reactive({
                         name:'',
+                        active:true,
                         account_id:null,
                         prospecting_source_id:null
                     });
   
   const submit = async () => {
-    await createProspectingMeans(form);
+    await createProspectingMeans(form_data);
   }
 </script>
   
@@ -31,7 +32,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <!-- BEGIN: Form Layout -->
       <ProspectingMeansForm
-        :mean="form"
+        :mean="form_data"
         @submit="submit" />
       <!-- END: Form Layout -->
     </div>

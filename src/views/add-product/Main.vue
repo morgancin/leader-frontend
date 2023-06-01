@@ -1,11 +1,11 @@
 <template>
-  <div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Add Product</h2>
+  <div class="flex items-center mt-8 intro-y">
+    <h2 class="mr-auto text-lg font-medium">Add Product</h2>
   </div>
-  <div class="grid grid-cols-11 gap-x-6 mt-5 pb-20">
+  <div class="grid grid-cols-11 pb-20 mt-5 gap-x-6">
     <!-- BEGIN: Notification -->
     <Alert
-      class="intro-y col-span-11 alert-primary alert-dismissible mb-6"
+      class="col-span-11 mb-6 intro-y alert-primary alert-dismissible"
       v-slot="{ dismiss }"
       role="alert"
     >
@@ -17,14 +17,14 @@
           Seller.
           <a
             href="https://themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/26366820"
-            class="underline ml-1"
+            class="ml-1 underline"
             target="blank"
             >Learn More</a
           ></span
         >
         <button
           type="button"
-          class="btn-close text-white"
+          class="text-white btn-close"
           @click="dismiss"
           aria-label="Close"
         >
@@ -33,14 +33,14 @@
       </div>
     </Alert>
     <!-- BEGIN: Notification -->
-    <div class="intro-y col-span-11 2xl:col-span-9">
+    <div class="col-span-11 intro-y 2xl:col-span-9">
       <!-- BEGIN: Uplaod Product -->
-      <div class="intro-y box p-5">
+      <div class="p-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Upload Product
           </div>
@@ -54,13 +54,13 @@
                 >
                 <a
                   href="https://themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/26366820"
-                  class="text-primary font-medium"
+                  class="font-medium text-primary"
                   target="blank"
                   >Learn More</a
                 >
               </div>
             </div>
-            <div class="form-inline items-start flex-col xl:flex-row mt-10">
+            <div class="flex-col items-start mt-10 form-inline xl:flex-row">
               <div class="form-label w-full xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
@@ -71,7 +71,7 @@
                       Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     <div>
                       The image format is .jpg .jpeg .png and a minimum size of
                       300 x 300 pixels (For optimal images use a minimum size of
@@ -86,13 +86,13 @@
                 </div>
               </div>
               <div
-                class="w-full mt-3 xl:mt-0 flex-1 border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4"
+                class="flex-1 w-full pt-4 mt-3 border-2 border-dashed rounded-md xl:mt-0 dark:border-darkmode-400"
               >
                 <div class="grid grid-cols-10 gap-5 pl-4 pr-5">
                   <div
                     v-for="(faker, fakerKey) in $_.take($f(), 5)"
                     :key="fakerKey"
-                    class="col-span-5 md:col-span-2 h-28 relative image-fit cursor-pointer zoom-in"
+                    class="relative col-span-5 cursor-pointer md:col-span-2 h-28 image-fit zoom-in"
                   >
                     <img
                       class="rounded-md"
@@ -101,22 +101,22 @@
                     />
                     <Tippy
                       content="Remove this image?"
-                      class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"
+                      class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger"
                     >
                       <XIcon class="w-4 h-4" />
                     </Tippy>
                   </div>
                 </div>
                 <div
-                  class="px-4 pb-4 mt-5 flex items-center justify-center cursor-pointer relative"
+                  class="relative flex items-center justify-center px-4 pb-4 mt-5 cursor-pointer"
                 >
                   <ImageIcon class="w-4 h-4 mr-2" />
-                  <span class="text-primary mr-1">Upload a file</span> or drag
+                  <span class="mr-1 text-primary">Upload a file</span> or drag
                   and drop
                   <input
                     id="horizontal-form-1"
                     type="file"
-                    class="w-full h-full top-0 left-0 absolute opacity-0"
+                    class="absolute top-0 left-0 w-full h-full opacity-0"
                   />
                 </div>
               </div>
@@ -126,18 +126,18 @@
       </div>
       <!-- END: Uplaod Product -->
       <!-- BEGIN: Product Information -->
-      <div class="intro-y box p-5 mt-5">
+      <div class="p-5 mt-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Product Information
           </div>
           <div class="mt-5">
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -149,25 +149,25 @@
                       Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Include min. 40 characters to make it more attractive and
                     easy for buyers to find, consisting of product type, brand,
                     and information such as color, material, or type.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <input
                   id="product-name"
                   type="text"
                   class="form-control"
                   placeholder="Product name"
                 />
-                <div class="form-help text-right">Maximum character 0/70</div>
+                <div class="text-right form-help">Maximum character 0/70</div>
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -181,7 +181,7 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <select id="category" class="form-select">
                   <option
                     v-for="(faker, fakerKey) in $_.take($f(), 9)"
@@ -194,20 +194,20 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Subcategory</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     You can add a new subcategory or choose from the existing
                     subcategory list.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <TomSelect
                   v-model="subcategory"
                   :options="{
@@ -231,18 +231,18 @@
       </div>
       <!-- END: Product Information -->
       <!-- BEGIN: Product Detail -->
-      <div class="intro-y box p-5 mt-5">
+      <div class="p-5 mt-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Product Detail
           </div>
           <div class="mt-5">
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -256,9 +256,9 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="flex flex-col sm:flex-row">
-                  <div class="form-check mr-4">
+                  <div class="mr-4 form-check">
                     <input
                       id="condition-new"
                       class="form-check-input"
@@ -270,7 +270,7 @@
                       >New</label
                     >
                   </div>
-                  <div class="form-check mr-4 mt-2 sm:mt-0">
+                  <div class="mt-2 mr-4 form-check sm:mt-0">
                     <input
                       id="condition-second"
                       class="form-check-input"
@@ -286,7 +286,7 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -298,7 +298,7 @@
                       Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     <div>
                       Make sure the product description provides a detailed
                       explanation of your product so that it is easy to
@@ -312,33 +312,33 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <ClassicEditor v-model="editorData" />
-                <div class="form-help text-right">Maximum character 0/2000</div>
+                <div class="text-right form-help">Maximum character 0/2000</div>
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Product Video</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Add a video so that buyers are more interested in your
                     product.
                     <a
                       href="https://themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/26366820"
-                      class="text-primary font-medium"
+                      class="font-medium text-primary"
                       target="blank"
                       >Learn more.</a
                     >
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
-                <button class="btn btn-outline-secondary w-40">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
+                <button class="w-40 btn btn-outline-secondary">
                   <PlusIcon class="w-4 h-4 mr-2" /> Add Video URL
                 </button>
               </div>
@@ -348,31 +348,31 @@
       </div>
       <!-- END: Product Detail -->
       <!-- BEGIN: Product Variant -->
-      <div class="intro-y box p-5 mt-5">
+      <div class="p-5 mt-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Product Variant
           </div>
           <div class="mt-5">
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label sm:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Product Variant</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-2">
+                  <div class="mt-2 text-xs leading-relaxed text-slate-500">
                     Add variants such as color, size, or more. Choose a maximum
                     of 2 variant types.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1 xl:text-right">
+              <div class="flex-1 w-full mt-3 xl:mt-0 xl:text-right">
                 <button class="btn btn-primary w-44">
                   <PlusIcon class="w-4 h-4 mr-2" /> Add Variant
                 </button>
@@ -383,45 +383,45 @@
       </div>
       <!-- END: Product Variant -->
       <!-- BEGIN: Product Variant (Details) -->
-      <div class="intro-y box p-5 mt-5">
+      <div class="p-5 mt-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Product Variant (Details)
           </div>
           <div class="mt-5">
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-2 pt-2 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-2 mt-2 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Variant 1</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Add the types of variants and options, you can add up to 5
                     options.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div
-                  class="relative pl-5 pr-5 xl:pr-10 py-10 bg-slate-50 dark:bg-transparent dark:border rounded-md"
+                  class="relative py-10 pl-5 pr-5 rounded-md xl:pr-10 bg-slate-50 dark:bg-transparent dark:border"
                 >
                   <a
                     href=""
-                    class="text-slate-500 absolute top-0 right-0 mr-4 mt-4"
+                    class="absolute top-0 right-0 mt-4 mr-4 text-slate-500"
                   >
                     <XIcon class="w-5 h-5" />
                   </a>
                   <div>
-                    <div class="form-inline mt-5 first:mt-0">
+                    <div class="mt-5 form-inline first:mt-0">
                       <label class="form-label sm:w-20">Name</label>
                       <div class="flex items-center flex-1 xl:pr-20">
-                        <div class="input-group flex-1">
+                        <div class="flex-1 input-group">
                           <input
                             type="text"
                             class="form-control"
@@ -431,11 +431,11 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-inline mt-5 items-start first:mt-0">
-                      <label class="form-label mt-2 sm:w-20">Options</label>
+                    <div class="items-start mt-5 form-inline first:mt-0">
+                      <label class="mt-2 form-label sm:w-20">Options</label>
                       <div class="flex-1">
-                        <div class="xl:flex items-center mt-5 first:mt-0">
-                          <div class="input-group flex-1">
+                        <div class="items-center mt-5 xl:flex first:mt-0">
+                          <div class="flex-1 input-group">
                             <input
                               type="text"
                               class="form-control"
@@ -443,7 +443,7 @@
                             />
                             <div class="input-group-text">6/14</div>
                           </div>
-                          <div class="w-20 flex text-slate-500 mt-3 xl:mt-0">
+                          <div class="flex w-20 mt-3 text-slate-500 xl:mt-0">
                             <a href="" class="xl:ml-5">
                               <MoveIcon class="w-4 h-4" />
                             </a>
@@ -452,8 +452,8 @@
                             </a>
                           </div>
                         </div>
-                        <div class="xl:flex items-center mt-5 first:mt-0">
-                          <div class="input-group flex-1">
+                        <div class="items-center mt-5 xl:flex first:mt-0">
+                          <div class="flex-1 input-group">
                             <input
                               type="text"
                               class="form-control"
@@ -461,7 +461,7 @@
                             />
                             <div class="input-group-text">6/14</div>
                           </div>
-                          <div class="w-20 flex text-slate-500 mt-3 xl:mt-0">
+                          <div class="flex w-20 mt-3 text-slate-500 xl:mt-0">
                             <a href="" class="xl:ml-5">
                               <MoveIcon class="w-4 h-4" />
                             </a>
@@ -470,8 +470,8 @@
                             </a>
                           </div>
                         </div>
-                        <div class="xl:flex items-center mt-5 first:mt-0">
-                          <div class="input-group flex-1">
+                        <div class="items-center mt-5 xl:flex first:mt-0">
+                          <div class="flex-1 input-group">
                             <input
                               type="text"
                               class="form-control"
@@ -479,7 +479,7 @@
                             />
                             <div class="input-group-text">6/14</div>
                           </div>
-                          <div class="w-20 flex text-slate-500 mt-3 xl:mt-0">
+                          <div class="flex w-20 mt-3 text-slate-500 xl:mt-0">
                             <a href="" class="xl:ml-5">
                               <MoveIcon class="w-4 h-4" />
                             </a>
@@ -490,9 +490,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class="xl:ml-20 xl:pl-5 xl:pr-20 mt-5 first:mt-0">
+                    <div class="mt-5 xl:ml-20 xl:pl-5 xl:pr-20 first:mt-0">
                       <button
-                        class="btn btn-outline-primary border-dashed w-full"
+                        class="w-full border-dashed btn btn-outline-primary"
                       >
                         <PlusIcon class="w-4 h-4 mr-2" /> Add New Option
                       </button>
@@ -502,34 +502,34 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-2 pt-2 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-2 mt-2 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Variant 2</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Add the types of variants and options, you can add up to 5
                     options.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div
-                  class="relative pl-5 pr-5 xl:pr-10 py-10 bg-slate-50 dark:bg-transparent dark:border rounded-md"
+                  class="relative py-10 pl-5 pr-5 rounded-md xl:pr-10 bg-slate-50 dark:bg-transparent dark:border"
                 >
                   <a
                     href=""
-                    class="text-slate-500 absolute top-0 right-0 mr-4 mt-4"
+                    class="absolute top-0 right-0 mt-4 mr-4 text-slate-500"
                   >
                     <XIcon class="w-5 h-5" />
                   </a>
                   <div>
-                    <div class="form-inline mt-5 first:mt-0">
+                    <div class="mt-5 form-inline first:mt-0">
                       <label class="form-label sm:w-20">Name</label>
                       <div class="flex items-center flex-1 xl:pr-20">
-                        <div class="input-group flex-1">
+                        <div class="flex-1 input-group">
                           <input
                             type="text"
                             class="form-control"
@@ -539,11 +539,11 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-inline mt-5 items-start first:mt-0">
-                      <label class="form-label mt-2 sm:w-20">Options</label>
+                    <div class="items-start mt-5 form-inline first:mt-0">
+                      <label class="mt-2 form-label sm:w-20">Options</label>
                       <div class="flex-1">
-                        <div class="xl:flex items-center mt-5 first:mt-0">
-                          <div class="input-group flex-1">
+                        <div class="items-center mt-5 xl:flex first:mt-0">
+                          <div class="flex-1 input-group">
                             <input
                               type="text"
                               class="form-control"
@@ -551,7 +551,7 @@
                             />
                             <div class="input-group-text">6/14</div>
                           </div>
-                          <div class="w-20 flex text-slate-500 mt-3 xl:mt-0">
+                          <div class="flex w-20 mt-3 text-slate-500 xl:mt-0">
                             <a href="" class="xl:ml-5">
                               <MoveIcon class="w-4 h-4" />
                             </a>
@@ -560,8 +560,8 @@
                             </a>
                           </div>
                         </div>
-                        <div class="xl:flex items-center mt-5 first:mt-0">
-                          <div class="input-group flex-1">
+                        <div class="items-center mt-5 xl:flex first:mt-0">
+                          <div class="flex-1 input-group">
                             <input
                               type="text"
                               class="form-control"
@@ -569,7 +569,7 @@
                             />
                             <div class="input-group-text">6/14</div>
                           </div>
-                          <div class="w-20 flex text-slate-500 mt-3 xl:mt-0">
+                          <div class="flex w-20 mt-3 text-slate-500 xl:mt-0">
                             <a href="" class="xl:ml-5">
                               <MoveIcon class="w-4 h-4" />
                             </a>
@@ -578,8 +578,8 @@
                             </a>
                           </div>
                         </div>
-                        <div class="xl:flex items-center mt-5 first:mt-0">
-                          <div class="input-group flex-1">
+                        <div class="items-center mt-5 xl:flex first:mt-0">
+                          <div class="flex-1 input-group">
                             <input
                               type="text"
                               class="form-control"
@@ -587,7 +587,7 @@
                             />
                             <div class="input-group-text">6/14</div>
                           </div>
-                          <div class="w-20 flex text-slate-500 mt-3 xl:mt-0">
+                          <div class="flex w-20 mt-3 text-slate-500 xl:mt-0">
                             <a href="" class="xl:ml-5">
                               <MoveIcon class="w-4 h-4" />
                             </a>
@@ -598,9 +598,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class="xl:ml-20 xl:pl-5 xl:pr-20 mt-5 first:mt-0">
+                    <div class="mt-5 xl:ml-20 xl:pl-5 xl:pr-20 first:mt-0">
                       <button
-                        class="btn btn-outline-primary border-dashed w-full"
+                        class="w-full border-dashed btn btn-outline-primary"
                       >
                         <PlusIcon class="w-4 h-4 mr-2" /> Add New Option
                       </button>
@@ -609,29 +609,29 @@
                 </div>
               </div>
             </div>
-            <div class="xl:ml-64 xl:pl-10 mt-2 pt-2 first:mt-0 first:pt-0">
+            <div class="pt-2 mt-2 xl:ml-64 xl:pl-10 first:mt-0 first:pt-0">
               <button
-                class="btn py-3 btn-outline-secondary border-dashed w-full"
+                class="w-full py-3 border-dashed btn btn-outline-secondary"
               >
                 <PlusIcon class="w-4 h-4 mr-2" /> Add New Variant
               </button>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Variant Information</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Apply price and stock on all variants or based on certain
                     variant codes.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
-                <div class="sm:grid grid-cols-4 gap-2">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
+                <div class="grid-cols-4 gap-2 sm:grid">
                   <div class="input-group">
                     <div class="input-group-text">$</div>
                     <input
@@ -642,34 +642,34 @@
                   </div>
                   <input
                     type="text"
-                    class="form-control mt-2 sm:mt-0"
+                    class="mt-2 form-control sm:mt-0"
                     placeholder="Stock"
                   />
                   <input
                     type="text"
-                    class="form-control mt-2 sm:mt-0"
+                    class="mt-2 form-control sm:mt-0"
                     placeholder="Variant Code"
                   />
-                  <button class="btn btn-primary mt-2 sm:mt-0">
+                  <button class="mt-2 btn btn-primary sm:mt-0">
                     Apply To All
                   </button>
                 </div>
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Variant List</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Set the price and stock for each variant.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="overflow-x-auto">
                   <table class="table border">
                     <thead>
@@ -961,19 +961,19 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Wholesale</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Add wholesale price for certain quantity purchases.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="overflow-x-auto">
                   <table class="table border">
                     <thead>
@@ -1102,7 +1102,7 @@
                   </table>
                 </div>
                 <button
-                  class="btn btn-outline-primary border-dashed w-full mt-4"
+                  class="w-full mt-4 border-dashed btn btn-outline-primary"
                 >
                   <PlusIcon class="w-4 h-4 mr-2" /> Add New Wholesale Price
                 </button>
@@ -1113,50 +1113,50 @@
       </div>
       <!-- END: Product Variant (Details) -->
       <!-- BEGIN: Product Management -->
-      <div class="intro-y box p-5 mt-5">
+      <div class="p-5 mt-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Product Management
           </div>
           <div class="mt-5">
+
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
-            >
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Product Status</div>
                     <div
-                      class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                    >
-                      Required
+                      class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                        Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     If the status is active, your product can be searched for by
                     potential buyers.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="form-check form-switch">
                   <input
                     id="product-status-active"
                     class="form-check-input"
-                    type="checkbox"
-                  />
-                  <label class="form-check-label" for="product-status-active"
-                    >Active</label
-                  >
+                    type="checkbox" />
+                  <label class="form-check-label" for="product-status-active">Active</label>
                 </div>
               </div>
             </div>
+
+
+
+
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -1170,7 +1170,7 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <input
                   id="product-stock"
                   type="text"
@@ -1180,7 +1180,7 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -1192,12 +1192,12 @@
                       Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Use a unique SKU code if you want to mark your product.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <input
                   id="sku"
                   type="text"
@@ -1211,18 +1211,18 @@
       </div>
       <!-- END: Product Management -->
       <!-- BEGIN: Weight & Shipping -->
-      <div class="intro-y box p-5 mt-5">
+      <div class="p-5 mt-5 intro-y box">
         <div
-          class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5"
+          class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400"
         >
           <div
-            class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"
+            class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400"
           >
             <ChevronDownIcon class="w-4 h-4 mr-2" /> Weight & Shipping
           </div>
           <div class="mt-5">
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -1234,7 +1234,7 @@
                       Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Enter the weight by weighing the product after it is
                     <span class="font-medium text-slate-600 dark:text-slate-300"
                       >packaged</span
@@ -1242,8 +1242,8 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
-                <div class="sm:grid grid-cols-4 gap-2">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
+                <div class="grid-cols-4 gap-2 sm:grid">
                   <select class="form-select">
                     <option value="Gram (g)">Gram (g)</option>
                     <option value="Kilogram (kg)">Kilogram (kg)</option>
@@ -1251,12 +1251,12 @@
                   <input
                     type="text"
                     id="product-weight"
-                    class="form-control mt-2 sm:mt-0"
+                    class="mt-2 form-control sm:mt-0"
                     placeholder="Stock"
                   />
                 </div>
                 <Alert
-                  class="alert-outline-warning alert-dismissible bg-warning/20 dark:bg-darkmode-400 dark:border-darkmode-400 mt-5"
+                  class="mt-5 alert-outline-warning alert-dismissible bg-warning/20 dark:bg-darkmode-400 dark:border-darkmode-400"
                   v-slot="{ dismiss }"
                   role="alert"
                 >
@@ -1265,7 +1265,7 @@
                     <span class="text-slate-800 dark:text-slate-500"
                       >Pay close attention to the weight of the product so that
                       there is no difference in data with the shipping courier.
-                      <a class="text-primary font-medium" href=""
+                      <a class="font-medium text-primary" href=""
                         >Learn More</a
                       ></span
                     >
@@ -1282,7 +1282,7 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
@@ -1294,17 +1294,17 @@
                       Required
                     </div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Enter the product size after packing to calculate the volume
                     weight.
-                    <a class="text-primary font-medium" href=""
+                    <a class="font-medium text-primary" href=""
                       >Learn Volume Weight</a
                     >
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
-                <div class="sm:grid grid-cols-3 gap-2">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
+                <div class="grid-cols-3 gap-2 sm:grid">
                   <div class="input-group">
                     <input
                       type="text"
@@ -1313,7 +1313,7 @@
                     />
                     <div class="input-group-text">cm</div>
                   </div>
-                  <div class="input-group mt-2 sm:mt-0">
+                  <div class="mt-2 input-group sm:mt-0">
                     <input
                       type="text"
                       class="form-control"
@@ -1321,7 +1321,7 @@
                     />
                     <div class="input-group-text">cm</div>
                   </div>
-                  <div class="input-group mt-2 sm:mt-0">
+                  <div class="mt-2 input-group sm:mt-0">
                     <input
                       type="text"
                       class="form-control"
@@ -1333,23 +1333,23 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Shipping Insurance</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Refund product & postage for the seller and buyer in case of
                     damage / loss during shipping.
-                    <a class="text-primary font-medium" href="">Learn More</a>
+                    <a class="font-medium text-primary" href="">Learn More</a>
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="flex flex-col sm:flex-row">
-                  <div class="form-check mr-4">
+                  <div class="mr-4 form-check">
                     <input
                       id="shipping-insurance-required"
                       class="form-check-input"
@@ -1360,7 +1360,7 @@
                     <div class="form-check-label">
                       <div>Required</div>
                       <div
-                        class="leading-relaxed text-slate-500 text-xs mt-1 w-56"
+                        class="w-56 mt-1 text-xs leading-relaxed text-slate-500"
                       >
                         You
                         <span
@@ -1371,7 +1371,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-check mr-4 mt-2 sm:mt-0">
+                  <div class="mt-2 mr-4 form-check sm:mt-0">
                     <input
                       id="shipping-insurance-optional"
                       class="form-check-input"
@@ -1382,7 +1382,7 @@
                     <div class="form-check-label">
                       <div>Optional</div>
                       <div
-                        class="leading-relaxed text-slate-500 text-xs mt-1 w-56"
+                        class="w-56 mt-1 text-xs leading-relaxed text-slate-500"
                       >
                         You
                         <span
@@ -1397,21 +1397,21 @@
               </div>
             </div>
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0"
             >
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
                     <div class="font-medium">Shipping Service</div>
                   </div>
-                  <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
                     Configure shipping services according to your product type.
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="flex flex-col sm:flex-row">
-                  <div class="form-check mr-4">
+                  <div class="mr-4 form-check">
                     <input
                       id="shipping-service-standard"
                       class="form-check-input"
@@ -1425,7 +1425,7 @@
                       >Standard</label
                     >
                   </div>
-                  <div class="form-check mr-4 mt-2 sm:mt-0">
+                  <div class="mt-2 mr-4 form-check sm:mt-0">
                     <input
                       id="shipping-service-custom"
                       class="form-check-input"
@@ -1440,18 +1440,20 @@
                     >
                   </div>
                 </div>
-                <div class="leading-relaxed text-slate-500 text-xs mt-3">
+                <div class="mt-3 text-xs leading-relaxed text-slate-500">
                   The delivery service for this product will be the same as in
                   the
-                  <a class="text-primary font-medium" href=""
+                  <a class="font-medium text-primary" href=""
                     >Shipping Settings.</a
                   >
                 </div>
               </div>
             </div>
+
+
+
             <div
-              class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0"
-            >
+              class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
               <div class="form-label xl:w-64 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
@@ -1459,96 +1461,98 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-3 xl:mt-0 flex-1">
+              <div class="flex-1 w-full mt-3 xl:mt-0">
                 <div class="form-check form-switch">
                   <input
                     id="preorder-active"
                     class="form-check-input"
-                    type="checkbox"
-                  />
+                    type="checkbox" />
                   <label
-                    class="form-check-label leading-relaxed text-slate-500 text-xs"
-                    for="preorder-active"
-                  >
-                    Activate PreOrder if you need a longer shipping process.
-                    <a class="text-primary font-medium" href="">Learn more.</a>
+                    class="text-xs leading-relaxed form-check-label text-slate-500"
+                    for="preorder-active">
+                      Activate PreOrder if you need a longer shipping process.
+                    <a class="font-medium text-primary" href="">Learn more.</a>
                   </label>
                 </div>
               </div>
             </div>
+
+
+
+
           </div>
         </div>
       </div>
       <!-- END: Weight & Shipping -->
-      <div class="flex justify-end flex-col md:flex-row gap-2 mt-5">
+      <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
         <button
           type="button"
-          class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
+          class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
         >
           Cancel
         </button>
         <button
           type="button"
-          class="btn py-3 border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52"
+          class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
         >
           Save & Add New Product
         </button>
-        <button type="button" class="btn py-3 btn-primary w-full md:w-52">
+        <button type="button" class="w-full py-3 btn btn-primary md:w-52">
           Save
         </button>
       </div>
     </div>
-    <div class="intro-y col-span-2 hidden 2xl:block">
-      <div class="pt-10 sticky top-0">
+    <div class="hidden col-span-2 intro-y 2xl:block">
+      <div class="sticky top-0 pt-10">
         <ul
           class="text-slate-500 relative before:content-[''] before:w-[2px] before:bg-slate-200 before:dark:bg-darkmode-600 before:h-full before:absolute before:left-0 before:z-[-1]"
         >
           <li
-            class="mb-4 border-l-2 pl-5 border-primary dark:border-primary text-primary font-medium"
+            class="pl-5 mb-4 font-medium border-l-2 border-primary dark:border-primary text-primary"
           >
             <a href="">Upload Product</a>
           </li>
           <li
-            class="mb-4 border-l-2 pl-5 border-transparent dark:border-transparent"
+            class="pl-5 mb-4 border-l-2 border-transparent dark:border-transparent"
           >
             <a href="">Product Information</a>
           </li>
           <li
-            class="mb-4 border-l-2 pl-5 border-transparent dark:border-transparent"
+            class="pl-5 mb-4 border-l-2 border-transparent dark:border-transparent"
           >
             <a href="">Product Detail</a>
           </li>
           <li
-            class="mb-4 border-l-2 pl-5 border-transparent dark:border-transparent"
+            class="pl-5 mb-4 border-l-2 border-transparent dark:border-transparent"
           >
             <a href="">Product Variant</a>
           </li>
           <li
-            class="mb-4 border-l-2 pl-5 border-transparent dark:border-transparent"
+            class="pl-5 mb-4 border-l-2 border-transparent dark:border-transparent"
           >
             <a href="">Product Variant (Details)</a>
           </li>
           <li
-            class="mb-4 border-l-2 pl-5 border-transparent dark:border-transparent"
+            class="pl-5 mb-4 border-l-2 border-transparent dark:border-transparent"
           >
             <a href="">Product Management</a>
           </li>
           <li
-            class="mb-4 border-l-2 pl-5 border-transparent dark:border-transparent"
+            class="pl-5 mb-4 border-l-2 border-transparent dark:border-transparent"
           >
             <a href="">Weight & Shipping</a>
           </li>
         </ul>
         <div
-          class="mt-10 bg-warning/20 dark:bg-darkmode-600 border border-warning dark:border-0 rounded-md relative p-5"
+          class="relative p-5 mt-10 border rounded-md bg-warning/20 dark:bg-darkmode-600 border-warning dark:border-0"
         >
           <LightbulbIcon
-            class="w-12 h-12 text-warning/80 absolute top-0 right-0 mt-5 mr-3"
+            class="absolute top-0 right-0 w-12 h-12 mt-5 mr-3 text-warning/80"
           />
           <h2 class="text-lg font-medium">Tips</h2>
           <div class="mt-5 font-medium">Price</div>
           <div
-            class="leading-relaxed text-xs mt-2 text-slate-600 dark:text-slate-500"
+            class="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-500"
           >
             <div>
               The image format is .jpg .jpeg .png and a minimum size of 300 x

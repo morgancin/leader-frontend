@@ -29,8 +29,11 @@
 
   import { useAccountsStore } from "@/stores/leader/accounts";
   import { useGetDataRoles } from '../../../composables/getData/useGetDataRoles';
-  import { useGetDataPermissions } from '../../../composables/getData/useGetDataPermissions';  
+  import { useGetDataPermissions } from '../../../composables/getData/useGetDataPermissions';
 
+  import i18n from "../../../language/i18n";
+  const { t } = i18n.global;
+  
   const props = defineProps({
     user: {
       type: Object,
@@ -53,32 +56,6 @@
     return value.include("user")
   }
   
-  /*
-  const rules = computed(() =>{
-    return {
-        name: {
-          required,
-          // minLength: minLength(2),
-          // containsUser: helpers.withMessage('El campo está vacío', containsUser)
-        },
-        email: {
-          required,
-          email,
-        },
-        password: {
-          required,
-          minLength: minLength(6),
-        },
-        password_confirmation: {
-          required,
-          minLength: minLength(6),
-          // sameAs: sameAs(props.password)
-        }
-      
-    }
-  })
-  */
-
   ////////RULES
   const rules = {
       name: { required },
@@ -88,20 +65,18 @@
       password_confirmation: { required, minLength: minLength(6)}
   }
   
-  const v$ = useVuelidate(rules, props.user);
-  //const v$ = useVuelidate(rules, toRefs(props.user));
-
+  const validate = useVuelidate(rules, props.user);
+  
   const submitCreate = async () => {
-    v$.value.$touch();
+    validate.value.$touch();
     
-    if (v$.value.$invalid) {
-      toast.error('Error de validación', {
+    if (validate.value.$invalid) {
+      toast.error(t('messages.validation_error'), {
                       autoClose:1000,
                     });
     }
     
-    //const result = await validate.value.v$();
-    const result = await v$.value.$validate();
+    const result = await validate.value.$validate();
     
     if(result) {
       emit('submit');
@@ -115,48 +90,6 @@
     dataRoles.value = results_roles.value;
     dataPermissions.value = results_permissions.value;
   });
-  /*
-  const submitForm = async () => {
-    v$.value.$touch();
-    if (v$.value.$invalid) {
-        Toastify({
-          node: dom("#failed-notification-content")
-            .clone()
-            .removeClass("hidden")[0],
-          duration: 3000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          stopOnFocus: true,
-        }).showToast();
-    } else {
-      Toastify({
-        node: dom("#success-notification-content")
-            .clone()
-            .removeClass("hidden")[0],
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
-    }
-    
-    const result = await v$.value.$validate()
-    if(result) {
-      emit('submit')  
-    } 
-  }
-  */
-
-//   function update() {
-//  alert('click');
-// }
-
-// onMounted(() => window.addEventListener('mousemove', update))
-
 </script>
 
 <style>
@@ -204,12 +137,12 @@
                         :options="dataAccounts"
                         :reduce="name => name.id"
                         v-model="user.accounts"
-                        :class="{ 'border-danger': v$.accounts.$error }">
+                        :class="{ 'border-danger': validate.accounts.$error }">
                       </v-select>
                       
-                      <template v-if="v$.accounts.$error">
+                      <template v-if="validate.accounts.$error">
                         <div
-                          v-for="(error, index) in v$.accounts.$errors"
+                          v-for="(error, index) in validate.accounts.$errors"
                           :key="index"
                           class="mt-2 text-danger">
                             {{ error.$message }}
@@ -241,13 +174,13 @@
                         id="validation-form-1"
                         :placeholder="$t('add_user.name')"
                         v-model="user.name"
-                        :class="{ 'border-danger': v$.name.$error }" />
+                        :class="{ 'border-danger': validate.name.$error }" />
                         <div class="text-right form-help">
                             Deben ser al menos 2 caracteres.
                         </div>
-                        <template v-if="v$.name.$error">
+                        <template v-if="validate.name.$error">
                           <div
-                            v-for="(error, index) in v$.name.$errors"
+                            v-for="(error, index) in validate.name.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                               {{ error.$message }}
@@ -275,24 +208,52 @@
                       <div class="flex-1 w-full mt-3 xl:mt-0">
                         <input
                           id="validation-form-2"
-                          v-model.trim="v$.email.$model"
+                          v-model.trim="validate.email.$model"
                           v-model="user.email"
                           type="email"
                           name="email"
                           class="form-control"
-                          :class="{ 'border-danger': v$.email.$error }"
+                          :class="{ 'border-danger': validate.email.$error }"
                           :placeholder="$t('add_user.email')"/>
                         <div class="text-right form-help">
                             En formato de correo electrónico.
                         </div>
-                        <template v-if="v$.email.$error">
+                        <template v-if="validate.email.$error">
                           <div
-                            v-for="(error, index) in v$.email.$errors"
+                            v-for="(error, index) in validate.email.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                             {{ error.$message }}
                           </div>
                         </template>
+                      </div>
+                    </div>
+
+                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                      <div class="form-label xl:w-72 xl:!mr-10">
+                        <div class="text-left">
+                          <div class="flex items-center">
+                            <div class="font-medium">Status</div>
+                              <div
+                                  class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                                    Required
+                              </div>
+                            </div>
+                            <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                                If the status is active, your user can be searched for by
+                                potential buyers.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex-1 w-full mt-3 xl:mt-0">
+                            <div class="form-check form-switch">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="product-status-active"
+                                v-model="user.active" />                        
+                              <label class="form-check-label" for="product-status-active">Active</label>
+                        </div>
                       </div>
                     </div>
 
@@ -315,19 +276,19 @@
                       <div class="flex-1 w-full mt-3 xl:mt-0">
                         <input
                           id="validation-form-3"
-                          v-model.trim="v$.password.$model"
+                          v-model.trim="validate.password.$model"
                           v-model="user.password"
                           type="password"
                           name="password"
                           class="form-control"
-                          :class="{ 'border-danger': v$.password.$error }"
+                          :class="{ 'border-danger': validate.password.$error }"
                           :placeholder="$t('add_user.password')"/>
                         <div class="text-right form-help">
                             Deben ser al menos 6 caracteres.
                         </div>
-                        <template v-if="v$.password.$error">
+                        <template v-if="validate.password.$error">
                           <div
-                            v-for="(error, index) in v$.password.$errors"
+                            v-for="(error, index) in validate.password.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                             {{ error.$message }}
@@ -355,19 +316,19 @@
                       <div class="flex-1 w-full mt-3 xl:mt-0">
                         <input
                           id="validation-form-4"
-                          v-model.trim="v$.password_confirmation.$model"
+                          v-model.trim="validate.password_confirmation.$model"
                           v-model="user.password_confirmation"
                           type="password"
                           name="password"
                           class="form-control"
-                          :class="{ 'border-danger': v$.password_confirmation.$error }"
+                          :class="{ 'border-danger': validate.password_confirmation.$error }"
                           :placeholder="$t('add_user.password_confirmation')"/>
                         <div class="text-right form-help">
                             Deben ser al menos 6 caracteres.
                         </div>
-                        <template v-if="v$.password_confirmation.$error">
+                        <template v-if="validate.password_confirmation.$error">
                           <div
-                            v-for="(error, index) in v$.password_confirmation.$errors"
+                            v-for="(error, index) in validate.password_confirmation.$errors"
                             :key="index"
                             class="mt-2 text-danger">
                             {{ error.$message }}
@@ -375,15 +336,6 @@
                         </template>
                       </div>
                     </div>
-                    <!--<button type="submit" class="mt-5 btn btn-primary" @click="update">
-                      {{ $t('add_user.btn_save') }}
-                    </button>-->
-                  <!--<div class="mt-5">
-                    <p>Errors:</p>
-                    <span v-for="error in v$.$errors" :key="error.$uid">
-                      {{ error.$property }} - {{ error.$message }}
-                    </span>
-                  </div>-->
                   <!-- BEGIN: Success Notification Content -->
                   <div
                     id="success-notification-content"

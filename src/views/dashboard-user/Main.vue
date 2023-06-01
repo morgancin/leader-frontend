@@ -160,6 +160,13 @@
         },
       },
       layout:"fitColumns",
+      ajaxResponse:function(url, params, response){
+          //url - the URL of the request
+          //params - the parameters passed with the request
+          //response - the JSON object returned in the body of the response.
+
+          return response.data; //return the tableData property of a response json object
+      },
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load
@@ -192,24 +199,20 @@
           print: false,
           download: false,
           hozAlign: "center",
-          headerSort:false
-          /*
+          headerSort:false,
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/user/edit/${cell.getData().id}">
                                 <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
                               </a>
-                              <a class="flex items-center text-danger" @click="deleteUser(${cell.getData().id})">
-                                <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete 
-                              </a>
                             </div>`);
             
             dom(a).on("click", function () {
               // On click actions
-            });              
+            });
+              
             return a[0];
           },
-          */
         },
       ]      
     });

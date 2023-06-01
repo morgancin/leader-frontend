@@ -11,13 +11,14 @@
     
     const { createActivitySubject } = useActivitySubjectStore();
     
-    const form = reactive({
+    const form_data = reactive({
                         name:'',
+                        active:true,
                         activity_type_id:'',
                     });
 
     const submit = async () => {
-      await createActivitySubject(form);
+      await createActivitySubject(form_data);
     }
 </script>
 
@@ -29,7 +30,7 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ActivitySubjectForm 
-        :subject="form" 
+        :subject="form_data" 
         @submit="submit" />
     </div>
   </div>

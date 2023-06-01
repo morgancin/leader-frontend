@@ -51,7 +51,6 @@
     ////////RULES
     const rules = {
       name: { required },
-      is_default: { required },
       account_id: { required }
     }
 
@@ -74,11 +73,6 @@
         emit('submit');
       }
     }
-    
-    const aDefault = [
-                      { key:1, value: 'SÍ' },
-                      { key:2, value: 'NO' }
-                    ];
                     
     onMounted(async() => {
       await fetchAccounts();
@@ -162,43 +156,54 @@
                 </template>
               </div>
             </div>
-
-              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                  <div class="form-label xl:w-72 xl:!mr-10">
-                    <div class="text-left">
-                      <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_pipelines.pipeline_is_default') }}</div>
+            
+            <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+              <div class="form-label xl:w-72 xl:!mr-10">
+                <div class="text-left">
+                  <div class="flex items-center">
+                    <div class="font-medium">{{ $t('add_pipelines.pipeline_is_default') }}</div>
+                  </div>                      
+                </div>
+              </div>
+              <div class="flex-1 w-full mt-3 xl:mt-0">
+                <div class="form-check form-switch">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="product-status-active"
+                    v-model="pipeline.is_default" />
+                    <label class="form-check-label" for="product-status-active">{{ $t('add_pipelines.pipeline_is_default') }}</label>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">Status</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                            {{ $t('forms.required') }}
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                              Required
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        {{ $t('add_pipelines.pipeline_is_default') }}
+                          If the status is active, your pipeline can be searched for by
+                          potential buyers.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                      <div class="form-check form-switch">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="product-status-active"
+                          v-model="pipeline.active" />                        
+                        <label class="form-check-label" for="product-status-active">Active</label>
                       </div>
                     </div>
                   </div>
-
-                  <div class="flex-1 w-full mt-3 xl:mt-0">
-                    <v-select
-                      label="value"
-                      class="form-control" 
-                      :options="aDefault" 
-                      :reduce="value => value.key"
-                      v-model="pipeline.is_default"
-                      :class="{ 'border-danger': validate.is_default.$error }">
-                    </v-select>
-
-                    <template v-if="validate.is_default.$error">
-                      <div
-                        v-for="(error, index) in validate.is_default.$errors"
-                        :key="index"
-                        class="mt-2 text-danger">
-                          {{ error.$message }}
-                      </div>
-                    </template>
-                  </div>
-              </div>
             </div>
           </div>
 

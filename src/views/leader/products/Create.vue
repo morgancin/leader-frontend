@@ -14,9 +14,10 @@
   const { createProduct } = useProductsStore();
 
   const cart_components = ref([]);
-  const form = reactive({
+  const form_data = reactive({
                         sku:null,
                         name:null,
+                        active:true,
                         quantity:null,
                         account_id:null,
                         category_id:null,
@@ -26,7 +27,7 @@
                   });
                   
   const submit = async () => {
-    await createProduct(form);
+    await createProduct(form_data);
   }
 </script>
 
@@ -39,7 +40,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <ProductsForm
         @submit="submit"
-        :product="form"
+        :product="form_data"
         :cart_components="cart_components" />
     </div>
   </div>

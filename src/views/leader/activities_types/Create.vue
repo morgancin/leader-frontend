@@ -11,13 +11,14 @@
   
   const { createActivityType } = useActivitiesTypeStore();
 
-  const form = reactive({
+  const form_data = reactive({
                         name:'',
                         type:'',
+                        active:true
                   });
 
   const submit = async () => {
-    await createActivityType(form);
+    await createActivityType(form_data);
   }
 </script>
 
@@ -29,7 +30,7 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ActivityTypeForm
-          :activity_type="form"
+          :activity_type="form_data"
           @submit="submit" />
     </div>
   </div>

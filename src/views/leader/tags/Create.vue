@@ -11,13 +11,14 @@
     
     const { createTags } = useTagsStore();
     
-    const form = reactive({
+    const form_data = reactive({
                     name:'',
                     type:'',
+                    active:true
                 });
   
     const submit = async () => {
-      await createTags(form);
+      await createTags(form_data);
     }
 </script>
   
@@ -30,7 +31,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <!-- BEGIN: Form Layout -->
       <TagsForm
-            :tag="form"
+            :tag="form_data"
             @submit="submit"/>
       <!-- END: Form Layout -->
     </div>

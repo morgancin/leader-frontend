@@ -11,7 +11,6 @@ export const useUsersStore = defineStore("UsersStore", {
     state: () => ({
         user: {},
         users: []
-        //message: null,
     }),
     actions: {
         async createUser(user) {
@@ -24,41 +23,26 @@ export const useUsersStore = defineStore("UsersStore", {
                 router.push({ path: '/dashboard-user' });
             })
             .catch((error) => {
-                //this.message = error.message;
                 toast.error(error.response.data.message, {
                     autoClose:1000
                 });
             })
         },
-
+        async fetchUsers() {
+            axiosClient.get('/users')
+            .then (({data}) => {
+                this.users = data.data;
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+            })
+        },
         async fetchUser(id) {
-            axiosClient.get(`/users`)
+            axiosClient.get(`/users/${id}`)
             .then (({data}) => {
-                this.user = data;
-            })
-            .catch((error) => {
-                toast.error(error.response.data.message, {
-                    autoClose:1000
-                });
-            })
-            /*
-            this.error = null;
-            this.loading = true;
-            try {
-                this.course = await fetch(`${API_URL}/${id}`).then(res => res.json());
-            } catch (e) {
-                this.error = e;
-            } finally {
-                this.loading = false;
-            }
-            */
-        },
-
-        async updateUser(user) {
-            axiosClient.put(`/users`, user)
-            .then (({data}) => {
-                this.user = data.result;
-                this.message = data.message;
+                this.user = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -66,35 +50,20 @@ export const useUsersStore = defineStore("UsersStore", {
                 });
             })
         },
-        
-        async deleteUser(id) {
-            //this.message = 'heyyy';
-            /*
-            axiosClient.delete(`/users/${id}`)
+        async updateUser() {
+            axiosClient.put(`/users/${this.user.id}`, this.user)
             .then (({data}) => {
-                this.user = data.result;
-                this.message = data.message;
-            })
-            .catch(function (error) {
-                this.message = error.message;
-            })
-            */
-
-            
-            /*
-            this.error = null;
-            this.loading = true;
-            try {
-                await fetch(`${API_URL}/${id}`, {
-                    method: "DELETE",
+                toast.success(data.message, {
+                    autoClose:1000
                 });
-                await this.fetchCourses();
-            } catch (e) {
-                this.error = e;
-            } finally {
-                this.loading = false;
-            }
-            */
+                
+                router.push({ path: '/dashboard-user' });
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+            })
         }
     }
 });

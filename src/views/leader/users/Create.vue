@@ -14,17 +14,18 @@
   
   const { createUser } = useUsersStore();
   
-  const formData = reactive({
+  const form_data = reactive({
     name:"",
     email:"",
     password:"",
     accounts:[],
+    active:true,
     role:"leader",
     password_confirmation:""
   });
 
   const submit = async () => {
-    await createUser(formData)
+    await createUser(form_data)
   }
 </script>
   
@@ -36,7 +37,7 @@
   <div class="grid grid-cols-1 gap-3 mt-5">
     <p v-if="message">{{ message.value }}</p>
     <UserForm
-        :user="formData"
+        :user="form_data"
         @submit="submit"/>
   </div>
 </template>

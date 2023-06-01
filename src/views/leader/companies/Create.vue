@@ -14,7 +14,7 @@
 
     const { createCompany } = useCompaniesStore();
 
-    const formData = reactive({
+    const form_data = reactive({
                                 name: '',
                                 phone: '',
                                 tax_id: '',
@@ -25,7 +25,7 @@
                             });
 
     const submit = async () => {
-        await createCompany(formData)
+        await createCompany(form_data)
     }
 </script>
 
@@ -37,7 +37,7 @@
     <div class="grid grid-cols-3 gap-3 mt-5">
         <p v-if="message">{{ message.value }}</p>
         <CompanyForm
-            :company="formData"
+            :company="form_data"
             @submit="submit"/>
     </div>
 </template>
