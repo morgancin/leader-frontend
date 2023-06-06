@@ -23,7 +23,7 @@
                         category_id:null,
                         description:null,
                         components:[],
-                        price_lists:[],                      
+                        price_lists:[]                   
                   });
                   
   const submit = async () => {

@@ -127,11 +127,11 @@
     
     results_prices_lists.value.forEach((item) => {
       props.product.price_lists.push({
-                                    //name: item.name,
-                                    price_list_id: item.id,
-                                    currency_id:null,
-                                    price: null
-                                });
+                                      price: null,
+                                      name: item.name,
+                                      currency_id: null,
+                                      price_list_id: item.id
+                                  });
     })
   });
 
@@ -603,18 +603,6 @@
                                 <b>{{ code }}</b> {{ name }}
                               </template>
                           </v-select>
-                          
-                          <!--
-                          <v-select      
-                            label="code"      
-                            class="form-control" 
-                            :options="dataCurrencies"
-                            v-model="pricelist.currency">
-                              <template #option="{ code, name }">
-                                <b>{{ code }}</b> {{ name }}
-                              </template>
-                          </v-select>
-                          -->
                         </td>
                       </tr>
                     </tbody>
