@@ -27,11 +27,16 @@ export const useActivitySubjectStore = defineStore("ActivitySubjectStore", {
                 });
             })
         },
-        async fetchActivitiesSubjects() {
-            axiosClient.get('/activity-subjects')
+        async fetchActivitiesSubjects(activity_type_id = false) {
+            let url;
+            if(!activity_type_id)
+                url = `/activity-subjects`;
+            else
+                url = `/activity-subjects?activity_type_id=${activity_type_id}`;
+
+            axiosClient.get(url)
             .then (({data}) => {
-                //return data;
-                this.subject = data.data;
+                this.subjects = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

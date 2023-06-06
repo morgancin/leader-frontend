@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 import axiosClient from "../../axios";
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+import router from "@/router";
+
 export const useActivitiesStore = defineStore("ActivitiesStore", {
     state: () => ({
         step : 1,
@@ -48,39 +53,18 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             })
         },
         /*
-        async createActivityReschedule(data, activities_results_tracking_type) {
-            if(activities_results_tracking_type == 'activity') {
-                //data.end_time = data.end_time.hours + ':' + data.end_time.minutes;
-                //data.end_date = new Date(data.end_date).toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' });
-                //data.activity_date = new Date(data.activity_date).toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' });
-                data.start_time = data.start_time.hours + ':' + data.start_time.minutes;
-                data.start_date = new Date(data.start_date).toLocaleDateString("es-MX", { year: 'numeric', month: 'numeric', day: 'numeric' });
-            }
-
-            axiosClient.post(`/activities/reschedule/${this.activity.id}`, data)
-            .then (({data}) => {
-                return data;
-            })
-            .catch((error) => {
-                this.message = error.message;
-            })
-        },*/
-
-        async fetchActivitiesTypes() {
-            let result = [];
-            
+        async fetchActivityTypes() {
             await axiosClient.get(`/activity-types`)
             .then (({data}) => {
-                this.message = data;
-                //this.selects.dataActivitiesTypes = data;
-                result = data;
+                this.activity_types = data.data;
             })
             .catch((error) => {
-                this.message = error.message;
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
             })
-
-            return result;
         },
+        */
 
         async fetchActivity(id) {
             axiosClient.get(`/activities/${id}`)
@@ -97,8 +81,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
         },
         
         async fetchActivities(user_id = false, activity_date = false) {
-            this.activities = [];
-
+            //this.activities = [];
             axiosClient.get(`/activities?user_id=${user_id}&activity_date=${activity_date}`)
             .then (({data}) => {
                 this.activities = data.data;
@@ -108,6 +91,7 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
             })
         },
 
+        /*
         async fetchActivitiesSubjects(activity_type_id) {
             let result = [];
 
@@ -123,5 +107,6 @@ export const useActivitiesStore = defineStore("ActivitiesStore", {
 
             return result;
         },
+        */
     }
 });

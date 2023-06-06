@@ -22,6 +22,8 @@
   import { useProspectsStore } from "@/stores/leader/prospects";
   import { useCompaniesStore } from "@/stores/leader/companies";
   import { useActivitiesStore } from "@/stores/leader/activities";
+  import { useActivitiesTypeStore } from "@/stores/leader/activities-type";
+  import { useActivitySubjectStore } from "@/stores/leader/activities-subjects";
   import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
   //import { useProspectingSourcesStore } from "@/stores/leader/prospecting-sources";
 
@@ -29,15 +31,21 @@
 
   const { fetchAccounts } = useAccountsStore();
   const { createProspect } = useProspectsStore();
+  const { fetchActivities } = useActivitiesStore();
+  const { fetchActivitiesTypes } = useActivitiesTypeStore();
+  const { fetchActivitiesSubjects } = useActivitySubjectStore();
   const { createCompany, fetchCompanies } = useCompaniesStore();
-  const { fetchActivities, fetchActivitiesTypes, fetchActivitiesSubjects } = useActivitiesStore();
   const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
-    
+  //const { fetchActivities, fetchActivitiesSubjects } = useActivitiesStore();
+  
+  //const { activity, activities } = storeToRefs(useActivitiesStore());
   const { prospect } = storeToRefs(useProspectsStore());
-  const { activity, activities } = storeToRefs(useActivitiesStore());
+  const { activity, activities} = storeToRefs(useActivitiesStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
   const { company, companies: dataCompanies } = storeToRefs(useCompaniesStore());
-  
+  const { subjects: dataActivitySubjects} = storeToRefs(useActivitySubjectStore());
+  const { activities_types: dataActivityTypes} = storeToRefs(useActivitiesTypeStore());
+    
   const props = defineProps({
       show_modal: {
         type: Boolean,
@@ -146,14 +154,14 @@
   const dataProspectingSources = ref([]);
   
   ////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
-  const dataActivitiesTypes = ref([]);
-  const dataActivitiesSubjects = ref([]);
+  //const dataActivityTypes = ref([]);
+  //const dataActivitySubjects = ref([]);
 
   onMounted(async() => {
     await fetchAccounts();
     await fetchCompanies();
-
-    dataActivitiesTypes.value = await fetchActivitiesTypes();
+    await fetchActivitiesTypes();
+    
     dataProspectingSources.value = await fetchProspectingSources();
         
     await fetchActivities(props.login_user.id, convert_format_date(data_prospect_activity.start_date, 'en'));
@@ -174,7 +182,9 @@
   watch(
       () => data_prospect_activity.activity_type_id,
       async () => {
-          dataActivitiesSubjects.value = await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
+          console.log('Valess');
+          //dataActivitySubjects.value = await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
+          await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
       }
   );
    
@@ -439,7 +449,7 @@
                         <v-select  
                             id="cmbActivityType"
                             class="form-control"
-                            :options="dataActivitiesTypes"
+                            :options="dataActivityTypes"
                             :reduce="name => name.id"
                             label="name"                        
                             v-model="data_prospect_activity.activity_type_id"
@@ -462,7 +472,7 @@
                           label="name"
                           id="cmbActivitySubject"
                           class="form-control"
-                          :options="dataActivitiesSubjects"
+                          :options="dataActivitySubjects"
                           :reduce="name => name.id"
                           v-model="data_prospect_activity.activity_subject_id"
                           :class="{ 'border-danger': validate.activity_subject_id.$error }">
