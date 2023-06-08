@@ -10,7 +10,6 @@ export const useProductsStore = defineStore("ProductsStore", {
     state: () => ({
         product: {},
         products: []
-        //message: null,
     }),
     actions: {
         async createProduct(product) {
@@ -46,7 +45,7 @@ export const useProductsStore = defineStore("ProductsStore", {
         async fetchProducts() {
             axiosClient.get('/products')
             .then (({data}) => {
-                this.products = data;
+                this.products = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {
@@ -57,7 +56,7 @@ export const useProductsStore = defineStore("ProductsStore", {
         async fetchProduct(id) {
             axiosClient.get(`/products/${id}`)
             .then (({data}) => {
-                this.product = data;
+                this.product = data.data;
             })
             .catch((error) => {
                 toast.error(error.response.data.message, {

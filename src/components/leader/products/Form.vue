@@ -26,7 +26,7 @@
   import { useGetDataCurrencies } from '../../../composables/getData/useGetDataCurrencies';
   import { useGetDataPricesLists } from '../../../composables/getData/useGetDataPricesLists';
 
-  const { cartComponents } = storeToRefs(useComponentsCartStore());
+  //const { cartComponents } = storeToRefs(useComponentsCartStore());
   const { cartPriceslists } = storeToRefs(usePricesListsCartStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
 
@@ -50,16 +50,16 @@
                             product: {
                                       type: Object,
                                       required: true,
-                                    },
+                                    }
+                                    /*
                             cart_components: {
                                               type: Object,
                                               required: true,
                                             },
+                                            */
                           });
-  const emit = defineEmits(["submit"]);                      
-  
-  
-  //defineEmits(["submit"]);
+                          
+  const emit = defineEmits(["submit"]);
 
   const add_component_form = reactive({
                                         name:'',
@@ -72,7 +72,7 @@
                                         currency:''
                                     });
 
-  props.cart_components.value = cartComponents.value;
+  //props.cart_components.value = cartComponents.value;
                                     
   const add_component = () => {
     addComponentModal.value = true;  
@@ -108,8 +108,6 @@
     
     await fetchCurrencies();
     dataCurrencies.value = currencies.value;
-    
-    //dataCategories.value = results_categories.value;
     
     await fetchComponents();
     dataComponents.value = results_components.value;
@@ -623,7 +621,7 @@
   </div>
 
   <!-- BEGIN: Add Component Modal -->
-  <!-- <Modal :show="addComponentModal" @hidden="addComponentModal = false"> -->
+  
   <Modal :show="addComponentModal" @hidden="addComponentModal = false">
     <ModalHeader>
       <h2 class="mr-auto text-base font-medium">{{ $t('add_components.add') }}</h2>
@@ -637,14 +635,6 @@
           class="form-control"
           :placeholder="$t('add_components.name')"
           v-model="add_component_form.name" />
-        <!--
-        <v-select
-          label="name"
-          class="form-control" 
-          :options="dataComponents" 
-          v-model="add_component_form.name">
-        </v-select>
-        -->
       </div>
 
       <div class="col-span-12">
@@ -673,7 +663,6 @@
           </button>
         </div>
       </div>
-      
     </ModalBody>
     
     <ModalFooter class="text-right">
@@ -685,60 +674,8 @@
       </button>
     </ModalFooter>
   </Modal>
+  
   <!-- END: Add Component Modal -->
-
-  <!-- BEGIN: Add Pricelist Modal -->
-  <!-- <Modal :show="addPricesListsModal" @hidden="addPricesListsModal = false"> -->
-  <!--
-  <Modal :show="addPricesListsModal" @hidden="addPricesListsModal = false">
-    <ModalHeader>
-      <h2 class="mr-auto text-base font-medium">
-        Agregando Lista de Precios
-      </h2>
-    </ModalHeader>
-    <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">      
-      <div class="col-span-12">
-        <label for="pos-form-5" class="form-label">Lista de precios:</label>
-        <v-select
-              label="name"
-              class="form-control" 
-              :options="dataPricesLists" 
-              v-model="add_pricelist_form.name">
-            </v-select>
-      </div>
-      <div class="flex items-center col-span-5">
-        <label for="pos-form-5" class="mb-0 form-label">Precio ($):</label>
-        <input
-            type="number"
-            id="pos-form-4"
-            placeholder="0"
-            class="w-24 ml-auto text-center form-control"
-            v-model="add_pricelist_form.price"/>
-      </div>
-      <div class="flex items-center col-span-7">
-        <label for="pos-form-5" class="mb-0 mr-2 form-label">Divisa:</label>        
-        <v-select      
-            label="code"      
-            class="form-control" 
-            :options="dataCurrencies"
-            v-model="add_pricelist_form.currency">
-            <template #option="{ code, name }">
-              <b>{{ code }}</b> {{ name }}
-            </template>
-          </v-select>
-      </div>
-    </ModalBody>
-    <ModalFooter class="text-right">
-      <button
-        type="button"
-        class="w-24 btn btn-primary"
-        @click="submit_add_priceslists">
-          Agregar
-      </button>
-    </ModalFooter>
-  </Modal>
-  -->
-  <!-- END: Add Pricelist Modal -->
 </template>
 
 <style>

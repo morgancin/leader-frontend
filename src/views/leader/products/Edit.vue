@@ -5,21 +5,30 @@
 </script>
 
 <script setup>
-    import { storeToRefs } from "pinia";
-    import { useRoute } from "vue-router";
-    
-    import { useProductsStore } from "../../../stores/leader/products";
-    import ProductsForm from "../../../components/leader/products/Form.vue";
+  import { ref, watch } from 'vue';
+  import { storeToRefs } from "pinia";
+  import { useRoute } from "vue-router";
+  
+  import { useProductsStore } from "../../../stores/leader/products";
+  import ProductsForm from "../../../components/leader/products/Form.vue";
 
-    const route = useRoute();
-    const { updateProduct, fetchProduct } = useProductsStore();
-    const { product: form, message } = storeToRefs(useProductsStore());
+  const route = useRoute();
+  const show_form = ref(false);
+  const { updateProduct, fetchProduct } = useProductsStore();
+  const { product: form_data } = storeToRefs(useProductsStore());
 
-    fetchProduct(route.params.id);
-    
-    const submit = async () => {
-        await updateProduct();
-    }
+  fetchProduct(route.params.id);
+
+  watch(
+      () => form_data.value,
+      () => {
+        show_form.value = true;
+      }
+  );
+
+  const submit = async () => {
+    await updateProduct();
+  }
 </script>
 
 <template>
@@ -30,9 +39,10 @@
   <div class="grid grid-cols-3 gap-3 mt-5">
     <div class="col-span-12 intro-y lg:col-span-6">
       <ProductsForm
-          text-button="Actualizar"
-          :product="form"
-          @submit="submit" />
+        v-if="show_form"
+        @submit="submit"
+        :product="form_data"
+        text-button="Actualizar"/>
     </div>
   </div>
 </template>

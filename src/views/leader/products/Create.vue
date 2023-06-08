@@ -13,7 +13,7 @@
   
   const { createProduct } = useProductsStore();
 
-  const cart_components = ref([]);
+  //const cart_components = ref([]);
   const form_data = reactive({
                         sku:null,
                         name:null,
@@ -40,8 +40,7 @@
     <div class="col-span-12 intro-y lg:col-span-6">
       <ProductsForm
         @submit="submit"
-        :product="form_data"
-        :cart_components="cart_components" />
+        :product="form_data" />
     </div>
   </div>
 </template>
