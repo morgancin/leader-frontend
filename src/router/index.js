@@ -255,6 +255,27 @@ const routes = [
       },
       ////
 
+      //TEAMS
+      {
+        path: "teams",
+        name: "side-menu-teams",
+        component: () => import('../views/leader/teams/Index.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: 'add-team',
+        name: 'side-menu-add-team',
+        component: () => import('../views/leader/teams/Edit.vue'),
+        beforeEnter: requireAuth
+      },
+      {
+        path: '/team/edit/:id',
+        name: 'side-menu-edit-team',
+        component: () => import('../views/leader/teams/Edit.vue'),
+        beforeEnter: requireAuth
+      },      
+      ////
+
       //COMPANIES
       {
         path: 'add-company',

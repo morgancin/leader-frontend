@@ -176,22 +176,21 @@
           <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
               <ChevronDownIcon class="w-4 h-4 mr-2" /> Información básica
           </div>
-          <div class="mt-5">  
-              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                  <div class="form-label xl:w-72 xl:!mr-10">
-                    <div class="text-left">
-                      <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_products.product_account') }}</div>
-                        <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                          {{ $t('forms.required') }}
-                        </div>
-                      </div>
-                      <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Cuenta a la que pertenece el producto.
-                      </div>
+          <div class="mt-5">
+            <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">            
+              <div class="form-label xl:w-72 xl:!mr-10">
+                <div class="text-left">
+                  <div class="flex items-center">
+                    <div class="font-medium">{{ $t('add_products.product_account') }}</div>
+                    <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                      {{ $t('forms.required') }}
                     </div>
                   </div>
+                  <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                    Cuenta a la que pertenece el producto.
+                  </div>
+                </div>
+              </div>
 
                   <div class="flex-1 w-full mt-3 xl:mt-0">
                     <v-select
@@ -332,9 +331,8 @@
                       <div class="flex items-center">
                         <div class="font-medium">{{ $t('add_products.product_description') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('forms.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
@@ -425,13 +423,12 @@
                           id="product-status-active"
                           v-model="product.active" />                        
                         <label class="form-check-label" for="product-status-active">Active</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-          </div>
-        </div>
-      </div>
+            </div>
       
       <div class="p-5 mt-5 intro-y box">      
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
@@ -621,12 +618,11 @@
   </div>
 
   <!-- BEGIN: Add Component Modal -->
-  
   <Modal :show="addComponentModal" @hidden="addComponentModal = false">
     <ModalHeader>
       <h2 class="mr-auto text-base font-medium">{{ $t('add_components.add') }}</h2>
     </ModalHeader>
-
+    
     <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">      
       <div class="col-span-12">
         <label for="pos-form-5" class="form-label">{{ $t('add_components.component') }}:</label>
@@ -664,7 +660,7 @@
         </div>
       </div>
     </ModalBody>
-    
+
     <ModalFooter class="text-right">
       <button
         type="button"
@@ -674,7 +670,6 @@
       </button>
     </ModalFooter>
   </Modal>
-  
   <!-- END: Add Component Modal -->
 </template>
 

@@ -51,6 +51,11 @@
             "column_1": "PRECIO",
             "column_2": "ACCIONES"
         },
+        "teams": {
+            "column_1": "NOMBRE",
+            "column_2": "CARRUSEL",
+            "column_3": "ACCIONES"
+        },
         "price_lists": {
             "column_1": "NOMBRE",
             "column_2": "ACCIONES"
@@ -413,6 +418,7 @@
     },
     "side-menu":{
         "users": "Usuarios",
+        "teams": "Equipos",
         "prices": "Precios",
         "accounts": "Cuentas",
         "leads": "Seguimientos",
@@ -438,6 +444,10 @@
     "prospects": {
         "prospects": "Prospectos",
         "btn-add-new-prospect": "Crear Nuevo Prospecto"
+    },
+    "teams": {
+        "teams": "Equipos",
+        "btn-add-new-team": "Crear Nuevo Equipo"
     },
     "users": {
         "users": "Usuarios",

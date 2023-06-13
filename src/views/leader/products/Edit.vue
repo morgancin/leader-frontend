@@ -5,7 +5,7 @@
 </script>
 
 <script setup>
-  import { ref, watch } from 'vue';
+  import { ref, watch, reactive } from 'vue';
   import { storeToRefs } from "pinia";
   import { useRoute } from "vue-router";
   
@@ -18,7 +18,7 @@
   const { product: form_data } = storeToRefs(useProductsStore());
 
   fetchProduct(route.params.id);
-
+  
   watch(
       () => form_data.value,
       () => {
@@ -41,8 +41,7 @@
       <ProductsForm
         v-if="show_form"
         @submit="submit"
-        :product="form_data"
-        text-button="Actualizar"/>
+        :product="form_data" />
     </div>
   </div>
 </template>
