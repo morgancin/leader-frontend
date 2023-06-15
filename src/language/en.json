@@ -120,6 +120,10 @@
         "registration_failed": "Registration failed!",
         "check_failed": "Please check the fileld form."
     },
+    "add_team": {
+        "add_team": "Add Team",
+        "btn_prev": "Previous"
+    },
     "add-prospect": {
         "prospect": "Prospect",
         "prospect-details": "Prospect Details",

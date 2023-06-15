@@ -10,7 +10,6 @@ export const useProspectingSourcesStore = defineStore("prospectingSourcesStore",
     state: () => ({
         prospecting_source: {},
         prospecting_sources: []
-        //message: null,
     }),
     actions: {
         async createProspectingSources(prospecting_source) {

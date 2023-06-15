@@ -120,6 +120,10 @@
         "registration_failed": "¡Registro fallido!",
         "check_failed": "Por favor revise el formulario."
     },
+    "add_team": {
+        "add_team": "Agregar Equipo",
+        "btn_prev": "Anterior"
+    },
     "add-prospect": {
         "prospect": "Prospecto",
         "prospect-details": "Detalles del Prospecto",

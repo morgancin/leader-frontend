@@ -2,9 +2,8 @@
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('teams.teams') }}</h2>
     
-    
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
-      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-prospect`">{{ $t('teams.btn-add-new-team') }}</router-link>
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-team`">{{ $t('teams.btn-add-new-team') }}</router-link>
       <!--<Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">
           <span class="flex items-center justify-center w-5 h-5">
@@ -214,27 +213,21 @@ const initTabulator = () => {
             print: false,
             download: false,
             hozAlign: "center",
-            headerSort:false
-            /*
+            headerSort:false,
             formatter(cell) {
               const a = dom(` <div class="flex items-center lg:justify-center">
-                                <a class="flex items-center mr-3" href="/prospect/edit/${cell.getData().id}">
+                                <a class="flex items-center mr-3" href="/team/edit/${cell.getData().id}">
                                   <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
                                 </a>
-                                <a class="flex items-center text-danger" @click="deleteProspect(${cell.getData().id})">
-                                  <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete 
-                                </a>
                               </div>`);
-
+              
               dom(a).on("click", function () {
                 // On click actions
               });
-              
+                
               return a[0];
             },
-            */
-          },
-          
+          }
         ]
         /*
         renderComplete() {

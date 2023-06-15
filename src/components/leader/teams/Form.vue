@@ -27,9 +27,9 @@
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
 
-  import { useAccountsStore } from "@/stores/leader/accounts";
-  import { useGetDataRoles } from '../../../composables/getData/useGetDataRoles';
-  import { useGetDataPermissions } from '../../../composables/getData/useGetDataPermissions';
+  import { useUsersStore } from "@/stores/leader/users";
+  //import { useProspectingSourcesStore } from "@/stores/leader/prospecting-sources";
+  import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
 
   import i18n from "../../../language/i18n";
   const { t } = i18n.global;
@@ -43,26 +43,16 @@
   
   const emit = defineEmits(["submit"]);
 
-  const { fetchAccounts } = useAccountsStore();
-  const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
-  
-  const { fetchRoles, results_roles, roles_errors } = useGetDataRoles();
-  const { fetchPermissions, results_permissions, permissions_errors } = useGetDataPermissions();
+  const { fetchUsers } = useUsersStore();
 
-  const dataRoles = ref([]);
-  const dataPermissions = ref([]);
+  const { users: data_users } = storeToRefs(useUsersStore());
+  const { fetchProspectingSources } = useGetDataProspectingSources();
   
-  //const containsUser = (value) => {
-    //return value.include("user")
-  //}
+  const data_prospecting_sources = ref([]);
   
   ////////RULES
   const rules = {
-      name: { required },
-      accounts: { required },
-      email: { required, email},
-      password: { required, minLength: minLength(6)},
-      password_confirmation: { required, minLength: minLength(6)}
+      name: { required }
   }
   
   const validate = useVuelidate(rules, props.team);
@@ -84,11 +74,9 @@
   }
 
   onMounted(async() => {
-    await fetchRoles();
-    await fetchAccounts();
-    await fetchPermissions();
-    dataRoles.value = results_roles.value;
-    dataPermissions.value = results_permissions.value;
+    await fetchUsers();
+
+    data_prospecting_sources.value = await fetchProspectingSources();
   });
 </script>
 
@@ -130,43 +118,6 @@
                       </div>
                     </div>
                     <div class="flex-1 w-full mt-3 xl:mt-0">
-                      <v-select
-                        multiple
-                        label="name"
-                        class="w-full form-control"
-                        :options="dataAccounts"
-                        :reduce="name => name.id"
-                        v-model="team.accounts"
-                        :class="{ 'border-danger': validate.accounts.$error }">
-                      </v-select>
-                      
-                      <template v-if="validate.accounts.$error">
-                        <div
-                          v-for="(error, index) in validate.accounts.$errors"
-                          :key="index"
-                          class="mt-2 text-danger">
-                            {{ error.$message }}
-                        </div>
-                      </template>              
-                    </div>
-                  </div>
-
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_user.name') }}</div>
-                          <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
-                          </div>
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Nombre del usuario, espacio para caracteres alfanúmericos, no incluir apellidos.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex-1 w-full mt-3 xl:mt-0">
                       <input
                         type="text"
                         name="name"
@@ -186,9 +137,61 @@
                               {{ error.$message }}
                           </div>
                         </template>
+                    </div>
+                  </div>
+
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">Carousel</div>
+                        </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                          If the status is carousel, your team can be searched for by potential buyers.
+                        </div>
                       </div>
                     </div>
-                    
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                      <div class="form-check form-switch">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="product-status-active"
+                          v-model="team.is_carousel" />                        
+                        <label class="form-check-label" for="product-status-active">carousel</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                    <div class="form-label xl:w-72 xl:!mr-10">
+                      <div class="text-left">
+                        <div class="flex items-center">
+                          <div class="font-medium">Status</div>
+                          <div
+                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                              Required
+                          </div>
+                        </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
+                              If the status is active, your team can be searched for by
+                              potential buyers.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-1 w-full mt-3 xl:mt-0">
+                      <div class="form-check form-switch">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="product-status-active"
+                          v-model="team.active" />
+                          <label class="form-check-label" for="product-status-active">Active</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--  
                     <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
@@ -336,32 +339,7 @@
                         </template>
                       </div>
                     </div>
-                  <!-- BEGIN: Success Notification Content -->
-                  <div
-                    id="success-notification-content"
-                    class="flex hidden toastify-content">
-                    <CheckCircleIcon class="text-success" />
-                    <div class="ml-4 mr-4">
-                      <div class="font-medium">{{ $t('add_user.registration_success') }}</div>
-                      <div class="mt-1 text-slate-500">
-                        {{ $t('add_user.check_success') }}
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END: Success Notification Content -->
-                  <!-- BEGIN: Failed Notification Content -->
-                  <div
-                    id="failed-notification-content"
-                    class="flex hidden toastify-content">
-                    <XCircleIcon class="text-danger" />
-                    <div class="ml-4 mr-4">
-                      <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>
-                      <div class="mt-1 text-slate-500">
-                        {{ $t('add_user.check_failed') }}
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END: Failed Notification Content -->
+                    -->
                 </Preview>
               </div>
             </div>
@@ -380,13 +358,12 @@
                       <div class="flex items-center">
                         <div class="font-medium">{{ $t('forms.roles') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('forms.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Rol que funge el usuario en el sistema.
+                        Usuarios que conforman al equipo.
                       </div>
                     </div>
                   </div>
@@ -395,24 +372,22 @@
                       multiple
                       label="name"
                       class="form-control" 
-                      :options="dataRoles" 
-                      v-model="team.roles">
+                      :options="data_users" 
+                      v-model="team.users">
                     </v-select>
                     <div class="text-right form-help">
                       {{ $t('forms.select_options') }}
                     </div>                    
                   </div>
-                </div> 
-
-
+                </div>
+                                
                 <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
                         <div class="font-medium">{{ $t('forms.permissions') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
                           {{ $t('forms.required') }}
                         </div>
                       </div>
@@ -426,15 +401,15 @@
                       multiple
                       label="name"
                       class="form-control" 
-                      :options="dataPermissions" 
-                      v-model="team.permissions">
+                      :options="data_prospecting_sources" 
+                      v-model="team.prospecting_sources">
                     </v-select>
                     <div class="text-right form-help">
                       {{ $t('forms.select_options') }}
                     </div>                    
                   </div>
-                </div> 
-
+                </div>
+                
 
               </div>
             </div>
@@ -443,9 +418,8 @@
           <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
             <button
               type="button"
-              class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
-            >
-              {{ $t('add_user.btn_cancel') }}
+              class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52">
+                {{ $t('add_user.btn_cancel') }}
             </button>
             <button type="submit" class="w-full py-3 btn btn-primary md:w-52" @click="update">
               {{ $t('add_user.btn_save') }}

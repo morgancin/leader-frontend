@@ -88,7 +88,7 @@
               
             return a[0];
           },
-        },
+        }
       ]
       /*
       renderComplete() {

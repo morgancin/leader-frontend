@@ -265,7 +265,7 @@ const routes = [
       {
         path: 'add-team',
         name: 'side-menu-add-team',
-        component: () => import('../views/leader/teams/Edit.vue'),
+        component: () => import('../views/leader/teams/Create.vue'),
         beforeEnter: requireAuth
       },
       {
