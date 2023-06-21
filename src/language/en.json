@@ -1,4 +1,101 @@
 {
+    "accounts":{
+        "title":"Accounts",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "name":"Name",
+                        "status":"Status"
+                    },
+                    "active":"Active",
+                    "required":"Required",
+                    "title":"Account data"
+                },
+                "placeholders":{
+                        "name":"Name",
+                        "status":"Status"
+                },
+                "instructions":{
+                        "name":"Account name, space for alphanumeric characters.",
+                        "status":"If the status is active, the registry can be used"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NAME",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
+    "users":{
+        "title":"Users",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "name":"Name",
+                        "roles":"Roles",
+                        "email":"Email",
+                        "status":"Status",
+                        "account":"Account",
+                        "password":"Password",
+                        "permissions":"Permissions",
+                        "password_confirmation":"Password confirmation"
+                    },
+                    "active":"Active",
+                    "required":"Required",
+                    "title":"User data",
+                    "complementary_information":"Complementary information"
+                },
+                "placeholders":{
+                    "name":"Name",
+                    "email":"Email",
+                    "status":"Status",
+                    "account":"Account",
+                    "password":"Password",
+                    "password_confirmation":"Password confirmation"
+                },
+                "instructions":{
+                        "name":"Username, space for alphanumeric characters, do not include last name.",
+                        "account":"Account to which it belongs.",
+                        "roles":"Roles assigned to the user for system use.",
+                        "status":"If the status is active, the registry can be used",
+                        "email":"User email, write in email format",
+                        "password":"Password for the user, with which he will enter the system.",
+                        "permissions":"Permissions of the user in the system.",
+                        "password_confirmation":"Password confirmation for the user, it must match the password above.",
+                        "validation":{
+                            "name":"Minimum 2 characters",
+                            "password":"Minimum 6 characters",
+                            "email":"Use email format."
+                        }
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NAME",
+                "column_2": "EMAILS",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
     "messages": {
         "validation_error": "Validation error"
     },
@@ -105,21 +202,7 @@
         "label_drop_down_content": "Quick Actions",
         "opc_1_drop_down_content": "New Prospect"
     },
-    "add_user": {
-        "add_user": "Add User",
-        "name": "Name",
-        "email": "Email",
-        "account": "Account",
-        "password": "Password",
-        "password_confirmation": "Password Confirmation",
-        "btn_prev": "Previous",
-        "btn_cancel": "Cancel",
-        "btn_save": "Save",
-        "registration_success": "Registration success!",
-        "check_success": "The user was created successfully!",
-        "registration_failed": "Registration failed!",
-        "check_failed": "Please check the fileld form."
-    },
+    
     "add_team": {
         "add_team": "Add Team",
         "btn_prev": "Previous"
@@ -290,14 +373,9 @@
     "add_leads":{
         "leads": "Leads"
     },
-    "add_accounts":{
-        "accounts": "Accounts",
-        "account_name": "Name",
-        "btn_prev": "Previous",
-        "btn_save": "Save",
-        "btn_cancel": "Cancel",
-        "btn_add_new_account": "New Account"
-    },
+    
+    
+    
     "add_pipelines":{
         "pipelines": "Pipelines",
         "pipeline": "Pipeline",
@@ -450,10 +528,6 @@
     "teams": {
         "teams": "Teams",
         "btn-add-new-team": "New Team"
-    },
-    "users": {
-        "users": "Users",
-        "btn-add-new-user": "New User"
     },
     "contracts": {
         "contracts": "Contracts",

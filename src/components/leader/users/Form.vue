@@ -108,7 +108,7 @@
           <div class="p-5 intro-y box">
             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
               <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.basic-info')}}
+                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('users.form.labels.title') }}
               </div>
               <div class="mt-5">
                 <Preview>
@@ -118,14 +118,14 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_user.account') }}</div>
+                          <div class="font-medium">{{ $t('users.form.labels.fields.account') }}</div>
                           <div
                             class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
+                              {{ $t('users.form.labels.required') }}
                           </div>
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Cuentas a las que pertenece.
+                          {{ $t('users.form.instructions.account') }}
                         </div>
                       </div>
                     </div>
@@ -155,15 +155,13 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_user.name') }}</div>
+                          <div class="font-medium">{{ $t('users.form.labels.fields.name') }}</div>
                           <div
                             class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
+                              {{ $t('users.form.labels.required') }}
                           </div>
                         </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Nombre del usuario, espacio para caracteres alfanúmericos, no incluir apellidos.
-                        </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('users.form.instructions.name') }}</div>
                       </div>
                     </div>
                     <div class="flex-1 w-full mt-3 xl:mt-0">
@@ -172,12 +170,10 @@
                         name="name"
                         class="form-control"
                         id="validation-form-1"
-                        :placeholder="$t('add_user.name')"
+                        :placeholder="$t('users.form.placeholders.name')"
                         v-model="user.name"
                         :class="{ 'border-danger': validate.name.$error }" />
-                        <div class="text-right form-help">
-                            Deben ser al menos 2 caracteres.
-                        </div>
+                        <div class="text-right form-help">{{ $t('users.form.instructions.validation.name') }}</div>
                         <template v-if="validate.name.$error">
                           <div
                             v-for="(error, index) in validate.name.$errors"
@@ -193,15 +189,13 @@
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.email') }}</div>
+                            <div class="font-medium">{{ $t('users.form.labels.fields.email') }}</div>
                             <div
                               class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
+                                {{ $t('users.form.labels.required') }}
                             </div>
                           </div>
-                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Email del usuario, escribir en formato de correo, por ejemplo: usuario@dominio.com
-                          </div>
+                          <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('users.form.instructions.email') }}</div>
                         </div>
                       </div>
 
@@ -214,10 +208,8 @@
                           name="email"
                           class="form-control"
                           :class="{ 'border-danger': validate.email.$error }"
-                          :placeholder="$t('add_user.email')"/>
-                        <div class="text-right form-help">
-                            En formato de correo electrónico.
-                        </div>
+                          :placeholder="$t('users.form.placeholders.email')"/>
+                        <div class="text-right form-help">{{ $t('users.form.instructions.validation.email') }}</div>
                         <template v-if="validate.email.$error">
                           <div
                             v-for="(error, index) in validate.email.$errors"
@@ -233,16 +225,13 @@
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
-                            <div class="font-medium">Status</div>
+                            <div class="font-medium">{{ $t('users.form.labels.fields.status') }}</div>
                               <div
                                   class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                                    Required
+                                    {{ $t('users.form.labels.required') }}
                               </div>
                             </div>
-                            <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                                If the status is active, your user can be searched for by
-                                potential buyers.
-                              </div>
+                            <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('users.form.instructions.status') }}</div>
                             </div>
                           </div>
                           <div class="flex-1 w-full mt-3 xl:mt-0">
@@ -252,7 +241,7 @@
                                 class="form-check-input"
                                 id="product-status-active"
                                 v-model="user.active" />                        
-                              <label class="form-check-label" for="product-status-active">Active</label>
+                              <label class="form-check-label" for="product-status-active">{{ $t('users.form.labels.active') }}</label>
                         </div>
                       </div>
                     </div>
@@ -261,15 +250,13 @@
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.password') }}</div>
+                            <div class="font-medium">{{ $t('users.form.labels.fields.password') }}</div>
                             <div
                               class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                                {{ $t('forms.required') }}
+                                {{ $t('users.form.labels.required') }}
                             </div>
                           </div>
-                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Contraseña para el usuario, con la que ingresará al sistema.
-                          </div>
+                          <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('users.form.instructions.password') }}</div>
                         </div>
                       </div>
 
@@ -282,9 +269,9 @@
                           name="password"
                           class="form-control"
                           :class="{ 'border-danger': validate.password.$error }"
-                          :placeholder="$t('add_user.password')"/>
+                          :placeholder="$t('users.form.placeholders.password')"/>
                         <div class="text-right form-help">
-                            Deben ser al menos 6 caracteres.
+                          {{ $t('users.form.instructions.validation.password') }}
                         </div>
                         <template v-if="validate.password.$error">
                           <div
@@ -301,14 +288,14 @@
                       <div class="form-label xl:w-72 xl:!mr-10">
                         <div class="text-left">
                           <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.password_confirmation') }}</div>
+                            <div class="font-medium">{{ $t('users.form.labels.fields.password_confirmation') }}</div>
                             <div
                               class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
                                 {{ $t('forms.required') }}
                             </div>
                           </div>
                           <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Confirmación de contraseña para el usuario, debe coincidir con la contraseña de arriba.
+                            {{ $t('users.form.instructions.password_confirmation') }}
                           </div>
                         </div>
                       </div>
@@ -322,7 +309,7 @@
                           name="password"
                           class="form-control"
                           :class="{ 'border-danger': validate.password_confirmation.$error }"
-                          :placeholder="$t('add_user.password_confirmation')"/>
+                          :placeholder="$t('users.form.placeholders.password_confirmation')"/>
                         <div class="text-right form-help">
                             Deben ser al menos 6 caracteres.
                         </div>
@@ -336,32 +323,6 @@
                         </template>
                       </div>
                     </div>
-                  <!-- BEGIN: Success Notification Content -->
-                  <div
-                    id="success-notification-content"
-                    class="flex hidden toastify-content">
-                    <CheckCircleIcon class="text-success" />
-                    <div class="ml-4 mr-4">
-                      <div class="font-medium">{{ $t('add_user.registration_success') }}</div>
-                      <div class="mt-1 text-slate-500">
-                        {{ $t('add_user.check_success') }}
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END: Success Notification Content -->
-                  <!-- BEGIN: Failed Notification Content -->
-                  <div
-                    id="failed-notification-content"
-                    class="flex hidden toastify-content">
-                    <XCircleIcon class="text-danger" />
-                    <div class="ml-4 mr-4">
-                      <div class="font-medium">{{ $t('add_user.registration_failed') }}</div>
-                      <div class="mt-1 text-slate-500">
-                        {{ $t('add_user.check_failed') }}
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END: Failed Notification Content -->
                 </Preview>
               </div>
             </div>
@@ -370,7 +331,7 @@
           <div class="p-5 mt-5 intro-y box">
             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
               <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.complementary-info')}}
+                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('users.form.labels.complementary_information')}}
               </div>
               <div class="mt-5">
 
@@ -378,15 +339,14 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('forms.roles') }}</div>
+                        <div class="font-medium">{{ $t('users.form.labels.fields.roles') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('users.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Rol que funge el usuario en el sistema.
+                        {{ $t('users.form.instructions.roles') }}
                       </div>
                     </div>
                   </div>
@@ -397,27 +357,22 @@
                       class="form-control" 
                       :options="dataRoles" 
                       v-model="user.roles">
-                    </v-select>
-                    <div class="text-right form-help">
-                      {{ $t('forms.select_options') }}
-                    </div>                    
+                    </v-select>                    
                   </div>
-                </div> 
-
-
+                </div>
+                
                 <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('forms.permissions') }}</div>
+                        <div class="font-medium">{{ $t('users.form.labels.fields.permissions') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('users.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Permisos que tiene el usuario en el sistema.
+                        {{ $t('users.form.instructions.permissions') }}
                       </div>
                     </div>
                   </div>
@@ -428,32 +383,23 @@
                       class="form-control" 
                       :options="dataPermissions" 
                       v-model="user.permissions">
-                    </v-select>
-                    <div class="text-right form-help">
-                      {{ $t('forms.select_options') }}
-                    </div>                    
+                    </v-select>                    
                   </div>
-                </div> 
-
-
+                </div>
               </div>
             </div>
           </div>
 
           <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
-            <button
-              type="button"
-              class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52"
-            >
-              {{ $t('add_user.btn_cancel') }}
+            <button type="button" class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52">
+                {{ $t('users.buttons.cancel') }}
             </button>
             <button type="submit" class="w-full py-3 btn btn-primary md:w-52" @click="update">
-              {{ $t('add_user.btn_save') }}
+              {{ $t('users.buttons.save') }}
             </button>
           </div>
-
         </form>
-
+        
       </PreviewComponent>
       <!-- END: Form Validation -->
     </div>

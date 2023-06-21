@@ -1,4 +1,101 @@
 {
+    "accounts":{
+        "title":"Cuentas",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "name":"Nombre",
+                        "status":"Estatus"
+                    },
+                    "active":"Activo",
+                    "required":"Requerido",
+                    "title":"Datos de cuenta"
+                },
+                "placeholders":{
+                        "name":"Nombre",
+                        "status":"Estatus"
+                },
+                "instructions":{
+                        "name":"Nombre de cuenta, espacio para caracteres alfanuméricos.",
+                        "status":"Si el estado es activo, se puede utilizar el registro"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NOMBRES",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+                "new": "Nuevo",
+                "save": "Guardar",
+                "prev": "Anterior",
+                "cancel": "Cancelar"  
+        }
+    },
+    "users":{
+        "title":"Usuarios",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "name":"Nombre",
+                        "roles":"Roles",
+                        "email":"Correo electrónico",
+                        "status":"Estatus",
+                        "account":"Cuenta",
+                        "password":"Contraseña",
+                        "permissions":"Permisos",
+                        "password_confirmation":"Confirmar contraseña"
+                    },
+                    "active":"Activo",
+                    "required":"Requerido",
+                    "title":"Datos de usuario",
+                    "complementary_information":"Información complementaria"
+                },
+                "placeholders":{
+                    "name":"Nombre",
+                    "email":"Correo electrónico",
+                    "status":"Estatus",
+                    "account":"Cuenta",
+                    "password":"Contraseña",
+                    "password_confirmation":"Confirmar contraseña"
+                },
+                "instructions":{
+                        "name":"Nombre de usuario, espacio para caracteres alfanuméricos, no incluir apellido.",
+                        "account":"Cuenta a la que pertenece.",
+                        "roles":"Roles asignados al usuario para uso del sistema.",
+                        "status":"Si el estado es activo, se puede utilizar el registro",
+                        "email":"Correo electrónico del usuario, escriba en formato de correo electrónico",
+                        "password":"Contraseña para el usuario, con la cual ingresará al sistema.",
+                        "permissions":"Permisos del usuario en el sistema.",
+                        "password_confirmation":"Confirmación de contraseña para el usuario, debe coincidir con la contraseña anterior.",
+                        "validation":{
+                            "name":"Mínimo 2 caracteres",
+                            "password":"Mínimo 6 caracteres",
+                            "email":"Utilice el formato de correo electrónico."
+                        }
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NOMBRES",
+                "column_2": "CORREOS ELECTRÓNICOS",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar"  
+        }
+    },
     "messages": {
         "validation_error": "Validation error"
     },
@@ -452,10 +549,6 @@
     "teams": {
         "teams": "Equipos",
         "btn-add-new-team": "Crear Nuevo Equipo"
-    },
-    "users": {
-        "users": "Usuarios",
-        "btn-add-new-user": "Crear Nuevo Usuario"
     },
     "contracts": {
         "contracts": "Contratos",

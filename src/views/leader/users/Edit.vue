@@ -32,10 +32,9 @@
 
 <template>
     <div class="flex items-center mt-8 intro-y">
-        <h2 class="mr-auto text-lg font-medium">Update User</h2>
+        <h2 class="mr-auto text-lg font-medium">{{ $t('users.title') }}</h2>
+        <router-link class="w-20 mr-2 shadow-md btn btn-primary" :to="`/users`">{{ $t('users.buttons.prev') }}</router-link>
     </div>
-    
-    <router-link class="w-20 mr-2 shadow-md btn btn-primary" :to="`/dashboard-user`">{{ $t('add_user.btn_prev') }}</router-link>
     <div class="grid grid-cols-1 gap-3 mt-5">
         <UserForm
           v-if="show_form"

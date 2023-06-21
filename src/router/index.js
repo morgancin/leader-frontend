@@ -72,14 +72,12 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
-//import Prospects from "../views/prospects/Main.vue";
 import NoInteresados from "../views/no-interesados/Main.vue";
 import Reasignados from "../views/reasignados/Main.vue";
 import Clientes from "../views/clientes/Main.vue";
 import ActualizarUsuario from "../views/actualizar-usuario/Main.vue";
 import TableroUsuarios from "../views/tablero-usuarios/Main.vue";
 
-import DashboardUser from "../views/dashboard-user/Main.vue";
 import DashboardCompanies from "../views/dashboard-companies/Main.vue";
 import AddUser from "../views/add-user/Main.vue";
 import AddProspect from "../views/add-prospect/Main.vue";
@@ -90,7 +88,10 @@ import CompanyUsers from "../views/company-users/Main.vue";
 import EditUser from "../views/edit-user/Main.vue";
 import Settings from "../views/settings/Main.vue";
 import Languages from "../views/languages/Main.vue";
-// import Activities from "../views/Activities/Main.vue";
+
+//import Prospects from "../views/prospects/Main.vue";
+//import Activities from "../views/Activities/Main.vue";
+//import DashboardUser from "../views/dashboard-user/Main.vue";
 
 const requireAuth = async (to, from, next) => {
   if (sessionStorage.getItem("TOKEN")) {
@@ -241,6 +242,14 @@ const routes = [
 
       //////AGREGADOS
       //USERS
+      {
+        path: "users",
+        name: "side-menu-dashboard-user",
+        //path: "dashboard-user",
+        //component: DashboardUser,
+        component: () => import('../views/leader/users/Index.vue'),
+        beforeEnter: requireAuth
+      },
       {
         path: 'add-user',
         name: 'side-menu-add-user',
@@ -628,12 +637,7 @@ const routes = [
         component: () => import('../views/leader/companies/Index.vue'),
         beforeEnter: requireAuth
       },
-      {
-        path: "dashboard-user",
-        name: "side-menu-dashboard-user",
-        component: DashboardUser,
-        beforeEnter: requireAuth
-      },
+      
       {
         path: "/",
         name: "side-menu-dashboard-overview-1",

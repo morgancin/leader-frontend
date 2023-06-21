@@ -49,7 +49,7 @@
       columns: [
         // For HTML table
         {
-          title: t('list.accounts.column_1'),
+          title: t('accounts.list.labels.column_1'),
           minWidth: 200,
           field: "name",
           vertAlign: "middle",
@@ -59,7 +59,7 @@
           // hozAlign: "center",
         },
         {
-          title: t('list.accounts.column_2'),
+          title: t('accounts.list.labels.actions_column'),
           minWidth: 200,
           field: "actions",
           vertAlign: "middle",
@@ -70,7 +70,7 @@
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
                               <a class="flex items-center mr-3" href="/accounts/edit/${cell.getData().id}">
-                                <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
+                                <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ${ t('accounts.list.labels.actions.edit') }
                               </a>
                             </div>`);
             
@@ -163,9 +163,9 @@
   
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
-    <h2 class="mr-auto text-lg font-medium">{{ $t('add_accounts.accounts') }}</h2>
+    <h2 class="mr-auto text-lg font-medium">{{ $t('accounts.title') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
-      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-account`">{{ $t('add_accounts.btn_add_new_account') }}</router-link>
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-account`">{{ $t('accounts.buttons.new') }}</router-link>
       <!-- <Dropdown class="ml-auto sm:ml-0">
         <DropdownToggle class="px-2 btn box">
           <span class="flex items-center justify-center w-5 h-5">
