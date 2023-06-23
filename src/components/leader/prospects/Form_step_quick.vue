@@ -274,13 +274,14 @@
                           :reduce="name => name.id"
                           v-model="data_prospect_activity.company_id">
                       </v-select>
+                      
                       <div class="z-30 flex items-center justify-center w-10 mr-1 border rounded-r bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 addmore" 
                         :class="{ active: show_company_prospect }"
                         @click="show_company_prospect = !show_company_prospect">
                           <PlusIcon class="w-4 h-4" />
                       </div>
                     </div>
-
+                    
                     <div class="col-span-12 input-form intro-y sm:col-span-12 speciallabels speciallabeleds">
                       <CompanyForm
                         v-if="show_company_prospect" show

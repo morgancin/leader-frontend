@@ -1,28 +1,10 @@
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
-    <h2 class="mr-auto text-lg font-medium">{{ $t('teams.teams') }}</h2>
+    <h2 class="mr-auto text-lg font-medium">{{ $t('teams.title') }}</h2>
     
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
-      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-team`">{{ $t('teams.btn-add-new-team') }}</router-link>
-      <!--<Dropdown class="ml-auto sm:ml-0">
-        <DropdownToggle class="px-2 btn box">
-          <span class="flex items-center justify-center w-5 h-5">
-            <PlusIcon class="w-4 h-4" />
-          </span>
-        </DropdownToggle>
-        <DropdownMenu class="w-40">
-          <DropdownContent>
-            <DropdownItem>
-              <FilePlusIcon class="w-4 h-4 mr-2" /> New Category
-            </DropdownItem>
-            <DropdownItem>
-              <UserPlusIcon class="w-4 h-4 mr-2" /> New Group
-            </DropdownItem>
-          </DropdownContent>
-        </DropdownMenu>
-      </Dropdown>-->
+      <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-team`">{{ $t('teams.buttons.new') }}</router-link>
     </div>
-    
   </div>
 
   <!-- BEGIN: HTML Table Data -->
@@ -182,13 +164,12 @@ const initTabulator = () => {
         paginationSize:20, //optional parameter to request a certain number of rows per page
         paginationInitialPage:1, //optional parameter to set the initial page to load
         resizableColumnFit:true,
-        
         layout:"fitColumns",
         placeholder: "No matching records found",
         columns: [
           // For HTML table
           {
-            title: t('list.teams.column_1'),
+            title: t('teams.list.labels.column_1'),
             minWidth: 200,
             field: "name",
             vertAlign: "middle",
@@ -198,7 +179,7 @@ const initTabulator = () => {
             // hozAlign: "center",
           },
           {
-            title: t('list.teams.column_2'),
+            title: t('teams.list.labels.column_2'),
             minWidth: 200,
             field: "is_carousel",
             vertAlign: "middle",
@@ -206,9 +187,9 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: t('list.teams.column_3'),
+            title: t('teams.list.labels.actions_column'),
             minWidth: 200,
-            //field: "actions",
+            field: "actions",
             vertAlign: "middle",
             print: false,
             download: false,
@@ -217,7 +198,7 @@ const initTabulator = () => {
             formatter(cell) {
               const a = dom(` <div class="flex items-center lg:justify-center">
                                 <a class="flex items-center mr-3" href="/team/edit/${cell.getData().id}">
-                                  <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
+                                  <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ${ t('teams.list.labels.actions.edit') }
                                 </a>
                               </div>`);
               

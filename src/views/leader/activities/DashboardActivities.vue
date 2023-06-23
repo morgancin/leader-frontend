@@ -427,26 +427,12 @@
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('add_activities.activities') }}</h2>
+    
+    <!--
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-activity`">{{ $t('add_activities.btn_add_new_activity') }}</router-link>
-      <!-- <Dropdown class="ml-auto sm:ml-0">
-        <DropdownToggle class="px-2 btn box">
-          <span class="flex items-center justify-center w-5 h-5">
-            <PlusIcon class="w-4 h-4" />
-          </span>
-        </DropdownToggle>
-        <DropdownMenu class="w-40">
-          <DropdownContent>
-            <DropdownItem>
-              <FilePlusIcon class="w-4 h-4 mr-2" /> New Category
-            </DropdownItem>
-            <DropdownItem>
-              <UserPlusIcon class="w-4 h-4 mr-2" /> New Group
-            </DropdownItem>
-          </DropdownContent>
-        </DropdownMenu>
-      </Dropdown> -->
     </div>
+    -->
   </div>
 
   <!-- BEGIN: HTML Table Data -->

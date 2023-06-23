@@ -1,10 +1,12 @@
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
-    <h2 class="mr-auto text-lg font-medium">{{ $t('companies.companies') }}</h2>
+    <h2 class="mr-auto text-lg font-medium">{{ $t('companies.title') }}</h2>
     
+    <!--
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-prospect`">{{ $t('companies.btn-add-new-companies') }}</router-link>
     </div>
+    -->
   </div>
 
   <!-- BEGIN: HTML Table Data -->
@@ -163,7 +165,7 @@ const initTabulator = () => {
         columns: [
           // For HTML table
           {
-            title: t('list.prospects.column_1'),
+            title: t('companies.list.labels.column_1'),
             minWidth: 200,
             field: "name",
             vertAlign: "middle",
@@ -172,42 +174,8 @@ const initTabulator = () => {
             // responsive: 0,
             // hozAlign: "center",
           },
-          /*
           {
-            title: t('list.prospects.column_2'),
-            minWidth: 200,
-            field: "last_name",
-            vertAlign: "middle",
-            print: true,
-            download: true,
-          },
-          {
-            title: t('list.prospects.column_3'),
-            minWidth: 200,
-            field: "second_last_name",
-            vertAlign: "middle",
-            print: true,
-            download: true,
-          },
-          {
-            title: t('list.prospects.column_4'),
-            minWidth: 200,
-            field: "email",
-            vertAlign: "middle",
-            print: true,
-            download: true,
-          },
-          {
-            title: t('list.prospects.column_5'),
-            minWidth: 200,
-            field: "phone_mobile",
-            vertAlign: "middle",
-            print: true,
-            download: true,
-          },
-          */
-          {
-            title: t('list.prospects.column_6'),
+            title: t('companies.list.labels.actions_column'),
             minWidth: 200,
             field: "actions",
             vertAlign: "middle",

@@ -29,9 +29,10 @@
   
 <template>
   <div class="flex items-center mt-8 intro-y">
-      <h2 class="mr-auto text-lg font-medium">{{ $t('add_team.add_team') }}</h2>
-      <router-link class="w-20 mr-2 shadow-md btn btn-primary" :to="`/teams`">{{ $t('add_team.btn_prev') }}</router-link>
+      <h2 class="mr-auto text-lg font-medium">{{ $t('teams.title') }}</h2>
+      <router-link class="w-20 mr-2 shadow-md btn btn-primary" :to="`/teams`">{{ $t('teams.buttons.prev') }}</router-link>
   </div>
+  
   <div class="grid grid-cols-1 gap-3 mt-5">
     <TeamForm
         :team="form_data"

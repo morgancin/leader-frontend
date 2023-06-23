@@ -86,9 +86,8 @@
 </style>
   
 <template>
-
   <div class="grid grid-cols-12 gap-6 mt-5">
-    <div class="col-span-12 intro-y ">
+    <div class="col-span-12 intro-y">
 
       <!-- BEGIN: Form Validation -->
       <PreviewComponent>
@@ -96,7 +95,7 @@
           <div class="p-5 intro-y box">
             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
               <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.basic-info')}}
+                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('teams.form.labels.title') }}
               </div>
               <div class="mt-5">
                 <Preview>
@@ -106,15 +105,13 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_user.account') }}</div>
+                          <div class="font-medium">{{ $t('teams.form.labels.fields.name') }}</div>
                           <div
                             class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
+                              {{ $t('teams.form.labels.required') }}
                           </div>
                         </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Cuentas a las que pertenece.
-                        </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('teams.form.instructions.name') }}</div>
                       </div>
                     </div>
                     <div class="flex-1 w-full mt-3 xl:mt-0">
@@ -123,12 +120,10 @@
                         name="name"
                         class="form-control"
                         id="validation-form-1"
-                        :placeholder="$t('add_user.name')"
+                        :placeholder="$t('teams.form.placeholders.name')"
                         v-model="team.name"
                         :class="{ 'border-danger': validate.name.$error }" />
-                        <div class="text-right form-help">
-                            Deben ser al menos 2 caracteres.
-                        </div>
+                        <div class="text-right form-help">{{ $t('teams.form.instructions.validation.name') }}</div>
                         <template v-if="validate.name.$error">
                           <div
                             v-for="(error, index) in validate.name.$errors"
@@ -144,10 +139,10 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">Carousel</div>
+                          <div class="font-medium">{{ $t('teams.form.labels.fields.carousel') }}</div>
                         </div>
                         <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          If the status is carousel, your team can be searched for by potential buyers.
+                          {{ $t('teams.form.instructions.carousel') }}
                         </div>
                       </div>
                     </div>
@@ -158,7 +153,7 @@
                           class="form-check-input"
                           id="product-status-active"
                           v-model="team.is_carousel" />                        
-                        <label class="form-check-label" for="product-status-active">carousel</label>
+                        <label class="form-check-label" for="product-status-active">{{ $t('teams.form.labels.carousel') }}</label>
                       </div>
                     </div>
                   </div>
@@ -167,16 +162,9 @@
                     <div class="form-label xl:w-72 xl:!mr-10">
                       <div class="text-left">
                         <div class="flex items-center">
-                          <div class="font-medium">Status</div>
-                          <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              Required
-                          </div>
+                          <div class="font-medium">{{ $t('teams.form.labels.fields.status') }}</div>
                         </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                              If the status is active, your team can be searched for by
-                              potential buyers.
-                        </div>
+                        <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('teams.form.instructions.status') }}</div>
                       </div>
                     </div>
                     <div class="flex-1 w-full mt-3 xl:mt-0">
@@ -186,160 +174,10 @@
                           class="form-check-input"
                           id="product-status-active"
                           v-model="team.active" />
-                          <label class="form-check-label" for="product-status-active">Active</label>
+                          <label class="form-check-label" for="product-status-active">{{ $t('teams.form.labels.active') }}</label>
                       </div>
                     </div>
                   </div>
-
-                  <!--  
-                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                      <div class="form-label xl:w-72 xl:!mr-10">
-                        <div class="text-left">
-                          <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.email') }}</div>
-                            <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
-                            </div>
-                          </div>
-                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Email del usuario, escribir en formato de correo, por ejemplo: usuario@dominio.com
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="flex-1 w-full mt-3 xl:mt-0">
-                        <input
-                          id="validation-form-2"
-                          v-model.trim="validate.email.$model"
-                          v-model="team.email"
-                          type="email"
-                          name="email"
-                          class="form-control"
-                          :class="{ 'border-danger': validate.email.$error }"
-                          :placeholder="$t('add_user.email')"/>
-                        <div class="text-right form-help">
-                            En formato de correo electrónico.
-                        </div>
-                        <template v-if="validate.email.$error">
-                          <div
-                            v-for="(error, index) in validate.email.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                            {{ error.$message }}
-                          </div>
-                        </template>
-                      </div>
-                    </div>
-
-                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                      <div class="form-label xl:w-72 xl:!mr-10">
-                        <div class="text-left">
-                          <div class="flex items-center">
-                            <div class="font-medium">Status</div>
-                              <div
-                                  class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                                    Required
-                              </div>
-                            </div>
-                            <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                                If the status is active, your team can be searched for by
-                                potential buyers.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="flex-1 w-full mt-3 xl:mt-0">
-                            <div class="form-check form-switch">
-                              <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="product-status-active"
-                                v-model="team.active" />                        
-                              <label class="form-check-label" for="product-status-active">Active</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                      <div class="form-label xl:w-72 xl:!mr-10">
-                        <div class="text-left">
-                          <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.password') }}</div>
-                            <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                                {{ $t('forms.required') }}
-                            </div>
-                          </div>
-                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Contraseña para el usuario, con la que ingresará al sistema.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="flex-1 w-full mt-3 xl:mt-0">
-                        <input
-                          id="validation-form-3"
-                          v-model.trim="validate.password.$model"
-                          v-model="team.password"
-                          type="password"
-                          name="password"
-                          class="form-control"
-                          :class="{ 'border-danger': validate.password.$error }"
-                          :placeholder="$t('add_user.password')"/>
-                        <div class="text-right form-help">
-                            Deben ser al menos 6 caracteres.
-                        </div>
-                        <template v-if="validate.password.$error">
-                          <div
-                            v-for="(error, index) in validate.password.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                            {{ error.$message }}
-                          </div>
-                        </template>
-                      </div>
-                    </div>
-
-                    <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                      <div class="form-label xl:w-72 xl:!mr-10">
-                        <div class="text-left">
-                          <div class="flex items-center">
-                            <div class="font-medium">{{ $t('add_user.password_confirmation') }}</div>
-                            <div
-                              class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                                {{ $t('forms.required') }}
-                            </div>
-                          </div>
-                          <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                            Confirmación de contraseña para el usuario, debe coincidir con la contraseña de arriba.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="flex-1 w-full mt-3 xl:mt-0">
-                        <input
-                          id="validation-form-4"
-                          v-model.trim="validate.password_confirmation.$model"
-                          v-model="team.password_confirmation"
-                          type="password"
-                          name="password"
-                          class="form-control"
-                          :class="{ 'border-danger': validate.password_confirmation.$error }"
-                          :placeholder="$t('add_user.password_confirmation')"/>
-                        <div class="text-right form-help">
-                            Deben ser al menos 6 caracteres.
-                        </div>
-                        <template v-if="validate.password_confirmation.$error">
-                          <div
-                            v-for="(error, index) in validate.password_confirmation.$errors"
-                            :key="index"
-                            class="mt-2 text-danger">
-                            {{ error.$message }}
-                          </div>
-                        </template>
-                      </div>
-                    </div>
-                    -->
                 </Preview>
               </div>
             </div>
@@ -348,7 +186,7 @@
           <div class="p-5 mt-5 intro-y box">
             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
               <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('forms.complementary-info')}}
+                <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('teams.form.labels.complementary_information') }}
               </div>
               <div class="mt-5">
 
@@ -356,14 +194,14 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('forms.roles') }}</div>
+                        <div class="font-medium">{{ $t('teams.form.labels.fields.users') }}</div>
                         <div
                           class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                            {{ $t('forms.required') }}
+                            {{ $t('teams.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Usuarios que conforman al equipo.
+                        {{ $t('teams.form.instructions.users') }}
                       </div>
                     </div>
                   </div>
@@ -374,10 +212,7 @@
                       class="form-control" 
                       :options="data_users" 
                       v-model="team.users">
-                    </v-select>
-                    <div class="text-right form-help">
-                      {{ $t('forms.select_options') }}
-                    </div>                    
+                    </v-select>                   
                   </div>
                 </div>
                                 
@@ -385,15 +220,13 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('forms.permissions') }}</div>
+                        <div class="font-medium">{{ $t('teams.form.labels.fields.prospecting_source') }}</div>
                         <div
                           class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                          {{ $t('forms.required') }}
+                            {{ $t('teams.form.labels.required') }}
                         </div>
                       </div>
-                      <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Permisos que tiene el usuario en el sistema.
-                      </div>
+                      <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('teams.form.instructions.prospecting_source') }}</div>
                     </div>
                   </div>
                   <div class="flex-1 w-full mt-3 xl:mt-0">
@@ -403,34 +236,21 @@
                       class="form-control" 
                       :options="data_prospecting_sources" 
                       v-model="team.prospecting_sources">
-                    </v-select>
-                    <div class="text-right form-help">
-                      {{ $t('forms.select_options') }}
-                    </div>                    
+                    </v-select>                   
                   </div>
                 </div>
-                
-
               </div>
             </div>
           </div>
-
+          
           <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
-            <button
-              type="button"
-              class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52">
-                {{ $t('add_user.btn_cancel') }}
-            </button>
-            <button type="submit" class="w-full py-3 btn btn-primary md:w-52" @click="update">
-              {{ $t('add_user.btn_save') }}
-            </button>
+            <button type="button" class="w-full py-3 mr-1 md:w-52 btn btn-outline-secondary">{{ $t('teams.buttons.cancel') }}</button>
+            <button type="submit" class="w-full py-3 btn btn-primary md:w-52">{{ $t('teams.buttons.save') }}</button>
           </div>
-
         </form>
 
       </PreviewComponent>
       <!-- END: Form Validation -->
     </div>
   </div>
-  
 </template>

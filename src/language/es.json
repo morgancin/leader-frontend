@@ -96,6 +96,105 @@
             "cancel": "Cancelar"  
         }
     },
+    "teams":{
+        "title":"Equipos",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "name":"Nombre",
+                        "users":"Usuarios",
+                        "status":"Estatus",
+                        "carousel":"Carrusel",
+                        "prospecting_source":"Fuente de prospección"
+                    },
+                    "active":"Activo",
+                    "carousel":"Carrusel",
+                    "required":"Requerido",
+                    "title":"Datos de equipo",
+                    "complementary_information":"Información complementaria"
+                },
+                "placeholders":{
+                    "name":"Nombre",
+                    "users":"Usuarios",
+                    "status":"Estatus",
+                    "carousel":"Carrusel",
+                    "prospecting_source":"Fuente de prospección"
+                },
+                "instructions":{
+                    "name":"Nombre del equipo, espacio para caracteres alfanuméricos.",
+                    "status":"Si el estado es activo, se puede utilizar el registro",
+                    "users":"Seleccionar usuarios del equipo",
+                    "carousel":"Si el estado es activo, se considerará para carrusel.",
+                    "prospecting_source":"Seleccione las fuentes de prospección del equipo",
+                    "validation":{
+                        "name":"Mínimo 2 caracteres"
+                    }
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NOMBRES",
+                "column_2": "CARRUSEL",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar"
+        }
+    },
+    "companies":{
+        "title":"Compañías",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "tax_id":"RFC",
+                        "name":"Nombre",
+                        "phone":"Teléfono",
+                        "status":"Estatus",
+                        "website":"Sitio web",
+                        "address":"Dirección",
+                        "comments":"Comentarios",
+                        "potential_value":"Valor potencial"
+                    },
+                    "active":"Activo",
+                    "required":"Requerido",
+                    "title":"Datos de compañía",
+                    "complementary_information":"Información complementaria"
+                },
+                "placeholders":{
+                    "tax_id":"RFC",
+                    "name":"Nombre",
+                    "phone":"Teléfono",
+                    "status":"Estatus",
+                    "website":"Sitio web",
+                    "address":"Dirección",
+                    "comments":"Comentarios",
+                    "potential_value":"Valor potencial"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NOMBRES",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar"
+        }
+    },
+    
     "messages": {
         "validation_error": "Validation error"
     },
@@ -466,10 +565,6 @@
         "btn_save": "Guardar",
         "btn_prev": "Anterior"
     },
-    "companies": {
-        "companies": "Compañías",
-        "btn-add-new-companies": "Nueva Compañía"
-    },
     "add_companies": {
         "add_company": "Agregar Compañía",
         "name": "Nombre",
@@ -545,10 +640,6 @@
     "prospects": {
         "prospects": "Prospectos",
         "btn-add-new-prospect": "Crear Nuevo Prospecto"
-    },
-    "teams": {
-        "teams": "Equipos",
-        "btn-add-new-team": "Crear Nuevo Equipo"
     },
     "contracts": {
         "contracts": "Contratos",

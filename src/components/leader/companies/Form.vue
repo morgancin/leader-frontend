@@ -82,211 +82,148 @@
     
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
             <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-              <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('add_companies.add_company')}}
+              <ChevronDownIcon class="w-4 h-4 mr-2" /> {{$t('companies.title')}}
             </div>
-            <div class="mt-5 fieldscontainer">  
-                <!-- BEGIN: Form Layout -->
-                <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.name') }}</div>
-                          <div
-                            class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              {{ $t('forms.required') }}
-                          </div>
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Nombre de la compañía, espacio para caracteres alfanúmericos.
-                        </div>
-                      </div>
+            <div class="mt-5 fieldscontainer">
+              <!-- BEGIN: Form Layout -->
+              <!-- <form @submit.prevent="submitForm()" autocomplete="on"> -->
+              
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                  <label class="form-label">{{ $t('companies.form.labels.fields.name') }} *</label>
+                  <input 
+                    id="validation-form-1" 
+                    v-model.trim="v$.name.$model" 
+                    v-model="company.name" 
+                    type="text" 
+                    name="name"
+                    class="form-control" 
+                    :class="{ 'border-danger': v$.name.$error }" />
+                  <template v-if="v$.name.$error">
+                    <div 
+                      v-for="(error, index) in v$.name.$errors" 
+                      :key="index" 
+                      class="mt-2 text-danger">
+                        {{ error.$message }}
                     </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
-                      <label class="form-label">{{$t('add_companies.name')}} *</label>
-                      <input 
-                        id="validation-form-1" 
-                        v-model.trim="v$.name.$model" 
-                        v-model="company.name" 
-                        type="text" 
-                        name="name"
-                        class="form-control" 
-                        :class="{ 'border-danger': v$.name.$error }" />
-                      <!--<div class="text-right form-help">
-                        Deben ser al menos 2 caracteres.
-                      </div>-->
-                      <template v-if="v$.name.$error">
-                        <div 
-                          v-for="(error, index) in v$.name.$errors" 
-                          :key="index" 
-                          class="mt-2 text-danger">
-                          {{ error.$message }}
-                        </div>
-                      </template>
-                    </div>
-                  </div>
-                  
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.tax') }}</div>                          
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          RFC
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
-                      <label class="form-label">{{$t('add_companies.tax')}}</label>
-                      <input
-                        type="text"
-                        class="w-full form-control"
-                        v-model.number="company.tax_id" />                      
-                    </div>
-                  </div>
-
-                  
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.phone') }}</div>                          
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Teléfono.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
-                      <label class="form-label">{{$t('add_companies.phone')}}</label>
-                      <input 
-                      v-model.number="company.phone" 
-                      type="text" class="w-full form-control"/>
-                      <!--<div class="text-right form-help">
-                          Deben ser 5 caracteres.
-                      </div>-->
-                    </div>
-                  </div>
-
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.website') }}</div>                          
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Sitio Web.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
-                      <label class="form-label">{{$t('add_companies.website')}}</label>
-                      <input 
-                      v-model.number="company.website" 
-                      type="text" class="w-full form-control"/>
-                      <!--<div class="text-right form-help">
-                          Deben ser 5 caracteres.
-                      </div>-->
-                    </div>
-                  </div>
-
-                 <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.address') }}</div>                          
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Dirección.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
-                      <label class="form-label">{{$t('add_companies.address')}}</label>
-                      <input 
-                      v-model.number="company.adress" 
-                      type="text" class="w-full form-control"/>
-                      <!--<div class="text-right form-help">
-                          Deben ser 5 caracteres.
-                      </div>-->
-                    </div>
-                  </div>
-
-
-                  
-
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.potential') }}</div>                          
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          {{ $t('add_companies.potential') }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel forgroup">
-                      <label class="form-label">{{$t('add_companies.potential')}}</label>
-                      <div class="input-group">     
-                        <div class="input-group-text">$</div>               
-                        <input
-                          type="number"
-                          class="w-full form-control"
-                          v-model.number="company.potential_value" />                        
-                      </div>
-                                            
-                    </div>
-                  </div>
-
-                  <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
-                    <div class="form-label xl:w-72 xl:!mr-10">
-                      <div class="text-left">
-                        <div class="flex items-center">
-                          <div class="font-medium">{{ $t('add_companies.comments') }}</div>                          
-                        </div>
-                        <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          Comentarios.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
-                      <label class="form-label">{{$t('add_companies.comments')}}</label>
-                      <input
-                        type="text"
-                        class="w-full form-control"
-                        v-model.number="company.comments" />
-                        <!--
-                        <div class="text-right form-help">
-                            Deben ser 5 caracteres.
-                        </div>
-                        -->
-                    </div>
-                  </div>
-
-
+                  </template>
+                </div>
               </div>
+              
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">{{ $t('companies.form.labels.fields.tax_id') }}</div>                          
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                  <label class="form-label">{{$t('companies.form.labels.fields.tax_id')}}</label>
+                  <input
+                    type="text"
+                    class="w-full form-control"
+                    v-model.number="company.tax_id" />                      
+                </div>
+              </div>
+
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">{{ $t('companies.form.labels.fields.phone') }}</div>                          
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                  <label class="form-label">{{ $t('companies.form.labels.fields.phone') }}</label>
+                  <input 
+                    v-model.number="company.phone" 
+                    type="text" class="w-full form-control"/>
+                </div>
+              </div>
+              
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">{{ $t('companies.form.labels.fields.website') }}</div>                          
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                  <label class="form-label">{{$t('companies.form.labels.fields.website')}}</label>
+                  <input 
+                    v-model.number="company.website" 
+                    type="text" class="w-full form-control" />
+                </div>
+              </div>
+              
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">{{ $t('companies.form.labels.fields.address') }}</div>                          
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                  <label class="form-label">{{$t('companies.form.labels.fields.address')}}</label>
+                  <input 
+                    v-model.number="company.adress" 
+                    type="text" class="w-full form-control" />
+                </div>
+              </div>
+
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">{{ $t('companies.form.labels.fields.potential_value') }}</div>                          
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel forgroup">
+                  <label class="form-label">{{$t('companies.form.labels.fields.potential_value')}}</label>
+                  <div class="input-group">     
+                    <div class="input-group-text">$</div>               
+                    <input
+                      type="number"
+                      class="w-full form-control"
+                      v-model.number="company.potential_value" />                        
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">
+                <div class="form-label xl:w-72 xl:!mr-10">
+                  <div class="text-left">
+                    <div class="flex items-center">
+                      <div class="font-medium">{{ $t('companies.form.labels.fields.comments') }}</div>                          
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 w-full mt-3 xl:mt-0 withlabel">
+                  <label class="form-label">{{ $t('companies.form.labels.fields.comments') }}</label>
+                  <input
+                    type="text"
+                    class="w-full form-control"
+                    v-model.number="company.comments" />
+                </div>
+              </div>
+
+            </div>
               <!-- END: Form Layout -->
           </div>
       </div>
-
+      
       <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
         <button
           type="button"
           class="w-full py-3 btn border-slate-300 dark:border-darkmode-400 text-slate-500 md:w-52">
-            {{ $t('add_companies.btn_cancel') }}
+            {{ $t('companies.buttons.cancel') }}
         </button>
-        <button type="submit" class="w-full py-3 btn btn-primary md:w-52">
-          {{ $t('add_companies.btn_save') }}
-        </button>
+        <button type="submit" class="w-full py-3 btn btn-primary md:w-52">{{ $t('companies.buttons.save') }}</button>
       </div>
     </form>
 
@@ -297,6 +234,7 @@
       </span>
     </div>-->
     <!-- BEGIN: Success Notification Content -->
+    <!--
     <div
       id="success-notification-content"
       class="flex hidden toastify-content">
@@ -308,8 +246,11 @@
         </div>
       </div>
     </div>
+    -->
     <!-- END: Success Notification Content -->
+
     <!-- BEGIN: Failed Notification Content -->
+    <!--
     <div
       id="failed-notification-content"
       class="flex hidden toastify-content">
@@ -321,11 +262,11 @@
         </div>
       </div>
     </div>
+    -->
     <!-- END: Failed Notification Content -->
-
   </div>
-
 </template>
+
 <style>
   .withlabel label{display:none}  
   .speciallabels.speciallabeleds .col-span-12.intro-y{border:2px dashed rgb(var(--color-slate-200) / 1); border-radius:0.375rem; 
