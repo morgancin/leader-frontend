@@ -194,6 +194,108 @@
             "cancel": "Cancelar"
         }
     },
+    "prospects":{
+        "title":"Prospectos",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "origin":"Origen",
+                        "medium":"Medio",
+                        "subject":"Asunto",
+                        "account":"Cuenta",
+                        "company":"Compañía",
+                        "priority":"Prioridad",
+                        "activity":"Actividad",
+                        "first_name":"Nombre",
+                        "last_name":"Apellido",
+                        "comments":"Comentarios",
+                        "email":"Correo electrónico",
+                        "mobile_phone":"Teléfono móvil",
+                        "potential_value":"Valor potencial"
+                                             
+                    },
+                    "active":"Activo",
+                    "required":"Requerido",
+                    "title":"Datos de prospectos"
+                },
+                "placeholders":{
+                    "origin":"Origen",
+                    "medium":"Medio",
+                    "subject":"Asunto",
+                    "account":"Cuenta",
+                    "company":"Compañía",
+                    "priority":"Prioridad",
+                    "activity":"Actividad",
+                    "first_name":"Nombre",
+                    "last_name":"Apellido",
+                    "comments":"Comentarios",
+                    "email":"Correo electrónico",
+                    "mobile_phone":"Teléfono móvil",
+                    "potential_value":"Valor potencial"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NOMBRES",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar"
+        }
+    },
+    "activities":{
+        "title":"Actividades",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "start_time":"Hora de inicio",  
+                        "start_date":"Fecha de inicio"
+                    },
+                    "active":"Activo",
+                    "required":"Requerido",
+                    "day":"Para el día",
+                    "title":"Datos de actividad",
+                    "scheduled":"Actividades programadas"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NOMBRES",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar"
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     "messages": {
         "validation_error": "Validation error"
@@ -328,33 +430,6 @@
     },
     "add-activity": {
         "activity": "Reprogramar"
-    },
-    "add_prospect_details": {
-        "profile": "Perfil",
-        "full_name": "Nombre Completo",
-        "id-documents": "Documentos Identidad",
-        "first_name": "Nombre",
-        "last_name": "Apellido Paterno",
-        "second_last_name": "Apellido Materno",
-        "place_of_birth": "Lugar de nacimiento",
-        "birth_date": "Fecha de nacimiento",
-        "age": "Edad",
-        "gender": "Género",
-        "female": "Femenino",
-        "male": "Masculino",
-        "email": "Correo Electrónico",
-        "personal_phone": "Teléfono(s) Personal(es)",
-        "mobile_phone": "Teléfono Celular",
-        "home_phone": "Teléfono de Casa",
-        "office_phone": "Teléfono de Oficina",
-        "extension_phone": "Extensión",
-        "priority": "Prioridad",
-        "medium": "Medio",
-        "origin": "Fuente",
-        "company": "Empresa",
-        "account": "Cuenta",
-        "btn-prev": "Anterior",
-        "btn-next": "Siguiente"
     },
     "add_prospect_address": {
         "address": "Dirección",
@@ -636,10 +711,6 @@
         "settings-catalogs-medium": "Medios",
         "settings-catalogs-tags": "Etiquetas",
         "settings-activities-results": "Resultados actividades"
-    },
-    "prospects": {
-        "prospects": "Prospectos",
-        "btn-add-new-prospect": "Crear Nuevo Prospecto"
     },
     "contracts": {
         "contracts": "Contratos",

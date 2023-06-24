@@ -239,14 +239,14 @@
   <!-- BEGIN: Modal Content quick action nuevo prospecto -->
    <Modal :show="show_modal_here" @hidden="hideModal" class="speciallabels" size="modal-xl">
     <ModalHeader>
-      <h2 class="mr-auto text-base font-medium">{{$t('prospects.btn-add-new-prospect') }}</h2>
+      <h2 class="mr-auto text-base font-medium">{{ $t('prospects.form.labels.title') }}</h2>
     </ModalHeader>
               
               <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
                 <div class="grid grid-cols-12 col-span-8 gap-4">
                    
                     <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.account') }}</label>
+                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.account') }}</label>
                       <v-select
                           label="name"
                           class="form-control" 
@@ -266,7 +266,7 @@
                     </div>
 
                     <div class="flex col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('add_prospect_details.company') }}</label>
+                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('prospects.form.labels.fields.company') }}</label>
                       <v-select
                           label="name"
                           class="w-full form-control" 
@@ -293,7 +293,7 @@
                     <div class="col-span-12 sm:col-span-4 forgroup withlabel">
                         <div class="input-group">     
                           <div class="input-group-text">$</div> 
-                          <label for="modal-form-3" class="form-label">*{{ $t('add_companies.potential') }}</label>
+                          <label for="modal-form-3" class="form-label">*{{ $t('prospects.form.labels.fields.potential_value') }}</label>
                           <input 
                             id="modal-form-3" 
                             type="text" 
@@ -312,7 +312,7 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
-                      <label for="modal-form-1" class="form-label">*{{ $t('add_prospect_details.first_name') }}</label>
+                      <label for="modal-form-1" class="form-label">*{{ $t('prospects.form.labels.fields.first_name') }}</label>
                       <input 
                         id="modal-form-1" 
                         type="text" 
@@ -331,7 +331,7 @@
                     </div>
 
                     <div class="col-span-12 sm:col-span-8 withlabel">
-                        <label for="modal-form-2" class="form-label">*{{ $t('add_prospect_details.last_name') }}</label>
+                        <label for="modal-form-2" class="form-label">*{{ $t('prospects.form.labels.fields.last_name') }}</label>
                         <input 
                           id="modal-form-2" 
                           type="text" 
@@ -349,7 +349,7 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-4 withlabel">
-                        <label for="modal-form-3" class="form-label">*{{ $t('add_prospect_details.mobile_phone') }}</label>
+                        <label for="modal-form-3" class="form-label">*{{ $t('prospects.form.labels.fields.mobile_phone') }}</label>
                         <input 
                           id="modal-form-3" 
                           type="text" 
@@ -367,7 +367,7 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
-                        <label for="modal-form-4" class="form-label">*{{ $t('add_prospect_details.email') }}</label>
+                        <label for="modal-form-4" class="form-label">*{{ $t('prospects.form.labels.fields.email') }}</label>
                         <input
                           type="text"
                           id="modal-form-4"
@@ -385,7 +385,7 @@
                     </div>
 
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                      <label class="form-label">*{{ $t('add_prospect_details.priority') }}</label>
+                      <label class="form-label">*{{ $t('prospects.form.labels.fields.priority') }}</label>
                       <v-select 
                         class="form-control" 
                         :options="priorities" 
@@ -405,7 +405,7 @@
                     </div>
                                         
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.origin') }}</label>
+                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.origin') }}</label>
                       <v-select
                           label="name"
                           class="form-control" 
@@ -425,7 +425,7 @@
                     </div>
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
-                        <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_prospect_details.medium') }}</label>
+                        <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.medium') }}</label>
                         <v-select 
                             class="form-control" 
                             :options="dataProspectingMeans"
@@ -446,7 +446,7 @@
                     </div>
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
-                        <label for="cmbActivityType" class="form-label">*{{ $t('add_prospect_activity.activity') }}</label>
+                        <label for="cmbActivityType" class="form-label">*{{ $t('prospects.form.labels.fields.activity') }}</label>
                         <v-select  
                             id="cmbActivityType"
                             class="form-control"
@@ -468,7 +468,7 @@
                     </div>
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
-                      <label for="cmbActivitySubject" class="form-label">*{{ $t('add_prospect_activity.subject') }}</label>
+                      <label for="cmbActivitySubject" class="form-label">*{{ $t('prospects.form.labels.fields.subject') }}</label>
                       <v-select
                           label="name"
                           id="cmbActivitySubject"
@@ -489,23 +489,15 @@
                     </div>
                                                             
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
-                      <label for="crud-form-2" class="form-label">*{{ $t('add_prospect_activity.start_date_activity') }}</label>
+                      <label for="crud-form-2" class="form-label">*{{ $t('activities.form.labels.fields.start_date') }}</label>
                       
                       <Datepicker
-                          :placeholder="$t('add_prospect_activity.start_date_activity')"
+                          :placeholder="$t('activities.form.placeholders.start_date')"
                           closeOnScroll
                           :format="format_start_date"
                           :enableTimePicker="false"
                           v-model="data_prospect_activity.start_date" />
-                      <!--
-                      <Datepicker
-                          v-model="data_prospect_activity.start_date"
-                          :placeholder="$t('add_prospect_activity.start_date_activity')"
-                          utc 
-                          modelType="yyyy.MM.dd" 
-                          closeOnScroll  
-                          :enableTimePicker="false" />
-                      -->
+
                       <template v-if="validate.start_date.$error">
                           <div
                               v-for="(error, index) in validate.start_date.$errors"
@@ -517,18 +509,18 @@
                     </div>
                     
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
-                        <label for="crud-form-2" class="form-label">*{{ $t('add_prospect_activity.start_time') }}</label>
+                        <label for="crud-form-2" class="form-label">*{{ $t('activities.form.labels.fields.start_time') }}</label>
                         <Datepicker 
                             v-model="data_prospect_activity.start_time" 
-                            :placeholder="$t('add_prospect_activity.start_time')"
+                            :placeholder="$t('activities.form.placeholders.start_time')"
                             timePicker />
                     </div>
                     
                     <div class="col-span-12 sm:col-span-12 withlabel">
-                      <label for="modal-form-1" class="form-label">{{ $t('add_prospect_activity.comments') }}</label>
+                      <label for="modal-form-1" class="form-label">{{ $t('prospects.form.labels.fields.comments') }}</label>
                       <ClassicEditor 
                         v-model="data_prospect_activity.comments" 
-                        :placeholder="$t('add_prospect_activity.comments')"
+                        :placeholder="$t('prospects.form.placeholders.comments')"
                         :config="editorConfig" />
                     </div>
                     
@@ -539,8 +531,8 @@
                   <div>
                     <div class="grid justify-items-start">
                       <div class="text-center title">
-                        <h3 class="text-gray-900 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label') }}</h3>
-                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('add_prospect_activity.activities_label_2') }} {{ convert_format_date(data_prospect_activity.start_date, 'es') }}</h4>
+                        <h3 class="text-gray-900 text-md dark:text-white">{{ $t('activities.form.labels.scheduled') }}</h3>
+                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('activities.form.labels.day') }} {{ convert_format_date(data_prospect_activity.start_date, 'es') }}</h4>
                       </div>
                       <p>&nbsp</p>
                       <p>&nbsp</p>
@@ -553,23 +545,6 @@
                             <h3 class="font-semibold text-gray-900 text-md dark:text-white">{{ activity.prospect.full_name }}</h3>
                             <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">{{ activity.activity_date }} {{ activity.activity_subject.activity_type.name }} - {{ activity.activity_subject.name }}</p>
                         </li>
-                        <!--
-                        <li class="mb-10 ml-4">
-                          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                          <h3 class="font-semibold text-gray-900 text-md dark:text-white">Ricardo Martinez Prieto</h3>
-                          <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
-                        </li>
-                        <li class="mb-10 ml-4">
-                          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                          <h3 class="font-semibold text-gray-900 text-md dark:text-white">Xavier López</h3>
-                          <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
-                        </li>
-                        <li class="mb-10 ml-4">
-                          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                          <h3 class="font-semibold text-gray-900 text-md dark:text-white">Anastasia Domínguez</h3>
-                          <p class="mb-4 font-normal text-gray-500 text-md dark:text-gray-400">Seguimiento a Prospecto</p>
-                        </li>
-                        -->
                       </ol>
                     </div>
                   </div>
@@ -581,8 +556,8 @@
               <!-- BEGIN: Modal Footer -->
               <ModalFooter>
                 <!-- BEGIN: Modal Content quick action nuevo prospecto -->
-                <button type="button" @click="show_modal_here = false" class="w-20 mr-1 btn btn-outline-secondary">{{$t('forms.cancel')}}</button>
-                <button type="submit" @click="submitForm" class="w-20 btn btn-primary">{{$t('forms.save')}}</button>
+                <button type="button" @click="show_modal_here = false" class="w-20 mr-1 btn btn-outline-secondary">{{ $t('prospects.buttons.cancel') }}</button>
+                <button type="submit" @click="submitForm" class="w-20 btn btn-primary">{{ $t('prospects.buttons.save') }}</button>
               </ModalFooter>
               <!-- END: Modal Footer -->
           <!--</div>-->

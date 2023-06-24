@@ -193,6 +193,92 @@
             "cancel": "Cancel"
         }
     },
+    "prospects":{
+        "title":"Prospects",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "email":"Email",
+                        "origin":"Origin",
+                        "medium":"Medium",
+                        "subject":"Subject",
+                        "account":"Account",
+                        "company":"Company",
+                        "priority":"Priority",
+                        "activity":"Activity",
+                        "comments":"Comments",
+                        "last_name":"Last name",
+                        "first_name":"First name",
+                        "mobile_phone":"Mobile phone",
+                        "potential_value":"Potential value"     
+                    },
+                    "active":"Active",
+                    "required":"Required",
+                    "title":"Prospect data"
+                },
+                "placeholders":{
+                    "email":"Email",
+                    "origin":"Origin",
+                    "medium":"Medium",
+                    "subject":"Subject",
+                    "account":"Account",
+                    "company":"Company",
+                    "priority":"Priority",
+                    "activity":"Activity",
+                    "comments":"Comments",
+                    "last_name":"Last name",
+                    "first_name":"First name",                    
+                    "mobile_phone":"Mobile phone",
+                    "potential_value":"Potential value"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NAME",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
+    "activities":{
+        "title":"Activities",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "start_time":"Start time",
+                        "start_date":"Start date"
+                    },
+                    "active":"Active",
+                    "required":"Required",
+                    "title":"Activity data",
+                    "day":"For the day",
+                    "scheduled":"Scheduled activities"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NAME",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
     
     "messages": {
         "validation_error": "Validation error"
@@ -314,33 +400,6 @@
     "add-activity": {
         "activity": "Reschedule"
     },
-    "add_prospect_details": {
-        "profile": "Profile",
-        "full_name": "Full Name",
-        "id-documents": "ID Documents",
-        "first_name": "First Name",
-        "last_name": "Last Name",
-        "second_last_name": "Second Last Name",
-        "place_of_birth": "Place of Birth",
-        "birth_date": "Birth Date",
-        "age": "Age",
-        "gender": "Gender",
-        "female": "Female",
-        "male": "Male",
-        "email": "Email",
-        "personal_phone": "Personal(s) Phone(s)",
-        "mobile_phone": "Mobile Phone",
-        "home_phone": "Home Phone",
-        "office_phone": "Office Phone",
-        "extension_phone": "Extension Phone",
-        "priority": "Priority",
-        "origin": "Source",
-        "medium": "Means",
-        "company": "Company",
-        "account": "Account",
-        "btn-prev": "Previous",
-        "btn-next": "Next"
-    },
     "add_prospect_address": {
         "address": "Address",
         "zip_code": "Zip Code",
@@ -355,19 +414,7 @@
         "btn-prev": "Previous",
         "btn-next": "Next"
     },
-    "add_prospect_activity": {
-        "activity": "Activity",
-        "subject": "Subject",
-        "start_date_activity": "Start Date Activity",
-        "start_time": "Start Time",
-        "end_date_activity": "End Date Activity",
-        "end_time": "End Time",
-        "comments": "Comments",
-        "btn_prev": "Previous",
-        "btn_save": "Save",
-        "activities_label": "Scheduled activities",
-        "activities_label_2": "For the day"
-    },
+    
     "catalogs_activities":{
         "list_activities": "List Activities",
         "btn_add_new_activities": "New Activity"
@@ -596,10 +643,6 @@
         "settings-catalogs-medium": "Mediums",
         "settings-catalogs-tags": "Tags",
         "settings-activities-results": "Activities Results"
-    },
-    "prospects": {
-        "prospects": "Prospects",
-        "btn-add-new-prospect": "New Prospect"
     },
     "contracts": {
         "contracts": "Contracts",
