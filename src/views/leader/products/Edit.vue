@@ -15,7 +15,7 @@
   const route = useRoute();
   const show_form = ref(false);
   const { updateProduct, fetchProduct } = useProductsStore();
-  const { product: form_data } = storeToRefs(useProductsStore());
+  const { product: form_data} = storeToRefs(useProductsStore());
 
   fetchProduct(route.params.id);
   

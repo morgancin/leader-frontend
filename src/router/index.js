@@ -7,7 +7,6 @@ import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
 import DashboardOverview4 from "../views/dashboard-overview-4/Main.vue";
 import Categories from "../views/categories/Main.vue";
-import AddProduct from "../views/add-product/Main.vue";
 import ProductList from "../views/product-list/Main.vue";
 import ProductGrid from "../views/product-grid/Main.vue";
 import TransactionList from "../views/transaction-list/Main.vue";
@@ -92,6 +91,7 @@ import Languages from "../views/languages/Main.vue";
 //import Prospects from "../views/prospects/Main.vue";
 //import Activities from "../views/Activities/Main.vue";
 //import DashboardUser from "../views/dashboard-user/Main.vue";
+//import AddProduct from "../views/add-product/Main.vue";
 
 const requireAuth = async (to, from, next) => {
   if (sessionStorage.getItem("TOKEN")) {
@@ -128,12 +128,12 @@ const routes = [
         name: "side-menu-categories",
         component: Categories,
       },
-      */
       {
         path: "add-product",
         name: "side-menu-add-product",
         component: AddProduct,
       },
+      */
       {
         path: "product-list",
         name: "side-menu-product-list",
@@ -311,7 +311,7 @@ const routes = [
       {
         path: "prospects",
         name: "side-menu-prospects",
-        component: () => import('../views/leader/prospects/DashboardProspects.vue'),
+        component: () => import('../views/leader/prospects/Index.vue'),
         beforeEnter: requireAuth
       },
       {
@@ -331,7 +331,7 @@ const routes = [
       {
         path: "activities",
         name: "side-menu-activities",
-        component: () => import('../views/leader/activities/DashboardActivities.vue'),
+        component: () => import('../views/leader/activities/Index.vue'),
         beforeEnter: requireAuth
       },
       {
@@ -505,7 +505,7 @@ const routes = [
       {
         path: 'products',
         name: 'side-menu-products',
-        component: () => import('../views/leader/products/DashboardProducts.vue'),
+        component: () => import('../views/leader/products/Index.vue'),
         beforeEnter: requireAuth
       },
       {
@@ -941,18 +941,6 @@ const routes = [
         name: "simple-menu-dashboard-overview-4",
         component: DashboardOverview4,
       },
-      /*
-      {
-        path: "categories",
-        name: "simple-menu-categories",
-        component: Categories,
-      },
-      {
-        path: "add-product",
-        name: "simple-menu-add-product",
-        component: AddProduct,
-      },
-      */
       {
         path: "product-list",
         name: "simple-menu-product-list",
@@ -1259,6 +1247,13 @@ const routes = [
     path: "/top-menu",
     component: TopMenu,
     children: [
+      /*
+      {
+        path: "add-product",
+        name: "top-menu-add-product",
+        component: AddProduct,
+      },
+      */
       {
         path: "dashboard-overview-1",
         name: "top-menu-dashboard-overview-1",
@@ -1278,18 +1273,6 @@ const routes = [
         path: "dashboard-overview-4",
         name: "top-menu-dashboard-overview-4",
         component: DashboardOverview4,
-      },
-      /*
-      {
-        path: "categories",
-        name: "top-menu-categories",
-        component: Categories,
-      },
-      */
-      {
-        path: "add-product",
-        name: "top-menu-add-product",
-        component: AddProduct,
       },
       {
         path: "product-list",

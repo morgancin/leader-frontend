@@ -49,7 +49,7 @@
       columns: [
         // For HTML table
         {
-          title: t('list.leads.column_1'),
+          title: t('leads.list.labels.column_1'),
           minWidth: 200,
           field: "first_name",
           vertAlign: "middle",
@@ -59,7 +59,7 @@
           // hozAlign: "center",
         },
         {
-          title: t('list.leads.column_2'),
+          title: t('leads.list.labels.column_2'),
           minWidth: 200,
           field: "last_name",
           vertAlign: "middle",
@@ -67,7 +67,7 @@
           download: true,
         },
         {
-          title: t('list.leads.column_3'),
+          title: t('leads.list.labels.column_3'),
           minWidth: 200,
           field: "email",
           vertAlign: "middle",
@@ -75,7 +75,7 @@
           download: true,
         },
         {
-          title: t('list.leads.column_4'),
+          title: t('leads.list.labels.column_4'),
           minWidth: 200,
           field: "comments",
           vertAlign: "middle",
@@ -83,7 +83,7 @@
           download: true,
         },
         {
-          title: t('list.leads.column_5'),
+          title: t('leads.list.labels.column_5'),
           minWidth: 200,
           field: "prospecting_mean.name",
           vertAlign: "middle",
@@ -91,7 +91,7 @@
           download: true,
         },
         {
-          title: t('list.leads.column_6'),
+          title: t('leads.list.labels.actions_column'),
           minWidth: 200,
           field: "actions",
           vertAlign: "middle",

@@ -24,7 +24,7 @@
   import { useGetDataCategories } from '../../../composables/getData/useGetDataCategories';
   import { useGetDataComponents } from '../../../composables/getData/useGetDataComponents';
   import { useGetDataCurrencies } from '../../../composables/getData/useGetDataCurrencies';
-  import { useGetDataPricesLists } from '../../../composables/getData/useGetDataPricesLists';
+  //import { useGetDataPricesLists } from '../../../composables/getData/useGetDataPricesLists';
 
   //const { cartComponents } = storeToRefs(useComponentsCartStore());
   const { cartPriceslists } = storeToRefs(usePricesListsCartStore());
@@ -37,7 +37,7 @@
   const { fetchCurrencies, currencies, error_currencies } = useGetDataCurrencies();
   const { fetchComponents, results_components, error_components } = useGetDataComponents();
   const { fetchCategories, results_categories: dataCategories, error } = useGetDataCategories();
-  const { fetchPricesLists, results_prices_lists, error_prices_lists } = useGetDataPricesLists();
+  //const { fetchPricesLists, results_prices_lists, error_prices_lists } = useGetDataPricesLists();
   
   const dataComponents = ref([]);
   const dataCurrencies = ref([]);
@@ -104,7 +104,7 @@
   onMounted(async() => {
     await fetchAccounts();
     await fetchCategories();
-    await fetchPricesLists();
+    //await fetchPricesLists();
     
     await fetchCurrencies();
     dataCurrencies.value = currencies.value;
@@ -122,15 +122,6 @@
       //dropzoneValidationRef.removeFile(event);
       alert("No se pudo subir el archivo, no cumplió las características");
     });
-    
-    results_prices_lists.value.forEach((item) => {
-      props.product.price_lists.push({
-                                      price: null,
-                                      name: item.name,
-                                      currency_id: null,
-                                      price_list_id: item.id
-                                  });
-    })
   });
 
   provide("bind[dropzoneValidationRef]", (el) => {
@@ -167,27 +158,26 @@
 
 <template>
   <div class="col-span-12 intro-y lg:col-span-6">
-    
     <!-- BEGIN: Form Layout -->
     <form @submit.prevent="submitCreate" autocomplete="on">
-
       <div class="p-5 intro-y box">
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
           <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-              <ChevronDownIcon class="w-4 h-4 mr-2" /> Información básica
+            <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('products.form.labels.title') }}
           </div>
+          
           <div class="mt-5">
             <div class="flex-col items-start pt-5 mt-5 form-inline xl:flex-row first:mt-0 first:pt-0">            
               <div class="form-label xl:w-72 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
-                    <div class="font-medium">{{ $t('add_products.product_account') }}</div>
+                    <div class="font-medium">{{ $t('products.form.labels.fields.account') }}</div>
                     <div class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                      {{ $t('forms.required') }}
+                      {{ $t('products.form.labels.required') }}
                     </div>
                   </div>
                   <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                    Cuenta a la que pertenece el producto.
+                    {{ $t('products.form.instructions.account') }}
                   </div>
                 </div>
               </div>
@@ -210,9 +200,6 @@
                             {{ error.$message }}
                         </div>
                     </template>
-                    <div class="text-right form-help">
-                      {{ $t('add_products.file_description_account') }}
-                    </div>
                   </div>
               </div>
 
@@ -220,14 +207,14 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_products.product_category') }}</div>
+                        <div class="font-medium">{{ $t('products.form.labels.fields.categories') }}</div>
                         <div
                           class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                          {{ $t('forms.required') }}
+                            {{ $t('products.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Categoría a la que pertenece el producto.
+                        {{ $t('products.form.instructions.categories') }}
                       </div>
                     </div>
                   </div>
@@ -250,9 +237,6 @@
                             {{ error.$message }}
                         </div>
                     </template>
-                    <div class="text-right form-help">
-                      {{ $t('add_companies.select_option') }}
-                    </div>
                   </div>
               </div>
       
@@ -260,15 +244,14 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_products.product_sku') }}</div>
+                        <div class="font-medium">{{ $t('products.form.labels.fields.sku') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('products.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Sku ó código de barras.
+                        {{ $t('products.form.instructions.sku') }}
                       </div>
                     </div>
                   </div>
@@ -280,7 +263,7 @@
                         :placeholder="$t('add_products.product_sku')"
                         v-model="product.sku" />
                     <div class="text-right form-help">
-                        Deben ser al menos 2 caracteres.
+                      {{ $t('products.form.instructions.validation.sku') }}
                     </div>
                   </div>
               </div>
@@ -289,19 +272,18 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_products.product_name') }}</div>
+                        <div class="font-medium">{{ $t('products.form.labels.fields.name') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('products.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Nombre con el que se identifica.
+                        {{ $t('products.form.instructions.name') }}
                       </div>
                     </div>
                   </div>
-
+                  
                   <div class="flex-1 w-full mt-3 xl:mt-0">
                     <input
                         type="text"
@@ -318,9 +300,8 @@
                           {{ error.$message }}
                       </div>
                     </template>
-
                     <div class="text-right form-help">
-                        Deben ser al menos 2 caracteres.
+                      {{ $t('products.form.instructions.validation.name') }}
                     </div>
                   </div>
               </div>
@@ -442,15 +423,13 @@
                   <div class="flex items-center">
                     <div class="font-medium">Product Photos</div>
                     <div
-                      class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                    >
-                      Required
+                      class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                        Required
                     </div>
                   </div>
+                  
                   <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                    <div>
-                      El formato de imagen es .jpg .jpeg .png y un tamaño mínimo de 300 x 300 píxeles.
-                    </div>
+                    <div>El formato de imagen es .jpg .jpeg .png y un tamaño mínimo de 300 x 300 píxeles.</div>
                     <div class="mt-2">
                       Seleccione fotos de productos o arrastre y suelte hasta 5 fotos en
                       una vez aquí. Incluir mín. 3 fotos atractivas para hacer el
@@ -459,8 +438,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex-1 w-full mt-3 rounded-md xl:mt-0 dark:border-darkmode-400">
-                                
+              <div class="flex-1 w-full mt-3 rounded-md xl:mt-0 dark:border-darkmode-400"> 
                 <Dropzone
                   ref-key="dropzoneValidationRef"
                   :options="{
@@ -476,8 +454,7 @@
                     dictFileTooBig: 'Archivo es muy grande ({{filesize}}Mb). Tamaño permitido: {{maxFilesize}}Mb.',
                     headers: { 'My-Awesome-Header': 'header value' }
                   }"
-                  class="dropzone"
-                >
+                  class="dropzone">
                   <div class="text-lg font-medium">
                     Suelte los archivos aquí o haga clic para cargar.
                   </div>
@@ -574,7 +551,7 @@
                     
                     <tbody>
                       <tr v-for="(pricelist, id) in product.price_lists">
-                        <td>{{ pricelist.name }} {{ pricelist.price }} {{ pricelist.currency_id }}</td>
+                        <td>{{ pricelist.name }}</td>
 
                         <td class="!pl-0 pr-2 max-w-[7rem]">
                           <div class="input-group">
@@ -601,7 +578,7 @@
                         </td>
                       </tr>
                     </tbody>
-
+                    
                   </table>
                 </div>
             </div>

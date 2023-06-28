@@ -172,7 +172,7 @@ const initTabulator = () => {
         columns: [
           // For HTML table
           {
-            title: t('list.prospects.column_1'),
+            title: t('prospects.list.labels.column_1'),
             minWidth: 200,
             field: "first_name",
             vertAlign: "middle",
@@ -182,7 +182,7 @@ const initTabulator = () => {
             // hozAlign: "center",
           },
           {
-            title: t('list.prospects.column_2'),
+            title: t('prospects.list.labels.column_2'),
             minWidth: 200,
             field: "last_name",
             vertAlign: "middle",
@@ -190,7 +190,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: t('list.prospects.column_3'),
+            title: t('prospects.list.labels.column_3'),
             minWidth: 200,
             field: "second_last_name",
             vertAlign: "middle",
@@ -198,7 +198,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: t('list.prospects.column_4'),
+            title: t('prospects.list.labels.column_4'),
             minWidth: 200,
             field: "email",
             vertAlign: "middle",
@@ -206,7 +206,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: t('list.prospects.column_5'),
+            title: t('prospects.list.labels.column_5'),
             minWidth: 200,
             field: "phone_mobile",
             vertAlign: "middle",
@@ -214,7 +214,7 @@ const initTabulator = () => {
             download: true,
           },
           {
-            title: t('list.prospects.column_6'),
+            title: t('prospects.list.labels.actions_column'),
             minWidth: 200,
             field: "actions",
             vertAlign: "middle",

@@ -5,15 +5,18 @@
 </script>
 
 <script setup>
-  import { ref, reactive } from "vue";
+  import { ref, watch, reactive } from 'vue';
 
   import { useProductsStore } from "../../../stores/leader/products";
   
   import ProductsForm from "../../../components/leader/products/Form.vue";
+  import { useGetDataPricesLists } from '../../../composables/getData/useGetDataPricesLists';
   
   const { createProduct } = useProductsStore();
+  const { fetchPricesLists, results_prices_lists, error_prices_lists } = useGetDataPricesLists();
 
-  //const cart_components = ref([]);
+  fetchPricesLists();
+
   const form_data = reactive({
                         sku:null,
                         name:null,
@@ -25,7 +28,20 @@
                         components:[],
                         price_lists:[]                   
                   });
-                  
+  watch(
+      () => results_prices_lists.value,
+      () => {
+        results_prices_lists.value.forEach((item) => {
+          form_data.price_lists.push({
+                                      price: null,
+                                      name: item.name,
+                                      currency_id: null,
+                                      price_list_id: item.id
+                                    });
+        });
+      }
+  );
+
   const submit = async () => {
     await createProduct(form_data);
   }

@@ -236,7 +236,11 @@
         },
         "list": {
             "labels":{
-                "column_1": "NOMBRES",
+                "column_1": "NOMBRE",
+                "column_2": "APELLIDO",
+                "column_3": "SEGUNDO APELLIDO",
+                "column_4": "CORREO ELECTRÓNICO",
+                "column_5": "TELÉFONO MÓVIL",
                 "actions_column": "ACCIONES",
                 "actions":{
                     "edit":"Editar"
@@ -268,6 +272,10 @@
         "list": {
             "labels":{
                 "column_1": "NOMBRES",
+                "column_2": "NOMBRE",
+                "column_3": "TIPO",
+                "column_4": "ASUNTO",
+                "column_5": "RESULTADO",
                 "actions_column": "ACCIONES",
                 "actions":{
                     "edit":"Editar"
@@ -279,6 +287,65 @@
             "save": "Guardar",
             "prev": "Anterior",
             "cancel": "Cancelar"
+        }
+    },
+    "leads":{
+        "title":"Seguimientos",
+        "list": {
+            "labels":{
+                "column_1": "NOMBRE",
+                "column_2": "APELLIDO",
+                "column_3": "CORREO ELECTRÓNICO",
+                "column_4": "COMENTARIO",
+                "column_5": "MEDIO DE PROSPECCIÓN",
+                "actions_column": "ACCIONES",
+                "actions":{
+                    "edit":"Editar"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
+    "products":{
+        "title":"Productos",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "name":"Name",
+                        "status":"Status"
+                    },
+                    "active":"Active",
+                    "required":"Required",
+                    "title":"Account data"
+                },
+                "placeholders":{
+                    "name":"Name",
+                    "status":"Status"
+                },
+                "instructions":{
+                    "name":"Account name, space for alphanumeric characters.",
+                    "status":"If the status is active, the registry can be used"
+                }
+        },
+        "list": {
+            "labels":{
+                "column_1": "NAME",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
         }
     },
 
@@ -306,39 +373,18 @@
             "column_2": "CORREO ELECTRÓNICO",
             "column_3": "ACCIONES"
         },
-        "prospects": {
-            "column_1": "NOMBRE",
-            "column_2": "APELLIDO",
-            "column_3": "SEGUNDO APELLIDO",
-            "column_4": "CORREO ELECTRÓNICO",
-            "column_5": "TELÉFONO MÓVIL",
-            "column_6": "ACCIONES"
-        },
+        
         "accounts": {
             "column_1": "NOMBRE",
             "column_2": "ACCIONES"
         },
-        "activities": {
-            "column_1": "FECHA",
-            "column_2": "NOMBRE",
-            "column_3": "TIPO",
-            "column_4": "ASUNTO",
-            "column_5": "RESULTADO",
-            "column_6": "ACCIONES"
-        },
+        
         "currencies": {
             "column_1": "CÓDIGO",
             "column_2": "NOMBRE",
             "column_3": "ACCIONES"
         },
-        "leads": {
-            "column_1": "NOMBRE",
-            "column_2": "APELLIDO",
-            "column_3": "CORREO ELECTRÓNICO",
-            "column_4": "COMENTARIO",
-            "column_5": "MEDIO DE PROSPECCIÓN",
-            "column_6": "ACCIONES"
-        },
+        
         "products": {
             "column_1": "CLAVE",
             "column_2": "NOMBRE",
@@ -560,9 +606,6 @@
         "btn_cancel": "Cancelar",
         "btn_add_new_currency": "Nueva Divisa"
     },
-    "add_leads":{
-        "leads": "Seguimientos"
-    },
     "add_accounts":{
         "accounts": "Cuentas",
         "account_name": "Nombre",
@@ -694,7 +737,7 @@
         "accounts": "Cuentas",
         "leads": "Seguimientos",
         "categories": "Categorías",
-        "products": "Products",
+        "products": "Productos",
         "currencies": "Divisas",
         "companies": "Compañías",
         "pipelines": "Pipelines",

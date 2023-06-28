@@ -235,6 +235,10 @@
         "list": {
             "labels":{
                 "column_1": "NAME",
+                "column_2": "LAST NAME",
+                "column_3": "SECOND LAST NAME",
+                "column_4": "EMAIL",
+                "column_5": "PHONE MOBILE",
                 "actions_column": "ACTIONS",
                 "actions":{
                     "edit":"Edit"
@@ -265,6 +269,86 @@
         },
         "list": {
             "labels":{
+                "column_1": "NAMES",
+                "column_2": "NAME",
+                "column_3": "TYPE",
+                "column_4": "SUBJECT",
+                "column_5": "RESULT",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
+    "leads":{
+        "title":"Leads",
+        "list": {
+            "labels":{
+                "column_1": "NAME",
+                "column_2": "LAST NAME",
+                "column_3": "EMAIL",
+                "column_4": "COMMENTS",
+                "column_5": "PROSPECTING MEAN",
+                "actions_column": "ACTIONS",
+                "actions":{
+                    "edit":"Edit"
+                }
+            }
+        },
+        "buttons":{
+            "new": "New",
+            "save": "Save",
+            "prev": "Previous",
+            "cancel": "Cancel"
+        }
+    },
+    "products":{
+        "title":"Products",
+        "form":{
+                "labels":{
+                    "fields":{
+                        "sku":"Sku",
+                        "name":"Name",
+                        "account":"Account",
+                        "categories":"Categories",
+                        "description":"Description",
+                        "quantity":"Quantity",
+                        "status":"Status"
+                    },
+                    "active":"Active",
+                    "required":"Required",
+                    "title":"Product data"
+                },
+                "placeholders":{
+                    "sku":"Sku",
+                    "name":"Name",
+                    "account":"Account",
+                    "categories":"Categories",
+                    "description":"Description",
+                    "quantity":"Quantity",
+                    "status":"Status"
+                },
+                "instructions":{
+                    "name":"Product name, space for alphanumeric characters.",
+                    "account":"Account to which it belongs.",
+                    "status":"If the status is active, the registry can be used",
+                    "categories":"Category to which the product belongs",
+                    "sku":"Sku or barcode.",
+                    "validation":{
+                        "sku":"Minimum 2 characters",
+                        "name":"Minimum 2 characters"
+                    }
+                }
+        },
+        "list": {
+            "labels":{
                 "column_1": "NAME",
                 "actions_column": "ACTIONS",
                 "actions":{
@@ -279,7 +363,11 @@
             "cancel": "Cancel"
         }
     },
-    
+
+
+
+
+
     "messages": {
         "validation_error": "Validation error"
     },
@@ -289,38 +377,14 @@
             "column_2": "EMAIL",
             "column_3": "ACTIONS"
         },
-        "prospects": {
-            "column_1": "NAME",
-            "column_2": "LAST NAME",
-            "column_3": "SECOND LAST NAME",
-            "column_4": "EMAIL",
-            "column_5": "PHONE MOBILE",
-            "column_6": "ACTIONS"
-        },
         "accounts": {
             "column_1": "NAME",
             "column_2": "ACTIONS"
-        },
-        "activities": {
-            "column_1": "DATE",
-            "column_2": "NAME",
-            "column_3": "TYPE",
-            "column_4": "SUBJECT",
-            "column_5": "RESULT",
-            "column_6": "ACTIONS"
         },
         "currencies": {
             "column_1": "CODE",
             "column_2": "NAME",
             "column_3": "ACTIONS"
-        },
-        "leads": {
-            "column_1": "NAME",
-            "column_2": "LAST NAME",
-            "column_3": "EMAIL",
-            "column_4": "COMMENTS",
-            "column_5": "PROSPECTING MEAN",
-            "column_6": "ACTIONS"
         },
         "products": {
             "column_1": "SKU",
@@ -515,12 +579,6 @@
         "btn_cancel": "Cancel",
         "btn_add_new_currency": "New Currency"
     },
-    "add_leads":{
-        "leads": "Leads"
-    },
-    
-    
-    
     "add_pipelines":{
         "pipelines": "Pipelines",
         "pipeline": "Pipeline",
