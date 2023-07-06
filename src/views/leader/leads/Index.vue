@@ -197,7 +197,7 @@
   
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
-    <h2 class="mr-auto text-lg font-medium">{{ $t('add_leads.leads') }}</h2>
+    <h2 class="mr-auto text-lg font-medium">{{ $t('leads.title') }}</h2>
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <!--
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-currency`">{{ $t('add_currencies.btn_add_new_currency') }}</router-link>

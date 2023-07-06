@@ -9,23 +9,23 @@
         <router-link
           :to="{ name: 'side-menu-dashboard-overview-1' }"
           tag="a"
-          class="intro-x flex items-center pl-5 pt-4"
+          class="flex items-center pt-4 pl-5 intro-x"
         >
           <img
             alt="Midone Tailwind HTML Admin Template"
             class="w-30"
             src="@/assets/images/leader_light.png"
           />
-          <!-- <span class="hidden xl:block text-white text-lg ml-3"> Rubick </span> -->
+          <!-- <span class="hidden ml-3 text-lg text-white xl:block"> Rubick </span> -->
         </router-link>
-        <div class="side-nav__devider my-6"></div>
+        <div class="my-6 side-nav__devider"></div>
         <ul>
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
             <li
               v-if="menu == 'devider'"
               :key="menu + menuKey"
-              class="side-nav__devider my-6"
+              class="my-6 side-nav__devider"
             ></li>
             <li v-else :key="menu + menuKey">
               <SideMenuTooltip
@@ -51,8 +51,7 @@
                   <div
                     v-if="menu.subMenu"
                     class="side-menu__sub-icon"
-                    :class="{ 'transform rotate-180': menu.activeDropdown }"
-                  >
+                    :class="{ 'transform rotate-180': menu.activeDropdown }">
                     <ChevronDownIcon />
                   </div>
                 </div>

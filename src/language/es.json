@@ -267,6 +267,10 @@
                     "day":"Para el día",
                     "title":"Datos de actividad",
                     "scheduled":"Actividades programadas"
+                },
+                "placeholders":{
+                    "start_time":"Start time",
+                    "start_date":"Start date"
                 }
         },
         "list": {
@@ -305,10 +309,10 @@
             }
         },
         "buttons":{
-            "new": "New",
-            "save": "Save",
-            "prev": "Previous",
-            "cancel": "Cancel"
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar"
         }
     },
     "products":{
@@ -316,53 +320,81 @@
         "form":{
                 "labels":{
                     "fields":{
-                        "name":"Name",
-                        "status":"Status"
+                        "sku":"Clave",
+                        "name":"Nombre",
+                        "account":"Cuenta",
+                        "categories":"Categorías",
+                        "description":"Descripción",
+                        "quantity":"Cantidad",
+                        "photos":"Fotos del producto",
+                        "status":"Estatus"
                     },
-                    "active":"Active",
-                    "required":"Required",
-                    "title":"Account data"
+                    "active":"Activo",
+                    "required":"Requerido",
+                    "title":"Datos del producto",
+                    "complementary_information":"Imágenes del producto",
+                    "component_information":"Componentes",
+                    "component_information_2":"Sin componentes",
+                    "component_information_3":"Agregar componente",
+                    "component_information_4":"Componente",
+                    "component_information_5":"Cantidad",
+                    "price_information":"Precios",
+                    "price_information_2":"Lista de precios",
+                    "price_information_3":"Precio",
+                    "price_information_4":"Divisa"
                 },
                 "placeholders":{
-                    "name":"Name",
-                    "status":"Status"
+                    "sku":"Clave",
+                    "name":"Nombre",
+                    "account":"Cuenta",
+                    "categories":"Categorías",
+                    "description":"Descripción",
+                    "quantity":"Cantidad",
+                    "price":"Precio",
+                    "status":"Estatus"
                 },
                 "instructions":{
-                    "name":"Account name, space for alphanumeric characters.",
-                    "status":"If the status is active, the registry can be used"
+                    "name":"Nombre del producto, espacio para caracteres alfanuméricos.",
+                    "account":"Cuenta a la que pertenece.",
+                    "status":"Si el estado es activo, se puede utilizar el registro.",
+                    "categories":"Categoría a la que pertenece el producto.",
+                    "description":"Descripción completa del producto.",
+                    "sku":"Clave o código de barras.",
+                    "quantity":"Cantidad inicial de existencias.",
+                    "photos":"Seleccione fotos de productos o arrastre y suelte hasta 5 fotos a la vez aquí. Incluir mín. 3 fotos atractivas para que el producto sea más atractivo para los compradores.",
+                    "dropzone_photos":"Suelte los archivos aquí o haga clic para cargar.",
+                    "validation":{
+                        "sku":"Mínimo 2 caracteres",
+                        "name":"Mínimo 2 caracteres",
+                        "description":"Mínimo 2 caracteres",
+                        "photos":"El formato de la imagen es .jpg .jpeg .png y un tamaño mínimo de 300 x 300 píxeles.",
+                        "dropzone_photos":"El formato de la imagen es",
+                        "dropzone_3_photos":".jpg .jpeg .png",
+                        "dropzone_4_photos":"y un tamaño mínimo de",
+                        "dropzone_5_photos":"300 x 300 pixels",
+                        "dropzone_6_photos":"Peso máximo"
+                    }
                 }
         },
         "list": {
             "labels":{
-                "column_1": "NAME",
-                "actions_column": "ACTIONS",
+                "column_1": "CLAVE",
+                "column_2": "NOMBRE",
+                "column_3": "CATEGORÍA",
+                "column_4": "ACCIONES",
                 "actions":{
-                    "edit":"Edit"
+                    "edit":"Editar"
                 }
             }
         },
         "buttons":{
-            "new": "New",
-            "save": "Save",
-            "prev": "Previous",
-            "cancel": "Cancel"
+            "new": "Nuevo",
+            "save": "Guardar",
+            "prev": "Anterior",
+            "cancel": "Cancelar",
+            "add_component": "Agregar componente"
         }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     "messages": {
         "validation_error": "Validation error"
@@ -383,13 +415,6 @@
             "column_1": "CÓDIGO",
             "column_2": "NOMBRE",
             "column_3": "ACCIONES"
-        },
-        
-        "products": {
-            "column_1": "CLAVE",
-            "column_2": "NOMBRE",
-            "column_3": "CATEGORÍA",
-            "column_4": "ACCIONES"
         },
         "prices": {
             "column_1": "PRECIO",
@@ -542,24 +567,6 @@
         "btn_cancel": "Cancelar",
         "btn_add_new_tags": "Nueva Etiqueta"
     },
-    "add_components":{
-        "components": "Componentes",
-        "component": "Componente",
-        "name": "Nombre",
-        "add": "Agregando Componente",
-        "quantity": "Cantidad"
-    },
-    "add_prices":{
-        "prices": "Precios",
-        "price_price": "Precio",
-        "price_currency": "Divisa",
-        "price_product": "Producto",
-        "price_price_list": "Lista de precios",
-        "btn_prev": "Anterior",
-        "btn_save": "Guardar",
-        "btn_cancel": "Cancelar",
-        "btn_add_new_price": "Nueva Etiqueta"
-    },
     "add_activities":{
         "activities": "Actividades",
         "btn_prev": "Anterior",
@@ -628,20 +635,6 @@
         "pipeline_stage_sort": "Orden",
         "btn_add_new_stage": "Agregar Nueva Etapa",
         "btn_add_new_pipeline": "Agregar Nueva Canalización"
-    },
-    "add_products":{
-        "products": "Productos",
-        "product_name": "Nombre",
-        "product_sku": "Sku",
-        "product_quantity": "Cantidad",
-        "product_category": "Categoría",
-        "product_account": "Cuenta",
-        "product_description": "Descripción",
-        "btn_prev": "Anterior",
-        "btn_save": "Guardar",
-        "btn_cancel": "Cancelar",
-        "btn_add_new_product": "Nuevo producto",
-        "file_description_account": "Seleccione opción"
     },
     "add_categories":{
         "categories": "Categorías",

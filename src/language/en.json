@@ -265,6 +265,10 @@
                     "title":"Activity data",
                     "day":"For the day",
                     "scheduled":"Scheduled activities"
+                },
+                "placeholders":{
+                    "start_time":"Start time",
+                    "start_date":"Start date"
                 }
         },
         "list": {
@@ -320,11 +324,22 @@
                         "categories":"Categories",
                         "description":"Description",
                         "quantity":"Quantity",
+                        "photos":"Product Photos",
                         "status":"Status"
                     },
                     "active":"Active",
                     "required":"Required",
-                    "title":"Product data"
+                    "title":"Product data",
+                    "complementary_information":"Product Images",
+                    "component_information":"Components",
+                    "component_information_2":"No added components",
+                    "component_information_3":"Add component",
+                    "component_information_4":"Component",
+                    "component_information_5":"Quantity",
+                    "price_information":"Prices",
+                    "price_information_2":"Price list",
+                    "price_information_3":"Price",
+                    "price_information_4":"Currency"
                 },
                 "placeholders":{
                     "sku":"Sku",
@@ -333,6 +348,7 @@
                     "categories":"Categories",
                     "description":"Description",
                     "quantity":"Quantity",
+                    "price":"Price",
                     "status":"Status"
                 },
                 "instructions":{
@@ -340,16 +356,29 @@
                     "account":"Account to which it belongs.",
                     "status":"If the status is active, the registry can be used",
                     "categories":"Category to which the product belongs",
+                    "description":"Complete description of the product.",
                     "sku":"Sku or barcode.",
+                    "quantity":"Initial stock quantity.",
+                    "photos":"Select product photos or drag and drop up to 5 photos at once here. Include min. 3 attractive photos to make the product more attractive to buyers.",
+                    "dropzone_photos":"Drop files here or click to upload.",
                     "validation":{
                         "sku":"Minimum 2 characters",
-                        "name":"Minimum 2 characters"
+                        "name":"Minimum 2 characters",
+                        "description":"Minimum 2 characters",
+                        "photos":"The image format is .jpg .jpeg .png and a minimum size of 300 x 300 pixels.",
+                        "dropzone_photos":"The image format is",
+                        "dropzone_3_photos":".jpg .jpeg .png",
+                        "dropzone_4_photos":"and a minimum size of",
+                        "dropzone_5_photos":"300 x 300 píxeles",
+                        "dropzone_6_photos":"Maximum weight"
                     }
                 }
         },
         "list": {
             "labels":{
-                "column_1": "NAME",
+                "column_1": "SKU",
+                "column_2": "NAME",
+                "column_3": "CATEGORY",
                 "actions_column": "ACTIONS",
                 "actions":{
                     "edit":"Edit"
@@ -360,13 +389,10 @@
             "new": "New",
             "save": "Save",
             "prev": "Previous",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "add_component": "Add component"
         }
     },
-
-
-
-
 
     "messages": {
         "validation_error": "Validation error"
@@ -385,12 +411,6 @@
             "column_1": "CODE",
             "column_2": "NAME",
             "column_3": "ACTIONS"
-        },
-        "products": {
-            "column_1": "SKU",
-            "column_2": "NAME",
-            "column_3": "CATEGORY",
-            "column_4": "ACTIONS"
         },
         "prices": {
             "column_1": "PRICE",
@@ -515,24 +535,6 @@
         "btn_cancel": "Cancel",
         "btn_add_new_tags": "New Tag"
     },
-    "add_components":{
-        "components": "Components",
-        "component": "Component",
-        "name": "Name",
-        "add": "Add component",
-        "quantity": "Quantity"
-    },
-    "add_prices":{
-        "prices": "Prices",
-        "price_price": "Price",
-        "price_currency": "Currency",
-        "price_product": "Product",
-        "price_price_list": "Price list",
-        "btn_prev": "Previous",
-        "btn_save": "Save",
-        "btn_cancel": "Cancel",
-        "btn_add_new_price": "New Price"
-    },
     "add_activities":{
         "activities": "Activities",
         "btn_prev": "Previous",
@@ -593,20 +595,6 @@
         "pipeline_stage_sort": "Sort Order",
         "btn_add_new_stage": "Add New Stage",
         "btn_add_new_pipeline": "New Pipeline"
-    },
-    "add_products":{
-        "products": "Products",
-        "product_sku": "Sku",
-        "product_name": "Name",
-        "product_account": "Account",
-        "product_quantity": "Quantity",
-        "product_category": "Category",
-        "product_description": "Description",
-        "btn_prev": "Previous",
-        "btn_save": "Save",
-        "btn_cancel": "Cancel",
-        "btn_add_new_product": "New Product",
-        "file_description_account": "Select Options"
     },
     "add_categories":{
         "categories": "Categories",

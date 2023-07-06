@@ -67,6 +67,8 @@
                       ];
 
   const convert_format_date = (date, format) => {
+    //Checar cuando eliminan la fecha
+    
     const day = date.getDate();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;

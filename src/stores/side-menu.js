@@ -7,15 +7,13 @@ export const useSideMenuStore = defineStore("sideMenu", {
   state: () => ({
     menu: [
       {
-        icon: "UsersIcon",
+        icon: "BriefcaseIcon",
         pageName: "side-menu-accounts",
         title: 'side-menu.accounts'
       },
       {
-        icon: "UsersIcon",
+        icon: "UserIcon",
         pageName: "side-menu-dashboard-user",
-        // title: this.$t('settings.language')
-        // title: "Users"
         title: 'side-menu.users'
       },
       {
@@ -39,7 +37,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: 'side-menu.activities',
       },
       {
-        icon: "UsersIcon",
+        icon: "Phone-forwardedIcon",
         pageName: "side-menu-leads",
         title: 'side-menu.leads'
       },

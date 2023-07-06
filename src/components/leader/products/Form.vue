@@ -260,7 +260,7 @@
                     <input
                         type="text"
                         class="w-full form-control"
-                        :placeholder="$t('add_products.product_sku')"
+                        :placeholder="$t('products.form.placeholders.sku')"
                         v-model="product.sku" />
                     <div class="text-right form-help">
                       {{ $t('products.form.instructions.validation.sku') }}
@@ -288,7 +288,7 @@
                     <input
                         type="text"
                         class="w-full form-control"
-                        :placeholder="$t('add_products.product_name')"
+                        :placeholder="$t('products.form.placeholders.name')"
                         v-model="product.name"
                         :class="{ 'border-danger': validate.name.$error }" />
 
@@ -310,14 +310,14 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_products.product_description') }}</div>
+                        <div class="font-medium">{{ $t('products.form.labels.fields.description') }}</div>
                         <div
                           class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                            {{ $t('forms.required') }}
+                            {{ $t('products.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Descripción completa del producto.
+                        {{ $t('products.form.instructions.description') }}
                       </div>
                     </div>
                   </div>
@@ -326,7 +326,7 @@
                     <input
                         type="text"
                         class="w-full form-control"
-                        :placeholder="$t('add_products.product_description')"
+                        :placeholder="$t('products.form.placeholders.description')"
                         v-model="product.description"
                         :class="{ 'border-danger': validate.description.$error }" />
                     
@@ -339,7 +339,7 @@
                         </div>
                     </template>
                     <div class="text-right form-help">
-                        Deben ser al menos 2 caracteres.
+                      {{ $t('products.form.instructions.validation.description') }}
                     </div>
                   </div>
               </div>
@@ -348,15 +348,14 @@
                   <div class="form-label xl:w-72 xl:!mr-10">
                     <div class="text-left">
                       <div class="flex items-center">
-                        <div class="font-medium">{{ $t('add_products.product_quantity') }}</div>
+                        <div class="font-medium">{{ $t('products.form.labels.fields.quantity') }}</div>
                         <div
-                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md"
-                        >
-                          {{ $t('forms.required') }}
+                          class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
+                            {{ $t('products.form.labels.required') }}
                         </div>
                       </div>
                       <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                        Cantidad de existencia inicial.
+                        {{ $t('products.form.instructions.quantity') }}
                       </div>
                     </div>
                   </div>
@@ -365,7 +364,7 @@
                     <input
                         type="number"
                         class="w-full form-control"
-                        :placeholder="$t('add_products.product_quantity')"
+                        :placeholder="$t('products.form.placeholders.quantity')"
                         v-model="product.quantity"
                         :class="{ 'border-danger': validate.quantity.$error }" />
 
@@ -384,18 +383,15 @@
                 <div class="form-label xl:w-72 xl:!mr-10">
                   <div class="text-left">
                     <div class="flex items-center">
-                      <div class="font-medium">Status</div>
+                      <div class="font-medium">{{ $t('products.form.labels.fields.status') }}</div>
                         <div
                             class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                              Required
+                              {{ $t('products.form.labels.required') }}
                         </div>
                       </div>
-                      <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                          If the status is active, your product can be searched for by
-                          potential buyers.
-                        </div>
-                      </div>
-                    </div>
+                      <div class="mt-3 text-xs leading-relaxed text-slate-500">{{ $t('products.form.instructions.status') }}</div>
+                    </div>  
+                  </div>
                     <div class="flex-1 w-full mt-3 xl:mt-0">
                       <div class="form-check form-switch">
                         <input
@@ -403,7 +399,7 @@
                           class="form-check-input"
                           id="product-status-active"
                           v-model="product.active" />                        
-                        <label class="form-check-label" for="product-status-active">Active</label>
+                        <label class="form-check-label" for="product-status-active">{{ $t('products.form.labels.active') }}</label>
                       </div>
                     </div>
                   </div>
@@ -414,27 +410,23 @@
       <div class="p-5 mt-5 intro-y box">      
         <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
           <div class="flex items-center pb-5 text-base font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-              <ChevronDownIcon class="w-4 h-4 mr-2" /> Imágenes del producto
+              <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('products.form.labels.complementary_information') }}
           </div>
           <div class="mt-5">  
             <div class="flex-col items-start mt-10 form-inline xl:flex-row">
               <div class="form-label w-full xl:w-72 xl:!mr-10">
                 <div class="text-left">
                   <div class="flex items-center">
-                    <div class="font-medium">Product Photos</div>
+                    <div class="font-medium">{{ $t('products.form.labels.fields.photos') }}</div>
                     <div
                       class="ml-2 px-2 py-0.5 bg-slate-200 text-slate-600 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md">
-                        Required
+                        {{ $t('products.form.labels.required') }}
                     </div>
                   </div>
                   
                   <div class="mt-3 text-xs leading-relaxed text-slate-500">
-                    <div>El formato de imagen es .jpg .jpeg .png y un tamaño mínimo de 300 x 300 píxeles.</div>
-                    <div class="mt-2">
-                      Seleccione fotos de productos o arrastre y suelte hasta 5 fotos en
-                      una vez aquí. Incluir mín. 3 fotos atractivas para hacer el
-                      producto más atractivo para los compradores.
-                    </div>
+                    <div>{{ $t('products.form.instructions.validation.photos') }}</div>
+                    <div class="mt-2">{{ $t('products.form.instructions.photos') }}</div>
                   </div>
                 </div>
               </div>
@@ -456,11 +448,11 @@
                   }"
                   class="dropzone">
                   <div class="text-lg font-medium">
-                    Suelte los archivos aquí o haga clic para cargar.
+                    {{ $t('products.form.instructions.dropzone_photos') }}
                   </div>
                   <div class="text-gray-600">
-                    El formato de imagen es <span class="font-medium">.jpg .jpeg .png</span> y un tamaño mínimo de
-                      <span class="font-medium">300 x 300 píxeles</span>.<br>Peso máximo <span class="font-medium">0.5 Mb</span>.
+                    {{ $t('products.form.instructions.validation.dropzone_photos') }} <span class="font-medium">{{ $t('products.form.instructions.validation.dropzone_3_photos') }}</span> {{ $t('products.form.instructions.validation.dropzone_4_photos') }}
+                      <span class="font-medium">{{ $t('products.form.instructions.validation.dropzone_5_photos') }}</span>.<br>{{ $t('products.form.instructions.validation.dropzone_6_photos') }} <span class="font-medium">0.5 Mb</span>.
                   </div>
                 </Dropzone>
               </div>
@@ -473,10 +465,10 @@
         <div class="col-span-12 p-5 intro-y box lg:col-span-5">
           <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400 h-100">
             <div class="flex flex-col items-center pb-5 border-b border-slate-200/60 dark:border-darkmode-400 sm:flex-row">
-                <div class="flex items-center mr-auto text-base font-medium"><ChevronDownIcon class="w-4 h-4 mr-2" /> Componentes</div> <a class="mr-2 text-xs shadow-md btn btn-primary" @click="addComponentModal = true">Agregar componente <PlusIcon class="w-4 h-4" /></a>
+                <div class="flex items-center mr-auto text-base font-medium"><ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('products.form.labels.component_information') }}</div> <a class="mr-2 text-xs shadow-md btn btn-primary" @click="addComponentModal = true">{{ $t('products.buttons.add_component') }} <PlusIcon class="w-4 h-4" /></a>
             </div>
             <div class="mt-5"> 
-                <a v-if="Object.keys(product.components).length === 0" class="block w-full text-xs text-center text-slate-500">Sin componentes agregados</a>
+                <a v-if="Object.keys(product.components).length === 0" class="block w-full text-xs text-center text-slate-500">{{ $t('products.form.labels.component_information_2') }}</a>
                 
                 <a v-for="(component, id) in product.components"
                   :key="id"
@@ -514,7 +506,7 @@
         <div class="col-span-12 p-5 intro-y box lg:col-span-7">
           <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400 h-100">
             <div class="flex flex-col items-center pb-5 border-b border-slate-200/60 dark:border-darkmode-400 sm:flex-row">
-                <div class="flex items-center mr-auto text-base font-medium"><ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('add_prices.prices') }}</div>
+                <div class="flex items-center mr-auto text-base font-medium"><ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('products.form.labels.price_information') }}</div>
                 <!--<a class="mr-2 shadow-md btn btn-primary" @click="addPricesListsModal = true">Agregar lista de precio <PlusIcon class="w-4 h-4" /></a>-->
             </div>
             <div class="mt-5"> 
@@ -537,14 +529,14 @@
                       <tr>                        
                         <th class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap">
                           <div class="flex items-center">
-                            {{ $t('add_prices.price_price_list') }} 
+                            {{ $t('products.form.labels.price_information_2') }} 
                           </div>
                         </th>
                         <th class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !pl-0 pr-2">
-                          {{ $t('add_prices.price_price') }}
+                          {{ $t('products.form.labels.price_information_3') }}
                         </th>
                         <th class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !pl-0 pr-5">
-                          {{ $t('add_prices.price_currency') }}
+                          {{ $t('products.form.labels.price_information_4') }}
                         </th>
                       </tr>
                     </thead>
@@ -559,7 +551,7 @@
                             <input
                               type="number"
                               class="form-control max-w-[6rem]"
-                              :placeholder="$t('add_prices.price_price')"
+                              :placeholder="$t('products.form.placeholders.price')"
                               v-model="pricelist.price" />
                           </div>
                         </td>
@@ -587,8 +579,8 @@
       </div>
 
       <div class="flex flex-col justify-end gap-2 mt-5 md:flex-row">
-        <button type="button" class="w-full py-3 mr-1 md:w-52 btn btn-outline-secondary">{{ $t('add_products.btn_cancel') }}</button>
-        <button type="submit" class="w-full py-3 md:w-52 btn btn-primary">{{ $t('add_products.btn_save') }}</button>
+        <button type="button" class="w-full py-3 mr-1 md:w-52 btn btn-outline-secondary">{{ $t('products.buttons.cancel') }}</button>
+        <button type="submit" class="w-full py-3 btn btn-primary md:w-52">{{ $t('products.buttons.save') }}</button>
       </div>
     </form>
     <!-- END: Form Layout -->
@@ -597,12 +589,12 @@
   <!-- BEGIN: Add Component Modal -->
   <Modal :show="addComponentModal" @hidden="addComponentModal = false">
     <ModalHeader>
-      <h2 class="mr-auto text-base font-medium">{{ $t('add_components.add') }}</h2>
+      <h2 class="mr-auto text-base font-medium">{{ $t('products.form.labels.component_information_3') }}</h2>
     </ModalHeader>
     
     <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">      
       <div class="col-span-12">
-        <label for="pos-form-5" class="form-label">{{ $t('add_components.component') }}:</label>
+        <label for="pos-form-5" class="form-label">{{ $t('products.form.labels.component_information_4') }}:</label>
         <input
           type="text"
           class="form-control"
@@ -611,7 +603,7 @@
       </div>
 
       <div class="col-span-12">
-        <label for="pos-form-4" class="form-label">{{ $t('add_components.quantity') }}:</label>
+        <label for="pos-form-4" class="form-label">{{ $t('products.form.labels.component_information_5') }}:</label>
         
         <div class="flex flex-1">
           <button
@@ -643,7 +635,7 @@
         type="button"
         class="w-24 btn btn-primary"
         @click="submit_add_component">
-          Agregar
+          {{ $t('products.buttons.save') }}
       </button>
     </ModalFooter>
   </Modal>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
-    <h2 class="mr-auto text-lg font-medium">{{ $t('prospects.prospects') }}</h2>
+    <h2 class="mr-auto text-lg font-medium">{{ $t('prospects.title') }}</h2>
     
     <!--
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
@@ -110,8 +110,8 @@
       <div
         id="tabulator"
         ref="tableRef"
-        class="mt-5 table-report table-report--tabulator"
-      ></div>
+        class="mt-5 table-report table-report--tabulator">
+      </div>
     </div>
   </div>
   <!-- END: HTML Table Data -->
