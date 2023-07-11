@@ -1,3 +1,9 @@
+<script>
+  export default {
+    name: "UsersListsView"
+  }
+</script>
+
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('users.title') }}</h2>
@@ -159,7 +165,6 @@
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
-      layout:"fitColumns",
       ajaxResponse:function(url, params, response){
           //url - the URL of the request
           //params - the parameters passed with the request
@@ -173,6 +178,7 @@
       resizableColumnFit:true,
       //paginationMode:"remote", //enable remote pagination
       placeholder: "No matching records found",
+      layout:"fitColumns",
       columns: [
         // For HTML table
         {

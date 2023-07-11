@@ -659,7 +659,7 @@
         <input
           type="text"
           class="form-control"
-          :placeholder="$t('add_components.name')"
+          :placeholder="$t('products.form.placeholders.component')"
           v-model="add_component_form.name" />
       </div>
 

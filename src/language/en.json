@@ -257,8 +257,10 @@
         "form":{
                 "labels":{
                     "fields":{
+                        "comments":"Comments",
                         "start_time":"Start time",
-                        "start_date":"Start date"
+                        "start_date":"Start date",
+                        "activities_results":"Activities results"
                     },
                     "active":"Active",
                     "required":"Required",
@@ -267,6 +269,7 @@
                     "scheduled":"Scheduled activities"
                 },
                 "placeholders":{
+                    "comments":"Comments",
                     "start_time":"Start time",
                     "start_date":"Start date"
                 }
@@ -349,7 +352,8 @@
                     "description":"Description",
                     "quantity":"Quantity",
                     "price":"Price",
-                    "status":"Status"
+                    "status":"Status",
+                    "component":"Name component"
                 },
                 "instructions":{
                     "name":"Product name, space for alphanumeric characters.",
@@ -613,18 +617,6 @@
         "btn_save": "Save",
         "btn_cancel": "Cancel",
         "btn_add_new_price_list": "New Price list"
-    },
-    "add_activity_finalize":{
-        "activity_finalize": "Finish activity",
-        "activity_finalize_activity_result": "Activity result",
-        "label_type": "Type",
-        "label_date": "Date",
-        "label_subject": "Subject",
-        "label_prospect": "Prospect",
-        "observations": "Observations",
-        "btn_prev": "Previous",
-        "btn_save": "Save",
-        "btn_cancel": "Cancel"
     },
     "catalogs_origins":{
         "list_origins": "List Origin",

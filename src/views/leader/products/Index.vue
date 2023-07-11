@@ -1,3 +1,9 @@
+<script>
+  export default {
+    name: "ProductsListsView"
+  }
+</script>
+
 <script setup>
   //import xlsx from "xlsx";
   //import Tabulator from "tabulator-tables";
@@ -24,16 +30,15 @@
   const initTabulator = () => {
     tabulator.value = new Tabulator(tableRef.value, {
       ajaxURL: `${import.meta.env.VITE_API_BASE}products`,
-      ajaxResponse:function(url, params, response){
-          return response.data; 
-      },
       ajaxConfig:{
         method:"GET",
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem("TOKEN")}`,
         },
       },
-      
+      ajaxResponse:function(url, params, response){
+        return response.data; 
+      },
       pagination:true, //enable pagination
       paginationSize:20, //optional parameter to request a certain number of rows per page
       paginationInitialPage:1, //optional parameter to set the initial page to load

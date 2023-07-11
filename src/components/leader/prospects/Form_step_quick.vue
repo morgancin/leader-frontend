@@ -3,20 +3,23 @@
         name: "ProspectStepQuickForm",
     }
 </script>
+
 <script setup>  
   import { onMounted, ref, watch, reactive } from 'vue';
   import { storeToRefs } from "pinia";  
   import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators';
   import { useVuelidate } from '@vuelidate/core';
-
-  import Toastify from "toastify-js";
-  import dom from "@left4code/tw-starter/dist/js/dom";
-
+  
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
 
   import Datepicker from '@vuepic/vue-datepicker';
   import '@vuepic/vue-datepicker/dist/main.css';
+
+  import Toastify from "toastify-js";
+  import dom from "@left4code/tw-starter/dist/js/dom";
+
+  import CompanyForm from "@/components/leader/companies/Form.vue";
 
   import { useAccountsStore } from "@/stores/leader/accounts";
   import { useProspectsStore } from "@/stores/leader/prospects";
@@ -26,9 +29,9 @@
   import { useActivitySubjectStore } from "@/stores/leader/activities-subjects";
   import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
   //import { useProspectingSourcesStore } from "@/stores/leader/prospecting-sources";
-
-  import CompanyForm from "@/components/leader/companies/Form.vue";
-
+  //const { fetchActivities, fetchActivitiesSubjects } = useActivitiesStore();
+  //const { activity, activities } = storeToRefs(useActivitiesStore());
+  
   const { fetchAccounts } = useAccountsStore();
   const { createProspect } = useProspectsStore();
   const { fetchActivities } = useActivitiesStore();
@@ -36,9 +39,7 @@
   const { fetchActivitiesSubjects } = useActivitySubjectStore();
   const { createCompany, fetchCompanies } = useCompaniesStore();
   const { fetchProspectingSources, fetchProspectingMeans, fetchProspectingMean } = useGetDataProspectingSources();
-  //const { fetchActivities, fetchActivitiesSubjects } = useActivitiesStore();
-  
-  //const { activity, activities } = storeToRefs(useActivitiesStore());
+
   const { prospect } = storeToRefs(useProspectsStore());
   const { activity, activities} = storeToRefs(useActivitiesStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
@@ -156,9 +157,6 @@
   const dataProspectingSources = ref([]);
   
   ////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
-  //const dataActivityTypes = ref([]);
-  //const dataActivitySubjects = ref([]);
-
   onMounted(async() => {
     await fetchAccounts();
     await fetchCompanies();
@@ -184,9 +182,7 @@
   watch(
       () => data_prospect_activity.activity_type_id,
       async () => {
-          console.log('Valess');
-          //dataActivitySubjects.value = await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
-          await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
+        await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
       }
   );
    
@@ -239,7 +235,7 @@
 
 <template>
   <!-- BEGIN: Modal Content quick action nuevo prospecto -->
-   <Modal :show="show_modal_here" @hidden="hideModal" class="speciallabels" size="modal-xl">
+  <Modal :show="show_modal_here" @hidden="hideModal" class="speciallabels" size="modal-xl">
     <ModalHeader>
       <h2 class="mr-auto text-base font-medium">{{ $t('prospects.form.labels.title') }}</h2>
     </ModalHeader>
@@ -456,8 +452,7 @@
                             :reduce="name => name.id"
                             label="name"                        
                             v-model="data_prospect_activity.activity_type_id"
-                            :class="{ 'border-danger': validate.activity_type_id.$error }"
-                            >
+                            :class="{ 'border-danger': validate.activity_type_id.$error }">
                         </v-select >
                         <template v-if="validate.activity_type_id.$error">
                             <div
@@ -494,10 +489,10 @@
                       <label for="crud-form-2" class="form-label">*{{ $t('activities.form.labels.fields.start_date') }}</label>
                       
                       <Datepicker
-                          :placeholder="$t('activities.form.placeholders.start_date')"
                           closeOnScroll
-                          :format="format_start_date"
                           :enableTimePicker="false"
+                          :format="format_start_date"
+                          :placeholder="$t('activities.form.placeholders.start_date')"
                           v-model="data_prospect_activity.start_date" />
 
                       <template v-if="validate.start_date.$error">
@@ -512,18 +507,18 @@
                     
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
                         <label for="crud-form-2" class="form-label">*{{ $t('activities.form.labels.fields.start_time') }}</label>
-                        <Datepicker 
-                            v-model="data_prospect_activity.start_time" 
+                        <Datepicker
+                            timePicker
                             :placeholder="$t('activities.form.placeholders.start_time')"
-                            timePicker />
+                            v-model="data_prospect_activity.start_time" />
                     </div>
                     
                     <div class="col-span-12 sm:col-span-12 withlabel">
                       <label for="modal-form-1" class="form-label">{{ $t('prospects.form.labels.fields.comments') }}</label>
-                      <ClassicEditor 
-                        v-model="data_prospect_activity.comments" 
+                      <ClassicEditor
+                        :config="editorConfig"
                         :placeholder="$t('prospects.form.placeholders.comments')"
-                        :config="editorConfig" />
+                        v-model="data_prospect_activity.comments" />
                     </div>
                     
                 </div>

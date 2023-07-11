@@ -54,16 +54,16 @@
         required: true,
     }
   });
-  
+
+  const show_modal_here = ref(props.show_modal);
+  const show_schedule_form = ref(false);
+
   const form = reactive({
                         activity_result_id: '',
                         activity_observations: '',
                         last_activity_id: props.id_activity
                     });
-
-  const show_schedule_form = ref(false);
-  const show_modal_here = ref(props.show_modal);
-  
+                    
   const convert_format_date = (date, format) => {
     const day = date.getDate();
     const year = date.getFullYear();
@@ -76,7 +76,8 @@
       return `${day}/${month}/${year}`;
   }
   
-  const emit = defineEmits(["submit", "hideModal"]);
+  const emit = defineEmits(["hideModal"]);
+  //const emit = defineEmits(["submit", "hideModal"]);
   
   ////////PROSPECTING SOURCES & MEANS
   //const dataProspectingMeans = ref([]);
@@ -263,13 +264,13 @@
     <!-- BEGIN: Modal Content quick action nuevo prospecto -->
     <Modal :show="show_modal_here" @hidden="hideModal" class="speciallabels" size="modal-xl">
         <ModalHeader>
-            <h2 class="mr-auto text-base font-medium">{{$t('prospects.btn-add-new-prospect') }}</h2>
+            <h2 class="mr-auto text-base font-medium">{{$t('activities.title') }}</h2>
         </ModalHeader>
         
         <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
             <div class="grid grid-cols-12 col-span-8 gap-4">
                 <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                    <label for="cmbActivitiesResults" class="flex flex-col w-full form-label sm:flex-row">*{{ $t('add_activity_finalize.activity_finalize_activity_result') }}:</label>
+                    <label for="cmbActivitiesResults" class="flex flex-col w-full form-label sm:flex-row">*{{ $t('activities.form.labels.fields.activities_results') }}:</label>
                     <v-select
                         label="name"
                         class="form-control"
@@ -302,10 +303,11 @@
                 </div>
                 
                 <div class="col-span-12 sm:col-span-12 withlabel">
-                    <label for="modal-form-1" class="form-label">{{ $t('add_prospect_activity.comments') }}</label>
+                    <label for="modal-form-1" class="form-label">{{ $t('activities.form.labels.fields.comments') }}</label>
+
                     <ClassicEditor
                         :config="editorConfig"
-                        :placeholder="$t('add_prospect_activity.comments')"
+                        :placeholder="$t('activities.form.placeholders.comments')"
                         v-model="form.activity_observations" />
                 </div>
                 

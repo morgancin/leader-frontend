@@ -1,3 +1,9 @@
+<script>
+  export default {
+    name: "ActivitiesListsView"
+  }
+</script>
+
 <script setup>
   //import xlsx from "xlsx";
   //import Tabulator from "tabulator-tables";
@@ -27,7 +33,11 @@
   /////
   const id_activity = ref();
   const show_leads_modal = ref(false);
-    
+
+  const hideModal = () => {    
+    show_leads_modal.value = false;
+  }
+
   const showLeadsModal = (activity_id) => {
     id_activity.value = activity_id;
     show_leads_modal.value = true;
@@ -72,25 +82,38 @@
           
           formatter(cell) {
             const a = dom(` <div class="flex items-center lg:justify-center">
-                                <a class="flex items-center mr-3 btn btn-primary" href="/activities/reschedule/${cell.getData().id}">
+                                <a class="flex items-center mr-3 btn btn-primary">
                                   <i data-lucide="check-circle" class="w-4 h-4 mr-1"></i> Comenzar
                                 </a>
-                                <a class="flex items-center mr-3 btn btn-secondary" href="/quotes/create/${cell.getData().id}">
+                                <a class="flex items-center mr-3 btn btn-secondary">
                                   <i data-lucide="shopping-cart" class="w-4 h-4 mr-1"></i> Cotización
                                 </a>
-                                <a class="flex items-center mr-3 btn btn-success " href="/contract/create/${cell.getData().id}">
+                                <a class="flex items-center mr-3 btn btn-success">
                                   <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Contrato
                                 </a>
                             </div>`);
+                            
+            /*
+            <a class="flex items-center mr-3 btn btn-primary" href="/activities/reschedule/${cell.getData().id}">
+              <i data-lucide="check-circle" class="w-4 h-4 mr-1"></i> Comenzar
+            </a>
+            <a class="flex items-center mr-3 btn btn-secondary" href="/quotes/create/${cell.getData().id}">
+              <i data-lucide="shopping-cart" class="w-4 h-4 mr-1"></i> Cotización
+            </a>
+            <a class="flex items-center mr-3 btn btn-success " href="/contract/create/${cell.getData().id}">
+              <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Contrato
+            </a>
+            */
 
             dom(a).on("click", function () {
               // On click actions
+              showLeadsModal(cell.getData().id);
             });
               
             return a[0];
           },
-          
         },
+        
         {
           title: t('activities.list.labels.column_1'),
           minWidth: 200,
@@ -427,7 +450,6 @@
 <template>
   <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
     <h2 class="mr-auto text-lg font-medium">{{ $t('add_activities.activities') }}</h2>
-    
     <!--
     <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
       <router-link class="mr-2 shadow-md btn btn-primary" :to="`/add-activity`">{{ $t('add_activities.btn_add_new_activity') }}</router-link>
@@ -438,8 +460,6 @@
   <!-- BEGIN: HTML Table Data -->
   <div class="p-5 mt-5 intro-y box">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-      <button @click="showLeadsModal(1)" class="w-20 btn btn-primary">Comenzar</button>
-      
       <!--
        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="items-center sm:flex sm:mr-4">
@@ -535,12 +555,8 @@
         </Dropdown>
       </div>
       -->
-
-
-
-
-
     </div>
+    
     <div class="overflow-x-auto scrollbar-hidden">
       <div
         id="tabulator"
@@ -548,20 +564,13 @@
         class="mt-5 table-report table-report--tabulator">
       </div>
     </div>
-    <!--
-      v-if="show_modal_prospect"
-      @submit="submitStep"
-      @hideModal="hideModal"
-      @reset="resetForm()"
-      :login_user="login_user"
-      :show_modal="show_modal_prospect"
-    -->
+  </div>
 
-    <ActivityLeadsForm
+  <ActivityLeadsForm
       v-if="show_leads_modal"
+      @hideModal="hideModal"
       :id_activity="id_activity"
       :show_modal="show_leads_modal" />
       
-  </div>
   <!-- END: HTML Table Data -->
 </template>

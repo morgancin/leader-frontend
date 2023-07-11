@@ -259,8 +259,10 @@
         "form":{
                 "labels":{
                     "fields":{
+                        "comments":"Comentarios",
                         "start_time":"Hora de inicio",  
-                        "start_date":"Fecha de inicio"
+                        "start_date":"Fecha de inicio",
+                        "activities_results":"Resultados de actividades"
                     },
                     "active":"Activo",
                     "required":"Requerido",
@@ -269,6 +271,7 @@
                     "scheduled":"Actividades programadas"
                 },
                 "placeholders":{
+                    "comments":"Comentarios",
                     "start_time":"Start time",
                     "start_date":"Start date"
                 }
@@ -351,7 +354,8 @@
                     "description":"Descripción",
                     "quantity":"Cantidad",
                     "price":"Precio",
-                    "status":"Estatus"
+                    "status":"Estatus",
+                    "component":"Nombre del componente"
                 },
                 "instructions":{
                     "name":"Nombre del producto, espacio para caracteres alfanuméricos.",
@@ -395,7 +399,6 @@
             "add_component": "Agregar componente"
         }
     },
-    
     "messages": {
         "validation_error": "Validation error"
     },
