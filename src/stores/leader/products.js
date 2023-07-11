@@ -64,5 +64,18 @@ export const useProductsStore = defineStore("ProductsStore", {
                 });
             })
         },
+        async deleteProductImage(image_src) {
+            axiosClient.delete(`/product-image/${image_src}`)
+            .then (({data}) => {
+                toast.success(data.message, {
+                    autoClose:1000
+                });
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    autoClose:1000
+                });
+            })
+        },
     }
 });

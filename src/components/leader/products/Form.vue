@@ -17,6 +17,7 @@
   import vSelect from 'vue-select';
   import 'vue-select/dist/vue-select.css';
 
+  import { useProductsStore } from "../../../stores/leader/products";
   import { useAccountsStore } from "../../../stores/leader/accounts";
   import { useComponentsCartStore } from "../../../stores/leader/componentsCart";
   import { usePricesListsCartStore } from "../../../stores/leader/priceslistsCart";
@@ -27,17 +28,19 @@
   //import { useGetDataPricesLists } from '../../../composables/getData/useGetDataPricesLists';
 
   //const { cartComponents } = storeToRefs(useComponentsCartStore());
+  //const { fetchPricesLists, results_prices_lists, error_prices_lists } = useGetDataPricesLists();
+
   const { cartPriceslists } = storeToRefs(usePricesListsCartStore());
   const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
 
   const { fetchAccounts } = useAccountsStore();
+  const { deleteProductImage } = useProductsStore();
   const { add_pricelist_car } = usePricesListsCartStore();
   const { add_component_car, remove_component_car } = useComponentsCartStore();
   
   const { fetchCurrencies, currencies, error_currencies } = useGetDataCurrencies();
   const { fetchComponents, results_components, error_components } = useGetDataComponents();
   const { fetchCategories, results_categories: dataCategories, error } = useGetDataCategories();
-  //const { fetchPricesLists, results_prices_lists, error_prices_lists } = useGetDataPricesLists();
   
   const dataComponents = ref([]);
   const dataCurrencies = ref([]);
@@ -45,6 +48,8 @@
   const priceslists_modal = ref({});
   const dropzoneValidationRef = ref();
   const addComponentModal = ref(false);
+
+  let aProducts_images = [];
   
   const props = defineProps({
                             product: {
@@ -104,24 +109,58 @@
   onMounted(async() => {
     await fetchAccounts();
     await fetchCategories();
-    //await fetchPricesLists();
-    
     await fetchCurrencies();
     dataCurrencies.value = currencies.value;
     
     await fetchComponents();
     dataComponents.value = results_components.value;
 
-    const elDropzoneValidationRef = dropzoneValidationRef.value;
-
-    elDropzoneValidationRef.dropzone.on("success", () => {
-      //alert("Added file.");
+    dropzoneValidationRef.value.dropzone.on("success", (file, response) => {
+      console.log(response);
+      props.product.images.push({
+                                src: response.data.src
+                              });
+                                                            
+      aProducts_images.push({
+        local_name: file.name,
+        src: response.data.src
+      });
     });
 
-    elDropzoneValidationRef.dropzone.on("error", (event) => {
+    dropzoneValidationRef.value.dropzone.on("error", (event) => {
       //dropzoneValidationRef.removeFile(event);
       alert("No se pudo subir el archivo, no cumplió las características");
     });
+
+    dropzoneValidationRef.value.dropzone.on("removedfile", (file) => {
+      let cDelete_search = file.name;
+      for(let i = 0; i <= aProducts_images.length - 1; i++) {
+        if(aProducts_images[i]['local_name'] == cDelete_search){
+          cDelete_search = aProducts_images[i]['src'];
+          aProducts_images.splice(i, 1);
+          break;
+        }
+      }
+      
+      for(let con = 0; con <= props.product.images.length - 1; con++) {
+        if(props.product.images[con]['src'] == cDelete_search){
+          props.product.images.splice(con, 1);
+          break;
+        }
+      }
+
+      deleteProductImage(cDelete_search);
+    });
+    
+    /*
+    props.product.images.forEach((image) => {
+      console.log('vales ', image.src);
+      let mockFile = { name: image.src, size: 1234512 };
+      dropzoneValidationRef.value.dropzone.emit("addedfile", mockFile);
+      dropzoneValidationRef.value.dropzone.emit("thumbnail", mockFile, 'https://api.leader.arkanmedia.com/api/product-image/' + image.src);
+      //dropzoneValidationRef.value.dropzone.displayExistingFile(mockFile, 'https://api.leader.arkanmedia.com/api/product-image/' + image.src);
+    });
+    */
   });
 
   provide("bind[dropzoneValidationRef]", (el) => {
@@ -154,6 +193,8 @@
       emit('submit');
     }
   }
+
+  const token = `Bearer ${sessionStorage.getItem("TOKEN")}`;
 </script>
 
 <template>
@@ -430,13 +471,15 @@
                   </div>
                 </div>
               </div>
+
               <div class="flex-1 w-full mt-3 rounded-md xl:mt-0 dark:border-darkmode-400"> 
                 <Dropzone
                   ref-key="dropzoneValidationRef"
                   :options="{
-                    url: 'https://httpbin.org/post',
+                    //url: 'https://httpbin.org/post',
+                    url: 'https://api.leader.arkanmedia.com/api/product-image',
                     thumbnailWidth: 120,
-                    maxFilesize: 0.5,
+                    maxFilesize: 2,
                     acceptedFiles: 'image/*',
                     resizeMethod: 'contain',
                     addRemoveLinks: true,
@@ -444,7 +487,24 @@
                     dictCancelUpload: 'Cancelar subida',
                     dictInvalidFileType: 'No puedes subir este tipo de archivos',
                     dictFileTooBig: 'Archivo es muy grande ({{filesize}}Mb). Tamaño permitido: {{maxFilesize}}Mb.',
-                    headers: { 'My-Awesome-Header': 'header value' }
+                    headers: { 'Authorization': token },
+                    //headers: { 'My-Awesome-Header': 'header value' },
+                    //createImageThumbnails: true,
+                    //thumbnailWidth: 120,
+                    //thumbnailHeight: 120,
+                    //thumbnailMethod: 'crop',
+
+                    init: function() {
+                      let mockFile;
+                      let thisDropzone = this;
+                      
+                      product.images.forEach((image) => {
+                        mockFile = { name: image.src, size: 12345 };
+
+                        thisDropzone.emit('addedfile', mockFile);
+                        thisDropzone.emit('thumbnail', mockFile, 'https://api.leader.arkanmedia.com/api/product-image/' + image.src);
+                      });
+                    }            
                   }"
                   class="dropzone">
                   <div class="text-lg font-medium">
@@ -456,6 +516,7 @@
                   </div>
                 </Dropzone>
               </div>
+
             </div>
           </div>
         </div>

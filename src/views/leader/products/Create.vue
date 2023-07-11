@@ -25,6 +25,7 @@
                         account_id:null,
                         category_id:null,
                         description:null,
+                        images:[],
                         components:[],
                         price_lists:[]                   
                   });
