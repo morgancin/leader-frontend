@@ -28,9 +28,6 @@
   import { useActivitiesTypeStore } from "@/stores/leader/activities-type";
   import { useActivitySubjectStore } from "@/stores/leader/activities-subjects";
   import { useGetDataProspectingSources } from '../../../composables/getData/useGetDataProspectingSources';
-  //import { useProspectingSourcesStore } from "@/stores/leader/prospecting-sources";
-  //const { fetchActivities, fetchActivitiesSubjects } = useActivitiesStore();
-  //const { activity, activities } = storeToRefs(useActivitiesStore());
   
   const { fetchAccounts } = useAccountsStore();
   const { createProspect } = useProspectsStore();
@@ -83,7 +80,7 @@
   
   const emit = defineEmits(["hideModal"]);
 
-  const data_prospect_activity = reactive({...prospect.value, ...activity.value});
+  const form_data = reactive({...prospect.value, ...activity.value});
 
   ////////RULES
   const rules = {
@@ -108,7 +105,7 @@
     activity_subject_id: { required }
   }
 
-  const validate = useVuelidate(rules, data_prospect_activity);
+  const validate = useVuelidate(rules, form_data);
   
   const hideModal = () => {
     emit('hideModal');
@@ -146,7 +143,7 @@
     const result = await validate.value.$validate();
     
     if(result) {
-      await createProspect(data_prospect_activity);
+      await createProspect(form_data);
       show_modal_here.value = false;
       //emit('submit');
     }
@@ -164,25 +161,25 @@
     
     dataProspectingSources.value = await fetchProspectingSources();
         
-    await fetchActivities(props.login_user.id, convert_format_date(data_prospect_activity.start_date, 'en'));
+    await fetchActivities(props.login_user.id, convert_format_date(form_data.start_date, 'en'));
   });
 
   watch(
-      () => data_prospect_activity.start_date,
+      () => form_data.start_date,
       async () => {
-        await fetchActivities(props.login_user.id, convert_format_date(data_prospect_activity.start_date, 'en'));
+        await fetchActivities(props.login_user.id, convert_format_date(form_data.start_date, 'en'));
       }
   );
   watch(
-      () => data_prospect_activity.client_origin,
+      () => form_data.client_origin,
       async () => {
-          dataProspectingMeans.value = await fetchProspectingMeans(data_prospect_activity.client_origin);
+          dataProspectingMeans.value = await fetchProspectingMeans(form_data.client_origin);
       }
   );
   watch(
-      () => data_prospect_activity.activity_type_id,
+      () => form_data.activity_type_id,
       async () => {
-        await fetchActivitiesSubjects(data_prospect_activity.activity_type_id);
+        await fetchActivitiesSubjects(form_data.activity_type_id);
       }
   );
    
@@ -192,7 +189,7 @@
     },
   };
   
-  const format_start_date = ref(data_prospect_activity.start_date);
+  const format_start_date = ref(form_data.start_date);
   format_start_date.value = (format_start_date) => {
     const day = format_start_date.getDate();
     const year = format_start_date.getFullYear();
@@ -222,11 +219,11 @@
 
   const submitCompany = async () => {
       await createCompany(company_form);
-      data_prospect_activity.potential_value = company_form.potential_value;
+      form_data.potential_value = company_form.potential_value;
       
       setTimeout(async () => { 
         await fetchCompanies();
-        data_prospect_activity.company_id = company.value.id;         
+        form_data.company_id = company.value.id;         
       }, 790);
       
       hideCompany();
@@ -239,46 +236,48 @@
     <ModalHeader>
       <h2 class="mr-auto text-base font-medium">{{ $t('prospects.form.labels.title') }}</h2>
     </ModalHeader>
-              
-              <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-                <div class="grid grid-cols-12 col-span-8 gap-4">
-                   
-                    <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.account') }}</label>
-                      <v-select
-                          label="name"
-                          class="form-control" 
-                          :options="dataAccounts"
-                          v-model="data_prospect_activity.account_id"
-                          :reduce="name => name.id"
-                          :class="{ 'border-danger': validate.account_id.$error }">
-                      </v-select>
-                      <template v-if="validate.account_id.$error">
-                        <div
-                          v-for="(error, index) in validate.account_id.$errors"
-                          :key="index"
-                          class="mt-2 text-danger">
-                            {{ error.$message }}
-                        </div>
-                      </template>
-                    </div>
 
-                    <div class="flex col-span-12 input-form intro-y sm:col-span-12 withlabel">
-                      <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('prospects.form.labels.fields.company') }}</label>
-                      <v-select
-                          label="name"
-                          class="w-full form-control" 
-                          :options="dataCompanies"
-                          :reduce="name => name.id"
-                          v-model="data_prospect_activity.company_id">
-                      </v-select>
-                      
-                      <div class="z-30 flex items-center justify-center w-10 mr-1 border rounded-r bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 addmore" 
-                        :class="{ active: show_company_prospect }"
-                        @click="show_company_prospect = !show_company_prospect">
-                          <PlusIcon class="w-4 h-4" />
-                      </div>
-                    </div>
+    <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
+      <div class="grid grid-cols-12 col-span-8 gap-4">
+                   
+        <div class="col-span-12 input-form intro-y sm:col-span-12 withlabel">
+          <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.account') }}</label>
+          
+          <v-select
+            label="name"
+            class="form-control" 
+            :options="dataAccounts"
+            v-model="form_data.account_id"
+            :reduce="name => name.id"
+            :class="{ 'border-danger': validate.account_id.$error }">
+          </v-select>
+          <template v-if="validate.account_id.$error">
+            <div
+              v-for="(error, index) in validate.account_id.$errors"
+              :key="index"
+              class="mt-2 text-danger">
+                {{ error.$message }}
+            </div>
+          </template>
+        </div>
+        
+        <div class="flex col-span-12 input-form intro-y sm:col-span-12 withlabel">
+          <label class="flex flex-col w-full form-label sm:flex-row">{{ $t('prospects.form.labels.fields.company') }}</label>
+          
+          <v-select
+              label="name"
+              class="w-full form-control" 
+              :options="dataCompanies"
+              :reduce="name => name.id"
+              v-model="form_data.company_id">
+          </v-select>
+          
+          <div class="z-30 flex items-center justify-center w-10 mr-1 border rounded-r bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400 addmore" 
+            :class="{ active: show_company_prospect }"
+            @click="show_company_prospect = !show_company_prospect">
+              <PlusIcon class="w-4 h-4" />
+          </div>
+        </div>
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-12 speciallabels speciallabeleds">
                       <CompanyForm
@@ -292,11 +291,12 @@
                         <div class="input-group">     
                           <div class="input-group-text">$</div> 
                           <label for="modal-form-3" class="form-label">*{{ $t('prospects.form.labels.fields.potential_value') }}</label>
+                          
                           <input 
                             id="modal-form-3" 
                             type="text" 
                             class="form-control" 
-                            v-model.number="data_prospect_activity.potential_value"
+                            v-model.number="form_data.potential_value"
                             :class="{ 'border-danger': validate.potential_value.$error }">
                           <template v-if="validate.potential_value.$error">
                             <div
@@ -311,13 +311,13 @@
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
                       <label for="modal-form-1" class="form-label">*{{ $t('prospects.form.labels.fields.first_name') }}</label>
+                      
                       <input 
                         id="modal-form-1" 
                         type="text" 
                         class="form-control" 
-                        v-model="data_prospect_activity.first_name"
-                        :class="{ 'border-danger': validate.first_name.$error }"
-                        >
+                        v-model="form_data.first_name"
+                        :class="{ 'border-danger': validate.first_name.$error }">
                       <template v-if="validate.first_name.$error">
                         <div
                           class="mt-2 text-danger"
@@ -330,11 +330,12 @@
 
                     <div class="col-span-12 sm:col-span-8 withlabel">
                         <label for="modal-form-2" class="form-label">*{{ $t('prospects.form.labels.fields.last_name') }}</label>
+                        
                         <input 
                           id="modal-form-2" 
                           type="text" 
                           class="form-control" 
-                          v-model="data_prospect_activity.last_name"
+                          v-model="form_data.last_name"
                           :class="{ 'border-danger': validate.last_name.$error }">
                             <template v-if="validate.last_name.$error">
                                 <div
@@ -348,11 +349,12 @@
                     
                     <div class="col-span-12 sm:col-span-4 withlabel">
                         <label for="modal-form-3" class="form-label">*{{ $t('prospects.form.labels.fields.mobile_phone') }}</label>
+                        
                         <input 
                           id="modal-form-3" 
                           type="text" 
                           class="form-control" 
-                          v-model.number="data_prospect_activity.phone_mobile"
+                          v-model.number="form_data.phone_mobile"
                           :class="{ 'border-danger': validate.phone_mobile.$error }">
                         <template v-if="validate.phone_mobile.$error">
                             <div
@@ -366,11 +368,12 @@
                     
                     <div class="col-span-12 sm:col-span-8 withlabel">
                         <label for="modal-form-4" class="form-label">*{{ $t('prospects.form.labels.fields.email') }}</label>
+                        
                         <input
                           type="text"
                           id="modal-form-4"
                           class="form-control" 
-                          v-model="data_prospect_activity.email"
+                          v-model="form_data.email"
                           :class="{ 'border-danger': validate.email.$error }">
                             <template v-if="validate.email.$error">
                               <div
@@ -384,12 +387,13 @@
 
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                       <label class="form-label">*{{ $t('prospects.form.labels.fields.priority') }}</label>
+                      
                       <v-select 
                         class="form-control" 
                         :options="priorities" 
                         :reduce="value => value.key"
                         label="value"
-                        v-model="data_prospect_activity.priority"
+                        v-model="form_data.priority"
                         :class="{ 'border-danger': validate.priority.$error }">
                       </v-select>
                         <template v-if="validate.priority.$error">
@@ -404,12 +408,13 @@
                                         
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                       <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.origin') }}</label>
+                      
                       <v-select
                           label="name"
                           class="form-control" 
                           :options="dataProspectingSources"
                           :reduce="name => name.id"
-                          v-model="data_prospect_activity.client_origin"
+                          v-model="form_data.client_origin"
                           :class="{ 'border-danger': validate.client_origin.$error }">
                       </v-select>
                       <template v-if="validate.client_origin.$error">
@@ -424,12 +429,13 @@
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-4 withlabel">
                         <label class="flex flex-col w-full form-label sm:flex-row">*{{ $t('prospects.form.labels.fields.medium') }}</label>
+                        
                         <v-select 
                             class="form-control" 
                             :options="dataProspectingMeans"
                             :reduce="name => name.id" 
                             label="name"
-                            v-model="data_prospect_activity.propecting_mean_id"
+                            v-model="form_data.propecting_mean_id"
                             :class="{ 'border-danger': validate.propecting_mean_id.$error }">
                         </v-select>
                         
@@ -445,13 +451,14 @@
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
                         <label for="cmbActivityType" class="form-label">*{{ $t('prospects.form.labels.fields.activity') }}</label>
+                        
                         <v-select  
                             id="cmbActivityType"
                             class="form-control"
                             :options="dataActivityTypes"
                             :reduce="name => name.id"
                             label="name"                        
-                            v-model="data_prospect_activity.activity_type_id"
+                            v-model="form_data.activity_type_id"
                             :class="{ 'border-danger': validate.activity_type_id.$error }">
                         </v-select >
                         <template v-if="validate.activity_type_id.$error">
@@ -466,13 +473,14 @@
                     
                     <div class="col-span-12 input-form intro-y sm:col-span-6 md:col-span-6 withlabel">
                       <label for="cmbActivitySubject" class="form-label">*{{ $t('prospects.form.labels.fields.subject') }}</label>
+                      
                       <v-select
                           label="name"
                           id="cmbActivitySubject"
                           class="form-control"
                           :options="dataActivitySubjects"
                           :reduce="name => name.id"
-                          v-model="data_prospect_activity.activity_subject_id"
+                          v-model="form_data.activity_subject_id"
                           :class="{ 'border-danger': validate.activity_subject_id.$error }">
                       </v-select >
                       <template v-if="validate.activity_subject_id.$error">
@@ -493,7 +501,7 @@
                           :enableTimePicker="false"
                           :format="format_start_date"
                           :placeholder="$t('activities.form.placeholders.start_date')"
-                          v-model="data_prospect_activity.start_date" />
+                          v-model="form_data.start_date" />
 
                       <template v-if="validate.start_date.$error">
                           <div
@@ -507,20 +515,21 @@
                     
                     <div class="col-span-12 intro-y sm:col-span-6 withlabel">
                         <label for="crud-form-2" class="form-label">*{{ $t('activities.form.labels.fields.start_time') }}</label>
+                        
                         <Datepicker
                             timePicker
                             :placeholder="$t('activities.form.placeholders.start_time')"
-                            v-model="data_prospect_activity.start_time" />
+                            v-model="form_data.start_time" />
                     </div>
                     
                     <div class="col-span-12 sm:col-span-12 withlabel">
                       <label for="modal-form-1" class="form-label">{{ $t('prospects.form.labels.fields.comments') }}</label>
+                      
                       <ClassicEditor
                         :config="editorConfig"
                         :placeholder="$t('prospects.form.placeholders.comments')"
-                        v-model="data_prospect_activity.comments" />
+                        v-model="form_data.comments" />
                     </div>
-                    
                 </div>
                 
                 <div class="col-span-4 timeline">
@@ -529,7 +538,7 @@
                     <div class="grid justify-items-start">
                       <div class="text-center title">
                         <h3 class="text-gray-900 text-md dark:text-white">{{ $t('activities.form.labels.scheduled') }}</h3>
-                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('activities.form.labels.day') }} {{ convert_format_date(data_prospect_activity.start_date, 'es') }}</h4>
+                        <h4 class="text-gray-400 text-md dark:text-white">{{ $t('activities.form.labels.day') }} {{ convert_format_date(form_data.start_date, 'es') }}</h4>
                       </div>
                       <p>&nbsp</p>
                       <p>&nbsp</p>

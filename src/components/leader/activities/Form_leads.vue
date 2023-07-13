@@ -3,173 +3,101 @@
         name: "ActivityLeadsForm",
     }
 </script>
-<script setup>  
-  import { onMounted, ref, watch, reactive } from 'vue';
-  import { storeToRefs } from "pinia";  
-  import { required, email, minLength, maxLength, numeric, integer } from '@vuelidate/validators';
-  import { useVuelidate } from '@vuelidate/core';
-  
-  import Toastify from "toastify-js";
-  import dom from "@left4code/tw-starter/dist/js/dom";
 
-  import vSelect from 'vue-select';
-  import 'vue-select/dist/vue-select.css';
+<script setup>
+    import { onMounted, ref, watch, reactive } from 'vue';
+    import { storeToRefs } from "pinia";  
+    import { required, email, minLength, maxLength, numeric, integer } from '@vuelidate/validators';
+    import { useVuelidate } from '@vuelidate/core';
 
-  import Datepicker from '@vuepic/vue-datepicker';
-  import '@vuepic/vue-datepicker/dist/main.css';
+    import Toastify from "toastify-js";
+    import dom from "@left4code/tw-starter/dist/js/dom";
 
-  import ScheduleForm from "@/components/leader/activities/Form_schedule.vue";
-  
-  /////////////NEW
-  import { useActivitiesStore } from "@/stores/leader/activities";
-  import { useActivitiesResultStore } from "@/stores/leader/activities-results";
+    import vSelect from 'vue-select';
+    import 'vue-select/dist/vue-select.css';
 
-  const { createActivity } = useActivitiesStore();
-  const { fetchActivitiesResults } = useActivitiesResultStore();
+    import Datepicker from '@vuepic/vue-datepicker';
+    import '@vuepic/vue-datepicker/dist/main.css';
 
-  const { activity: data_activity, activities } = storeToRefs(useActivitiesStore());
-  const { activities_results: data_activities_results } = storeToRefs(useActivitiesResultStore());
-  /////////////////
+    import ScheduleForm from "@/components/leader/activities/Form_schedule.vue";
 
-  //const { fetchActivitiesTypes } = useActivitiesStore();
-  //import { useAccountsStore } from "@/stores/leader/accounts";
-  //import { useProspectsStore } from "@/stores/leader/prospects";
-  //import { useCompaniesStore } from "@/stores/leader/companies";
-  
-  //const { createProspectActivity, fetchOrigins, fetchOriginsMediums } = useProspectsStore();
-  //const { prospect } = storeToRefs(useProspectsStore());
-  
-  //const { fetchAccounts } = useAccountsStore();
-  //const { accounts: dataAccounts } = storeToRefs(useAccountsStore());
-  //const { createCompany, fetchCompanies } = useCompaniesStore();
-  //const { company, companies: dataCompanies } = storeToRefs(useCompaniesStore());
-  
-  const props = defineProps({
-    show_modal: {
-        type: Boolean,
-        required: true,
-    },
-    id_activity: {
-        type: Number,
-        required: true,
-    }
-  });
+    /////////////NEW
+    import { useActivitiesStore } from "@/stores/leader/activities";
+    import { useActivitiesResultStore } from "@/stores/leader/activities-results";
 
-  const show_modal_here = ref(props.show_modal);
-  const show_schedule_form = ref(false);
-
-  const form = reactive({
-                        activity_result_id: '',
-                        activity_observations: '',
-                        last_activity_id: props.id_activity
-                    });
-                    
-  const convert_format_date = (date, format) => {
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
+    const { createActivity } = useActivitiesStore();
+    const { fetchActivitiesResults } = useActivitiesResultStore();
     
-    if(format == 'en')
-      return `${year}-${month}-${day}`;
-      
-    else if(format == 'es')
-      return `${day}/${month}/${year}`;
-  }
-  
-  const emit = defineEmits(["hideModal"]);
-  //const emit = defineEmits(["submit", "hideModal"]);
-  
-  ////////PROSPECTING SOURCES & MEANS
-  //const dataProspectingMeans = ref([]);
-  //const dataProspectingSources = ref([]);
-  
-  ////////ACTIVITIES TYPES & ACTIVITIES SUBJECTS
-    const dataActivitiesTypes = ref([]);
-    const dataActivitiesSubjects = ref([]);
-
-    onMounted(async() => {
-        await fetchActivitiesResults();
-        
-        //dataActivitiesTypes.value = await fetchActivitiesTypes();
-        //dataProspectingSources.value = await fetchOrigins();
-        //await fetchAccounts();
-        //await fetchCompanies();
-        //await fetchActivities(1, convert_format_date(data_activity.start_date, 'en'));
-    });
-        
-    watch(
-      () => form.activity_result_id,    //data_activity.value.activity_result_id,
-      () => {
-            //const activity_results = data_activities_results.value.find((obj) => obj.id === data_activity.value.activity_result_id);
-            const activity_results = data_activities_results.value.find((obj) => obj.id === form.activity_result_id);
-
-            if(activity_results.activity_type.name != 'Whatsapp' & activity_results.activity_type.name != 'Email') {
-                show_schedule_form.value = true;
-            }else {
-                show_schedule_form.value = false;
-            }         
-            /*
-            cotización, sí tiene
-            seguimiento, sí tiene
-            información inicial, sí tiene
-            
-            this.todoList.push({ item, id: this.id++, completed: false })
-            toggleCompleted(idToFind) {
-                const todo = this.todoList.find((obj) => obj.id === idToFind);
-                if (todo) {
-                    //todo.completed = !todo.completed;
-                }
-                }
-            */
-        }
-    );
+    const { activities_results: data_activities_results } = storeToRefs(useActivitiesResultStore());
+    //const { activity: data_activity, activities } = storeToRefs(useActivitiesStore());
+    /////////////////
     
-    const editorConfig = {
-        toolbar: {
-            items: [],
+    const props = defineProps({
+        show_modal: {
+            type: Boolean,
+            required: true
         },
-    };
+        id_activity: {
+            type: Number,
+            required: true
+        }
+    });
     
-    const hideModal = () => {
-        emit('hideModal');
+    const show_schedule_form = ref(false);
+    const show_modal_here = ref(props.show_modal);
+
+    const form_data = reactive({
+        activity_result_id: '',
+        activity_observations: '',
+        last_activity_id: props.id_activity,
+        
+        ////Activity
+        comments: '',
+        activity_type_id: null,
+        activity_subject_id: null,
+        start_date: new Date(),
+        start_time: { 
+            hours: new Date().getHours(),
+            minutes: new Date().getMinutes()
+        }
+    });
+                    
+    const convert_format_date = (date, format) => {
+        const day = date.getDate();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+
+        if(format == 'en')
+            return `${year}-${month}-${day}`;
+        else if(format == 'es')
+            return `${day}/${month}/${year}`;
     }
+
+    const emit = defineEmits(["hideModal"]);
 
     ////////RULES
     const rules = {
         last_activity_id: { required },
         activity_result_id: { required },
-        activity_observations: { required }
-        /*
-        ////Prospect
-        last_name: { required },
-        first_name: { required },
-        account_id: { required },
-        email: { required, email },
-        client_origin: { required },
-        potential_value: { required },
-        priority: { required },
-        propecting_mean_id: { required },
-        phone_mobile: {
-                    required,
-                    numeric,
-                    minLength: minLength(10),
-                    maxLength: maxLength(10) },
+        activity_observations: { required },
+
         ////Activity
         start_date: { required },
-        activity_type_id: { required },
         activity_subject_id: { required }
-        */
-       
-       ////Activity
-       //start_date: { required },
-       //activity_subject_id: { required }
+        //activity_type_id: { required },
     }
     
-    const data = form;
-    //if(show_schedule_form)  
-        //data = reactive({...form, ...data_activity.value});
+    const validate = useVuelidate(rules, form_data);
 
-    const validate = useVuelidate(rules, data);
+    const hideModal = () => {
+        emit('hideModal');
+    }
+
+    const editorConfig = {
+        toolbar: {
+            items: [],
+        }
+    };
 
     const submitForm = async () => {
         ///DEBE VALIDA
@@ -206,58 +134,26 @@
         const result = await validate.value.$validate();
         
         if(result) {
-            await createActivity(data);
+            await createActivity(form_data);
             show_modal_here.value = false;
         }
     }
+    
+    onMounted(async() => {
+        await fetchActivitiesResults();
+    });
 
-  /*
-  const data_activity = reactive({...prospect.value, ...activity.value});
-  
-  watch(
-      () => data_activity.start_date,
-      async () => {
-        await fetchActivities(1, convert_format_date(data_activity.start_date, 'en'));
-      }
-  );
-  watch(
-      () => data_activity.client_origin,
-      async () => {
-          dataProspectingMeans.value = await fetchOriginsMediums(data_activity.client_origin);
-      }
-  );
-  
-  const show_company_prospect = ref(false);
-  const addCompanyButton = () => {
-    show_company_prospect.value = true;
-  };
-
-  const hideCompany = () => {    
-    show_company_prospect.value = false;
-  }
-
-  const company_form = reactive({
-                                    name: '',
-                                    phone: '',
-                                    tax_id: '',
-                                    address: '',
-                                    website: '',
-                                    comments: '',
-                                    potential_value: ''
-                                });
-
-  const submitCompany = async () => {
-      await createCompany(company_form);
-      data_activity.potential_value = company_form.potential_value;
-      
-      setTimeout(async () => { 
-        await fetchCompanies();
-        data_activity.company_id = company.value.id;         
-      }, 790);
-      
-      hideCompany();
-  }
-  */
+    watch(
+        () => form_data.activity_result_id,
+        () => {
+                const activity_results = data_activities_results.value.find((obj) => obj.id === form_data.activity_result_id);
+                
+                if(activity_results.activity_type.name != 'Whatsapp' & activity_results.activity_type.name != 'Email')
+                    show_schedule_form.value = true;
+                else
+                    show_schedule_form.value = false;
+            }
+    );
 </script>
 
 <template>
@@ -277,7 +173,7 @@
                         id="cmbActivitiesResults"
                         :reduce="name => name.id"
                         :options="data_activities_results"
-                        v-model="form.activity_result_id">
+                        v-model="form_data.activity_result_id">
                     </v-select>
                     <!--
                         v-model="activity_reschedule.activity_result_id"
@@ -308,12 +204,12 @@
                     <ClassicEditor
                         :config="editorConfig"
                         :placeholder="$t('activities.form.placeholders.comments')"
-                        v-model="form.activity_observations" />
+                        v-model="form_data.activity_observations" />
                 </div>
                 
                 <ScheduleForm
                     v-if="show_schedule_form"
-                    :data_activity="data_activity" />
+                    :form_data="form_data" />
 
                 <!-- Aqui pal real -->
                 <!--

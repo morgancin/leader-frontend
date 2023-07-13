@@ -25,7 +25,7 @@
   const { activities_types: dataActivityTypes} = storeToRefs(useActivitiesTypeStore());
   
   const props = defineProps({
-      data_activity: {
+      form_data: {
         type: Object,
         required: true,
       }
@@ -53,7 +53,7 @@
       }
   );
 
-  const format_start_date = ref(props.data_activity.start_date);
+  const format_start_date = ref(props.form_data.start_date);
   format_start_date.value = (format_start_date) => {
     const day = format_start_date.getDate();
     const year = format_start_date.getFullYear();
@@ -86,7 +86,7 @@
             id="cmbActivitySubject"
             :options="dataActivitySubjects"
             :reduce="name => name.id"
-            v-model="props.data_activity.activity_subject_id">
+            v-model="props.form_data.activity_subject_id">
         </v-select>
         <!--
         :class="{ 'border-danger': validate.activity_subject_id.$error }"
@@ -109,7 +109,7 @@
             :enableTimePicker="false"
             :format="format_start_date"
             :placeholder="$t('activities.form.placeholders.start_date')"
-            v-model="props.data_activity.start_date" />
+            v-model="props.form_data.start_date" />
         <!--
         <template v-if="validate.start_date.$error">
         <div
@@ -128,7 +128,7 @@
         <Datepicker
             timePicker
             :placeholder="$t('activities.form.placeholders.start_time')"
-            v-model="props.data_activity.start_time" />
+            v-model="props.form_data.start_time" />
     </div>
 
     <div class="col-span-12 sm:col-span-12 withlabel">
@@ -137,6 +137,6 @@
         <ClassicEditor
             :config="editorConfig"
             :placeholder="$t('prospects.form.placeholders.comments')"
-            v-model="props.data_activity.comments" />
+            v-model="props.form_data.comments" />
     </div>
 </template>
