@@ -477,7 +477,8 @@
                   ref-key="dropzoneValidationRef"
                   :options="{
                     //url: 'https://httpbin.org/post',
-                    url: 'https://api.leader.arkanmedia.com/api/product-image',
+                    //url: 'https://api.leader.arkanmedia.com/api/product-image',
+                    url: 'https://api.cria.arkanmedia.com/api/prueba',
                     thumbnailWidth: 120,
                     maxFilesize: 2,
                     acceptedFiles: 'image/*',
